@@ -1,0 +1,41 @@
+{
+  "name": "qorus-toolkit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "npx tsc",
+    "clean": "del-cli --force ./dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qoretechnologies/qorus-toolkit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qoretechnologies/qorus-toolkit/issues"
+  },
+  "homepage": "https://github.com/qoretechnologies/qorus-toolkit#readme",
+  "devDependencies": {
+    "@tsconfig/node16": "^1.0.3",
+    "@types/jest": "^28.1.7",
+    "@types/node": "^18.7.11",
+    "axios-mock-adapter": "^1.21.2",
+    "ts-jest": "^28.0.8",
+    "typedoc": "^0.23.10",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "async": "^3.2.4",
+    "axios": "^0.27.2",
+    "del": "^7.0.0",
+    "lodash": "^4.17.21",
+    "ssl-root-cas": "^1.3.1",
+    "supertest": "^6.2.4",
+    "validator": "^13.7.0",
+    "winston": "^3.8.1"
+  }
+}
