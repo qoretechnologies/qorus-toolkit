@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
       "lib": ["es2017", "es2018", "es2019", "es2020", "es2021", "DOM"],
+      "target": "ES6",
       "module": "commonjs",
       "sourceMap": true,
       "moduleResolution": "node",
@@ -17,10 +18,10 @@
       "esModuleInterop": true,
       "skipLibCheck": true,
       "resolveJsonModule": true,
-      "jsx": "react-jsx",
       "types": ["node", "jest"],
       "outDir": "dist"
     },
+    "extends": "@tsconfig/node16/tsconfig.json",
     "exclude": ["node_modules"],
-    "include": ["lib", "utils"]
+    "include": ["src"]
   }

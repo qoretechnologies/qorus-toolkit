@@ -1,0 +1,4 @@
+{
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "rules": { "@typescript-eslint/no-var-requires": 0 }
+}
