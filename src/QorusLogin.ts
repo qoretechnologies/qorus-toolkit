@@ -2,6 +2,7 @@
 
 import httpsAxios from './utils/httpsAxios';
 import { CatchAll } from './utils/catchDecorators';
+import log from 'logger-decorator';
 
 export interface ILoginParams {
   user: string;
@@ -25,6 +26,7 @@ class QorusLogin {
    * @param params username and password of the user
    */
   @CatchAll
+  @log({ level: 'verbose' })
   async login(params: ILoginParams) {
     const { user, pass } = params;
 
@@ -44,6 +46,7 @@ class QorusLogin {
   /**
    * A asynchronous public method to be called to logout the user
    */
+  @log({ level: 'verbose' })
   logout() {
     this.usrToken = undefined;
   }
@@ -51,6 +54,7 @@ class QorusLogin {
   /**
    * A setter to configure the Authentication endpoint
    */
+  @log({ level: 'verbose' })
   config(endpoint: string) {
     if (this.usrToken) {
       this.logout();
@@ -61,6 +65,7 @@ class QorusLogin {
   /**
    * A getter to get the current authentication endpoint
    */
+  @log({ level: 'verbose' }) 
   getConfig() {
     return this.endpoint;
   }
@@ -68,6 +73,7 @@ class QorusLogin {
   /**
    * A getter to get the current jwt token
    */
+  @log({ level: 'verbose' })
   getUserToken() {
     if (this.usrToken) return this.usrToken;
     else {
