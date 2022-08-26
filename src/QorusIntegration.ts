@@ -14,29 +14,34 @@ export interface ILoginParams {
  *
  * @category Model
  */
-class QorusLogin {
-  /**JWT token returned after authentication*/
-  usrToken?: string;
+class QorusIntegration {
+  /**Token returned after authentication*/
+  protected _authToken?: string | null;
   /**Qore Technologies endpoint to authenticate the user */
-  endpoint = 'https://hq.qoretechnologies.com:8092/api/latest/public/login';
+  private loginPath = "/api/latest/public/login";
+  private logoutPath="/api/latest/logout";
+  _endpoint;
 
+  constructor(endpoint: string){
+    this._endpoint = endpoint
+  }
   /**
    * A asynchronous public method to be called to authenticate the user
    *
    * @param params username and password of the user
    */
   @CatchAll
-  @log({ level: 'verbose' })
+  @log()
   async login(params: ILoginParams) {
     const { user, pass } = params;
 
     try {
       const resp = await httpsAxios({
         method: 'post',
-        url: this.endpoint,
+        url: `${this._endpoint}${this.loginPath}`,
         data: { user, pass },
       });
-      this.usrToken = resp.data;
+      this._authToken = resp.data;
       return resp.data;
     } catch (error: any) {
       throw new Error(`Couldn't sign in user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
@@ -46,40 +51,46 @@ class QorusLogin {
   /**
    * A asynchronous public method to be called to logout the user
    */
-  @log({ level: 'verbose' })
-  logout() {
-    this.usrToken = undefined;
+  @CatchAll
+  @log()
+  async logout() {
+    try {
+      await httpsAxios({
+        method: 'post',
+        url: `${this._endpoint}${this.logoutPath}`,
+      });
+    } catch (error: any) {
+      throw new Error(`Couldn't logout user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
+    }
+    this._authToken = undefined;
   }
 
   /**
    * A setter to configure the Authentication endpoint
    */
-  @log({ level: 'verbose' })
-  config(endpoint: string) {
-    if (this.usrToken) {
-      this.logout();
-    }
-    this.endpoint = endpoint;
+  @log()
+  set endpoint(endpoint: string) {
+    this.logout();
+    this._endpoint = endpoint;
   }
 
   /**
    * A getter to get the current authentication endpoint
    */
-  @log({ level: 'verbose' }) 
-  getConfig() {
-    return this.endpoint;
+  get endpoint() {
+    return this._endpoint;
   }
 
   /**
    * A getter to get the current jwt token
    */
-  @log({ level: 'verbose' })
-  getUserToken() {
-    if (this.usrToken) return this.usrToken;
+  @log()
+  get authToken() {
+    if (this._authToken) return this._authToken;
     else {
       return null;
     }
   }
 }
 
-export default QorusLogin;
+export default QorusIntegration;
