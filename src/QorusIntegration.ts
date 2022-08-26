@@ -3,10 +3,17 @@
 import httpsAxios from './utils/httpsAxios';
 import { CatchAll } from './utils/catchDecorators';
 import log from 'logger-decorator';
+import LocalStorageManager from './utils/LocalStorageManager';
 
 export interface ILoginParams {
   user: string;
   pass: string;
+}
+
+enum ApiPaths {
+  Login = '/api/latest/public/login',
+  Logout = '/api/latest/logout',
+  ValidateToken = '/api/latest/system?action=validateWsToken',
 }
 
 /**
@@ -18,12 +25,11 @@ class QorusIntegration {
   /**Token returned after authentication*/
   protected _authToken?: string | null;
   /**Qore Technologies endpoint to authenticate the user */
-  private loginPath = "/api/latest/public/login";
-  private logoutPath="/api/latest/logout";
   _endpoint;
+  protected LocalStoreManger = new LocalStorageManager();
 
-  constructor(endpoint: string){
-    this._endpoint = endpoint
+  constructor(endpoint: string) {
+    this._endpoint = endpoint;
   }
   /**
    * A asynchronous public method to be called to authenticate the user
@@ -34,18 +40,43 @@ class QorusIntegration {
   @log()
   async login(params: ILoginParams) {
     const { user, pass } = params;
+    const currentUser = await this.validateLocalUserToken();
+    if (currentUser && currentUser !== 'invalid') {
+      this._authToken = currentUser;
+      return currentUser;
+    } else
+      try {
+        const resp = await httpsAxios({
+          method: 'post',
+          url: `${this._endpoint}${ApiPaths.Login}`,
+          data: { user, pass },
+        });
+        this._authToken = resp.data;
+        this.LocalStoreManger.storeKeyValuePair({ key: 'auth-token', value: resp.data });
+        return resp.data;
+      } catch (error: any) {
+        throw new Error(`Couldn't sign in user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
+      }
+  }
 
-    try {
-      const resp = await httpsAxios({
-        method: 'post',
-        url: `${this._endpoint}${this.loginPath}`,
-        data: { user, pass },
-      });
-      this._authToken = resp.data;
-      return resp.data;
-    } catch (error: any) {
-      throw new Error(`Couldn't sign in user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
+  private async validateLocalUserToken() {
+    const authToken = this.LocalStoreManger.fetchKeyValuePair('auth-token');
+    if (authToken) {
+      try {
+        const resp = await httpsAxios({
+          method: 'get',
+          url: `${this._endpoint}${ApiPaths.ValidateToken}`,
+          data: { token: authToken },
+        });
+        if (typeof resp === 'string') {
+          return authToken;
+        }
+      } catch (error: any) {
+        if (error.code === '409') return 'invalid';
+        else throw new Error(`Can't validate token, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
+      }
     }
+    return null;
   }
 
   /**
@@ -55,9 +86,10 @@ class QorusIntegration {
   @log()
   async logout() {
     try {
+      console.log(`${this._endpoint}${ApiPaths.Logout}`);
       await httpsAxios({
         method: 'post',
-        url: `${this._endpoint}${this.logoutPath}`,
+        url: `${this._endpoint}${ApiPaths.Logout}`,
       });
     } catch (error: any) {
       throw new Error(`Couldn't logout user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);

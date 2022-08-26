@@ -57,12 +57,6 @@ describe('QorusLogin Utility Class Tests', () => {
       expect(config).toEqual('https://hq.qoretechnologies.com:8092');
     });
 
-    it('Should change the config', () => {
-      qorus.endpoint = 'https://www.google.com';
-
-      expect(qorus.endpoint).toEqual('https://www.google.com');
-    });
-
     it('Should logout the user', async () => {
       mock
         .onPost(process.env.LOGOUTENDPOINT)
@@ -71,6 +65,12 @@ describe('QorusLogin Utility Class Tests', () => {
       await qorus.logout()
 
       expect(qorus.authToken).toEqual(null);
+    });
+
+    it('Should change the config', () => {
+      qorus.endpoint = 'https://www.google.com';
+
+      expect(qorus.endpoint).toEqual('https://www.google.com');
     });
 
   });
