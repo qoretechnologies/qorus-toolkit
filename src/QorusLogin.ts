@@ -1,18 +1,30 @@
 'use strict';
 
-import logger from './logger';
 import httpsAxios from './utils/httpsAxios';
+import { CatchAll } from './utils/catchDecorators';
 
-interface ILoginParams {
-  url?: string;
+export interface ILoginParams {
   user: string;
   pass: string;
 }
 
-class QorusToolkit {
+/**
+ * An utility class to authenticate the user on QoreTechnologies networks
+ *
+ * @category Model
+ */
+class QorusLogin {
+  /**JWT token returned after authentication*/
   usrToken?: string;
-  endpoint: string = 'https://hq.qoretechnologies.com:31011/api/latest/public/login';
+  /**Qore Technologies endpoint to authenticate the user */
+  endpoint = 'https://hq.qoretechnologies.com:8092/api/latest/public/login';
 
+  /**
+   * A asynchronous public method to be called to authenticate the user
+   *
+   * @param params username and password of the user
+   */
+  @CatchAll
   async login(params: ILoginParams) {
     const { user, pass } = params;
 
@@ -22,38 +34,46 @@ class QorusToolkit {
         url: this.endpoint,
         data: { user, pass },
       });
-      logger.info(`User signed in with token : ${JSON.stringify(resp.data)}`);
       this.usrToken = resp.data;
       return resp.data;
     } catch (error: any) {
-      logger.error(`Couldn't sign in user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
       throw new Error(`Couldn't sign in user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
     }
   }
 
+  /**
+   * A asynchronous public method to be called to logout the user
+   */
   logout() {
     this.usrToken = undefined;
   }
 
+  /**
+   * A setter to configure the Authentication endpoint
+   */
   config(endpoint: string) {
     if (this.usrToken) {
       this.logout();
     }
     this.endpoint = endpoint;
-    logger.info('Configurations changed please login again');
   }
 
+  /**
+   * A getter to get the current authentication endpoint
+   */
   getConfig() {
     return this.endpoint;
   }
 
+  /**
+   * A getter to get the current jwt token
+   */
   getUserToken() {
     if (this.usrToken) return this.usrToken;
     else {
-      logger.error('User is not signed in...');
       return null;
     }
   }
 }
 
-export default QorusToolkit;
+export default QorusLogin;

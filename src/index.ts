@@ -1,4 +1,1 @@
-'use strict';
-import QorusToolkit = require('./QorusToolkit');
-
-module.exports = QorusToolkit;
+export { default as QorusLogin } from './QorusLogin';

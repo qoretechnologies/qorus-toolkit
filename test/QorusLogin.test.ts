@@ -1,13 +1,12 @@
 'use strict';
 
-import QorusToolkit from '../src/QorusToolkit';
+import QorusLogin from '../src/QorusLogin';
 import MockAdapter from 'axios-mock-adapter';
 import httpsAxios from '../src/utils/httpsAxios';
-import logger from '../src/logger';
 
-describe('QorusToolkit Utility Class Tests', () => {
+describe('QorusLogin Utility Class Tests', () => {
   let mock: MockAdapter;
-  const qorus = new QorusToolkit();
+  const qorus = new QorusLogin();
 
   beforeAll(() => {
     mock = new MockAdapter(httpsAxios);
@@ -18,7 +17,8 @@ describe('QorusToolkit Utility Class Tests', () => {
   });
 
   describe('When authentication is successful', () => {
-    it('Should return user token after authentication', async () => {
+    it('Should return user token after authentication', 
+    async () => {
       const usrToken = '336d9306-3b70-41df-9427-c051d25886b2';
       mock
         .onPost('https://hq.qoretechnologies.com:31011/api/latest/public/login', {
@@ -30,12 +30,11 @@ describe('QorusToolkit Utility Class Tests', () => {
       let result;
       try {
         result = await qorus.login({
-          url: 'https://hq.qoretechnologies.com:31011/api/latest/public/login',
           user: 'rmalik',
           pass: 'yzu2d8smRoCetW8',
         });
       } catch (error: any) {
-        logger.error(`${error.code} ${error.message}`);
+        console.log(`${error.code} ${error.message}`);
       }
 
       expect(mock.history.post[0].data).not.toBeNull();
@@ -67,7 +66,7 @@ describe('QorusToolkit Utility Class Tests', () => {
 
   describe('When authentication is not successful', () => {
     it("Should return error if the user can't sign in", async () => {
-      let err = { message: '', code: '' };
+      const err = { message: '', code: '' };
       try {
         await qorus.login({ user: 'bob', pass: 'lsjdfkl' });
       } catch (error: any) {

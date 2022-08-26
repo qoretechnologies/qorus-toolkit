@@ -1,10 +1,10 @@
-"use strict";
+import axios from 'axios';
+import {Agent} from 'https';
 
-import axios from "axios";
-import https from "https";
-
-
-const httpsAgent = new https.Agent({
+/**
+ * A axios wrapper of https operations
+ */
+const httpsAgent = new Agent({
   rejectUnauthorized: false,
 });
 const httpsAxios = axios.create({ httpsAgent });
