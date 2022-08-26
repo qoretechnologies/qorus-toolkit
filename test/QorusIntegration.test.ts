@@ -43,9 +43,6 @@ describe('QorusLogin Utility Class Tests', () => {
       } catch (error: any) {
         console.log(`${error.code} ${error.message}`);
       }
-
-      console.log("this is result", result, "this is username", process.env.TESTUSER, "this is password", process.env.TESTPASS);
-
       expect(mock.history.post[0].data).not.toBeNull();
       expect(result).toEqual(usrToken);
     });
