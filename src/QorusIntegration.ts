@@ -3,7 +3,7 @@
 import httpsAxios from './utils/httpsAxios';
 import { CatchAll } from './utils/catchDecorators';
 import log from 'logger-decorator';
-import LocalStorageManager from './utils/LocalStorageManager';
+import { readKeyValuePair, storeKeyValuePair } from './utils/LocalStorageManager';
 
 export interface ILoginParams {
   user: string;
@@ -26,7 +26,6 @@ class QorusIntegration {
   protected _authToken?: string | null;
   /**Qore Technologies endpoint to authenticate the user */
   _endpoint;
-  protected LocalStoreManger = new LocalStorageManager();
 
   constructor(endpoint: string) {
     this._endpoint = endpoint;
@@ -52,15 +51,20 @@ class QorusIntegration {
           data: { user, pass },
         });
         this._authToken = resp.data;
-        this.LocalStoreManger.storeKeyValuePair({ key: 'auth-token', value: resp.data });
+        storeKeyValuePair({ key: 'auth-token', value: resp.data });
         return resp.data;
       } catch (error: any) {
         throw new Error(`Couldn't sign in user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
       }
   }
 
+  /**
+   * A asynchronous private method to check if the locally stored token is valid and return it.
+   *
+   * @returns auth token if it's valid or null
+   */
   private async validateLocalUserToken() {
-    const authToken = this.LocalStoreManger.fetchKeyValuePair('auth-token');
+    const authToken = readKeyValuePair('auth-token');
     if (authToken) {
       try {
         const resp = await httpsAxios({
@@ -86,7 +90,6 @@ class QorusIntegration {
   @log()
   async logout() {
     try {
-      console.log(`${this._endpoint}${ApiPaths.Logout}`);
       await httpsAxios({
         method: 'post',
         url: `${this._endpoint}${ApiPaths.Logout}`,
@@ -98,11 +101,17 @@ class QorusIntegration {
   }
 
   /**
-   * A setter to configure the Authentication endpoint
+   * A asynchronous setter to configure the Authentication endpoint
    */
   @log()
   set endpoint(endpoint: string) {
-    this.logout();
+    (async () => {
+      try {
+        await this.logout();
+      } catch (error: any) {
+        throw new Error(`Couldn't logout user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
+      }
+    })();
     this._endpoint = endpoint;
   }
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {Agent} from 'https';
+import { Agent } from 'https';
 
 /**
  * A axios wrapper of https operations
