@@ -1,11 +1,9 @@
-import log from 'logger-decorator';
-
 /**
  * A helper function to check if the running environment is node or client
  *
  * @returns 'node' or 'browser' based on the current environment
  */
-const detectEnvironment = () => {
+const detectEnvironment = (): 'node'|'browser' => {
   if (typeof process !== 'undefined' && process.release.name.search(/node|io.js/) !== -1) {
     return 'node';
   } else {
@@ -13,12 +11,17 @@ const detectEnvironment = () => {
   }
 };
 
-interface IKeyValue {
+export interface IKeyValue {
   key: string;
   value: string;
 }
 
-const storeKeyValuePair = (keyValue: IKeyValue) => {
+/**
+ * A local storage helper to set key value pair in local storage
+ * works only on the client side(browser)
+ *
+ */
+const setKeyValLocal = (keyValue: IKeyValue) => {
   const isBrowser = detectEnvironment();
   const { key, value } = keyValue;
   if (isBrowser == 'browser') {
@@ -26,7 +29,12 @@ const storeKeyValuePair = (keyValue: IKeyValue) => {
   }
 };
 
-const readKeyValuePair = (key: string) => {
+/**
+ * A local storage helper to get key value pair in local storage
+ * works only on the client side(browser)
+ *
+ */
+const getKeyValLocal = (key: string) => {
   const isBrowser = detectEnvironment();
   if (isBrowser == 'browser') {
     return window.localStorage.getItem(key);
@@ -34,4 +42,4 @@ const readKeyValuePair = (key: string) => {
   return null;
 };
 
-export { readKeyValuePair, storeKeyValuePair };
+export { setKeyValLocal, getKeyValLocal };

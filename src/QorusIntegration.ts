@@ -3,17 +3,11 @@
 import httpsAxios from './utils/httpsAxios';
 import { CatchAll } from './utils/catchDecorators';
 import log from 'logger-decorator';
-import { readKeyValuePair, storeKeyValuePair } from './utils/LocalStorageManager';
+import { setKeyValLocal, getKeyValLocal } from './utils/localStoreMan';
 
 export interface ILoginParams {
   user: string;
   pass: string;
-}
-
-enum ApiPaths {
-  Login = '/api/latest/public/login',
-  Logout = '/api/latest/logout',
-  ValidateToken = '/api/latest/system?action=validateWsToken',
 }
 
 /**
@@ -23,12 +17,22 @@ enum ApiPaths {
  */
 class QorusIntegration {
   /**Token returned after authentication*/
-  protected _authToken?: string | null;
-  /**Qore Technologies endpoint to authenticate the user */
-  _endpoint;
+  #_authToken?: string | null;
 
-  constructor(endpoint: string) {
-    this._endpoint = endpoint;
+  /**Qore Technologies endpoint to authenticate the user */
+  #_endpoint;
+
+  /**Version of the api */
+  #_version = 'latest';
+  
+  /**Api paths for the api */
+  #loginPath = `/api/${this.#_version}/public/login`;
+  #logoutPath = `/api/${this.#_version}/logout`;
+  #tokenValidate =`/api/${this.#_version}/system?action=validateWsToken`
+
+  constructor(endpoint: string, version?: string) {
+    this.#_endpoint = endpoint;
+    this.#_version = version ? version : 'latest';
   }
   /**
    * A asynchronous public method to be called to authenticate the user
@@ -37,21 +41,21 @@ class QorusIntegration {
    */
   @CatchAll
   @log()
-  async login(params: ILoginParams) {
+  async login(params: ILoginParams): Promise<string> {
     const { user, pass } = params;
     const currentUser = await this.validateLocalUserToken();
     if (currentUser && currentUser !== 'invalid') {
-      this._authToken = currentUser;
+      this.#_authToken = currentUser;
       return currentUser;
     } else
       try {
         const resp = await httpsAxios({
           method: 'post',
-          url: `${this._endpoint}${ApiPaths.Login}`,
+          url: `${this.#_endpoint}${this.#loginPath}`,
           data: { user, pass },
         });
-        this._authToken = resp.data;
-        storeKeyValuePair({ key: 'auth-token', value: resp.data });
+        this.#_authToken = resp.data;
+        setKeyValLocal({ key: 'auth-token', value: resp.data });
         return resp.data;
       } catch (error: any) {
         throw new Error(`Couldn't sign in user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
@@ -63,13 +67,13 @@ class QorusIntegration {
    *
    * @returns auth token if it's valid or null
    */
-  private async validateLocalUserToken() {
-    const authToken = readKeyValuePair('auth-token');
+  private async validateLocalUserToken(): Promise<string | null> {
+    const authToken = getKeyValLocal('auth-token');
     if (authToken) {
       try {
         const resp = await httpsAxios({
           method: 'get',
-          url: `${this._endpoint}${ApiPaths.ValidateToken}`,
+          url: `${this.#_endpoint}${this.#tokenValidate }`,
           data: { token: authToken },
         });
         if (typeof resp === 'string') {
@@ -92,12 +96,12 @@ class QorusIntegration {
     try {
       await httpsAxios({
         method: 'post',
-        url: `${this._endpoint}${ApiPaths.Logout}`,
+        url: `${this.#_endpoint}${this.#logoutPath}`,
       });
     } catch (error: any) {
       throw new Error(`Couldn't logout user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
     }
-    this._authToken = undefined;
+    this.#_authToken = undefined;
   }
 
   /**
@@ -112,22 +116,22 @@ class QorusIntegration {
         throw new Error(`Couldn't logout user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
       }
     })();
-    this._endpoint = endpoint;
+    this.#_endpoint = endpoint;
   }
 
   /**
    * A getter to get the current authentication endpoint
    */
-  get endpoint() {
-    return this._endpoint;
+  get endpoint(): string {
+    return this.#_endpoint;
   }
 
   /**
    * A getter to get the current jwt token
    */
   @log()
-  get authToken() {
-    if (this._authToken) return this._authToken;
+  get authToken(): string | null {
+    if (this.#_authToken) return this.#_authToken;
     else {
       return null;
     }
