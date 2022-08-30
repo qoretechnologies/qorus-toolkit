@@ -1,9 +1,8 @@
-'use strict';
-
 import httpsAxios from './utils/httpsAxios';
 import { CatchAll } from './utils/catchDecorators';
 import log from 'logger-decorator';
 import { setKeyValLocal, getKeyValLocal } from './utils/localStoreMan';
+import QorusInstance from './QorulInstance';
 
 export interface ILoginParams {
   user: string;
@@ -11,29 +10,24 @@ export interface ILoginParams {
 }
 
 /**
- * An utility class to authenticate the user on QoreTechnologies networks
+ * A utility class to authenticate the user on QoreTechnologies networks
+ * Extends QorusInstance class
  *
  * @category Model
  */
-class QorusIntegration {
+class QorusAuthenticator extends QorusInstance {
   /**Token returned after authentication*/
   #_authToken?: string | null;
-
-  /**Qore Technologies endpoint to authenticate the user */
-  #_endpoint;
-
-  /**Version of the api */
-  #_version = 'latest';
   
-  /**Api paths for the api */
-  #loginPath = `/api/${this.#_version}/public/login`;
-  #logoutPath = `/api/${this.#_version}/logout`;
-  #tokenValidate =`/api/${this.#_version}/system?action=validateWsToken`
+  /**Paths for the api */
+  #loginPath = `/api/${this._version}/public/login`;
+  #logoutPath = `/api/${this._version}/logout`;
+  #tokenValidate =`/api/${this._version}/system?action=validateWsToken`
 
   constructor(endpoint: string, version?: string) {
-    this.#_endpoint = endpoint;
-    this.#_version = version ? version : 'latest';
+    super(endpoint, version);
   }
+
   /**
    * A asynchronous public method to be called to authenticate the user
    *
@@ -51,7 +45,7 @@ class QorusIntegration {
       try {
         const resp = await httpsAxios({
           method: 'post',
-          url: `${this.#_endpoint}${this.#loginPath}`,
+          url: `${this._endpoint}${this.#loginPath}`,
           data: { user, pass },
         });
         this.#_authToken = resp.data;
@@ -73,7 +67,7 @@ class QorusIntegration {
       try {
         const resp = await httpsAxios({
           method: 'get',
-          url: `${this.#_endpoint}${this.#tokenValidate }`,
+          url: `${this._endpoint}${this.#tokenValidate }`,
           data: { token: authToken },
         });
         if (typeof resp === 'string') {
@@ -96,7 +90,7 @@ class QorusIntegration {
     try {
       await httpsAxios({
         method: 'post',
-        url: `${this.#_endpoint}${this.#logoutPath}`,
+        url: `${this._endpoint}${this.#logoutPath}`,
       });
     } catch (error: any) {
       throw new Error(`Couldn't logout user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
@@ -105,29 +99,7 @@ class QorusIntegration {
   }
 
   /**
-   * A asynchronous setter to configure the Authentication endpoint
-   */
-  @log()
-  set endpoint(endpoint: string) {
-    (async () => {
-      try {
-        await this.logout();
-      } catch (error: any) {
-        throw new Error(`Couldn't logout user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
-      }
-    })();
-    this.#_endpoint = endpoint;
-  }
-
-  /**
-   * A getter to get the current authentication endpoint
-   */
-  get endpoint(): string {
-    return this.#_endpoint;
-  }
-
-  /**
-   * A getter to get the current jwt token
+   * A getter to get the current auth token
    */
   @log()
   get authToken(): string | null {
@@ -138,4 +110,4 @@ class QorusIntegration {
   }
 }
 
-export default QorusIntegration;
+export default QorusAuthenticator;

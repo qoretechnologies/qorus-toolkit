@@ -1,1 +1,1 @@
-export { default as QorusIntegration } from './QorusIntegration';
+export { default as QorusIntegration } from './QorusAuthenticator';
