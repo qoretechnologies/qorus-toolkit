@@ -1,6 +1,4 @@
-'use strict';
-
-import QorusIntegration from '../src/QorusIntegration';
+import {QorusAuth} from '../src/QorusAuthenticator';
 import MockAdapter from 'axios-mock-adapter';
 import httpsAxios from '../src/utils/httpsAxios';
 import dotenv from 'dotenv';
@@ -9,9 +7,9 @@ dotenv.config();
 
 describe('QorusLogin Utility Class Tests', () => {
   let mock: MockAdapter;
-  let qorus: QorusIntegration;
+  // let qorus: QorusIntegration;
   if(process.env.ENDPOINT)
-  qorus = new QorusIntegration(process.env.ENDPOINT);
+  // qorus = new QorusIntegration(process.env.ENDPOINT);
 
   beforeAll(() => {
     mock = new MockAdapter(httpsAxios);
@@ -22,55 +20,55 @@ describe('QorusLogin Utility Class Tests', () => {
   });
 
   describe('When authentication is successful', () => {
-    it('Should return user token after authentication', 
-    async () => {
-      const usrToken = '336d9306-3b70-41df-9427-c051d25886b2';
-      mock
-        .onPost(process.env.AUTHENDPOINT, {
-          user: process.env.TESTUSER,
-          pass: process.env.TESTPASS,
-        })
-        .reply(200, usrToken);
+    it('Should initialize the endpoint and assign it to selected endpoint', ()=>{
+      if(process.env.ENDPOINT)
+      QorusAuth.initEndpnt({url: process.env.ENDPOINT, id:"reppy"})
 
-      let result;
-      try {
-        if(process.env.TESTUSER && process.env.TESTPASS)
-        result = await qorus.login({
-          user: process.env.TESTUSER,
-          pass: process.env.TESTPASS,
-        });
+      expect(QorusAuth.getSelectedEndpnt()!.id).toEqual("reppy");
+    })
 
-      } catch (error: any) {
-        console.log(`${error.code} ${error.message}`);
-      }
-      expect(mock.history.post[0].data).not.toBeNull();
-      expect(result).toEqual(usrToken);
-    });
+    it('Should return user token after authentication',
+      async () => {
+          const usrToken = '336d9306-3b70-41df-9427-c051d25886b2';
+          mock
+            .onPost(process.env.AUTHENDPOINT, {
+              user: process.env.TESTUSER,
+              pass: process.env.TESTPASS,
+            })
+            .reply(200, usrToken);
+            
+          await QorusAuth.login({user: process.env.TESTUSER!, pass: process.env.TESTPASS!});  
+          expect(QorusAuth.getSelectedEndpnt()?.authToken === usrToken); 
+    })
 
     it('Should return current user token if the user is authenticated', () => {
-      expect(qorus.authToken).not.toBeNull();
+      expect(QorusAuth.getAuthToken()).not.toBeNull();
     });
 
-    it('should return the current endpoint', () => {
-      const config = qorus.endpoint;
+    it('Should return the current endpoint', () => {
+      const config = QorusAuth.getSelectedEndpnt();
 
-      expect(config).toEqual('https://hq.qoretechnologies.com:8092');
+      expect(config!.id).toEqual("reppy");
     });
+
+    it('Should return all the endpoints', ()=>{
+      const endpoints = QorusAuth.getAllEndpnts();
+      console.log("These are endpoints", JSON.stringify(endpoints));
+    })
 
     it('Should logout the user', async () => {
       mock
         .onPost(process.env.LOGOUTENDPOINT)
         .reply(200);
       
-      await qorus.logout()
-
-      expect(qorus.authToken).toEqual(null);
+      await QorusAuth.logout()
+      expect(QorusAuth.getSelectedEndpnt()!.authToken).toEqual(undefined);
     });
 
-    it('Should change the config', () => {
-      qorus.endpoint = 'https://www.google.com';
+    it('Should change the selected endpoint url', () => {
+      QorusAuth.setEndpntUrl({url: 'https://www.google.com'});
 
-      expect(qorus.endpoint).toEqual('https://www.google.com');
+      expect(QorusAuth.getSelectedEndpnt()?.url).toEqual('https://www.google.com');
     });
 
   });
