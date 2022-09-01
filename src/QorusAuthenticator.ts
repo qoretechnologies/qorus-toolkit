@@ -67,6 +67,8 @@ interface CheckAuth {
  * Enables the user to authenticate with multiple user defined endpoints.
  *
  * @returns QorusAuthenticator object with all the supporting operations
+ * 
+ * @Category Model
  */
 const QorusAuthenticator = (): QorusAuthenticator => {
   //**Array of user defined endpoints */
