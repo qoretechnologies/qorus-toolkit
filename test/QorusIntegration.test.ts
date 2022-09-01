@@ -1,71 +1,78 @@
 import { QorusAuth } from '../src';
-import MockAdapter from 'axios-mock-adapter';
-import httpsAxios from '../src/utils/httpsAxios';
 import dotenv from 'dotenv';
-import { assert } from 'console';
-
 dotenv.config();
 
 describe('QorusLogin Utility Class Tests', () => {
-  let mock: MockAdapter;
-  // let qorus: QorusIntegration;
-  if (process.env.ENDPOINT)
-    // qorus = new QorusIntegration(process.env.ENDPOINT);
+  it('Should initialize the endpoint and assign it to the selected endpoint', () => {
+    if (process.env.ENDPOINT) QorusAuth.initEndpoint({ url: process.env.ENDPOINT, id: 'reppy' });
 
-    beforeAll(() => {
-      mock = new MockAdapter(httpsAxios);
-    });
-
-  afterEach(() => {
-    mock.reset();
+    expect(QorusAuth.getSelectedEndpoint()!.id).toEqual('reppy');
+    expect(QorusAuth.getSelectedEndpoint()!.url).toEqual(process.env.ENDPOINT);
   });
 
-  describe('When authentication is successful', () => {
-    it('Should initialize the endpoint and assign it to selected endpoint', () => {
-      if (process.env.ENDPOINT) QorusAuth.initEndpoint({ url: process.env.ENDPOINT, id: 'reppy' });
+  it('Should return user token after authentication', async () => {
+    await QorusAuth.login({ user: process.env.TESTUSER!, pass: process.env.TESTPASS! });
 
-      expect(QorusAuth.getSelectedEndpoint()!.id).toEqual('reppy');
-      expect(QorusAuth.getSelectedEndpoint()!.url).toEqual('https://hq.qoretechnologies.com:8092');
-    });
+    expect(QorusAuth.getSelectedEndpoint()?.authToken).not.toBeNull();
+  });
 
-    it('Should return user token after authentication', async () => {
-      const usrToken = '336d9306-3b70-41df-9427-c051d25886b2';
-      mock
-        .onPost(process.env.AUTHENDPOINT, {
-          user: process.env.TESTUSER,
-          pass: process.env.TESTPASS,
-        })
-        .reply(200, usrToken);
+  it('Should return the enpoint from the endpoints array', () => {
+    const endpoint = QorusAuth.getEndpointById('reppy');
 
-      await QorusAuth.login({ user: process.env.TESTUSER!, pass: process.env.TESTPASS! });
-      expect(QorusAuth.getSelectedEndpoint()?.authToken === usrToken);
-    });
+    expect(endpoint?.id).toEqual('reppy');
+  });
 
-    it('Should return current user token if the user is authenticated', () => {
-      expect(QorusAuth.getAuthToken()).not.toBeNull();
-    });
+  it('Should return all the available endpoints', () => {
+    const endpoints = QorusAuth.getAllEndpoints();
 
-    it('Should return the current endpoint', () => {
-      const config = QorusAuth.getSelectedEndpoint();
+    expect(endpoints).not.toBeNull();
+  });
 
-      expect(config!.id).toEqual('reppy');
-    });
+  it('Should return version of the selected endpoint', () => {
+    const version = QorusAuth.getEndpointVersion();
 
-    it('Should return all the endpoints', () => {
-      const endpoints = QorusAuth.getAllEndpoints();
-      expect(endpoints).not.toBeNull();
-    });
+    expect(version).toEqual('latest');
+  });
 
-    it('Should logout the user', async () => {
-      mock.onPost('https://hq.qoretechnologies.com:8092/api/latest/logout').reply(200);
-      await QorusAuth.logout();
-      expect(QorusAuth.getSelectedEndpoint()!.authToken).toEqual(undefined);
-    });
+  it('Should set a new version for the endpoint', async () => {
+    const success = await QorusAuth.setEndpointVersion({ version: 5 });
 
-    it('Should change the selected endpoint url', () => {
-      QorusAuth.setEndpointUrl({ url: 'https://www.google.com' });
+    expect(QorusAuth.getSelectedEndpoint()?.version).toEqual(5);
+  });
 
-      expect(QorusAuth.getSelectedEndpoint()?.url).toEqual('https://www.google.com');
-    });
+  it('Should revalidate the user auth token for the selected endpoint', async () => {
+    await QorusAuth.renewSelectedEndpointToken({ user: process.env.TESTUSER!, pass: process.env.TESTPASS! });
+
+    expect(QorusAuth.getAuthToken).not.toBeNull();
+  });
+
+  it('Should return current user token if the user is authenticated', () => {
+    expect(QorusAuth.getAuthToken()).not.toBeNull();
+  });
+
+  it('Should return the current endpoint', () => {
+    const config = QorusAuth.getSelectedEndpoint();
+
+    expect(config!.id).toEqual('reppy');
+  });
+
+  it('Should return all the endpoints', () => {
+    const endpoints = QorusAuth.getAllEndpoints();
+
+    expect(endpoints).not.toBeNull();
+  });
+
+  it('Should change the selected endpoint url and logout the user', async () => {
+    await QorusAuth.setEndpointUrl({ url: 'https://www.google.com' });
+
+    expect(QorusAuth.getSelectedEndpoint()?.url).toEqual('https://www.google.com');
+    expect(QorusAuth.getAuthToken()).toBeUndefined();
+  });
+
+  it('Should select the endpoint by the provided id', async () => {
+    if (process.env.ENDPOINT) QorusAuth.initEndpoint({ url: process.env.ENDPOINT, id: 'test' });
+    QorusAuth.selectEndpoint('google');
+
+    expect(QorusAuth.getSelectedEndpoint()?.id).toEqual('test');
   });
 });

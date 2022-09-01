@@ -1,104 +1,84 @@
 import { setKeyValLocal, getKeyValLocal } from './managers/LocalStorage';
-import { apiPathsInitial, createApiPaths, IApiPaths, Version } from './utils/apiPaths';
-import httpsAxios from './utils/httpsAxios';
+import { apiPathsInitial, createApiPaths, ApiPaths, Version } from './utils/apiPaths';
+import { axiosGet, axiosPost } from './utils/axiosHelpers';
 
-interface IQorusAuthenticator {
+interface QorusAuthenticator {
   /**Enable the user to login to the selected endpoint */
-  login: (loginConfig: ILoginParams) => Promise<string>;
+  login: (loginConfig: LoginParams) => Promise<string | boolean>;
   /**Logs out the current user from the selected endpoint */
   logout: () => Promise<void>;
   /**Allows the user to add/initialize a new endpoint */
-  initEndpoint: (props: IInitEndpoint) => Promise<IEndpoint>;
+  initEndpoint: (props: InitEndpoint) => Promise<Endpoint>;
   /**Allows the user to select a endpoint from the endpoints array */
   selectEndpoint: (id: string) => Promise<boolean>;
   /**Returns the selected endpoint */
-  getSelectedEndpoint: () => IEndpoint | undefined;
+  getSelectedEndpoint: () => Endpoint | undefined;
   /**Allows the user to renew the selected endpoint authentication token */
-  renewSelectedEndpointToken: (props: ILoginParams) => Promise<boolean>;
+  renewSelectedEndpointToken: (props: LoginParams) => Promise<boolean>;
   /**Returns the endpoint if exist in the endpoint array */
-  getEndpointById: (id: string) => IEndpoint | undefined;
+  getEndpointById: (id: string) => Endpoint | undefined;
   /**A setter to set the url of the selected endpoint */
-  setEndpointUrl: (props: ISetEndpointUrl) => Promise<boolean>;
+  setEndpointUrl: (props: SetEndpointUrl) => Promise<boolean>;
   /**A setter to edit the version of the endpoint */
-  setEndpointVersion: (props: ISetEndpointVersion) => Promise<boolean>;
+  setEndpointVersion: (props: SetEndpointVersion) => Promise<boolean>;
   /**A getter to return the auth token of the selected endpoint */
   getAuthToken: () => string | undefined;
   //**A getter to get the api version of a endpoint */
   getEndpointVersion: (id?: string) => Version | undefined;
   //**A getter to return the api paths for the selected endpoint */
-  getApiPaths: () => IApiPaths;
+  getApiPaths: () => ApiPaths;
   //**A getter to get all the availaible endpoints */
-  getAllEndpoints: () => IEndpoint[];
-}
-interface ILoginParams {
-  user: string;
-  pass: string;
+  getAllEndpoints: () => Endpoint[];
 }
 
-interface IInitEndpoint {
+interface LoginParams {
+  user?: string;
+  pass?: string;
+}
+
+interface InitEndpoint {
   id: string;
   url: string;
   version?: Version;
 }
 
-interface IEndpoint {
+interface Endpoint {
   url: string;
   version: Version;
   id: string;
   authToken?: string;
 }
 
-interface ISetEndpointVersion {
+interface SetEndpointVersion {
   version: Version;
   id?: string;
 }
 
-interface ISetEndpointUrl {
+interface SetEndpointUrl {
   url: string;
   id?: string;
 }
 
-/**
- * Helper function to create new endpoint
- *
- * @param props url and id is required to create a endpoint
- * @returns endpoint with the provided config
- */
-const createEndpoint = (props: IEndpoint): IEndpoint => {
-  const { url, version, authToken, id } = props;
-
-  return {
-    url,
-    id,
-    version: version ? version : 'latest',
-    authToken,
-  };
-};
+interface CheckAuth {
+  url: string;
+}
 
 /**
  * Enables the user to authenticate with multiple user defined endpoints.
  *
  * @returns QorusAuthenticator object with all the supporting operations
  */
-const QorusAuthenticator = (): IQorusAuthenticator => {
+const QorusAuthenticator = (): QorusAuthenticator => {
   //**Array of user defined endpoints */
-  const endpoints: IEndpoint[] = [];
+  const endpoints: Endpoint[] = [];
 
   /**Api paths for the selected endpoint */
-  let apiPaths: IApiPaths = apiPathsInitial;
+  let apiPaths: ApiPaths = apiPathsInitial;
 
   /**Selected endpoint from the endpoints array */
-  let selectedEndpoint: IEndpoint;
+  let selectedEndpoint: Endpoint;
 
-  /**
-   * A getter to get the index of a endpoint in endpoints array
-   *
-   * @param id Id of the endpoint
-   * @return Index of the endpoint
-   */
-  const getEndpointIndxById = (id: string): number => {
-    return endpoints.findIndex((endpoint) => endpoint.id === id);
-  };
+  let noauth: boolean = false;
 
   /**
    * Allows the user to select a endpoint from the endpoints array,
@@ -108,14 +88,26 @@ const QorusAuthenticator = (): IQorusAuthenticator => {
    * @returns True if the endpoint is selected successfully False otherwise
    */
   const selectEndpoint = async (id: string): Promise<boolean> => {
-    const index = getEndpointIndxById(id);
-    if (endpoints[index]) {
-      await logout();
-      selectedEndpoint = endpoints[index];
-      apiPaths = createApiPaths({ version: endpoints[index].version });
+    const endpoint = getEndpointById(id);
+    if (endpoint && endpoint.url) {
+      if (selectedEndpoint.authToken) await logout();
+      selectedEndpoint = endpoint;
+      apiPaths = createApiPaths({ version: endpoint.version });
       return true;
     }
     return false;
+  };
+
+  const checkNoAuth = async (props: CheckAuth) => {
+    const { url } = props;
+    let resp;
+    try {
+      resp = await axiosGet({ endpointUrl: `${url}${apiPaths.validateNoAuth}` });
+      const _noauth = resp.data.noauth;
+      if (typeof _noauth === 'boolean') noauth = _noauth;
+    } catch (error: any) {
+      throw new Error(`Couldn't check the noauth status: ${error.code}, ErrorMessage: ${error.message}`);
+    }
   };
 
   /**
@@ -124,19 +116,25 @@ const QorusAuthenticator = (): IQorusAuthenticator => {
    * @param props id and url is required to initialize a new endpoint with default 'latest' version
    * @returns A new endpoint, select it as selected endpoint and adds it to the endpoints array
    */
-  const initEndpoint = async (props: IInitEndpoint): Promise<IEndpoint> => {
+  const initEndpoint = async (props: InitEndpoint): Promise<Endpoint> => {
     const { id, url, version } = props;
-    const newEndpoint = createEndpoint({ id, url, version: version ? version : 'latest' });
-    const index = getEndpointIndxById(id);
-    if (index === -1) {
+    const newEndpoint: Endpoint = {
+      url,
+      id,
+      version: version ? version : 'latest',
+    };
+    const endpoint = getEndpointById(id);
+    if (!endpoint) {
       endpoints.push(newEndpoint);
       if (selectedEndpoint) await selectEndpoint(id);
       else selectedEndpoint = newEndpoint;
+      await checkNoAuth({ url });
       return newEndpoint;
     } else {
       endpoints.push(newEndpoint);
       if (selectedEndpoint) await selectEndpoint(id);
       else selectedEndpoint = newEndpoint;
+      await checkNoAuth({ url });
       return newEndpoint;
     }
   };
@@ -146,23 +144,22 @@ const QorusAuthenticator = (): IQorusAuthenticator => {
    *
    * @returns Selected Endpoint
    */
-  const getSelectedEndpoint = (): IEndpoint | undefined => {
+  const getSelectedEndpoint = (): Endpoint | undefined => {
     return selectedEndpoint;
   };
 
   /**
    * Validates the local stored authentication token for the endpoint
    *
-   * @param endpointId Id of the endpoint to renew the auth token
+   * @param endpointId d of the endpoint to renew the auth token
    * @returns Promise that returns auth token if it's valid, invalid if the token is expired and null if there is no auth token stored in the local storage
    */
   const validateLocalUserToken = async (endpointId: string): Promise<string | 'invalid' | null> => {
     const authToken = getKeyValLocal(`auth-token-${endpointId}`);
     if (authToken) {
       try {
-        const resp = await httpsAxios({
-          method: 'get',
-          url: `${endpoints}${apiPaths.validateToken}`,
+        const resp = await axiosGet({
+          endpointUrl: `${endpoints}${apiPaths.validateToken}`,
           data: { token: authToken },
         });
         if (typeof resp === 'string') {
@@ -182,29 +179,27 @@ const QorusAuthenticator = (): IQorusAuthenticator => {
    * @returns Authentication token for the user
    * @error throws an error if the provided credentials are invalid
    */
-  const login = async (loginConfig: ILoginParams): Promise<string> => {
+  const login = async (loginConfig: LoginParams): Promise<string | boolean> => {
+    if (noauth) {
+      return true;
+    }
     const { user, pass } = loginConfig;
     const { id } = selectedEndpoint;
 
+    if (!(user && pass)) throw new Error('Authentication is required with Username and Password');
+
     const currentUserToken = await validateLocalUserToken(id);
     if (currentUserToken && currentUserToken !== 'invalid') {
-      const index = getEndpointIndxById(id);
-      endpoints[index].authToken = currentUserToken;
       selectedEndpoint.authToken = currentUserToken;
       return currentUserToken;
     } else
       try {
-        const resp = await httpsAxios({
-          method: 'post',
-          url: `${selectedEndpoint.url}${apiPaths.login}`,
+        const resp = await axiosPost({
+          endpointUrl: `${selectedEndpoint.url}${apiPaths.login}`,
           data: { user, pass },
         });
-
         const authToken = resp.data;
         selectedEndpoint.authToken = authToken;
-        const index = getEndpointIndxById(id);
-        if (index !== -1) endpoints[index].authToken = authToken;
-
         setKeyValLocal({ key: `auth-token-${id}`, value: authToken });
         return authToken;
       } catch (error: any) {
@@ -217,7 +212,7 @@ const QorusAuthenticator = (): IQorusAuthenticator => {
    *
    * @param props Username and Password of the the user
    */
-  const renewSelectedEndpointToken = async (props: ILoginParams): Promise<boolean> => {
+  const renewSelectedEndpointToken = async (props: LoginParams): Promise<boolean> => {
     const { user, pass } = props;
 
     if (selectedEndpoint) {
@@ -232,21 +227,15 @@ const QorusAuthenticator = (): IQorusAuthenticator => {
    */
   const logout = async (): Promise<void> => {
     if (selectedEndpoint) {
-      const index = getEndpointIndxById(selectedEndpoint.id);
-
-      if (selectedEndpoint.authToken) {
-        console.log("I am coming here")
-        try {
-          await httpsAxios({
-            method: 'post',
-            url: `${selectedEndpoint.url}${apiPaths.logout}`,
-          });
-        } catch (error: any) {
-          console.log(`Couldn't logout user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
-        }
-      }
-      endpoints[index].authToken = undefined;
       selectedEndpoint.authToken = undefined;
+      apiPaths = apiPathsInitial;
+      noauth = false;
+
+      try {
+        await axiosPost({ endpointUrl: `${selectedEndpoint.url}${apiPaths.logout}` });
+      } catch (error: any) {
+        console.log(`Couldn't logout user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
+      }
     }
   };
 
@@ -264,10 +253,8 @@ const QorusAuthenticator = (): IQorusAuthenticator => {
    * @param id of the endpoint
    * @returns endpoint if found else returs undefined
    */
-  const getEndpointById = (id: string): IEndpoint | undefined => {
-    const index = getEndpointIndxById(id);
-    if (index != -1) return endpoints[index];
-    return undefined;
+  const getEndpointById = (id: string): Endpoint | undefined => {
+    return endpoints.find((endpoint) => endpoint.id === id);
   };
 
   /**
@@ -278,9 +265,9 @@ const QorusAuthenticator = (): IQorusAuthenticator => {
    */
   const getEndpointVersion = (id?: string): Version | undefined => {
     if (id) {
-      const index = getEndpointIndxById(id);
-      if (index != -1 && endpoints[index]) {
-        return endpoints[index].version;
+      const endpoint = getEndpointById(id);
+      if (endpoint && endpoint.version) {
+        return endpoint.version;
       }
     } else {
       if (selectedEndpoint) {
@@ -297,16 +284,18 @@ const QorusAuthenticator = (): IQorusAuthenticator => {
    * @param props version is required to set a new version of the selected endpoint. Optional id can be supplied to change the version of a specific endpoint
    * @returns true if the version change is successful false otherwise
    */
-  const setEndpointVersion = async (props: ISetEndpointVersion): Promise<boolean> => {
+  const setEndpointVersion = async (props: SetEndpointVersion): Promise<boolean> => {
     const { version, id = selectedEndpoint.id } = props;
 
     if (id) {
-      const index = getEndpointIndxById(id);
-      if (index != -1 && endpoints[index].version) {
+      const endpoint = getEndpointById(id);
+      if (endpoint) {
+        endpoints[endpoints.indexOf(endpoint)].version = version;
+        if (selectedEndpoint.id === endpoint.id) {
+          selectedEndpoint.version = version;
+          apiPaths = createApiPaths({ version });
+        }
         await logout();
-        endpoints[index].version = version;
-        selectedEndpoint.version = version;
-        apiPaths = createApiPaths({ version });
         return true;
       }
       return false;
@@ -321,13 +310,15 @@ const QorusAuthenticator = (): IQorusAuthenticator => {
    * @param props url is required to change the url of the selected endpoint. Option id parameter can be provided to change the url of a specific endpoint
    * @returns true if the url change is successful, false otherwise
    */
-  const setEndpointUrl = async (props: ISetEndpointUrl): Promise<boolean> => {
+  const setEndpointUrl = async (props: SetEndpointUrl): Promise<boolean> => {
     const { url, id = selectedEndpoint.id } = props;
     if (id) {
-      const index = getEndpointIndxById(id);
-      if (index != -1 && endpoints[index].url) {
-        endpoints[index].url = url;
-        selectedEndpoint.url = url;
+      const endpoint = getEndpointById(id);
+      if (endpoint) {
+        endpoints[endpoints.indexOf(endpoint)].url = url;
+        if (selectedEndpoint.id === endpoint.id) {
+          selectedEndpoint.url = url;
+        }
         await logout();
         return true;
       }
@@ -341,7 +332,7 @@ const QorusAuthenticator = (): IQorusAuthenticator => {
    *
    * @returns api paths for the selected endpoint
    */
-  const getApiPaths = (): IApiPaths => {
+  const getApiPaths = (): ApiPaths => {
     return apiPaths;
   };
 
@@ -350,7 +341,7 @@ const QorusAuthenticator = (): IQorusAuthenticator => {
    *
    * @returns endpoints array with the current config
    */
-  const getAllEndpoints = (): IEndpoint[] => {
+  const getAllEndpoints = (): Endpoint[] => {
     return endpoints;
   };
 
@@ -372,13 +363,13 @@ const QorusAuthenticator = (): IQorusAuthenticator => {
 };
 
 export {
-  ILoginParams,
-  IQorusAuthenticator,
-  IApiPaths,
-  IInitEndpoint,
-  IEndpoint,
-  ISetEndpointUrl,
-  ISetEndpointVersion,
+  LoginParams,
+  QorusAuthenticator,
+  ApiPaths,
+  InitEndpoint,
+  Endpoint,
+  SetEndpointUrl,
+  SetEndpointVersion,
   Version,
 };
 
