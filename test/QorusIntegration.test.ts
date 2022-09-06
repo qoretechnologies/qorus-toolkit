@@ -1,6 +1,9 @@
 import { QorusAuth } from '../src';
 import dotenv from 'dotenv';
+import logger from '../src/managers/logger';
+import { Logger } from 'winston';
 dotenv.config();
+const winstonLoggerMock = jest.spyOn(logger, 'log');
 
 describe('QorusLogin Utility Class Tests', () => {
   it('Should initialize the endpoint and assign it to the selected endpoint', () => {
@@ -74,5 +77,21 @@ describe('QorusLogin Utility Class Tests', () => {
     QorusAuth.selectEndpoint('google');
 
     expect(QorusAuth.getSelectedEndpoint()?.id).toEqual('test');
+  });
+
+  describe('QorusLogin Utility Error Tests', () => {
+    it('Should throw an error when user tries to authenticate with wrong creadentials', async () => {
+      if (process.env.ENDPOINT) await QorusAuth.initEndpoint({ url: process.env.ENDPOINT, id: 'reppy' });
+      await QorusAuth.login({ user: 'bob', pass: 'pass' });
+
+      expect(winstonLoggerMock).toHaveBeenCalled();
+    });
+
+    it('Should throw an error if the user does not provide username and password for authentication.', async () => {
+      if (process.env.ENDPOINT) await QorusAuth.initEndpoint({ url: process.env.ENDPOINT, id: 'reppy' });
+      await QorusAuth.login({});
+
+      expect(winstonLoggerMock).toHaveBeenCalled();
+    });
   });
 });

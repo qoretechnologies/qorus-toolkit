@@ -1,10 +1,11 @@
 import { setKeyValLocal, getKeyValLocal } from './managers/LocalStorage';
+import logger from './managers/logger';
 import { apiPathsInitial, createApiPaths, ApiPaths, Version } from './utils/apiPaths';
-import { axiosGet, axiosPost } from './utils/axiosHelpers';
+import { QorusReq } from './utils/QorusRequest';
 
 interface QorusAuthenticator {
   /**Enable the user to login to the selected endpoint */
-  login: (loginConfig: LoginParams) => Promise<string | boolean>;
+  login: (loginConfig: LoginParams) => Promise<string | undefined>;
   /**Logs out the current user from the selected endpoint */
   logout: () => Promise<void>;
   /**Allows the user to add/initialize a new endpoint */
@@ -14,13 +15,13 @@ interface QorusAuthenticator {
   /**Returns the selected endpoint */
   getSelectedEndpoint: () => Endpoint | undefined;
   /**Allows the user to renew the selected endpoint authentication token */
-  renewSelectedEndpointToken: (props: LoginParams) => Promise<boolean>;
+  renewSelectedEndpointToken: (props: LoginParams) => Promise<null>;
   /**Returns the endpoint if exist in the endpoint array */
   getEndpointById: (id: string) => Endpoint | undefined;
   /**A setter to set the url of the selected endpoint */
-  setEndpointUrl: (props: SetEndpointUrl) => Promise<boolean>;
+  setEndpointUrl: (props: SetEndpointUrl) => Promise<null>;
   /**A setter to edit the version of the endpoint */
-  setEndpointVersion: (props: SetEndpointVersion) => Promise<boolean>;
+  setEndpointVersion: (props: SetEndpointVersion) => Promise<null>;
   /**A getter to return the auth token of the selected endpoint */
   getAuthToken: () => string | undefined;
   //**A getter to get the api version of a endpoint */
@@ -67,8 +68,8 @@ interface CheckAuth {
  * Enables the user to authenticate with multiple user defined endpoints.
  *
  * @returns QorusAuthenticator object with all the supporting operations
- * 
- * @Category Model
+ *
+ * @Category QorusAuthenticator
  */
 const QorusAuthenticator = (): QorusAuthenticator => {
   //**Array of user defined endpoints */
@@ -81,6 +82,35 @@ const QorusAuthenticator = (): QorusAuthenticator => {
   let selectedEndpoint: Endpoint;
 
   let noauth: boolean = false;
+
+  /**
+   * A getter to return the endpoint if exist in the endpoint array
+   * @param id of the endpoint
+   * @returns endpoint if found else returs undefined
+   */
+  const getEndpointById = (id: string): Endpoint | undefined => {
+    return endpoints.find((endpoint) => endpoint.id === id);
+  };
+
+  /**
+   * Logs out the current user from the selected endpoint
+   */
+  const logout = async (): Promise<void> => {
+    if (selectedEndpoint) {
+      selectedEndpoint.authToken = undefined;
+      apiPaths = apiPathsInitial;
+      noauth = false;
+
+      try {
+        await QorusReq.post({ endpointUrl: `${selectedEndpoint.url}${apiPaths.logout}` });
+      } catch (error: any) {
+        logger.log({
+          level: 'error',
+          message: `Couldn't logout user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`,
+        });
+      }
+    }
+  };
 
   /**
    * Allows the user to select a endpoint from the endpoints array,
@@ -100,16 +130,21 @@ const QorusAuthenticator = (): QorusAuthenticator => {
     return false;
   };
 
-  const checkNoAuth = async (props: CheckAuth) => {
+  const checkNoAuth = async (props: CheckAuth): Promise<null> => {
     const { url } = props;
     let resp;
     try {
-      resp = await axiosGet({ endpointUrl: `${url}${apiPaths.validateNoAuth}` });
+      resp = await QorusReq.get({ endpointUrl: `${url}${apiPaths.validateNoAuth}` });
       const _noauth = resp.data.noauth;
       if (typeof _noauth === 'boolean') noauth = _noauth;
+      return null;
     } catch (error: any) {
-      throw new Error(`Couldn't check the noauth status: ${error.code}, ErrorMessage: ${error.message}`);
+      logger.log({
+        level: 'error',
+        message: `Couldn't check the noauth status: ${error.statusCode}, ErrorMessage: ${error.message}`,
+      });
     }
+    return null;
   };
 
   /**
@@ -160,7 +195,7 @@ const QorusAuthenticator = (): QorusAuthenticator => {
     const authToken = getKeyValLocal(`auth-token-${endpointId}`);
     if (authToken) {
       try {
-        const resp = await axiosGet({
+        const resp = await QorusReq.get({
           endpointUrl: `${endpoints}${apiPaths.validateToken}`,
           data: { token: authToken },
         });
@@ -169,7 +204,11 @@ const QorusAuthenticator = (): QorusAuthenticator => {
         }
       } catch (error: any) {
         if (error.code === '409') return 'invalid';
-        else throw new Error(`Can't validate token, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
+        else
+          logger.log({
+            level: 'error',
+            message: `Can't validate token, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`,
+          });
       }
     }
     return null;
@@ -181,32 +220,35 @@ const QorusAuthenticator = (): QorusAuthenticator => {
    * @returns Authentication token for the user
    * @error throws an error if the provided credentials are invalid
    */
-  const login = async (loginConfig: LoginParams): Promise<string | boolean> => {
-    if (noauth) {
-      return true;
-    }
-    const { user, pass } = loginConfig;
-    const { id } = selectedEndpoint;
+  const login = async (loginConfig: LoginParams): Promise<string | undefined> => {
+    if (!noauth) {
+      const { user, pass } = loginConfig;
+      const { id } = selectedEndpoint;
 
-    if (!(user && pass)) throw new Error('Authentication is required with Username and Password');
-
-    const currentUserToken = await validateLocalUserToken(id);
-    if (currentUserToken && currentUserToken !== 'invalid') {
-      selectedEndpoint.authToken = currentUserToken;
-      return currentUserToken;
-    } else
-      try {
-        const resp = await axiosPost({
-          endpointUrl: `${selectedEndpoint.url}${apiPaths.login}`,
-          data: { user, pass },
-        });
-        const authToken = resp.data;
-        selectedEndpoint.authToken = authToken;
-        setKeyValLocal({ key: `auth-token-${id}`, value: authToken });
-        return authToken;
-      } catch (error: any) {
-        throw new Error(`Couldn't sign in user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
+      if (!(user && pass)) {
+        logger.log({ level: 'error', message: 'Authentication is required with Username and Password' });
+        return undefined;
       }
+
+      const currentUserToken = await validateLocalUserToken(id);
+      if (currentUserToken && currentUserToken !== 'invalid') {
+        selectedEndpoint.authToken = currentUserToken;
+        return currentUserToken;
+      } else
+        try {
+          const resp = await QorusReq.post({
+            endpointUrl: `${selectedEndpoint.url}${apiPaths.login}`,
+            data: { user, pass },
+          });
+          const authToken = resp.data;
+          selectedEndpoint.authToken = authToken;
+          setKeyValLocal({ key: `auth-token-${id}`, value: authToken });
+          return authToken;
+        } catch (error: any) {
+          logger.log({ level: 'error', message: `Couldn't sign in user ${error.statusCode} ${error.message}` });
+        }
+    }
+    return undefined;
   };
 
   /**
@@ -214,31 +256,13 @@ const QorusAuthenticator = (): QorusAuthenticator => {
    *
    * @param props Username and Password of the the user
    */
-  const renewSelectedEndpointToken = async (props: LoginParams): Promise<boolean> => {
+  const renewSelectedEndpointToken = async (props: LoginParams): Promise<null> => {
     const { user, pass } = props;
 
     if (selectedEndpoint) {
       await login({ user, pass });
-      return true;
     }
-    return false;
-  };
-
-  /**
-   * Logs out the current user from the selected endpoint
-   */
-  const logout = async (): Promise<void> => {
-    if (selectedEndpoint) {
-      selectedEndpoint.authToken = undefined;
-      apiPaths = apiPathsInitial;
-      noauth = false;
-
-      try {
-        await axiosPost({ endpointUrl: `${selectedEndpoint.url}${apiPaths.logout}` });
-      } catch (error: any) {
-        console.log(`Couldn't logout user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
-      }
-    }
+    return null;
   };
 
   /**
@@ -248,15 +272,6 @@ const QorusAuthenticator = (): QorusAuthenticator => {
    */
   const getAuthToken = (): string | undefined => {
     return selectedEndpoint.authToken;
-  };
-
-  /**
-   * A getter to return the endpoint if exist in the endpoint array
-   * @param id of the endpoint
-   * @returns endpoint if found else returs undefined
-   */
-  const getEndpointById = (id: string): Endpoint | undefined => {
-    return endpoints.find((endpoint) => endpoint.id === id);
   };
 
   /**
@@ -286,7 +301,7 @@ const QorusAuthenticator = (): QorusAuthenticator => {
    * @param props version is required to set a new version of the selected endpoint. Optional id can be supplied to change the version of a specific endpoint
    * @returns true if the version change is successful false otherwise
    */
-  const setEndpointVersion = async (props: SetEndpointVersion): Promise<boolean> => {
+  const setEndpointVersion = async (props: SetEndpointVersion): Promise<null> => {
     const { version, id = selectedEndpoint.id } = props;
 
     if (id) {
@@ -298,12 +313,14 @@ const QorusAuthenticator = (): QorusAuthenticator => {
           apiPaths = createApiPaths({ version });
         }
         await logout();
-        return true;
+        logger.log({ level: 'info', message: 'Changed endpoint version successfully.' });
+        return null;
       }
-      return false;
+      logger.log({ level: 'info', message: 'enpoint does not exist, please try again.' });
+      return null;
     }
-
-    return false;
+    logger.log({ level: 'info', message: 'id is required to change the version of a endpoint.' });
+    return null;
   };
 
   /**
@@ -312,7 +329,7 @@ const QorusAuthenticator = (): QorusAuthenticator => {
    * @param props url is required to change the url of the selected endpoint. Option id parameter can be provided to change the url of a specific endpoint
    * @returns true if the url change is successful, false otherwise
    */
-  const setEndpointUrl = async (props: SetEndpointUrl): Promise<boolean> => {
+  const setEndpointUrl = async (props: SetEndpointUrl): Promise<null> => {
     const { url, id = selectedEndpoint.id } = props;
     if (id) {
       const endpoint = getEndpointById(id);
@@ -322,11 +339,15 @@ const QorusAuthenticator = (): QorusAuthenticator => {
           selectedEndpoint.url = url;
         }
         await logout();
-        return true;
+        logger.log({ level: 'info', message: 'Changed endpoint url successfully.' });
+        return null;
       }
-      return false;
+      logger.log({ level: 'info', message: 'enpoint does not exist, please try again.' });
+      return null;
     }
-    return false;
+
+    logger.log({ level: 'info', message: 'id is required to change the url of a endpoint.' });
+    return null;
   };
 
   /**
