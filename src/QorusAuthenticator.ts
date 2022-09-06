@@ -3,7 +3,7 @@ import logger from './managers/logger';
 import { apiPathsInitial, createApiPaths, ApiPaths, Version } from './utils/apiPaths';
 import { QorusReq } from './utils/QorusRequest';
 
-interface QorusAuthenticator {
+interface Authenticator {
   /**Enable the user to login to the selected endpoint */
   login: (loginConfig: LoginParams) => Promise<string | undefined>;
   /**Logs out the current user from the selected endpoint */
@@ -71,7 +71,7 @@ interface CheckAuth {
  *
  * @Category QorusAuthenticator
  */
-const QorusAuthenticator = (): QorusAuthenticator => {
+const QorusAuthenticator = (): Authenticator => {
   //**Array of user defined endpoints */
   const endpoints: Endpoint[] = [];
 
@@ -387,7 +387,7 @@ const QorusAuthenticator = (): QorusAuthenticator => {
 
 export {
   LoginParams,
-  QorusAuthenticator,
+  Authenticator,
   ApiPaths,
   InitEndpoint,
   Endpoint,

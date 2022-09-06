@@ -18,7 +18,12 @@ interface AxiosPost {
   data?: any;
 }
 
-const QorusRequest = () => {
+interface AxiosRequest {
+  get: (props: AxiosGet) => Promise<AxiosPromise<any>>;
+  post: (props: AxiosPost) => Promise<AxiosPromise<any>>;
+}
+
+const QorusRequest = (): AxiosRequest => {
   const httpsAxios = axios.create({ httpsAgent });
   const headers = { 'Content-Type': 'application/json', Accept: 'application/json' };
 
@@ -42,7 +47,7 @@ const QorusRequest = () => {
     const { endpointUrl, data } = props;
 
     try {
-      const promise =  await httpsAxios({
+      const promise = await httpsAxios({
         method: 'POST',
         url: endpointUrl,
         data,
@@ -60,5 +65,6 @@ const QorusRequest = () => {
   };
 };
 
+export { AxiosGet, AxiosPost, AxiosRequest };
 export default QorusRequest;
 export const QorusReq = QorusRequest();
