@@ -25,7 +25,7 @@ describe('QorusLogin Utility Class Tests', () => {
     expect(endpoint?.id).toEqual('reppy');
   });
 
-  it('Should return all the available endpoints', () => {
+  it('Should return all the available endpoints ', () => {
     const endpoints = QorusAuth.getAllEndpoints();
 
     expect(endpoints).not.toBeNull();
@@ -38,7 +38,7 @@ describe('QorusLogin Utility Class Tests', () => {
   });
 
   it('Should set a new version for the endpoint', async () => {
-    const success = await QorusAuth.setEndpointVersion({ version: 5 });
+    await QorusAuth.setEndpointVersion(5);
 
     expect(QorusAuth.getSelectedEndpoint()?.version).toEqual(5);
   });
@@ -66,7 +66,7 @@ describe('QorusLogin Utility Class Tests', () => {
   });
 
   it('Should change the selected endpoint url and logout the user', async () => {
-    await QorusAuth.setEndpointUrl({ url: 'https://www.google.com' });
+    await QorusAuth.setEndpointUrl('https://www.google.com');
 
     expect(QorusAuth.getSelectedEndpoint()?.url).toEqual('https://www.google.com');
     expect(QorusAuth.getAuthToken()).toBeUndefined();

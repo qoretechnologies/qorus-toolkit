@@ -19,9 +19,9 @@ interface Authenticator {
   /**Returns the endpoint if exist in the endpoint array */
   getEndpointById: (id: string) => Endpoint | undefined;
   /**A setter to set the url of the selected endpoint */
-  setEndpointUrl: (props: SetEndpointUrl) => Promise<null>;
+  setEndpointUrl: (url: string, id?: string) => Promise<null>;
   /**A setter to edit the version of the endpoint */
-  setEndpointVersion: (props: SetEndpointVersion) => Promise<null>;
+  setEndpointVersion: (version: Version, id?: string) => Promise<null>;
   /**A getter to return the auth token of the selected endpoint */
   getAuthToken: () => string | undefined;
   //**A getter to get the api version of a endpoint */
@@ -48,16 +48,6 @@ interface Endpoint {
   version: Version;
   id: string;
   authToken?: string;
-}
-
-interface SetEndpointVersion {
-  version: Version;
-  id?: string;
-}
-
-interface SetEndpointUrl {
-  url: string;
-  id?: string;
 }
 
 interface CheckAuth {
@@ -130,8 +120,7 @@ const QorusAuthenticator = (): Authenticator => {
     return false;
   };
 
-  const checkNoAuth = async (props: CheckAuth): Promise<null> => {
-    const { url } = props;
+  const checkNoAuth = async (url: string): Promise<null> => {
     let resp;
     try {
       resp = await QorusReq.get({ endpointUrl: `${url}${apiPaths.validateNoAuth}` });
@@ -165,13 +154,13 @@ const QorusAuthenticator = (): Authenticator => {
       endpoints.push(newEndpoint);
       if (selectedEndpoint) await selectEndpoint(id);
       else selectedEndpoint = newEndpoint;
-      await checkNoAuth({ url });
+      await checkNoAuth(url);
       return newEndpoint;
     } else {
       endpoints.push(newEndpoint);
       if (selectedEndpoint) await selectEndpoint(id);
       else selectedEndpoint = newEndpoint;
-      await checkNoAuth({ url });
+      await checkNoAuth(url);
       return newEndpoint;
     }
   };
@@ -282,10 +271,7 @@ const QorusAuthenticator = (): Authenticator => {
    */
   const getEndpointVersion = (id?: string): Version | undefined => {
     if (id) {
-      const endpoint = getEndpointById(id);
-      if (endpoint && endpoint.version) {
-        return endpoint.version;
-      }
+      return getEndpointById(id)?.version;
     } else {
       if (selectedEndpoint) {
         return selectedEndpoint.version;
@@ -301,9 +287,7 @@ const QorusAuthenticator = (): Authenticator => {
    * @param props version is required to set a new version of the selected endpoint. Optional id can be supplied to change the version of a specific endpoint
    * @returns true if the version change is successful false otherwise
    */
-  const setEndpointVersion = async (props: SetEndpointVersion): Promise<null> => {
-    const { version, id = selectedEndpoint.id } = props;
-
+  const setEndpointVersion = async (version: Version, id: string = selectedEndpoint.id): Promise<null> => {
     if (id) {
       const endpoint = getEndpointById(id);
       if (endpoint) {
@@ -329,8 +313,7 @@ const QorusAuthenticator = (): Authenticator => {
    * @param props url is required to change the url of the selected endpoint. Option id parameter can be provided to change the url of a specific endpoint
    * @returns true if the url change is successful, false otherwise
    */
-  const setEndpointUrl = async (props: SetEndpointUrl): Promise<null> => {
-    const { url, id = selectedEndpoint.id } = props;
+  const setEndpointUrl = async (url: string, id: string = selectedEndpoint.id): Promise<null> => {
     if (id) {
       const endpoint = getEndpointById(id);
       if (endpoint) {
@@ -385,16 +368,7 @@ const QorusAuthenticator = (): Authenticator => {
   };
 };
 
-export {
-  LoginParams,
-  Authenticator,
-  ApiPaths,
-  InitEndpoint,
-  Endpoint,
-  SetEndpointUrl,
-  SetEndpointVersion,
-  Version,
-};
+export { LoginParams, Authenticator, ApiPaths, InitEndpoint, Endpoint, Version };
 
 export const QorusAuth = QorusAuthenticator();
 export default QorusAuthenticator;
