@@ -16,7 +16,21 @@ interface Authenticator {
   getSelectedEndpoint: () => Endpoint | undefined;
   /**Allows the user to renew the selected endpoint authentication token */
   renewSelectedEndpointToken: (props: LoginParams) => Promise<null>;
-  /**Returns the endpoint if exist in the endpoint array */
+  /**
+   * A getter to return the endpoint if exist in the endpoints array
+   * 
+   * <script src="https://embed.runkit.com"  data-element-id="my-element"></script>
+   * <h3>Example</h3>
+   * <div id="my-element">
+   * 
+   * var getJSON = require("async-get-json")
+   * const endpoint = getEndpointById();
+   * console.log(endpoint);
+   * await getJSON("https://storage.googleapis.com/maps-devrel/google.json");
+   * 
+   * </div>
+   *
+   */
   getEndpointById: (id: string) => Endpoint | undefined;
   /**A setter to set the url of the selected endpoint */
   setEndpointUrl: (url: string, id?: string) => Promise<null>;
@@ -56,8 +70,14 @@ interface CheckAuth {
 
 /**
  * Enables the user to authenticate with multiple user defined endpoints.
- *
  * @returns QorusAuthenticator object with all the supporting operations
+ * @example
+ * ```ts
+ * QorusAuth.init({url: "https://url of the instance", id: "reppy"});
+ * const selectedEndpoint = QorusAuth.getSelectedEndpoint();
+ * QorusAuth.login({user: 'username', pass: 'pass'});
+ * QorusAuth.logout();
+ * ```
  *
  * @Category QorusAuthenticator
  */
@@ -74,9 +94,15 @@ const QorusAuthenticator = (): Authenticator => {
   let noauth: boolean = false;
 
   /**
-   * A getter to return the endpoint if exist in the endpoint array
+   * A getter to return the endpoint if exist in the endpoints array
    * @param id of the endpoint
    * @returns endpoint if found else returs undefined
+   *
+   * @example
+   * ```ts
+   * const endpoint = getEndpointById();
+   * console.log(endpoint);
+   * ```
    */
   const getEndpointById = (id: string): Endpoint | undefined => {
     return endpoints.find((endpoint) => endpoint.id === id);
@@ -84,6 +110,11 @@ const QorusAuthenticator = (): Authenticator => {
 
   /**
    * Logs out the current user from the selected endpoint
+   *
+   * @example
+   * ```ts
+   * logout();
+   * ```
    */
   const logout = async (): Promise<void> => {
     if (selectedEndpoint) {

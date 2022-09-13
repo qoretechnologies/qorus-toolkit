@@ -18,6 +18,7 @@
   "scripts": {
     "test": "jest",
     "build": "npx tsc",
+    "build:test" : "npx tsc --noEmit",
     "clean": "del-cli --force ./dist",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint . --ext .ts",

@@ -1,0 +1,46 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Tests
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the develop branch
+on:
+  pull_request:
+    branches:
+      - develop
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  tests:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: latest
+      - name: Installing modules
+        id: install_modules
+        run: |
+          rm -rf node_modules
+          npm install
+      - name: Running tests
+        id: tests
+        run: npm run test
+      - name: Build test
+        id: build_test
+        run: npm run build:test
+      - name: Slack notification
+        uses: Foxhoundn/slack@v1.2.94
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+        if: always()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_USERNAME: Qorus Toolkit
