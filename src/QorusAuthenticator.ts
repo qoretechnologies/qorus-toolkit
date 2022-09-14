@@ -4,17 +4,83 @@ import { ApiPaths, apiPathsInitial, createApiPaths, Version } from './utils/apiP
 import { QorusReq } from './utils/QorusRequest';
 
 export interface Authenticator {
-  /**Enable the user to login to the selected endpoint */
+  /**
+   * Enable the user to login to the selected endpoint
+   *
+   * <script src="https://embed.runkit.com"  data-element-id="login"></script>
+   * <h3>Example</h3>
+   * <div id="logout">
+   *
+   * var qorusAuth = require("@qoretechnologies/qorus-toolkit")
+   * await qorusAuth.login();
+   * </div>
+   *
+   */
   login: (loginConfig: LoginParams) => Promise<string | undefined>;
-  /**Logs out the current user from the selected endpoint */
+  /**
+   * Logs out the current user from the selected endpoint
+   *
+   * <script src="https://embed.runkit.com"  data-element-id="logout"></script>
+   * <h3>Example</h3>
+   * <div id="logout">
+   *
+   * var qorusAuth = require("@qoretechnologies/qorus-toolkit")
+   * await qorusAuth.logout();
+   * </div>
+   *
+   */
   logout: () => Promise<void>;
-  /**Allows the user to add/initialize a new endpoint */
+  /**
+   * Allows the user to add/initialize a new endpoint
+   *
+   * <script src="https://embed.runkit.com"  data-element-id="init-element"></script>
+   * <h3>Example</h3>
+   * <div id="init-element">
+   *
+   * var qorusAuth = require("@qoretechnologies/qorus-toolkit")
+   * const endpoint = await qorusAuth.initEndpoint('https://www.google.com','reppy');
+   * </div>
+   *
+   */
   initEndpoint: (props: InitEndpoint) => Promise<Endpoint>;
-  /**Allows the user to select a endpoint from the endpoints array */
+  /**
+   * Allows the user to select a endpoint from the endpoints array
+   *
+   * <script src="https://embed.runkit.com"  data-element-id="my-element"></script>
+   * <h3>Example</h3>
+   * <div id="my-element">
+   *
+   * var qorusAuth = require("@qoretechnologies/qorus-toolkit")
+   * const endpoint = await qorusAuth.selectEndpoint('reppy');
+   * </div>
+   *
+   */
   selectEndpoint: (id: string) => Promise<boolean>;
-  /**Returns the selected endpoint */
+  /**
+   * Returns the selected endpoint
+   *
+   * <script src="https://embed.runkit.com"  data-element-id="my-element"></script>
+   * <h3>Example</h3>
+   * <div id="my-element">
+   *
+   * var qorusAuth = require("@qoretechnologies/qorus-toolkit")
+   * const endpoint = await qorusAuth.getSelectedEndpoint();
+   * </div>
+   *
+   */
   getSelectedEndpoint: () => Endpoint | undefined;
-  /**Allows the user to renew the selected endpoint authentication token */
+  /**
+   * Allows the user to renew the selected endpoint authentication token
+   *
+   * <script src="https://embed.runkit.com"  data-element-id="get-selected-endpoint"></script>
+   * <h3>Example</h3>
+   * <div id="get-selected-endpoint">
+   *
+   * var qorusAuth = require("@qoretechnologies/qorus-toolkit")
+   * await qorusAuth.renewSelectedEndpointToken();
+   * </div>
+   *
+   */
   renewSelectedEndpointToken: (props: LoginParams) => Promise<null>;
   /**
    * A getter to return the endpoint if exist in the endpoints array
@@ -23,16 +89,27 @@ export interface Authenticator {
    * <h3>Example</h3>
    * <div id="my-element">
    *
-   * var getJSON = require("async-get-json")
-   * const endpoint = getEndpointById();
+   * var getJSON = require("@qoretechnologies/qorus-toolkit")
+   * const endpoint = qorusAuth.getEndpointById();
    * console.log(endpoint);
-   * await getJSON("https://storage.googleapis.com/maps-devrel/google.json");
-   *
    * </div>
    *
    */
   getEndpointById: (id: string) => Endpoint | undefined;
   /**A setter to set the url of the selected endpoint */
+  /**
+   * A setter to set the url of the selected endpoint
+   *
+   * <script src="https://embed.runkit.com"  data-element-id="c"></script>
+   * <h3>Example</h3>
+   * <div id="setEndpointUrl">
+   *
+   * var getJSON = require("@qoretechnologies/qorus-toolkit")
+   * const endpoint = qorusAuth.setEndpointUrl('google.com','reppy');
+   * console.log(endpoint);
+   * </div>
+   *
+   */
   setEndpointUrl: (url: string, id?: string) => Promise<null>;
   /**A setter to edit the version of the endpoint */
   setEndpointVersion: (version: Version, id?: string) => Promise<null>;
