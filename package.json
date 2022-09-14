@@ -1,6 +1,6 @@
 {
   "name": "@qoretechnologies/qorus-toolkit",
-  "version": "0.1.2",
+  "version": "0.1.1",
   "description": "Utility library to interact with Qorus Integration Engine",
   "keywords": [
     "qoretechnologies",
@@ -18,7 +18,7 @@
   "scripts": {
     "test": "jest",
     "build": "npx tsc",
-    "build:test" : "npx tsc --noEmit",
+    "build:test": "npx tsc --noEmit",
     "clean": "del-cli --force ./dist",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint . --ext .ts",

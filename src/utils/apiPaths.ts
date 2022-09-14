@@ -20,14 +20,14 @@ export const apiPathsInitial: ApiPaths = {
 };
 
 /**
- * Utility function to create api routes 
+ * Utility function to create api routes
  *
  * @param props optional version can be supplied to target the api with a specific version
  * @returns object with all the api endpoints
  */
 export const createApiPaths = (props: ApiPathsParams): ApiPaths => {
   const { version } = props;
-  const V = version && version!=='latest' ? `v${version}` : 'latest';
+  const V = version && version !== 'latest' ? `v${version}` : 'latest';
 
   return {
     login: `/api/${V}/public/login`,
