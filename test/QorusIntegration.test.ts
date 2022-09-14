@@ -1,8 +1,9 @@
-import { QorusAuth } from '../src';
 import dotenv from 'dotenv';
+import { QorusAuthenticator as QorusAuth } from '../src';
 import logger from '../src/managers/logger';
-import { Logger } from 'winston';
+
 dotenv.config();
+
 const winstonLoggerMock = jest.spyOn(logger, 'log');
 
 describe('QorusLogin Utility Class Tests', () => {

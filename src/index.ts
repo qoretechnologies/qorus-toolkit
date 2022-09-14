@@ -1,1 +1,8 @@
-export { default as QorusAuthenticator, QorusAuth, Authenticator } from './QorusAuthenticator';
+export {
+  Authenticator,
+  CheckAuth,
+  Endpoint,
+  InitEndpoint,
+  LoginParams,
+  QorusAuthenticator,
+} from './QorusAuthenticator';
