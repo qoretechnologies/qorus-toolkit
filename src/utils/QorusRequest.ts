@@ -4,21 +4,21 @@ import { Agent } from 'https';
 /**
  * A axios wrapper of https operations
  */
-const httpsAgent = new Agent({
+export const httpsAgent = new Agent({
   rejectUnauthorized: false,
 });
 
-interface AxiosGet {
+export interface AxiosGet {
   endpointUrl: string;
   data?: any;
 }
 
-interface AxiosPost {
+export interface AxiosPost {
   endpointUrl: string;
   data?: any;
 }
 
-interface AxiosRequest {
+export interface AxiosRequest {
   get: (props: AxiosGet) => Promise<AxiosPromise<any>>;
   post: (props: AxiosPost) => Promise<AxiosPromise<any>>;
 }
@@ -65,6 +65,5 @@ const QorusRequest = (): AxiosRequest => {
   };
 };
 
-export { AxiosGet, AxiosPost, AxiosRequest };
 export default QorusRequest;
 export const QorusReq = QorusRequest();

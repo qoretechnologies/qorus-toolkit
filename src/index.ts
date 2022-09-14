@@ -6,3 +6,5 @@ export {
   LoginParams,
   QorusAuthenticator,
 } from './QorusAuthenticator';
+
+export {AxiosRequest, QorusReq} from './utils/QorusRequest';

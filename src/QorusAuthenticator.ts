@@ -96,7 +96,6 @@ export interface Authenticator {
    *
    */
   getEndpointById: (id: string) => Endpoint | undefined;
-  /**A setter to set the url of the selected endpoint */
   /**
    * A setter to set the url of the selected endpoint
    *
@@ -111,7 +110,19 @@ export interface Authenticator {
    *
    */
   setEndpointUrl: (url: string, id?: string) => Promise<null>;
-  /**A setter to edit the version of the endpoint */
+   /**
+   * A setter to edit the version of the endpoint
+   *
+   * <script src="https://embed.runkit.com"  data-element-id="set-endpoint-url"></script>
+   * <h3>Example</h3>
+   * <div id="setEndpointUrl">
+   *
+   * var getJSON = require("@qoretechnologies/qorus-toolkit")
+   * const endpoint = qorusAuth.setEndpointUrl('google.com','reppy');
+   * console.log(endpoint);
+   * </div>
+   *
+   */
   setEndpointVersion: (version: Version, id?: string) => Promise<null>;
   /**A getter to return the auth token of the selected endpoint */
   getAuthToken: () => string | undefined;
