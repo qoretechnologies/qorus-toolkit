@@ -42,6 +42,7 @@ export interface Authenticator {
    * </div>
    *
    */
+
   initEndpoint: (props: InitEndpoint) => Promise<Endpoint>;
   /**
    * Allows the user to select a endpoint from the endpoints array
@@ -179,7 +180,7 @@ const _QorusAuthenticator = (): Authenticator => {
   /**Selected endpoint from the endpoints array */
   let selectedEndpoint: Endpoint;
 
-  let noauth: boolean = false;
+  let noauth = false;
 
   /**
    * A getter to return the endpoint if exist in the endpoints array

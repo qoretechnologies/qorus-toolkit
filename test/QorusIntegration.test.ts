@@ -6,12 +6,20 @@ dotenv.config();
 
 const winstonLoggerMock = jest.spyOn(logger, 'log');
 
+if (!(process.env.ENDPOINT && process.env.TESTUSER && process.env.TESTPASS)) {
+  throw new Error('Missing required environment variables');
+}
+
 describe('QorusLogin Utility Class Tests', () => {
   it('Should initialize the endpoint and assign it to the selected endpoint', () => {
-    if (process.env.ENDPOINT) QorusAuth.initEndpoint({ url: process.env.ENDPOINT, id: 'reppy' });
+    QorusAuth.initEndpoint({ url: process.env.ENDPOINT!, id: 'reppy' });
 
-    expect(QorusAuth.getSelectedEndpoint()!.id).toEqual('reppy');
-    expect(QorusAuth.getSelectedEndpoint()!.url).toEqual(process.env.ENDPOINT);
+    const endpoint = QorusAuth.getSelectedEndpoint();
+
+    if (endpoint) {
+      expect(endpoint.id).toEqual('reppy');
+      expect(endpoint.url).toEqual(process.env.ENDPOINT);
+    }
   });
 
   it('Should return user token after authentication', async () => {
