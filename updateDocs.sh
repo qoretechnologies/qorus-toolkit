@@ -1,5 +1,6 @@
+#!/bin/bash
 
-VERSION=$(npm pkg get version | sed 's/"//g')
+VERSION=$(node -pe "require('./pullRequestRelease.json').version")
 echo $VERSION
 for f in docs/**/*
 do

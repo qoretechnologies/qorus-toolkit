@@ -31,7 +31,7 @@ jobs:
           npm install
       - name: Save release version to outputs
         id: save_release_version
-        run: echo ::set-output name=version::$(node -pe "require('./package.json').version")
+        run: echo ::set-output name=version::$(node -pe "require('./pullRequestRelease.json').version")
       - name: 'Create env file'
         run: |
           touch .env
