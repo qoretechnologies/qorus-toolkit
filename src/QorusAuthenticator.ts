@@ -75,7 +75,7 @@ export interface Authenticator {
 
   /**
    * Returns the selected endpoint
-   * 
+   *
    * <script src="https://embed.runkit.com"></script>
    * <h3>Example</h3>
    * <div id="get-selected-endpoint"></div>
@@ -85,13 +85,13 @@ export interface Authenticator {
    * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
    * const endpoint = await qorusAuth.getSelectedEndpoint('reppy');
    * console.log(endpoint);`
-   * })</script>  
+   * })</script>
    */
   getSelectedEndpoint: () => Endpoint | undefined;
 
   /**
    * Allows the user to renew the selected endpoint authentication token
-   * 
+   *
    * <script src="https://embed.runkit.com"></script>
    * <h3>Example</h3>
    * <div id="renew-token"></div>
@@ -101,13 +101,13 @@ export interface Authenticator {
    * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
    * const endpoint = await qorusAuth.getSelectedEndpoint('reppy');
    * console.log(endpoint);`
-   * })</script>  
+   * })</script>
    */
   renewSelectedEndpointToken: (props: LoginParams) => Promise<null>;
 
   /**
    * A getter to return the endpoint if exist in the endpoints array
-   * 
+   *
    * <script src="https://embed.runkit.com"></script>
    * <h3>Example</h3>
    * <div id="get-endpoint-by-id"></div>
@@ -117,14 +117,14 @@ export interface Authenticator {
    * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
    * const endpoint = await qorusAuth.getEndpointById('reppy');
    * console.log(endpoint);`
-   * })</script> 
+   * })</script>
    */
   getEndpointById: (id: string) => Endpoint | undefined;
 
-  /** A setter to set the url of the selected endpoint 
+  /** A setter to set the url of the selected endpoint
    * @param url Base url for the endpoint
    * @param id Optional id parameter to change the url of a particular endpoint
-   * 
+   *
    * <script src="https://embed.runkit.com"></script>
    * <h3>Example</h3>
    * <div id="set-endpoint-by-id"></div>
@@ -134,13 +134,13 @@ export interface Authenticator {
    * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
    * const endpoint = await qorusAuth.setEndpointById('https://www.google.com','reppy');
    * console.log(endpoint);`
-   * })</script> 
+   * })</script>
    */
   setEndpointUrl: (url: string, id?: string) => Promise<null>;
 
-  /** A setter to edit the version of the endpoint 
+  /** A setter to edit the version of the endpoint
    * @param version Version of the qorus api {@link Version}
-   * 
+   *
    * <script src="https://embed.runkit.com"></script>
    * <h3>Example</h3>
    * <div id="set-endpoint-ver"></div>
@@ -150,12 +150,12 @@ export interface Authenticator {
    * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
    * const endpoint = await qorusAuth.setEndpointVersion('latest','reppy');
    * console.log(endpoint);`
-   * })</script> 
+   * })</script>
    */
   setEndpointVersion: (version: Version, id?: string) => Promise<null>;
 
-  /** A getter to return the auth token of the selected endpoint 
-   * 
+  /** A getter to return the auth token of the selected endpoint
+   *
    * <script src="https://embed.runkit.com"></script>
    * <h3>Example</h3>
    * <div id="get-auth-token"></div>
@@ -165,14 +165,14 @@ export interface Authenticator {
    * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
    * const token = qorusAuth.getAuthToken();
    * console.log(token);`
-   * })</script> 
+   * })</script>
    */
   getAuthToken: () => string | undefined;
 
   /**
    * A getter to get the api version of a endpoint
    * @param id Optional id parameter to return the version of a particular endpoint
-   * 
+   *
    * <script src="https://embed.runkit.com"></script>
    * <h3>Example</h3>
    * <div id="get-endpoint-ver"></div>
@@ -182,13 +182,13 @@ export interface Authenticator {
    * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
    * const version = qorusAuth.getEndpointVersion();
    * console.log(version);`
-   * })</script> 
+   * })</script>
    */
   getEndpointVersion: (id?: string) => Version | undefined;
 
   /**
    * A getter to return the api paths for the selected endpoint
-   * 
+   *
    * <script src="https://embed.runkit.com"></script>
    * <h3>Example</h3>
    * <div id="get-api-paths"></div>
@@ -198,13 +198,13 @@ export interface Authenticator {
    * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
    * const paths = qorusAuth.getApiPaths();
    * console.log(paths);`
-   * })</script> 
+   * })</script>
    */
   getApiPaths: () => ApiPaths;
 
   /**
    * A getter to get all the availaible endpoints
-   * 
+   *
    * <script src="https://embed.runkit.com"></script>
    * <h3>Example</h3>
    * <div id="get-all-endpoints"></div>
@@ -214,7 +214,7 @@ export interface Authenticator {
    * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
    * const endpoints = qorusAuth.getAllEndpoints();
    * console.log(endpoints);`
-   * })</script> 
+   * })</script>
    */
   getAllEndpoints: () => Endpoint[];
 }
