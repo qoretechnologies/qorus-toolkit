@@ -7,4 +7,4 @@ export {
   QorusAuthenticator,
 } from './QorusAuthenticator';
 
-export {AxiosRequest, QorusReq} from './utils/QorusRequest';
+export { QorusReq } from './utils/QorusRequest';

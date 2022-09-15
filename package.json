@@ -15,7 +15,7 @@
   "jest": {
     "preset": "ts-jest"
   },
-  "pre-push": ["updatePullRequestVersion"],
+  "pre-push": ["lint","test","updatePullRequestVersion"],
   "scripts": {
     "test": "jest",
     "build": "npx tsc",
