@@ -3,4 +3,4 @@ timestamp=$(date +%s)
 
 VERSION=$(npm pkg get version | sed 's/"//g')
 echo $VERSION
-echo "{\"version\": \""${VERSION}_${timestamp}"\"}" > pullRequestRelease.json
+echo "{\"version\": \""${VERSION}${timestamp}"\"}" > pullRequestRelease.json
