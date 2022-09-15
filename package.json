@@ -15,7 +15,11 @@
   "jest": {
     "preset": "ts-jest"
   },
-  "pre-push": ["lint","test","updatePullRequestVersion"],
+  "pre-push": [
+    "lint",
+    "test",
+    "updatePullRequestVersion"
+  ],
   "scripts": {
     "test": "jest",
     "build": "npx tsc",
@@ -27,9 +31,6 @@
     "updateDocs": "chmod +x updateDocs.sh && ./updateDocs.sh",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
-    "preversion": "npm run lint",
-    "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags",
     "updatePullRequestVersion": "chmod +x prePush.sh && ./prePush.sh"
   },
   "repository": {
