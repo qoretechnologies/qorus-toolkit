@@ -7,8 +7,8 @@
     "qorus-authenticator"
   ],
   "type": "module",
-  "main": "dist/src/index.js",
-  "typings": "dist/src/index.d.ts",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "files": [
     "dist/**/*"
   ],

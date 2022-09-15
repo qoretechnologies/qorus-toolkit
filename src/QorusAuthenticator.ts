@@ -6,132 +6,216 @@ import { QorusReq } from './utils/QorusRequest';
 export interface Authenticator {
   /**
    * Enable the user to login to the selected endpoint
+   * @param loginConfig login params of the user {@link LoginParams}
    *
-   * <script src="https://embed.runkit.com"  data-element-id="login"></script>
+   * Login function takes optional username and password parameters to authenticate the user.
+   * If the username and password is not provided it tries to authenticate using the locally stored token from the selected endpoint
+   *
+   * <script src="https://embed.runkit.com"></script>
    * <h3>Example</h3>
-   * <div id="logout">
-   *
-   * var qorusAuth = require("@qoretechnologies/qorus-toolkit")
-   * await qorusAuth.login();
-   * </div>
-   *
+   * <div id="login-elem"></div>
+   * <script>var notebook = RunKit.createNotebook({
+   * element: document.getElementById("login-elem"),
+   * nodeVersion: "18.8.0",
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
+   * const token = await qorusAuth.login();
+   * console.log(token);`
+   * })</script>
    */
   login: (loginConfig: LoginParams) => Promise<string | undefined>;
+
   /**
    * Logs out the current user from the selected endpoint
    *
-   * <script src="https://embed.runkit.com"  data-element-id="logout"></script>
+   * <script src="https://embed.runkit.com"></script>
    * <h3>Example</h3>
-   * <div id="logout">
-   *
-   * var qorusAuth = require("@qoretechnologies/qorus-toolkit")
-   * await qorusAuth.logout();
-   * </div>
-   *
+   * <div id="logout-elem"></div>
+   * <script>var notebook = RunKit.createNotebook({
+   * element: document.getElementById("logout-elem"),
+   * nodeVersion: "18.8.0",
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
+   * await qorusAuth.logout();`
+   * })</script>
    */
   logout: () => Promise<void>;
+
   /**
    * Allows the user to add/initialize a new endpoint
+   * @param props id and url are the mandatory parameters for initializing an endpoint {@link InitEndpoint}
    *
-   * <script src="https://embed.runkit.com"  data-element-id="init-element"></script>
+   * <script src="https://embed.runkit.com"></script>
    * <h3>Example</h3>
-   * <div id="init-element">
-   *
-   * var qorusAuth = require("@qoretechnologies/qorus-toolkit")
-   * const endpoint = await qorusAuth.initEndpoint('https://www.google.com','reppy');
-   * </div>
-   *
+   * <div id="init-endpoint"></div>
+   * <script>var notebook = RunKit.createNotebook({
+   * element: document.getElementById("init-endpoint"),
+   * nodeVersion: "18.8.0",
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
+   * await qorusAuth.init();`
+   * })</script>
    */
-
   initEndpoint: (props: InitEndpoint) => Promise<Endpoint>;
+
   /**
-   * Allows the user to select a endpoint from the endpoints array
+   * Allows the user to select a endpoint from the endpoints array, logout the user from the current
+   * selected endpoint\
+   * @param id Id of the endpoint
    *
-   * <script src="https://embed.runkit.com"  data-element-id="my-element"></script>
+   * <script src="https://embed.runkit.com"></script>
    * <h3>Example</h3>
-   * <div id="my-element">
-   *
-   * var qorusAuth = require("@qoretechnologies/qorus-toolkit")
+   * <div id="select-endpoint"></div>
+   * <script>var notebook = RunKit.createNotebook({
+   * element: document.getElementById("select-endpoint"),
+   * nodeVersion: "18.8.0",
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
    * const endpoint = await qorusAuth.selectEndpoint('reppy');
-   * </div>
-   *
+   * console.log(endpoint);`
+   * })</script>
    */
   selectEndpoint: (id: string) => Promise<boolean>;
+
   /**
    * Returns the selected endpoint
-   *
-   * <script src="https://embed.runkit.com"  data-element-id="my-element"></script>
+   * 
+   * <script src="https://embed.runkit.com"></script>
    * <h3>Example</h3>
-   * <div id="my-element">
-   *
-   * var qorusAuth = require("@qoretechnologies/qorus-toolkit")
-   * const endpoint = await qorusAuth.getSelectedEndpoint();
-   * </div>
-   *
+   * <div id="get-selected-endpoint"></div>
+   * <script>var notebook = RunKit.createNotebook({
+   * element: document.getElementById("get-selected-endpoint"),
+   * nodeVersion: "18.8.0",
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
+   * const endpoint = await qorusAuth.getSelectedEndpoint('reppy');
+   * console.log(endpoint);`
+   * })</script>  
    */
   getSelectedEndpoint: () => Endpoint | undefined;
+
   /**
    * Allows the user to renew the selected endpoint authentication token
-   *
-   * <script src="https://embed.runkit.com"  data-element-id="get-selected-endpoint"></script>
+   * 
+   * <script src="https://embed.runkit.com"></script>
    * <h3>Example</h3>
-   * <div id="get-selected-endpoint">
-   *
-   * var qorusAuth = require("@qoretechnologies/qorus-toolkit")
-   * await qorusAuth.renewSelectedEndpointToken();
-   * </div>
-   *
+   * <div id="renew-token"></div>
+   * <script>var notebook = RunKit.createNotebook({
+   * element: document.getElementById("renew-token"),
+   * nodeVersion: "18.8.0",
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
+   * const endpoint = await qorusAuth.getSelectedEndpoint('reppy');
+   * console.log(endpoint);`
+   * })</script>  
    */
   renewSelectedEndpointToken: (props: LoginParams) => Promise<null>;
+
   /**
    * A getter to return the endpoint if exist in the endpoints array
-   *
-   * <script src="https://embed.runkit.com"  data-element-id="my-element"></script>
+   * 
+   * <script src="https://embed.runkit.com"></script>
    * <h3>Example</h3>
-   * <div id="my-element">
-   *
-   * var getJSON = require("@qoretechnologies/qorus-toolkit")
-   * const endpoint = qorusAuth.getEndpointById();
-   * console.log(endpoint);
-   * </div>
-   *
+   * <div id="get-endpoint-by-id"></div>
+   * <script>var notebook = RunKit.createNotebook({
+   * element: document.getElementById("get-endpoint-by-id"),
+   * nodeVersion: "18.8.0",
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
+   * const endpoint = await qorusAuth.getEndpointById('reppy');
+   * console.log(endpoint);`
+   * })</script> 
    */
   getEndpointById: (id: string) => Endpoint | undefined;
-  /**
-   * A setter to set the url of the selected endpoint
-   *
-   * <script src="https://embed.runkit.com"  data-element-id="c"></script>
+
+  /** A setter to set the url of the selected endpoint 
+   * @param url Base url for the endpoint
+   * @param id Optional id parameter to change the url of a particular endpoint
+   * 
+   * <script src="https://embed.runkit.com"></script>
    * <h3>Example</h3>
-   * <div id="setEndpointUrl">
-   *
-   * var getJSON = require("@qoretechnologies/qorus-toolkit")
-   * const endpoint = qorusAuth.setEndpointUrl('google.com','reppy');
-   * console.log(endpoint);
-   * </div>
-   *
+   * <div id="set-endpoint-by-id"></div>
+   * <script>var notebook = RunKit.createNotebook({
+   * element: document.getElementById("set-endpoint-by-id"),
+   * nodeVersion: "18.8.0",
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
+   * const endpoint = await qorusAuth.setEndpointById('https://www.google.com','reppy');
+   * console.log(endpoint);`
+   * })</script> 
    */
   setEndpointUrl: (url: string, id?: string) => Promise<null>;
-   /**
-   * A setter to edit the version of the endpoint
-   *
-   * <script src="https://embed.runkit.com"  data-element-id="set-endpoint-url"></script>
+
+  /** A setter to edit the version of the endpoint 
+   * @param version Version of the qorus api {@link Version}
+   * 
+   * <script src="https://embed.runkit.com"></script>
    * <h3>Example</h3>
-   * <div id="setEndpointUrl">
-   *
-   * var getJSON = require("@qoretechnologies/qorus-toolkit")
-   * const endpoint = qorusAuth.setEndpointUrl('google.com','reppy');
-   * console.log(endpoint);
-   * </div>
-   *
+   * <div id="set-endpoint-ver"></div>
+   * <script>var notebook = RunKit.createNotebook({
+   * element: document.getElementById("set-endpoint-ver"),
+   * nodeVersion: "18.8.0",
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
+   * const endpoint = await qorusAuth.setEndpointVersion('latest','reppy');
+   * console.log(endpoint);`
+   * })</script> 
    */
   setEndpointVersion: (version: Version, id?: string) => Promise<null>;
-  /**A getter to return the auth token of the selected endpoint */
+
+  /** A getter to return the auth token of the selected endpoint 
+   * 
+   * <script src="https://embed.runkit.com"></script>
+   * <h3>Example</h3>
+   * <div id="get-auth-token"></div>
+   * <script>var notebook = RunKit.createNotebook({
+   * element: document.getElementById("get-auth-token"),
+   * nodeVersion: "18.8.0",
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
+   * const token = qorusAuth.getAuthToken();
+   * console.log(token);`
+   * })</script> 
+   */
   getAuthToken: () => string | undefined;
-  //**A getter to get the api version of a endpoint */
+
+  /**
+   * A getter to get the api version of a endpoint
+   * @param id Optional id parameter to return the version of a particular endpoint
+   * 
+   * <script src="https://embed.runkit.com"></script>
+   * <h3>Example</h3>
+   * <div id="get-endpoint-ver"></div>
+   * <script>var notebook = RunKit.createNotebook({
+   * element: document.getElementById("get-endpoint-ver"),
+   * nodeVersion: "18.8.0",
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
+   * const version = qorusAuth.getEndpointVersion();
+   * console.log(version);`
+   * })</script> 
+   */
   getEndpointVersion: (id?: string) => Version | undefined;
-  //**A getter to return the api paths for the selected endpoint */
+
+  /**
+   * A getter to return the api paths for the selected endpoint
+   * 
+   * <script src="https://embed.runkit.com"></script>
+   * <h3>Example</h3>
+   * <div id="get-api-paths"></div>
+   * <script>var notebook = RunKit.createNotebook({
+   * element: document.getElementById("get-api-paths"),
+   * nodeVersion: "18.8.0",
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
+   * const paths = qorusAuth.getApiPaths();
+   * console.log(paths);`
+   * })</script> 
+   */
   getApiPaths: () => ApiPaths;
-  //**A getter to get all the availaible endpoints */
+
+  /**
+   * A getter to get all the availaible endpoints
+   * 
+   * <script src="https://embed.runkit.com"></script>
+   * <h3>Example</h3>
+   * <div id="get-all-endpoints"></div>
+   * <script>var notebook = RunKit.createNotebook({
+   * element: document.getElementById("get-all-endpoints"),
+   * nodeVersion: "18.8.0",
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
+   * const endpoints = qorusAuth.getAllEndpoints();
+   * console.log(endpoints);`
+   * })</script> 
+   */
   getAllEndpoints: () => Endpoint[];
 }
 
