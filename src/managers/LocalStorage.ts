@@ -4,7 +4,7 @@
  * @returns 'node' or 'browser' based on the current environment
  */
 const detectEnvironment = (): 'node' | 'browser' => {
-  if (typeof process !== 'undefined' && process.release.name.search(/node|io.js/) !== -1) {
+  if (typeof process !== 'undefined' && process?.release.name.search(/node|io.js/) !== -1) {
     return 'node';
   } else {
     return 'browser';
