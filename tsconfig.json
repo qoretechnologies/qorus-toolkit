@@ -1,27 +1,27 @@
 {
-    "compilerOptions": {
-      "lib": ["es2017", "es2018", "es2019", "es2020", "es2021", "DOM"],
-      "target": "ES6",
-      "module": "es2020",
-      "sourceMap": true,
-      "moduleResolution": "node",
-      "strict": true,
-      "noUnusedLocals": false,
-      "noImplicitAny": false,
-      "noImplicitReturns": true,
-      "noUnusedParameters": true,
-      "strictNullChecks": true,
-      "experimentalDecorators": true,
-      "allowSyntheticDefaultImports": true,
-      "declaration": true,
-      "declarationMap": true,
-      "esModuleInterop": true,
-      "skipLibCheck": true,
-      "resolveJsonModule": true,
-      "types": ["node", "jest"],
-      "outDir": "dist"
-    },
-    "extends": "@tsconfig/node16/tsconfig.json",
-    "exclude": ["node_modules"],
-    "include": ["src/**/*"]
-  }
+  "compilerOptions": {
+    "lib": ["es2017", "es2018", "es2019", "es2020", "es2021", "DOM"],
+    "target": "ES5",
+    "module": "CommonJS",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "noUnusedLocals": false,
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "types": ["node", "jest"],
+    "outDir": "dist"
+  },
+  "extends": "@tsconfig/node16/tsconfig.json",
+  "exclude": ["node_modules"],
+  "include": ["src/**/*"]
+}
