@@ -3,12 +3,12 @@
  *
  * @returns 'node' or 'browser' based on the current environment
  */
-const detectEnvironment = (): 'node' | 'browser' => {
-  if (typeof process === 'object' && process.title === 'node') {
+const detectEnvironment = (): 'node' | 'browser' | 'unknown' => {
+  if (typeof process !== 'undefined' && process.title === 'node') {
     return 'node';
-  } else {
+  } else if (typeof window != 'undefined') {
     return 'browser';
-  }
+  } else return 'unknown';
 };
 
 export interface IKeyValue {
@@ -22,9 +22,9 @@ export interface IKeyValue {
  *
  */
 const setKeyValLocal = (keyValue: IKeyValue) => {
-  const isBrowser = detectEnvironment();
+  const environment = detectEnvironment();
   const { key, value } = keyValue;
-  if (isBrowser == 'browser') {
+  if (environment == 'browser') {
     window.localStorage.setItem(key, value);
   }
 };
@@ -35,8 +35,8 @@ const setKeyValLocal = (keyValue: IKeyValue) => {
  *
  */
 const getKeyValLocal = (key: string) => {
-  const isBrowser = detectEnvironment();
-  if (isBrowser == 'browser') {
+  const environment = detectEnvironment();
+  if (environment == 'browser') {
     return window.localStorage.getItem(key);
   }
   return null;

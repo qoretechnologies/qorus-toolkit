@@ -46,6 +46,18 @@ describe('QorusLogin Utility Class Tests', () => {
     expect(version).toEqual('latest');
   });
 
+  it('Should return api paths for the selected endpoint', () => {
+    const apiPaths = QorusAuth.getApiPaths();
+    const apiPathMock = {
+      login: '/api/latest/public/login',
+      logout: '/api/latest/logout',
+      validateToken: '/api/latest/system?action=validateWsToken',
+      validateNoAuth: '/api/latest/public/info',
+    };
+
+    expect(apiPaths).toEqual(apiPathMock);
+  });
+
   it('Should set a new version for the endpoint', async () => {
     await QorusAuth.setEndpointVersion(5);
 
