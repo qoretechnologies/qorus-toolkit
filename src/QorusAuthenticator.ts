@@ -17,8 +17,11 @@ export interface Authenticator {
    * <script>var notebook = RunKit.createNotebook({
    * element: document.getElementById("login-elem"),
    * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
-   * const token = await qorusAuth.login();
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
+   * const { QorusAuthenticator } = qorusAuth;\n
+   * //Initialize the endpoint before authentication
+   * const endpoint = QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
+   * const { token } = await QorusAuthenticator.login({ user: 'rmalik', pass: 'rmalik1234' });
    * console.log(token);`
    * })</script>
    */
@@ -33,8 +36,10 @@ export interface Authenticator {
    * <script>var notebook = RunKit.createNotebook({
    * element: document.getElementById("logout-elem"),
    * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
-   * await qorusAuth.logout();`
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
+   * const { QorusAuthenticator } = qorusAuth;\n
+   * // Logs out the user
+   * await QorusAuthenticator.logout();`
    * })</script>
    */
   logout: () => Promise<void>;
@@ -49,8 +54,11 @@ export interface Authenticator {
    * <script>var notebook = RunKit.createNotebook({
    * element: document.getElementById("init-endpoint"),
    * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
-   * await qorusAuth.init();`
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
+   * const { QorusAuthenticator } = qorusAuth;\n
+   * // Initializes a new endpoint and returns it
+   * const endpoint = await QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
+   * console.log(endpoint);`
    * })</script>
    */
   initEndpoint: (props: InitEndpoint) => Promise<Endpoint>;
@@ -66,8 +74,11 @@ export interface Authenticator {
    * <script>var notebook = RunKit.createNotebook({
    * element: document.getElementById("select-endpoint"),
    * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
-   * const endpoint = await qorusAuth.selectEndpoint('reppy');
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
+   * const { QorusAuthenticator } = qorusAuth;
+   * await QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
+   * // Changes selected endpoint and return true if selected
+   * const endpoint = await QorusAuthenticator.selectEndpoint('reppy');
    * console.log(endpoint);`
    * })</script>
    */
@@ -82,8 +93,11 @@ export interface Authenticator {
    * <script>var notebook = RunKit.createNotebook({
    * element: document.getElementById("get-selected-endpoint"),
    * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
-   * const endpoint = await qorusAuth.getSelectedEndpoint('reppy');
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
+   * const { QorusAuthenticator } = qorusAuth;
+   * await QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
+   * // Returns selected endpoint
+   * const endpoint = await QorusAuthenticator.getSelectedEndpoint();
    * console.log(endpoint);`
    * })</script>
    */
@@ -98,9 +112,12 @@ export interface Authenticator {
    * <script>var notebook = RunKit.createNotebook({
    * element: document.getElementById("renew-token"),
    * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
-   * const endpoint = await qorusAuth.getSelectedEndpoint('reppy');
-   * console.log(endpoint);`
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
+   * const { QorusAuthenticator } = qorusAuth;\n
+   * await QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
+   * // Renews auth-token for the selected endpoint
+   * const token = await QorusAuthenticator.renewSelectedEndpointToken({ user: 'rmalik', pass: 'rmalik1234' });
+   * console.log(token);`
    * })</script>
    */
   renewSelectedEndpointToken: (props: LoginParams) => Promise<null>;
@@ -114,8 +131,11 @@ export interface Authenticator {
    * <script>var notebook = RunKit.createNotebook({
    * element: document.getElementById("get-endpoint-by-id"),
    * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
-   * const endpoint = await qorusAuth.getEndpointById('reppy');
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
+   * const { QorusAuthenticator } = qorusAuth;
+   * await QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
+   * // Returns the endpoint if exists in the endpoints array
+   * const endpoint = await QorusAuthenticator.getEndpointById('reppy');
    * console.log(endpoint);`
    * })</script>
    */
@@ -131,8 +151,11 @@ export interface Authenticator {
    * <script>var notebook = RunKit.createNotebook({
    * element: document.getElementById("set-endpoint-by-id"),
    * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
-   * const endpoint = await qorusAuth.setEndpointById('https://www.google.com','reppy');
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
+   * const { QorusAuthenticator } = qorusAuth;
+   * await QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
+   * await QorusAuthenticator.setEndpointUrl('https://www.google.com','reppy');
+   * const endpoint = QorusAuthenticator.getSelectedEndpoint();
    * console.log(endpoint);`
    * })</script>
    */
@@ -147,8 +170,11 @@ export interface Authenticator {
    * <script>var notebook = RunKit.createNotebook({
    * element: document.getElementById("set-endpoint-ver"),
    * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
-   * const endpoint = await qorusAuth.setEndpointVersion('latest','reppy');
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
+   * const { QorusAuthenticator } = qorusAuth;
+   * await QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
+   * await QorusAuthenticator.setEndpointVersion('https://www.google.com','reppy');
+   * const endpoint = QorusAuthenticator.getSelectedEndpoint();
    * console.log(endpoint);`
    * })</script>
    */
@@ -162,8 +188,11 @@ export interface Authenticator {
    * <script>var notebook = RunKit.createNotebook({
    * element: document.getElementById("get-auth-token"),
    * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
-   * const token = qorusAuth.getAuthToken();
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
+   * const { QorusAuthenticator } = qorusAuth;
+   * await QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
+   * await QorusAuthenticator.login({ user: 'rmalik', pass: 'rmalik1234' });\n
+   * const token = QorusAuthenticator.getAuthToken();
    * console.log(token);`
    * })</script>
    */
@@ -179,8 +208,10 @@ export interface Authenticator {
    * <script>var notebook = RunKit.createNotebook({
    * element: document.getElementById("get-endpoint-ver"),
    * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
-   * const version = qorusAuth.getEndpointVersion();
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
+   * const { QorusAuthenticator } = qorusAuth;
+   * await QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
+   * const version = QorusAuthenticator.getEndpointVersion();
    * console.log(version);`
    * })</script>
    */
@@ -195,15 +226,17 @@ export interface Authenticator {
    * <script>var notebook = RunKit.createNotebook({
    * element: document.getElementById("get-api-paths"),
    * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit")
-   * const paths = qorusAuth.getApiPaths();
-   * console.log(paths);`
+   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
+   * const { QorusAuthenticator } = qorusAuth;
+   * await QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
+   * const apiPaths = QorusAuthenticator.getApiPaths();
+   * console.log(apiPaths);`
    * })</script>
    */
   getApiPaths: () => ApiPaths;
 
   /**
-   * A getter to get all the availaible endpoints
+   * A getter to get all the available endpoints
    *
    * <script src="https://embed.runkit.com"></script>
    * <h3>Example</h3>
@@ -212,7 +245,9 @@ export interface Authenticator {
    * element: document.getElementById("get-all-endpoints"),
    * nodeVersion: "18.8.0",
    * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const endpoints = qorusAuth.getAllEndpoints();
+   * const { QorusAuthenticator } = qorusAuth;
+   * await QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
+   * const endpoints = QorusAuthenticator.getAllEndpoints();
    * console.log(endpoints);`
    * })</script>
    */
@@ -587,7 +622,7 @@ const _QorusAuthenticator = (): Authenticator => {
   };
 
   /**
-   * A getter to get all the availaible endpoints
+   * A getter to get all the available endpoints
    *
    * @returns endpoints array with the current config
    */
