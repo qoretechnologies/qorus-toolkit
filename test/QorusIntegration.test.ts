@@ -12,12 +12,12 @@ if (!(process.env.ENDPOINT && process.env.TESTUSER && process.env.TESTPASS)) {
 
 describe('QorusLogin Utility Class Tests', () => {
   it('Should initialize the endpoint and assign it to the selected endpoint', () => {
-    QorusAuth.initEndpoint({ url: process.env.ENDPOINT!, id: 'reppy' });
+    QorusAuth.initEndpoint({ url: process.env.ENDPOINT!, id: 'rippy' });
 
     const endpoint = QorusAuth.getSelectedEndpoint();
 
     if (endpoint) {
-      expect(endpoint.id).toEqual('reppy');
+      expect(endpoint.id).toEqual('rippy');
       expect(endpoint.url).toEqual(process.env.ENDPOINT);
     }
   });
@@ -29,9 +29,9 @@ describe('QorusLogin Utility Class Tests', () => {
   });
 
   it('Should return the enpoint from the endpoints array', () => {
-    const endpoint = QorusAuth.getEndpointById('reppy');
+    const endpoint = QorusAuth.getEndpointById('rippy');
 
-    expect(endpoint?.id).toEqual('reppy');
+    expect(endpoint?.id).toEqual('rippy');
   });
 
   it('Should return all the available endpoints ', () => {
@@ -66,18 +66,21 @@ describe('QorusLogin Utility Class Tests', () => {
 
   it('Should revalidate the user auth token for the selected endpoint', async () => {
     await QorusAuth.renewSelectedEndpointToken({ user: process.env.TESTUSER!, pass: process.env.TESTPASS! });
+    const token = QorusAuth.getAuthToken();
 
-    expect(QorusAuth.getAuthToken).not.toBeNull();
+    expect(typeof token).toEqual('string');
   });
 
   it('Should return current user token if the user is authenticated', () => {
-    expect(QorusAuth.getAuthToken()).not.toBeNull();
+    const token = QorusAuth.getAuthToken();
+
+    expect(typeof token).toEqual('string');
   });
 
   it('Should return the current endpoint', () => {
     const config = QorusAuth.getSelectedEndpoint();
 
-    expect(config!.id).toEqual('reppy');
+    expect(config!.id).toEqual('rippy');
   });
 
   it('Should return all the endpoints', () => {
@@ -102,14 +105,14 @@ describe('QorusLogin Utility Class Tests', () => {
 
   describe('QorusLogin Utility Error Tests', () => {
     it('Should throw an error when user tries to authenticate with wrong creadentials', async () => {
-      if (process.env.ENDPOINT) await QorusAuth.initEndpoint({ url: process.env.ENDPOINT, id: 'reppy' });
+      if (process.env.ENDPOINT) await QorusAuth.initEndpoint({ url: process.env.ENDPOINT, id: 'rippy' });
       await QorusAuth.login({ user: 'bob', pass: 'pass' });
 
       expect(winstonLoggerMock).toHaveBeenCalled();
     });
 
     it('Should throw an error if the user does not provide username and password for authentication.', async () => {
-      if (process.env.ENDPOINT) await QorusAuth.initEndpoint({ url: process.env.ENDPOINT, id: 'reppy' });
+      if (process.env.ENDPOINT) await QorusAuth.initEndpoint({ url: process.env.ENDPOINT, id: 'rippy' });
       await QorusAuth.login({});
 
       expect(winstonLoggerMock).toHaveBeenCalled();
