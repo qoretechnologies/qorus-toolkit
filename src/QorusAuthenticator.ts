@@ -200,7 +200,7 @@ export interface Authenticator {
   /**
    * Allows the user to renew the selected endpoint authentication token
    * @param props {@link LoginParams} username and password of the user is mandatory
-   * 
+   *
    * <script>
    * function runOnReplRenewToken(){
    * const replButton = document.getElementById("repl-renew-token");
@@ -226,7 +226,7 @@ export interface Authenticator {
    * <pre id="code-renew-token"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   * 
+   *
    * // Renews auth-token for the selected endpoint
    * const token = await QorusAuthenticator.renewSelectedEndpointToken({ user: 'rmalik', pass: 'rmalik1234' });
    * console.log(token);
@@ -238,7 +238,7 @@ export interface Authenticator {
   /**
    * A getter to return the endpoint if exist in the endpoints array
    * @param id ID of the endpoint ex: "reppy"
-   * 
+   *
    * <script>
    * function runOnReplGetEndpointById(){
    * const replButton = document.getElementById("repl-get-endpoint-by-id");
@@ -264,7 +264,7 @@ export interface Authenticator {
    * <pre id="code-get-endpoint-by-id"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   * 
+   *
    * // Returns the endpoint if exists in the endpoints array
    * const endpoint = await QorusAuthenticator.getEndpointById('reppy');
    * console.log(endpoint);
@@ -302,7 +302,7 @@ export interface Authenticator {
    * <pre id="code-set-endpoint-url"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   * 
+   *
    * await QorusAuthenticator.setEndpointUrl('https://www.google.com','reppy');
    * const endpoint = QorusAuthenticator.getSelectedEndpoint();
    * console.log(endpoint);
@@ -340,7 +340,7 @@ export interface Authenticator {
    * <pre id="code-set-endpoint-version"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   * 
+   *
    * await QorusAuthenticator.setEndpointVersion(6,'reppy');
    * const endpoint = QorusAuthenticator.getSelectedEndpoint();
    * console.log(endpoint);
@@ -377,7 +377,7 @@ export interface Authenticator {
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
    * await QorusAuthenticator.login({ user: 'rmalik', pass: 'rmalik1234' });
-   * 
+   *
    * const token = QorusAuthenticator.getAuthToken();
    * console.log(token);
    * </code></pre>
@@ -413,7 +413,7 @@ export interface Authenticator {
    * <pre id="code-get-endpoint-version"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   * 
+   *
    * const version = QorusAuthenticator.getEndpointVersion();
    * console.log(version);
    * </code></pre>
@@ -448,7 +448,7 @@ export interface Authenticator {
    * <pre id="code-get-api-paths"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   * 
+   *
    * const apiPaths = QorusAuthenticator.getApiPaths();
    * console.log(apiPaths);
    * </code></pre>
@@ -483,7 +483,7 @@ export interface Authenticator {
    * <pre id="code-get-all-endpoints"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'reppy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   * 
+   *
    * const endpoints = QorusAuthenticator.getAllEndpoints();
    * console.log(endpoints);
    * </code></pre>
