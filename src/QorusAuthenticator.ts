@@ -7,6 +7,7 @@ export interface Authenticator {
   /**
    * Enable the user to login to the selected endpoint
    * @param loginConfig login params of the user {@link LoginParams}
+   * @return token if the authentication is successful else returns undefined
    *
    * Login function takes optional username and password parameters to authenticate the user.
    * If the username and password is not provided it tries to authenticate using the locally stored token from the selected endpoint
@@ -48,6 +49,8 @@ export interface Authenticator {
 
   /**
    * Logs out the current user from the selected endpoint
+   * @return void
+   * It logs out the user, if the user is authenticated
    *
    * <script src="https://embed.runkit.com"></script>
    *
@@ -84,6 +87,10 @@ export interface Authenticator {
   /**
    * Allows the user to add/initialize a new endpoint
    * @param props id and url are the mandatory parameters for initializing an endpoint {@link InitEndpoint}
+   * @return endpoint {@link Endpoint} created by the user
+   *
+   * initEndpoint creates a endpoint and asign it to the selected endpoint. It also logs out the user from
+   * the selected endpoint.
    *
    * <script>
    * function runOnReplInitEndpoint(){
@@ -117,8 +124,9 @@ export interface Authenticator {
 
   /**
    * Allows the user to select a endpoint from the endpoints array, logout the user from the current
-   * selected endpoint\
+   * selected endpoint
    * @param id Id of the endpoint
+   * @return true if the operation is successful false otherwise.
    *
    * <script>
    * function runOnReplSelectEndpoint(){
@@ -153,10 +161,8 @@ export interface Authenticator {
   selectEndpoint: (id: string) => Promise<boolean>;
 
   /**
-   * Returns the selected endpoint
-   *
-   * Allows the user to select a endpoint from the endpoints array, logout the user from the current
-   * selected endpoint
+   * A getter to return selected endpoint
+   * @return selectedEndpont {@link Endpoint} if selectedEndpoint exists, undefined otherwise
    *
    * <script>
    * function runOnReplGetSelectedEndpoint(){
@@ -192,8 +198,13 @@ export interface Authenticator {
 
   /**
    * Allows the user to renew the selected endpoint authentication token
-   * @param props {@link LoginParams} username and password of the user is mandatory
+   * @param props {@link LoginParams} optional username and password can be provided
+   * @return token if the authentication is successful, undefined otherwise
    *
+   * renewSelectedToken renews the user token by checking the local storage, if the token does not exist in the local storage it
+   * tries to authenticate using the username and password supplied.
+   *
+   * If selected endpoint exists, user can revalidate the token
    * <script>
    * function runOnReplRenewToken(){
    * const replButton = document.getElementById("repl-renew-token");
@@ -224,11 +235,12 @@ export interface Authenticator {
    * </code></pre>
    * <div id="renew-token-elem"></div>
    */
-  renewSelectedEndpointToken: (props: LoginParams) => Promise<null>;
+  renewSelectedEndpointToken: (props: LoginParams) => Promise<string | undefined>;
 
   /**
    * A getter to return the endpoint if exist in the endpoints array
    * @param id ID of the endpoint ex: "rippy"
+   * @return endpoint {@link Endpoint} if the endpoint with the supplied id exist in the endpoints array, undefined otherwise.
    *
    * <script>
    * function runOnReplGetEndpointById(){
@@ -265,6 +277,7 @@ export interface Authenticator {
   /** A setter to set the url of the selected endpoint
    * @param url Base url for the endpoint
    * @param id Optional id parameter to change the url of a particular endpoint
+   * @return url of the endpoint if the operation is successful, undefined otherwise
    *
    * <script>
    * function runOnReplSetEndpointUrl(){
@@ -296,11 +309,12 @@ export interface Authenticator {
    * </code></pre>
    * <div id="set-endpoint-url-elem"></div>
    */
-  setEndpointUrl: (url: string, id?: string) => Promise<null>;
+  setEndpointUrl: (url: string, id?: string) => Promise<string | undefined>;
 
   /** A setter to edit the version of the endpoint
-   * @param version Version of the qorus api {@link Version}
+   * @param version Version of the qorus api
    * @param id Optional id parameter to change the url of a particular endpoint from the endpoints array
+   * @return version of the endpoint if the operation is successful, undefined otherwise
    *
    * <script>
    * function runOnReplSetEndpointVersion(){
@@ -334,9 +348,10 @@ export interface Authenticator {
    * </code></pre>
    * <div id="set-endpoint-version-elem"></div>
    */
-  setEndpointVersion: (version: Version, id?: string) => Promise<null>;
+  setEndpointVersion: (version: Version, id?: string) => Promise<Version | undefined>;
 
   /** A getter to return the auth token of the selected endpoint
+   * @return token if the the selected endpoint exists and the user is authenticated, otherwise returns undefined
    *
    * <script>
    * function runOnReplGetAuthToken(){
@@ -372,7 +387,9 @@ export interface Authenticator {
 
   /**
    * A getter to get the api version of a endpoint
-   * @param id Optional id parameter to return the version of a particular endpoint
+   * @param id Optional id parameter to get the version of a particular endpoint
+   * @return version of the selected endpoint or version of the the endpoint found by id,
+   * if the endpoint doesn't exists it returns undefined
    *
    * <script>
    * function runOnReplGetEndpointVersion(){
@@ -406,6 +423,7 @@ export interface Authenticator {
 
   /**
    * A getter to return the api paths for the selected endpoint
+   * @return ApiPaths for the selected endpoint if exists, otherwise returns default api paths
    *
    * <script>
    * function runOnReplGetApiPaths(){
@@ -439,6 +457,7 @@ export interface Authenticator {
 
   /**
    * A getter to get all the available endpoints
+   * @returns endpoints array with all the available endpoints
    *
    *  <script>
    * function runOnReplGetAllEndpoints(){
@@ -694,14 +713,12 @@ const _QorusAuthenticator = (): Authenticator => {
     if (!noauth) {
       const { user, pass } = loginConfig;
       const { id } = selectedEndpoint;
-
-      if (!(user && pass)) {
+      const currentUserToken = await validateLocalUserToken(id);
+      if (!(user && pass) && !currentUserToken) {
         logger.log({ level: 'error', message: 'Authentication is required with Username and Password' });
 
         return undefined;
       }
-
-      const currentUserToken = await validateLocalUserToken(id);
 
       if (currentUserToken && currentUserToken !== 'invalid') {
         selectedEndpoint.authToken = currentUserToken;
@@ -730,14 +747,16 @@ const _QorusAuthenticator = (): Authenticator => {
    *
    * @param props Username and Password of the the user
    */
-  const renewSelectedEndpointToken = async (props: LoginParams): Promise<null> => {
+  const renewSelectedEndpointToken = async (props: LoginParams): Promise<string | undefined> => {
     const { user, pass } = props;
 
+    let token;
     if (selectedEndpoint) {
-      await login({ user, pass });
+      token = await login({ user, pass });
     }
+    if (typeof token == 'string') return token;
 
-    return null;
+    return undefined;
   };
 
   /**
@@ -773,7 +792,10 @@ const _QorusAuthenticator = (): Authenticator => {
    * @param props version is required to set a new version of the selected endpoint. Optional id can be supplied to change the version of a specific endpoint
    * @returns true if the version change is successful false otherwise
    */
-  const setEndpointVersion = async (version: Version, id: string = selectedEndpoint.id): Promise<null> => {
+  const setEndpointVersion = async (
+    version: Version,
+    id: string = selectedEndpoint.id,
+  ): Promise<Version | undefined> => {
     if (id) {
       const endpoint = getEndpointById(id);
 
@@ -783,19 +805,19 @@ const _QorusAuthenticator = (): Authenticator => {
         if (selectedEndpoint.id === endpoint.id) {
           selectedEndpoint.version = version;
           apiPaths = createApiPaths({ version });
+          await logout();
         }
 
-        await logout();
         logger.log({ level: 'info', message: 'Changed endpoint version successfully.' });
-        return null;
+        return version;
       }
 
       logger.log({ level: 'info', message: 'enpoint does not exist, please try again.' });
-      return null;
+      return undefined;
     }
 
     logger.log({ level: 'info', message: 'id is required to change the version of a endpoint.' });
-    return null;
+    return undefined;
   };
 
   /**
@@ -804,7 +826,7 @@ const _QorusAuthenticator = (): Authenticator => {
    * @param props url is required to change the url of the selected endpoint. Option id parameter can be provided to change the url of a specific endpoint
    * @returns true if the url change is successful, false otherwise
    */
-  const setEndpointUrl = async (url: string, id: string = selectedEndpoint.id): Promise<null> => {
+  const setEndpointUrl = async (url: string, id: string = selectedEndpoint.id): Promise<string | undefined> => {
     if (id) {
       const endpoint = getEndpointById(id);
 
@@ -813,19 +835,19 @@ const _QorusAuthenticator = (): Authenticator => {
 
         if (selectedEndpoint.id === endpoint.id) {
           selectedEndpoint.url = url;
+          await logout();
         }
 
-        await logout();
         logger.log({ level: 'info', message: 'Changed endpoint url successfully.' });
-        return null;
+        return url;
       }
 
       logger.log({ level: 'info', message: 'enpoint does not exist, please try again.' });
-      return null;
+      return undefined;
     }
 
     logger.log({ level: 'info', message: 'id is required to change the url of a endpoint.' });
-    return null;
+    return undefined;
   };
 
   /**
