@@ -26,7 +26,8 @@ export interface Authenticator {
    * const { QorusAuthenticator } = qorusAuth;\n
    * //Initialize the endpoint before authentication
    * const endpoint = QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   * const token = await QorusAuthenticator.login({ user: 'rmalik', pass: 'rmalik1234' });`
+   * const token = await QorusAuthenticator.login({ user: 'rmalik', pass: 'rmalik1234' });
+   * // => "8a11c963-7360-4f02-a0aa-a526444d3e52"`
    * })
    * replButton.style.display = "none";
    * code.style.display = "none";
@@ -41,6 +42,7 @@ export interface Authenticator {
    * //Initialize the endpoint before authentication
    * const endpoint = QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
    * const token = await QorusAuthenticator.login({ user: 'rmalik', pass: 'rmalik1234' });
+   * // => "8a11c963-7360-4f02-a0aa-a526444d3e52"
    * </code></pre>
    * <div id="login-elem"></div>
    * 
@@ -103,7 +105,8 @@ export interface Authenticator {
    * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
    * const { QorusAuthenticator } = qorusAuth;\n
    * // Initializes a new endpoint and returns it
-   * const endpoint = await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });`
+   * const endpoint = await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
+   * // => {"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":"latest"}`
    * })
    * replButton.style.display = "none";
    * code.style.display = "none";
@@ -117,6 +120,7 @@ export interface Authenticator {
    *
    * // Initializes a new endpoint and returns it
    * const endpoint = await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
+   * // => {"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":"latest"}
    * </code></pre>
    * <div id="init-endpoint-elem"></div>
    */
@@ -140,7 +144,8 @@ export interface Authenticator {
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
    * // Changes selected endpoint and return true if selected
-   * const endpoint = await QorusAuthenticator.selectEndpoint('rippy');`
+   * const endpoint = await QorusAuthenticator.selectEndpoint('rippy');
+   * // => {"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":"latest"}`
    * })
    * replButton.style.display = "none";
    * code.style.display = "none";
@@ -155,6 +160,7 @@ export interface Authenticator {
    *
    * // Changes selected endpoint and return true if selected
    * const endpoint = await QorusAuthenticator.selectEndpoint('rippy');
+   * // => {"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":"latest"}
    * </code></pre>
    * <div id="select-endpoint-elem"></div>
    */
@@ -176,7 +182,8 @@ export interface Authenticator {
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
    * // Returns selected endpoint
-   * const endpoint = await QorusAuthenticator.getSelectedEndpoint();`
+   * const endpoint = await QorusAuthenticator.getSelectedEndpoint();
+   * // => {"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":"latest"}`
    * })
    * replButton.style.display = "none";
    * code.style.display = "none";
@@ -191,6 +198,7 @@ export interface Authenticator {
    *
    * // Returns selected endpoint
    * const endpoint = await QorusAuthenticator.getSelectedEndpoint();
+   * // => {"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":"latest"}
    * </code></pre>
    * <div id="get-selected-endpoint-elem"></div>
    */
@@ -217,7 +225,8 @@ export interface Authenticator {
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
    * // Renews auth-token for the selected endpoint
-   * const token = await QorusAuthenticator.renewSelectedEndpointToken({ user: 'rmalik', pass: 'rmalik1234' });`
+   * const token = await QorusAuthenticator.renewSelectedEndpointToken({ user: 'rmalik', pass: 'rmalik1234' });
+   * // => "8a11c963-7360-4f02-a0aa-a526444d3e52"`
    * })
    * replButton.style.display = "none";
    * code.style.display = "none";
@@ -232,6 +241,7 @@ export interface Authenticator {
    *
    * // Renews auth-token for the selected endpoint
    * const token = await QorusAuthenticator.renewSelectedEndpointToken({ user: 'rmalik', pass: 'rmalik1234' });
+   * // => "8a11c963-7360-4f02-a0aa-a526444d3e52"
    * </code></pre>
    * <div id="renew-token-elem"></div>
    */
@@ -254,7 +264,8 @@ export interface Authenticator {
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
    * // Returns the endpoint if exists in the endpoints array
-   * const endpoint = await QorusAuthenticator.getEndpointById('rippy');`
+   * const endpoint = await QorusAuthenticator.getEndpointById('rippy');
+   * // => {"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":"latest"}`
    * })
    * replButton.style.display = "none";
    * code.style.display = "none";
@@ -269,6 +280,7 @@ export interface Authenticator {
    *
    * // Returns the endpoint if exists in the endpoints array
    * const endpoint = await QorusAuthenticator.getEndpointById('rippy');
+   * // => {"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":"latest"}
    * </code></pre>
    * <div id="get-endpoint-by-id-elem"></div>
    */
@@ -290,8 +302,8 @@ export interface Authenticator {
    * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
-   * await QorusAuthenticator.setEndpointUrl('https://www.google.com','rippy');
-   * const endpoint = QorusAuthenticator.getSelectedEndpoint();`
+   * const url = await QorusAuthenticator.setEndpointUrl('https://www.google.com','rippy');
+   * // =>'https://www.google.com'`
    * })
    * replButton.style.display = "none";
    * code.style.display = "none";
@@ -304,8 +316,8 @@ export interface Authenticator {
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
    *
-   * await QorusAuthenticator.setEndpointUrl('https://www.google.com','rippy');
-   * const endpoint = QorusAuthenticator.getSelectedEndpoint();
+   * const url = await QorusAuthenticator.setEndpointUrl('https://www.google.com','rippy');
+   * // =>'https://www.google.com'
    * </code></pre>
    * <div id="set-endpoint-url-elem"></div>
    */
@@ -327,9 +339,8 @@ export interface Authenticator {
    * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
-   * await QorusAuthenticator.setEndpointVersion('https://www.google.com','rippy');
-   * const endpoint = QorusAuthenticator.getSelectedEndpoint();
-   * console.log(endpoint);`
+   * const version = await QorusAuthenticator.setEndpointVersion('https://www.google.com','rippy');
+   * // => 6`
    * })
    * replButton.style.display = "none";
    * code.style.display = "none";
@@ -342,9 +353,8 @@ export interface Authenticator {
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
    *
-   * await QorusAuthenticator.setEndpointVersion(6,'rippy');
-   * const endpoint = QorusAuthenticator.getSelectedEndpoint();
-   * console.log(endpoint);
+   * const version = await QorusAuthenticator.setEndpointVersion(6,'rippy');
+   * // => 6
    * </code></pre>
    * <div id="set-endpoint-version-elem"></div>
    */
@@ -365,7 +375,8 @@ export interface Authenticator {
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
    * await QorusAuthenticator.login({ user: 'rmalik', pass: 'rmalik1234' });\n
-   * const token = QorusAuthenticator.getAuthToken();`
+   * const token = QorusAuthenticator.getAuthToken();
+   * // => "8a11c963-7360-4f02-a0aa-a526444d3e52"`
    * })
    * replButton.style.display = "none";
    * code.style.display = "none";
@@ -380,6 +391,7 @@ export interface Authenticator {
    * await QorusAuthenticator.login({ user: 'rmalik', pass: 'rmalik1234' });
    *
    * const token = QorusAuthenticator.getAuthToken();
+   * // => "8a11c963-7360-4f02-a0aa-a526444d3e52"
    * </code></pre>
    * <div id="get-auth-token-elem"></div>
    */
@@ -402,7 +414,8 @@ export interface Authenticator {
    * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
-   * const version = QorusAuthenticator.getEndpointVersion();`
+   * const version = QorusAuthenticator.getEndpointVersion();
+   * // => 'latest'`
    * })
    * replButton.style.display = "none";
    * code.style.display = "none";
@@ -416,6 +429,7 @@ export interface Authenticator {
    * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
    *
    * const version = QorusAuthenticator.getEndpointVersion();
+   * // => 'latest'
    * </code></pre>
    * <div id="get-endpoint-version-elem"></div>
    */
@@ -436,7 +450,8 @@ export interface Authenticator {
    * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
-   * const apiPaths = QorusAuthenticator.getApiPaths();`
+   * const apiPaths = QorusAuthenticator.getApiPaths();
+   * // => {"login":"/api/latest/public/login","logout":"/api/latest/logout","validateToken":"/api/latest/system?action=validateWsToken","validateNoAuth":"/api/latest/public/info"}`
    * })
    * replButton.style.display = "none";
    * code.style.display = "none";
@@ -450,6 +465,7 @@ export interface Authenticator {
    * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
    *
    * const apiPaths = QorusAuthenticator.getApiPaths();
+   * // => {"login":"/api/latest/public/login","logout":"/api/latest/logout","validateToken":"/api/latest/system?action=validateWsToken","validateNoAuth":"/api/latest/public/info"}
    * </code></pre>
    * <div id="get-api-paths-elem"></div>
    */
@@ -470,7 +486,8 @@ export interface Authenticator {
    * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
-   * const apiPaths = QorusAuthenticator.getApiPaths();`
+   * const apiPaths = QorusAuthenticator.getApiPaths();
+   * // => [{"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":5,"authToken":"c27d7176-5d83-4fb9-9880-ac45cb0c409f"}]`
    * })
    * replButton.style.display = "none";
    * code.style.display = "none";
@@ -484,6 +501,7 @@ export interface Authenticator {
    * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
    *
    * const endpoints = QorusAuthenticator.getAllEndpoints();
+   * // => [{"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":5,"authToken":"c27d7176-5d83-4fb9-9880-ac45cb0c409f"}]
    * </code></pre>
    * <div id="get-all-endpoints-elem"></div>
    */
