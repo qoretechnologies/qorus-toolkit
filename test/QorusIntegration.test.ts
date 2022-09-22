@@ -15,11 +15,7 @@ describe('QorusLogin Utility Class Tests', () => {
     QorusAuth.initEndpoint({ url: process.env.ENDPOINT!, id: 'rippy' });
 
     const endpoint = QorusAuth.getSelectedEndpoint();
-
-    if (endpoint) {
-      expect(endpoint.id).toEqual('rippy');
-      expect(endpoint.url).toEqual(process.env.ENDPOINT);
-    }
+    expect(endpoint).toMatchSnapshot();
   });
 
   it('Should return user token after authentication', async () => {
@@ -47,21 +43,11 @@ describe('QorusLogin Utility Class Tests', () => {
   });
 
   it('Should return api paths for the selected endpoint', () => {
-    const apiPaths = QorusAuth.getApiPaths();
-    const apiPathMock = {
-      login: '/api/latest/public/login',
-      logout: '/api/latest/logout',
-      validateToken: '/api/latest/system?action=validateWsToken',
-      validateNoAuth: '/api/latest/public/info',
-    };
-
-    expect(apiPaths).toEqual(apiPathMock);
+    expect(QorusAuth.getApiPaths()).toMatchSnapshot();
   });
 
   it('Should set a new version for the endpoint', async () => {
-    await QorusAuth.setEndpointVersion(5);
-
-    expect(QorusAuth.getSelectedEndpoint()?.version).toEqual(5);
+    expect(await QorusAuth.setEndpointVersion(5)).toMatchSnapshot();
   });
 
   it('Should revalidate the user auth token for the selected endpoint', async () => {
@@ -80,27 +66,26 @@ describe('QorusLogin Utility Class Tests', () => {
   it('Should return the current endpoint', () => {
     const config = QorusAuth.getSelectedEndpoint();
 
-    expect(config!.id).toEqual('rippy');
+    expect(config!.id).toMatchSnapshot();
   });
 
   it('Should return all the endpoints', () => {
     const endpoints = QorusAuth.getAllEndpoints();
 
-    expect(endpoints).not.toBeNull();
+    expect(endpoints.length).toMatchSnapshot();
   });
 
   it('Should change the selected endpoint url and logout the user', async () => {
-    await QorusAuth.setEndpointUrl('https://www.google.com');
+    await QorusAuth.setEndpointUrl('https://testme.com');
 
-    expect(QorusAuth.getSelectedEndpoint()?.url).toEqual('https://www.google.com');
+    expect(await QorusAuth.setEndpointUrl('https://testme.com')).toMatchSnapshot();
     expect(QorusAuth.getAuthToken()).toBeUndefined();
   });
 
   it('Should select the endpoint by the provided id', async () => {
     if (process.env.ENDPOINT) QorusAuth.initEndpoint({ url: process.env.ENDPOINT, id: 'test' });
-    QorusAuth.selectEndpoint('google');
 
-    expect(QorusAuth.getSelectedEndpoint()?.id).toEqual('test');
+    expect(QorusAuth.getSelectedEndpoint()).toMatchSnapshot();
   });
 
   describe('QorusLogin Utility Error Tests', () => {

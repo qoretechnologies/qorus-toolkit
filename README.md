@@ -1,5 +1,7 @@
 # @qoretechnologies/qorus-toolkit
 
+![](./coverage/badge-functions.svg) ![](./coverage/badge-lines.svg) ![](./coverage/badge-statements.svg)
+
 ## Installation
 
 This is a [Node.js](https://nodejs.org/en/) module available through the
@@ -23,33 +25,32 @@ for more information.
 
 ## Features
 
-  * QorusAuthenticator
+- QorusAuthenticator
 
-    A authentication module for QoreTechnologies, allows user to create
-    multiple connections as endpoints and manage authentication to them.
+  A authentication module for QoreTechnologies, allows user to create
+  multiple connections as endpoints and manage authentication to them.
 
 ## Docs & Community
 
-  * [Documentation]()
+- [Documentation]()
 
-  * [#qoretechnologies]() on freenode IRC
-  * [GitHub Organization](https://github.com/qoretechnologies) for Official Middleware & Modules
-  * Visit the [Wiki]()
-  * [Google Group]() for discussion
-  * [Gitter]() for support and discussion
+- [#qoretechnologies]() on freenode IRC
+- [GitHub Organization](https://github.com/qoretechnologies) for Official Middleware & Modules
+- Visit the [Wiki]()
+- [Google Group]() for discussion
+- [Gitter]() for support and discussion
 
 ## Philosophy
 
-  The Qorus-Toolkit philosophy is to provide a fast and modular api wrapper to connect with Qorus-API which enables it to be utilized in any node project with ease.
+The Qorus-Toolkit philosophy is to provide a fast and modular api wrapper to connect with Qorus-API which enables it to be utilized in any node project with ease.
 
-  The Qorus-Toolkit philosophy is to provide small, robust tooling for Qorus-API.
-  
-  Qorus-Toolkit will be used used with Qorus-Toolkit-React to provide a complete solution with modular components to our enterprise clients.
+The Qorus-Toolkit philosophy is to provide small, robust tooling for Qorus-API.
+
+Qorus-Toolkit will be used used with Qorus-Toolkit-React to provide a complete solution with modular components to our enterprise clients.
 
 ## Examples
 
- Interactive examples can be found in the documentation. [Documentation]()
-
+Interactive examples can be found in the documentation. [Documentation]()
 
 ```console
 var qorusAuth = require("@qoretechnologies/qorus-toolkit");
@@ -72,4 +73,4 @@ If you discover a security vulnerability in Qorus-Toolkit, please see [Security 
 
 ## License
 
-  [MIT](LICENSE)
+[MIT](LICENSE)

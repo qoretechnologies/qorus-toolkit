@@ -13,7 +13,12 @@
     "dist/**/*"
   ],
   "jest": {
-    "preset": "ts-jest"
+    "preset": "ts-jest",
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ]
   },
   "pre-push": [
     "lint",
@@ -22,6 +27,8 @@
   ],
   "scripts": {
     "test": "jest",
+    "test:coverage": "npm test -- --coverage",
+    "test:badges": "npm run test:coverage  && jest-coverage-badges",
     "build": "npx tsc",
     "build:test": "npx tsc --noEmit",
     "clean": "del-cli --force ./dist",
@@ -68,6 +75,7 @@
     "async": "^3.2.4",
     "axios": "^0.27.2",
     "del-cli": "^5.0.0",
+    "jest-coverage-badges": "^1.1.2",
     "lodash": "^4.17.21",
     "ssl-root-cas": "^1.3.1",
     "supertest": "^6.2.4",

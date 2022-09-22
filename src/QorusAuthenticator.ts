@@ -165,7 +165,7 @@ export interface Authenticator {
    * </code></pre>
    * <div id="select-endpoint-elem"></div>
    */
-  selectEndpoint: (id: string) => Promise<boolean>;
+  selectEndpoint: (id: string) => Promise<Endpoint | undefined>;
 
   /**
    * A getter to return selected endpoint
@@ -340,7 +340,7 @@ export interface Authenticator {
    * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
-   * const version = await QorusAuthenticator.setEndpointVersion('https://www.google.com','rippy');
+   * const version = await QorusAuthenticator.setEndpointVersion(6,'rippy');
    * // => 6`
    * })
    * replButton.style.display = "none";
@@ -476,7 +476,7 @@ export interface Authenticator {
    * A getter to get all the available endpoints
    * @returns endpoints array with all the available endpoints
    *
-   *  <script>
+   * <script>
    * function runOnReplGetAllEndpoints(){
    * const replButton = document.getElementById("repl-get-all-endpoints");
    * const code = document.getElementById("code-get-all-endpoints");
@@ -487,7 +487,7 @@ export interface Authenticator {
    * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
    * const { QorusAuthenticator } = qorusAuth;
    * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
-   * const apiPaths = QorusAuthenticator.getApiPaths();
+   * const apiPaths = QorusAuthenticator.getAllEndpoints();
    * // => [{"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":5,"authToken":"c27d7176-5d83-4fb9-9880-ac45cb0c409f"}]`
    * })
    * replButton.style.display = "none";
@@ -603,7 +603,7 @@ const _QorusAuthenticator = (): Authenticator => {
    * @param id id of the endpoint to be selected
    * @returns True if the endpoint is selected successfully False otherwise
    */
-  const selectEndpoint = async (id: string): Promise<boolean> => {
+  const selectEndpoint = async (id: string): Promise<Endpoint | undefined> => {
     const endpoint = getEndpointById(id);
     if (endpoint && endpoint.url) {
       if (selectedEndpoint.authToken) {
@@ -613,10 +613,9 @@ const _QorusAuthenticator = (): Authenticator => {
       selectedEndpoint = endpoint;
       apiPaths = createApiPaths({ version: endpoint.version });
 
-      return true;
+      return endpoint;
     }
-    return false;
-  };
+    return undefined  };
 
   const checkNoAuth = async (url: string): Promise<null> => {
     let resp;
