@@ -615,7 +615,8 @@ const _QorusAuthenticator = (): Authenticator => {
 
       return endpoint;
     }
-    return undefined  };
+    return undefined;
+  };
 
   const checkNoAuth = async (url: string): Promise<null> => {
     let resp;
