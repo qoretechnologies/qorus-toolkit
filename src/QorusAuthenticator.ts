@@ -5,10 +5,6 @@ import { QorusReq } from './utils/QorusRequest';
 
 export interface Authenticator {
   /**
-   * Enable the user to login to the selected endpoint
-   * @param loginConfig login params of the user {@link LoginParams}
-   * @return token if the authentication is successful else returns undefined
-   *
    * Login function takes optional username and password parameters to authenticate the user.
    * If the username and password is not provided it tries to authenticate using the locally stored token from the selected endpoint
    *
@@ -33,19 +29,20 @@ export interface Authenticator {
    * code.style.display = "none";
    * }
    * </script>
-  
+
    * <h3>Example</h3>
    * <button id="repl-login" onclick="runOnReplLogin()" style="border-radius: 10px; cursor: pointer; background-color: #33b277; border: none; margin-bottom: 10px; padding: 15px; color: #fff">Try in Repl</button>
    * <pre id="code-login"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
    * const { QorusAuthenticator } = qorusAuth;
-   * 
+   *
    * //Initialize the endpoint before authentication
    * const endpoint = QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
    * const token = await QorusAuthenticator.login({ user: 'rmalik', pass: 'rmalik1234' });
    * // => "8a11c963-7360-4f02-a0aa-a526444d3e52"
    * </code></pre>
    * <div id="login-elem"></div>
-   * 
+   *
+   * token if the authentication is successful else returns undefined
    */
   login: (loginConfig: LoginParams) => Promise<string | undefined>;
 
@@ -88,11 +85,13 @@ export interface Authenticator {
 
   /**
    * Allows the user to add/initialize a new endpoint
-   * @param props id and url are the mandatory parameters for initializing an endpoint {@link InitEndpoint}
-   * @return endpoint {@link Endpoint} created by the user
    *
    * initEndpoint creates a endpoint and asign it to the selected endpoint. It also logs out the user from
    * the selected endpoint.
+   * <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
+   * <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/agate.min.css">
+   * <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+   * <script>hljs.highlightAll();</script>
    *
    * <script>
    * function runOnReplInitEndpoint(){
@@ -114,14 +113,16 @@ export interface Authenticator {
    * </script>
    *
    * <h3>Example</h3>
-   * <button id="repl-init-endpoint" onclick="runOnReplInitEndpoint()" style="border-radius: 10px; cursor: pointer; background-color: #33b277; border: none; margin-bottom: 10px; padding: 15px; color: #fff">Try in Repl</button>
-   * <pre id="code-init-endpoint"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
+   * <div style="position: relative; overflow: hidden">
+   * <button id="repl-init-endpoint" onclick="runOnReplInitEndpoint()" class="repl-button">Try in Repl</button>
+   * <pre id="code-init-endpoint">
+   * <code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
    * const { QorusAuthenticator } = qorusAuth;
-   *
    * // Initializes a new endpoint and returns it
    * const endpoint = await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
    * // => {"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":"latest"}
    * </code></pre>
+   * </div>
    * <div id="init-endpoint-elem"></div>
    */
   initEndpoint: (props: InitEndpoint) => Promise<Endpoint>;

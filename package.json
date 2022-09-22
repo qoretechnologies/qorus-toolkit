@@ -27,8 +27,11 @@
     "clean": "del-cli --force ./dist",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint . --ext .ts",
-    "docs": "typedoc ./src/index.ts --out docs ./docs && npm run updateDocs",
+    "docs": "npm run css & typedoc && npm run updateDocs",
+    "docs:watch": "npm run css & typedoc --watch",
     "updateDocs": "chmod +x updateDocs.sh && ./updateDocs.sh",
+    "css": "./node_modules/.bin/sass src/typedoc/index.scss src/typedoc/index.css",
+    "css:watch": "./node_modules/.bin/sass --watch src/typedoc/index.scss src/typedoc/index.css",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "updatePullRequestVersion": "chmod +x prePush.sh && ./prePush.sh"
@@ -56,6 +59,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "pre-push": "^0.1.3",
     "prettier": "^2.7.1",
+    "sass": "^1.55.0",
     "ts-jest": "^28.0.8",
     "typedoc": "^0.23.10",
     "typescript": "^4.7.4"
