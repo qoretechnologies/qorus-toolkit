@@ -5,81 +5,17 @@ import { QorusReq } from './utils/QorusRequest';
 
 export interface Authenticator {
   /**
-   * Login function takes optional username and password parameters to authenticate the user.
-   * If the username and password is not provided it tries to authenticate using the locally stored token from the selected endpoint
-   *
-   * <script src="https://embed.runkit.com"></script>
-   *
-   * <script>
-   * function runOnReplLogin(){
-   * const replButton = document.getElementById("repl-login");
-   * const code = document.getElementById("code-login");
-   *
-   * var notebook = RunKit.createNotebook({
-   * element: document.getElementById("login-elem"),
-   * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;\n
-   * //Initialize the endpoint before authentication
-   * const endpoint = QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   * const token = await QorusAuthenticator.login({ user: 'rmalik', pass: 'rmalik1234' });
-   * // => "8a11c963-7360-4f02-a0aa-a526444d3e52"`
-   * })
-   * replButton.style.display = "none";
-   * code.style.display = "none";
-   * }
-   * </script>
+   * -login-function takes optional username and password parameters to authenticate the user.
+   If the username and password is not provided it tries to authenticate using the locally stored token from the selected endpoint
 
-   * <h3>Example</h3>
-   * <button id="repl-login" onclick="runOnReplLogin()" style="border-radius: 10px; cursor: pointer; background-color: #33b277; border: none; margin-bottom: 10px; padding: 15px; color: #fff">Try in Repl</button>
-   * <pre id="code-login"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   *
-   * //Initialize the endpoint before authentication
-   * const endpoint = QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   * const token = await QorusAuthenticator.login({ user: 'rmalik', pass: 'rmalik1234' });
-   * // => "8a11c963-7360-4f02-a0aa-a526444d3e52"
-   * </code></pre>
-   * <div id="login-elem"></div>
-   *
    * token if the authentication is successful else returns undefined
    */
   login: (loginConfig: LoginParams) => Promise<string | undefined>;
 
   /**
-   * Logs out the current user from the selected endpoint
-   * @return void
-   * It logs out the user, if the user is authenticated
-   *
-   * <script src="https://embed.runkit.com"></script>
-   *
-   * <script>
-   * function runOnReplLogout(){
-   * const replButton = document.getElementById("repl-logout");
-   * const code = document.getElementById("code-logout");
-   *
-   * var notebook = RunKit.createNotebook({
-   * element: document.getElementById("logout-elem"),
-   * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;\n
-   * // Logs out the user
-   * await QorusAuthenticator.logout();`
-   * })
-   * replButton.style.display = "none";
-   * code.style.display = "none";
-   * }
-   * </script>
-   *
-   * <h3>Example</h3>
-   * <button id="repl-logout" onclick="runOnReplLogout()" style="border-radius: 10px; cursor: pointer; background-color: #33b277; border: none; margin-bottom: 10px; padding: 15px; color: #fff">Try in Repl</button>
-   * <pre id="code-logout"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   *
-   * // Logs out the user
-   * await QorusAuthenticator.logout();
-   * </code></pre>
-   * <div id="logout-elem"></div>
+   * -logout-function Logs out the current user from the selected endpoint
+   * 
+   * void, results in success if can successfully logout the user
    */
   logout: () => Promise<void>;
 
