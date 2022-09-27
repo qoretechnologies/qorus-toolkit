@@ -30,7 +30,7 @@ export interface Authenticator {
    * selected endpoint
    *
    * @param id Id of the endpoint
-   * 
+   *
    * Returns endpoint if the operation is successful false otherwise.
    */
   selectEndpoint: (id: string) => Promise<Endpoint | undefined>;
@@ -52,9 +52,9 @@ export interface Authenticator {
 
   /**
    * A getter to return the endpoint if exist in the endpoints array
-   * 
+   *
    * @param id ID of the endpoint ex: "rippy"
-   * 
+   *
    * Returns the endpoint {@link Endpoint} if the endpoint with the supplied id exist in the endpoints array, undefined otherwise.
    */
   getEndpointById: (id: string) => Endpoint | undefined;
@@ -62,7 +62,7 @@ export interface Authenticator {
   /** -setEndpointUrl-function A setter to set the url of the selected endpoint
    * @param url Base url for the endpoint
    * @param id Optional id parameter to change the url of a particular endpoint
-   * 
+   *
    * Returns url of the endpoint if the operation is successful, undefined otherwise
    */
   setEndpointUrl: (url: string, id?: string) => Promise<string | undefined>;
@@ -70,23 +70,23 @@ export interface Authenticator {
   /** -setEndpointVersion-function A setter to edit the version of the endpoint
    * @param version Version of the qorus api
    * @param id Optional id parameter to change the url of a particular endpoint from the endpoints array
-   * 
+   *
    * Returns version of the endpoint if the operation is successful, undefined otherwise
-   * 
+   *
    */
   setEndpointVersion: (version: Version, id?: string) => Promise<Version | undefined>;
 
   /** -getAuthToken-function A getter to return the auth token of the selected endpoint
-   * 
+   *
    * Returns token if the the selected endpoint exists and the user is authenticated, otherwise returns undefined
    */
   getAuthToken: () => string | undefined;
 
   /**
    * -getEndpointVersion-function A getter to get the api version of a endpoint
-   * 
+   *
    * @param id Optional id parameter to get the version of a particular endpoint
-   * 
+   *
    * Returns version of the selected endpoint or version of the the endpoint found by id,
    * if the endpoint doesn't exists it returns undefined
    */
@@ -94,14 +94,14 @@ export interface Authenticator {
 
   /**
    * -getApiPaths-function A getter to return the api paths for the selected endpoint
-   * 
+   *
    * Returns ApiPaths for the selected endpoint if exists, otherwise returns default api paths
    */
   getApiPaths: () => ApiPaths;
 
   /**
    * -getAllEndpoints-function A getter to get all the available endpoints
-   * 
+   *
    * Returns endpoints array with all the available endpoints
    */
   getAllEndpoints: () => Endpoint[];
