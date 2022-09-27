@@ -14,433 +14,95 @@ export interface Authenticator {
 
   /**
    * -logout-function Logs out the current user from the selected endpoint
-   * 
-   * void, results in success if can successfully logout the user
+   *
    */
   logout: () => Promise<void>;
 
   /**
-   * Allows the user to add/initialize a new endpoint
+   * -initEndpoint-function Allows the user to add/initialize a new endpoint
    *
-   * initEndpoint creates a endpoint and asign it to the selected endpoint. It also logs out the user from
-   * the selected endpoint.
-   * <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
-   * <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/agate.min.css">
-   * <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
-   * <script>hljs.highlightAll();</script>
-   *
-   * <script>
-   * function runOnReplInitEndpoint(){
-   * const replButton = document.getElementById("repl-init-endpoint");
-   * const code = document.getElementById("code-init-endpoint");
-   *
-   * var notebook = RunKit.createNotebook({
-   * element: document.getElementById("init-endpoint-elem"),
-   * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;\n
-   * // Initializes a new endpoint and returns it
-   * const endpoint = await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   * // => {"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":"latest"}`
-   * })
-   * replButton.style.display = "none";
-   * code.style.display = "none";
-   * }
-   * </script>
-   *
-   * <h3>Example</h3>
-   * <div style="position: relative; overflow: hidden">
-   * <button id="repl-init-endpoint" onclick="runOnReplInitEndpoint()" class="repl-button">Try in Repl</button>
-   * <pre id="code-init-endpoint">
-   * <code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * // Initializes a new endpoint and returns it
-   * const endpoint = await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   * // => {"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":"latest"}
-   * </code></pre>
-   * </div>
-   * <div id="init-endpoint-elem"></div>
+   * Returns the newly created endpoint
    */
   initEndpoint: (props: InitEndpoint) => Promise<Endpoint>;
 
   /**
-   * Allows the user to select a endpoint from the endpoints array, logout the user from the current
+   * -selectEndpoint-function Allows the user to select a endpoint from the endpoints array, logout the user from the current
    * selected endpoint
+   *
    * @param id Id of the endpoint
-   * @return true if the operation is successful false otherwise.
-   *
-   * <script>
-   * function runOnReplSelectEndpoint(){
-   * const replButton = document.getElementById("repl-select-endpoint");
-   * const code = document.getElementById("code-select-endpoint");
-   *
-   * var notebook = RunKit.createNotebook({
-   * element: document.getElementById("select-endpoint-elem"),
-   * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
-   * // Changes selected endpoint and return true if selected
-   * const endpoint = await QorusAuthenticator.selectEndpoint('rippy');
-   * // => {"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":"latest"}`
-   * })
-   * replButton.style.display = "none";
-   * code.style.display = "none";
-   * }
-   * </script>
-   *
-   * <h3>Example</h3>
-   * <button id="repl-select-endpoint" onclick="runOnReplSelectEndpoint()" style="border-radius: 10px; border-radius: 10px; cursor: pointer; background-color: #33b277; border: none; margin-bottom: 10px; padding: 15px; color: #fff">Try in Repl</button>
-   * <pre id="code-select-endpoint"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   *
-   * // Changes selected endpoint and return true if selected
-   * const endpoint = await QorusAuthenticator.selectEndpoint('rippy');
-   * // => {"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":"latest"}
-   * </code></pre>
-   * <div id="select-endpoint-elem"></div>
+   * 
+   * Returns endpoint if the operation is successful false otherwise.
    */
   selectEndpoint: (id: string) => Promise<Endpoint | undefined>;
 
   /**
-   * A getter to return selected endpoint
-   * @return selectedEndpont {@link Endpoint} if selectedEndpoint exists, undefined otherwise
+   * -getSelectedEndpoint-function A getter to return selected endpoint
    *
-   * <script>
-   * function runOnReplGetSelectedEndpoint(){
-   * const replButton = document.getElementById("repl-get-selected-endpoint");
-   * const code = document.getElementById("code-get-selected-endpoint");
-   *
-   * var notebook = RunKit.createNotebook({
-   * element: document.getElementById("get-selected-endpoint-elem"),
-   * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
-   * // Returns selected endpoint
-   * const endpoint = await QorusAuthenticator.getSelectedEndpoint();
-   * // => {"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":"latest"}`
-   * })
-   * replButton.style.display = "none";
-   * code.style.display = "none";
-   * }
-   * </script>
-   *
-   * <h3>Example</h3>
-   * <button id="repl-get-selected-endpoint" onclick="runOnReplGetSelectedEndpoint()" style="border-radius: 10px; border-radius: 10px; cursor: pointer; background-color: #33b277; border: none; margin-bottom: 10px; padding: 15px; color: #fff">Try in Repl</button>
-   * <pre id="code-get-selected-endpoint"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   *
-   * // Returns selected endpoint
-   * const endpoint = await QorusAuthenticator.getSelectedEndpoint();
-   * // => {"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":"latest"}
-   * </code></pre>
-   * <div id="get-selected-endpoint-elem"></div>
+   * Returns the selected endpoint if it's created or returns undefined
    */
   getSelectedEndpoint: () => Endpoint | undefined;
 
   /**
-   * Allows the user to renew the selected endpoint authentication token
+   * -renewSelectedEndpointToken-function Allows the user to renew the selected endpoint authentication token
+   *
    * @param props {@link LoginParams} optional username and password can be provided
-   * @return token if the authentication is successful, undefined otherwise
-   *
-   * renewSelectedToken renews the user token by checking the local storage, if the token does not exist in the local storage it
-   * tries to authenticate using the username and password supplied.
-   *
-   * If selected endpoint exists, user can revalidate the token
-   * <script>
-   * function runOnReplRenewToken(){
-   * const replButton = document.getElementById("repl-renew-token");
-   * const code = document.getElementById("code-renew-token");
-   *
-   * var notebook = RunKit.createNotebook({
-   * element: document.getElementById("renew-token-elem"),
-   * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
-   * // Renews auth-token for the selected endpoint
-   * const token = await QorusAuthenticator.renewSelectedEndpointToken({ user: 'rmalik', pass: 'rmalik1234' });
-   * // => "8a11c963-7360-4f02-a0aa-a526444d3e52"`
-   * })
-   * replButton.style.display = "none";
-   * code.style.display = "none";
-   * }
-   * </script>
-   *
-   * <h3>Example</h3>
-   * <button id="repl-renew-token" onclick="runOnReplRenewToken()" style="border-radius: 10px; border-radius: 10px; cursor: pointer; background-color: #33b277; border: none; margin-bottom: 10px; padding: 15px; color: #fff">Try in Repl</button>
-   * <pre id="code-renew-token"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   *
-   * // Renews auth-token for the selected endpoint
-   * const token = await QorusAuthenticator.renewSelectedEndpointToken({ user: 'rmalik', pass: 'rmalik1234' });
-   * // => "8a11c963-7360-4f02-a0aa-a526444d3e52"
-   * </code></pre>
-   * <div id="renew-token-elem"></div>
+   * Returns token if the authentication is successful, undefined otherwise
    */
   renewSelectedEndpointToken: (props: LoginParams) => Promise<string | undefined>;
 
   /**
    * A getter to return the endpoint if exist in the endpoints array
+   * 
    * @param id ID of the endpoint ex: "rippy"
-   * @return endpoint {@link Endpoint} if the endpoint with the supplied id exist in the endpoints array, undefined otherwise.
-   *
-   * <script>
-   * function runOnReplGetEndpointById(){
-   * const replButton = document.getElementById("repl-get-endpoint-by-id");
-   * const code = document.getElementById("code-get-endpoint-by-id");
-   *
-   * var notebook = RunKit.createNotebook({
-   * element: document.getElementById("get-endpoint-by-id-elem"),
-   * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
-   * // Returns the endpoint if exists in the endpoints array
-   * const endpoint = await QorusAuthenticator.getEndpointById('rippy');
-   * // => {"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":"latest"}`
-   * })
-   * replButton.style.display = "none";
-   * code.style.display = "none";
-   * }
-   * </script>
-   *
-   * <h3>Example</h3>
-   * <button id="repl-get-endpoint-by-id" onclick="runOnReplGetEndpointById()" style="border-radius: 10px; border-radius: 10px; cursor: pointer; background-color: #33b277; border: none; margin-bottom: 10px; padding: 15px; color: #fff">Try in Repl</button>
-   * <pre id="code-get-endpoint-by-id"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   *
-   * // Returns the endpoint if exists in the endpoints array
-   * const endpoint = await QorusAuthenticator.getEndpointById('rippy');
-   * // => {"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":"latest"}
-   * </code></pre>
-   * <div id="get-endpoint-by-id-elem"></div>
+   * 
+   * Returns the endpoint {@link Endpoint} if the endpoint with the supplied id exist in the endpoints array, undefined otherwise.
    */
   getEndpointById: (id: string) => Endpoint | undefined;
 
-  /** A setter to set the url of the selected endpoint
+  /** -setEndpointUrl-function A setter to set the url of the selected endpoint
    * @param url Base url for the endpoint
    * @param id Optional id parameter to change the url of a particular endpoint
-   * @return url of the endpoint if the operation is successful, undefined otherwise
-   *
-   * <script>
-   * function runOnReplSetEndpointUrl(){
-   * const replButton = document.getElementById("repl-set-endpoint-url");
-   * const code = document.getElementById("code-set-endpoint-url");
-   *
-   * var notebook = RunKit.createNotebook({
-   * element: document.getElementById("set-endpoint-url-elem"),
-   * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
-   * const url = await QorusAuthenticator.setEndpointUrl('https://www.google.com','rippy');
-   * // =>'https://www.google.com'`
-   * })
-   * replButton.style.display = "none";
-   * code.style.display = "none";
-   * }
-   * </script>
-   *
-   * <h3>Example</h3>
-   * <button id="repl-set-endpoint-url" onclick="runOnReplSetEndpointUrl()" style="border-radius: 10px; border-radius: 10px; cursor: pointer; background-color: #33b277; border: none; margin-bottom: 10px; padding: 15px; color: #fff">Try in Repl</button>
-   * <pre id="code-set-endpoint-url"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   *
-   * const url = await QorusAuthenticator.setEndpointUrl('https://www.google.com','rippy');
-   * // =>'https://www.google.com'
-   * </code></pre>
-   * <div id="set-endpoint-url-elem"></div>
+   * 
+   * Returns url of the endpoint if the operation is successful, undefined otherwise
    */
   setEndpointUrl: (url: string, id?: string) => Promise<string | undefined>;
 
-  /** A setter to edit the version of the endpoint
+  /** -setEndpointVersion-function A setter to edit the version of the endpoint
    * @param version Version of the qorus api
    * @param id Optional id parameter to change the url of a particular endpoint from the endpoints array
-   * @return version of the endpoint if the operation is successful, undefined otherwise
-   *
-   * <script>
-   * function runOnReplSetEndpointVersion(){
-   * const replButton = document.getElementById("repl-set-endpoint-version");
-   * const code = document.getElementById("code-set-endpoint-version");
-   *
-   * var notebook = RunKit.createNotebook({
-   * element: document.getElementById("set-endpoint-version-elem"),
-   * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
-   * const version = await QorusAuthenticator.setEndpointVersion(6,'rippy');
-   * // => 6`
-   * })
-   * replButton.style.display = "none";
-   * code.style.display = "none";
-   * }
-   * </script>
-   *
-   * <h3>Example</h3>
-   * <button id="repl-set-endpoint-version" onclick="runOnReplSetEndpointVersion()" style="border-radius: 10px; border-radius: 10px; cursor: pointer; background-color: #33b277; border: none; margin-bottom: 10px; padding: 15px; color: #fff">Try in Repl</button>
-   * <pre id="code-set-endpoint-version"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   *
-   * const version = await QorusAuthenticator.setEndpointVersion(6,'rippy');
-   * // => 6
-   * </code></pre>
-   * <div id="set-endpoint-version-elem"></div>
+   * 
+   * Returns version of the endpoint if the operation is successful, undefined otherwise
+   * 
    */
   setEndpointVersion: (version: Version, id?: string) => Promise<Version | undefined>;
 
-  /** A getter to return the auth token of the selected endpoint
-   * @return token if the the selected endpoint exists and the user is authenticated, otherwise returns undefined
-   *
-   * <script>
-   * function runOnReplGetAuthToken(){
-   * const replButton = document.getElementById("repl-get-auth-token");
-   * const code = document.getElementById("code-get-auth-token");
-   *
-   * var notebook = RunKit.createNotebook({
-   * element: document.getElementById("get-auth-token-elem"),
-   * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   * await QorusAuthenticator.login({ user: 'rmalik', pass: 'rmalik1234' });\n
-   * const token = QorusAuthenticator.getAuthToken();
-   * // => "8a11c963-7360-4f02-a0aa-a526444d3e52"`
-   * })
-   * replButton.style.display = "none";
-   * code.style.display = "none";
-   * }
-   * </script>
-   *
-   * <h3>Example</h3>
-   * <button id="repl-get-auth-token" onclick="runOnReplGetAuthToken()" style="border-radius: 10px; border-radius: 10px; cursor: pointer; background-color: #33b277; border: none; margin-bottom: 10px; padding: 15px; color: #fff">Try in Repl</button>
-   * <pre id="code-get-auth-token"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   * await QorusAuthenticator.login({ user: 'rmalik', pass: 'rmalik1234' });
-   *
-   * const token = QorusAuthenticator.getAuthToken();
-   * // => "8a11c963-7360-4f02-a0aa-a526444d3e52"
-   * </code></pre>
-   * <div id="get-auth-token-elem"></div>
+  /** -getAuthToken-function A getter to return the auth token of the selected endpoint
+   * 
+   * Returns token if the the selected endpoint exists and the user is authenticated, otherwise returns undefined
    */
   getAuthToken: () => string | undefined;
 
   /**
-   * A getter to get the api version of a endpoint
+   * -getEndpointVersion-function A getter to get the api version of a endpoint
+   * 
    * @param id Optional id parameter to get the version of a particular endpoint
-   * @return version of the selected endpoint or version of the the endpoint found by id,
+   * 
+   * Returns version of the selected endpoint or version of the the endpoint found by id,
    * if the endpoint doesn't exists it returns undefined
-   *
-   * <script>
-   * function runOnReplGetEndpointVersion(){
-   * const replButton = document.getElementById("repl-get-endpoint-version");
-   * const code = document.getElementById("code-get-endpoint-version");
-   *
-   * var notebook = RunKit.createNotebook({
-   * element: document.getElementById("get-endpoint-version-elem"),
-   * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
-   * const version = QorusAuthenticator.getEndpointVersion();
-   * // => 'latest'`
-   * })
-   * replButton.style.display = "none";
-   * code.style.display = "none";
-   * }
-   * </script>
-   *
-   * <h3>Example</h3>
-   * <button id="repl-get-endpoint-version" onclick="runOnReplGetEndpointVersion()" style="border-radius: 10px; border-radius: 10px; cursor: pointer; background-color: #33b277; border: none; margin-bottom: 10px; padding: 15px; color: #fff">Try in Repl</button>
-   * <pre id="code-get-endpoint-version"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   *
-   * const version = QorusAuthenticator.getEndpointVersion();
-   * // => 'latest'
-   * </code></pre>
-   * <div id="get-endpoint-version-elem"></div>
    */
   getEndpointVersion: (id?: string) => Version | undefined;
 
   /**
-   * A getter to return the api paths for the selected endpoint
-   * @return ApiPaths for the selected endpoint if exists, otherwise returns default api paths
-   *
-   * <script>
-   * function runOnReplGetApiPaths(){
-   * const replButton = document.getElementById("repl-get-api-paths");
-   * const code = document.getElementById("code-get-api-paths");
-   *
-   * var notebook = RunKit.createNotebook({
-   * element: document.getElementById("get-api-paths-elem"),
-   * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
-   * const apiPaths = QorusAuthenticator.getApiPaths();
-   * // => {"login":"/api/latest/public/login","logout":"/api/latest/logout","validateToken":"/api/latest/system?action=validateWsToken","validateNoAuth":"/api/latest/public/info"}`
-   * })
-   * replButton.style.display = "none";
-   * code.style.display = "none";
-   * }
-   * </script>
-   *
-   * <h3>Example</h3>
-   * <button id="repl-get-api-paths" onclick="runOnReplGetApiPaths()" style="border-radius: 10px; border-radius: 10px; cursor: pointer; background-color: #33b277; border: none; margin-bottom: 10px; padding: 15px; color: #fff">Try in Repl</button>
-   * <pre id="code-get-api-paths"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   *
-   * const apiPaths = QorusAuthenticator.getApiPaths();
-   * // => {"login":"/api/latest/public/login","logout":"/api/latest/logout","validateToken":"/api/latest/system?action=validateWsToken","validateNoAuth":"/api/latest/public/info"}
-   * </code></pre>
-   * <div id="get-api-paths-elem"></div>
+   * -getApiPaths-function A getter to return the api paths for the selected endpoint
+   * 
+   * Returns ApiPaths for the selected endpoint if exists, otherwise returns default api paths
    */
   getApiPaths: () => ApiPaths;
 
   /**
-   * A getter to get all the available endpoints
-   * @returns endpoints array with all the available endpoints
-   *
-   * <script>
-   * function runOnReplGetAllEndpoints(){
-   * const replButton = document.getElementById("repl-get-all-endpoints");
-   * const code = document.getElementById("code-get-all-endpoints");
-   *
-   * var notebook = RunKit.createNotebook({
-   * element: document.getElementById("get-all-endpoints-elem"),
-   * nodeVersion: "18.8.0",
-   * source: `var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });\n
-   * const apiPaths = QorusAuthenticator.getAllEndpoints();
-   * // => [{"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":5,"authToken":"c27d7176-5d83-4fb9-9880-ac45cb0c409f"}]`
-   * })
-   * replButton.style.display = "none";
-   * code.style.display = "none";
-   * }
-   * </script>
-   *
-   * <h3>Example</h3>
-   * <button id="repl-get-all-endpoints" onclick="runOnReplGetAllEndpoints()" style="border-radius: 10px; border-radius: 10px; cursor: pointer; background-color: #33b277; border: none; margin-bottom: 10px; padding: 15px; color: #fff">Try in Repl</button>
-   * <pre id="code-get-all-endpoints"><code class="language-ts">var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-   * const { QorusAuthenticator } = qorusAuth;
-   * await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
-   *
-   * const endpoints = QorusAuthenticator.getAllEndpoints();
-   * // => [{"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":5,"authToken":"c27d7176-5d83-4fb9-9880-ac45cb0c409f"}]
-   * </code></pre>
-   * <div id="get-all-endpoints-elem"></div>
+   * -getAllEndpoints-function A getter to get all the available endpoints
+   * 
+   * Returns endpoints array with all the available endpoints
    */
   getAllEndpoints: () => Endpoint[];
 }
