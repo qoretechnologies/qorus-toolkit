@@ -1,6 +1,18 @@
 const fs = require('fs');
+const GAF = require('get-all-files');
 
-const docFile = '../../docs/interfaces/Authenticator.html';
+const getHtmlFilesPath = async () => {
+  let htmlFiles = [];
+
+  for await (const filename of GAF.getAllFiles(`./docs`)) {
+    // Could break early on some condition and get-all-files
+    // won't have unnecessarily accumulated the filenames in an array
+    if (filename.includes('.html')) {
+      htmlFiles.push(filename);
+    }
+  }
+  return htmlFiles;
+};
 
 const getHeaders = () => {
   return `<script src="https://embed.runkit.com"></script>
@@ -46,48 +58,59 @@ const getReplHtml = (functionName, src) => {
 };
 
 const getSrc = (functionName) => {
-  const src = fs.readFileSync(`${functionName}Src.js`, { encoding: 'utf8' });
+  const src = fs.readFileSync(`./src/examples/${functionName}Src.js`, { encoding: 'utf8' });
   return src;
 };
 
-fs.readFile(docFile, 'utf8', function (err, data) {
-  if (err) {
-    return console.log(err);
-  }
+const updateDocs = async () => {
+  const htmlFilePaths = await getHtmlFilesPath();
 
-  // Getting all the functions in the html document
-  let functions = [...data.matchAll(/<p>-(.*?)-function(.*?)<\/p>/gsm)];
-
-  // Getting index of closing head tag
-  let header = data.match(/<\/head>/s);
-  let headerAndFunctionIndex = data.indexOf(header[0]);
-
-  // Getting header html for the repl function
-  const replFunctionHeaderHtml = getReplFunctionHeaderHtml();
-
-  // Getting the static headers and styles to include
-  const headerHtml = getHeaders();
-
-  // Creating new html file with the headers
-  let docWithHeader =
-  data.slice(0, headerAndFunctionIndex) + headerHtml + replFunctionHeaderHtml + data.slice(headerAndFunctionIndex);
-
-  functions.map((func) => {
-
-    const src = getSrc(func[1]);
-    console.log(func[1])
-  
-    const replHtml = getReplHtml(func[1], src);
-    let textWithoutFunction = func[0].slice(`<p>-${func[1]}-function`.length);
-    textWithoutFunction = `<p>` + textWithoutFunction;
-  
-    let replButtonIndex = docWithHeader.indexOf(func[0]);
-    docWithHeader =
-      docWithHeader.slice(0, replButtonIndex + func[0].length) + replHtml + docWithHeader.slice(replButtonIndex+func[0].length);
-
-    replButtonIndex = docWithHeader.indexOf(func[0]);
-    docWithHeader = docWithHeader.slice(0, replButtonIndex) + textWithoutFunction + docWithHeader.slice(replButtonIndex+func[0].length);
+  htmlFilePaths.map(docFile => {
+    fs.readFile(docFile, 'utf8', function (err, data) {
+      if (err) {
+        return console.log(err);
+      }
+    
+      // Getting all the functions in the html document
+      let functions = [...data.matchAll(/<p>-(.*?)-function(.*?)<\/p>/gsm)];
+      if(functions.length > 0) {
+    
+        // Getting index of closing head tag
+        let header = data.match(/<\/head>/s);
+        let headerAndFunctionIndex = data.indexOf(header[0]);
+    
+        // Getting header html for the repl function
+        const replFunctionHeaderHtml = getReplFunctionHeaderHtml();
+    
+        // Getting the static headers and styles to include
+        const headerHtml = getHeaders();
+    
+        // Creating new html file with the headers
+        let docWithHeader =
+        data.slice(0, headerAndFunctionIndex) + headerHtml + replFunctionHeaderHtml + data.slice(headerAndFunctionIndex);
+    
+        functions.map((func) => {
+    
+          const src = getSrc(func[1]);
+          console.log(func[1])
+    
+          const replHtml = getReplHtml(func[1], src);
+          let textWithoutFunction = func[0].slice(`<p>-${func[1]}-function`.length);
+          textWithoutFunction = `<p>` + textWithoutFunction;
+    
+          let replButtonIndex = docWithHeader.indexOf(func[0]);
+          docWithHeader =
+            docWithHeader.slice(0, replButtonIndex + func[0].length) + replHtml + docWithHeader.slice(replButtonIndex+func[0].length);
+    
+          replButtonIndex = docWithHeader.indexOf(func[0]);
+          docWithHeader = docWithHeader.slice(0, replButtonIndex) + textWithoutFunction + docWithHeader.slice(replButtonIndex+func[0].length);
+        })
+        fs.writeFileSync(docFile, docWithHeader, (err) => console.log(err));
+      }
+    
+    });
+    
   })
-  fs.writeFileSync(docFile, docWithHeader, (err) => console.log(err));
+}
+updateDocs();
 
-});
