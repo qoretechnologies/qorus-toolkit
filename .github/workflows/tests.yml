@@ -37,13 +37,6 @@ jobs:
       - name: Save release version to outputs
         id: save_release_version
         run: echo ::set-output name=version::$(node -pe "require('./pullRequestRelease.json').version")
-      - name: 'Create env file'
-        run: |
-          touch .env
-          echo ENDPOINT=${{ secrets.ENDPOINT }} >> .env
-          echo TESTUSER=${{ secrets.TESTUSER }} >> .env
-          echo TESTPASS=${{ secrets.TESTPASS }} >> .env
-          cat .env
       - name: Running tests
         id: tests
         run: npm run test
