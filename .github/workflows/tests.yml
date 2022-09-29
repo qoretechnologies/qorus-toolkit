@@ -46,7 +46,7 @@ jobs:
           cat .env
       - name: Running tests
         id: tests
-        run: npm run test -- -u
+        run: npm run test
       - name: Build test
         id: build_test
         run: npm run build:test
