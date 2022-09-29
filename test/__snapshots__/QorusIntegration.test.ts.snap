@@ -5,7 +5,7 @@ exports[`QorusLogin Utility Class Tests Should change the selected endpoint url 
 exports[`QorusLogin Utility Class Tests Should initialize the endpoint and assign it to the selected endpoint 1`] = `
 Object {
   "id": "rippy",
-  "url": "https://sandbox.qoretechnologies.com/",
+  "url": "https://sandbox.qoretechnologies.com",
   "version": "latest",
 }
 `;
@@ -23,12 +23,6 @@ Object {
 
 exports[`QorusLogin Utility Class Tests Should return the current endpoint 1`] = `"rippy"`;
 
-exports[`QorusLogin Utility Class Tests Should select the endpoint by the provided id 1`] = `
-Object {
-  "id": "test",
-  "url": "https://sandbox.qoretechnologies.com/",
-  "version": "latest",
-}
-`;
+exports[`QorusLogin Utility Class Tests Should select the endpoint by the provided id 1`] = `Promise {}`;
 
 exports[`QorusLogin Utility Class Tests Should set a new version for the endpoint 1`] = `5`;

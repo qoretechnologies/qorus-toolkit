@@ -85,7 +85,7 @@ describe('QorusLogin Utility Class Tests', () => {
   it('Should select the endpoint by the provided id', async () => {
     if (process.env.ENDPOINT) QorusAuth.initEndpoint({ url: process.env.ENDPOINT, id: 'test' });
 
-    expect(QorusAuth.getSelectedEndpoint()).toMatchSnapshot();
+    expect(QorusAuth.selectEndpoint('test')).toMatchSnapshot();
   });
 
   describe('QorusLogin Utility Error Tests', () => {
