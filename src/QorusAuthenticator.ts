@@ -51,7 +51,7 @@ export interface Authenticator {
   renewSelectedEndpointToken: (props: LoginParams) => Promise<string | undefined>;
 
   /**
-   * A getter to return the endpoint if exist in the endpoints array
+   * -getEndpointById-function A getter to return the endpoint if exist in the endpoints array
    *
    * @param id ID of the endpoint ex: "rippy"
    *
