@@ -76,9 +76,10 @@ describe('QorusLogin Utility Class Tests', () => {
   });
 
   it('Should change the selected endpoint url and logout the user', async () => {
-    await QorusAuth.setEndpointUrl('https://testme.com');
+    const endpoint = await QorusAuth.setEndpointUrl('https://testme.com');
+    console.log(endpoint);
 
-    expect(await QorusAuth.setEndpointUrl('https://testme.com')).toMatchSnapshot();
+    expect(endpoint).toMatchSnapshot();
     expect(QorusAuth.getAuthToken()).toBeUndefined();
   });
 
