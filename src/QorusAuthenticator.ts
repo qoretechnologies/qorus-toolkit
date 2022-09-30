@@ -1,7 +1,7 @@
 import { getKeyValLocal, setKeyValLocal } from './managers/LocalStorage';
 import logger from './managers/logger';
 import { ApiPaths, apiPathsInitial, createApiPaths, Version } from './utils/apiPaths';
-import { QorusReq } from './utils/QorusRequest';
+import { QorusRequest } from './QorusRequest';
 
 export interface Authenticator {
   /**
@@ -184,7 +184,7 @@ const _QorusAuthenticator = (): Authenticator => {
       noauth = false;
 
       try {
-        await QorusReq.post({ endpointUrl: `${selectedEndpoint.url}${apiPaths.logout}` });
+        await QorusRequest.post({ endpointUrl: `${selectedEndpoint.url}${apiPaths.logout}` });
       } catch (error: any) {
         logger.log({
           level: 'error',
@@ -220,7 +220,7 @@ const _QorusAuthenticator = (): Authenticator => {
     let resp;
 
     try {
-      resp = await QorusReq.get({ endpointUrl: `${url}${apiPaths.validateNoAuth}` });
+      resp = await QorusRequest.get({ endpointUrl: `${url}${apiPaths.validateNoAuth}` });
       const _noauth = resp.data.noauth;
 
       if (typeof _noauth === 'boolean') {
@@ -298,7 +298,7 @@ const _QorusAuthenticator = (): Authenticator => {
 
     if (authToken) {
       try {
-        const resp = await QorusReq.get({
+        const resp = await QorusRequest.get({
           endpointUrl: `${endpoints}${apiPaths.validateToken}`,
           data: { token: authToken },
         });
@@ -342,7 +342,7 @@ const _QorusAuthenticator = (): Authenticator => {
         return currentUserToken;
       } else
         try {
-          const resp = await QorusReq.post({
+          const resp = await QorusRequest.post({
             endpointUrl: `${selectedEndpoint.url}${apiPaths.login}`,
             data: { user, pass },
           });
