@@ -16,7 +16,7 @@ export interface Authenticator {
    * -logout-function Logs out the current user from the selected endpoint
    *
    */
-  logout: () => Promise<void>;
+  logout: () => Promise<boolean>;
 
   /**
    * -initEndpoint-function Allows the user to add/initialize a new endpoint
@@ -51,7 +51,7 @@ export interface Authenticator {
   renewSelectedEndpointToken: (props: LoginParams) => Promise<string | undefined>;
 
   /**
-   * -getEndpointById-function A getter to return the endpoint if exist in the endpoints array
+   * -getEndpointById-function A getter to return the endpoint if it exist in the endpoints array
    *
    * @param id ID of the endpoint ex: "rippy"
    *
@@ -132,17 +132,9 @@ export interface CheckAuth {
 /**
  * Enables the user to authenticate with multiple user defined endpoints.
  * @returns QorusAuthenticator object with all the supporting operations
- * @example
- * ```ts
- * QorusAuth.init({url: "https://url of the instance", id: "rippy"});
- * const selectedEndpoint = QorusAuth.getSelectedEndpoint();
- * QorusAuth.login({user: 'username', pass: 'pass'});
- * QorusAuth.logout();
- * ```
- *
  * @Category QorusAuthenticator
  */
-const _QorusAuthenticator = (): Authenticator => {
+const _QorusAuthenticator: () => Authenticator = (): Authenticator => {
   //**Array of user defined endpoints */
   const endpoints: Endpoint[] = [];
 
@@ -156,14 +148,6 @@ const _QorusAuthenticator = (): Authenticator => {
 
   /**
    * A getter to return the endpoint if exist in the endpoints array
-   * @param id of the endpoint
-   * @returns endpoint if found else returs undefined
-   *
-   * @example
-   * ```ts
-   * const endpoint = getEndpointById();
-   * console.log(endpoint);
-   * ```
    */
   const getEndpointById = (id: string): Endpoint | undefined => {
     return endpoints.find((endpoint) => endpoint.id === id);
@@ -171,35 +155,34 @@ const _QorusAuthenticator = (): Authenticator => {
 
   /**
    * Logs out the current user from the selected endpoint
-   *
-   * @example
-   * ```ts
-   * logout();
-   * ```
    */
-  const logout = async (): Promise<void> => {
+  const logout = async (): Promise<boolean> => {
     if (selectedEndpoint) {
-      selectedEndpoint.authToken = undefined;
-      apiPaths = apiPathsInitial;
-      noauth = false;
+      let successful = false;
 
       try {
         await QorusRequest.post({ endpointUrl: `${selectedEndpoint.url}${apiPaths.logout}` });
+
+        selectedEndpoint.authToken = undefined;
+        apiPaths = apiPathsInitial;
+        noauth = false;
+        successful = true;
       } catch (error: any) {
         logger.log({
           level: 'error',
           message: `Couldn't logout user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`,
         });
       }
+
+      return successful;
     }
+
+    return Promise.resolve(false);
   };
 
   /**
    * Allows the user to select a endpoint from the endpoints array,
    * Logs out the user from the current selected endpoint
-   *
-   * @param id id of the endpoint to be selected
-   * @returns True if the endpoint is selected successfully False otherwise
    */
   const selectEndpoint = async (id: string): Promise<Endpoint | undefined> => {
     const endpoint = getEndpointById(id);
@@ -216,6 +199,7 @@ const _QorusAuthenticator = (): Authenticator => {
     return undefined;
   };
 
+  // Check if the server has noauth enabled
   const checkNoAuth = async (url: string): Promise<null> => {
     let resp;
 
@@ -240,9 +224,6 @@ const _QorusAuthenticator = (): Authenticator => {
 
   /**
    * Allows the user to add/initialize a new endpoint
-   *
-   * @param props id and url is required to initialize a new endpoint with default 'latest' version
-   * @returns A new endpoint, select it as selected endpoint and adds it to the endpoints array
    */
   const initEndpoint = async (props: InitEndpoint): Promise<Endpoint> => {
     const { id, url, version } = props;
@@ -280,8 +261,6 @@ const _QorusAuthenticator = (): Authenticator => {
 
   /**
    * A getter that returns the selected endpoint
-   *
-   * @returns Selected Endpoint
    */
   const getSelectedEndpoint = (): Endpoint | undefined => {
     return selectedEndpoint;
@@ -289,9 +268,6 @@ const _QorusAuthenticator = (): Authenticator => {
 
   /**
    * Validates the local stored authentication token for the endpoint
-   *
-   * @param endpointId d of the endpoint to renew the auth token
-   * @returns Promise that returns auth token if it's valid, invalid if the token is expired and null if there is no auth token stored in the local storage
    */
   const validateLocalUserToken = async (endpointId: string): Promise<string | 'invalid' | null> => {
     const authToken = getKeyValLocal(`auth-token-${endpointId}`);
@@ -322,9 +298,6 @@ const _QorusAuthenticator = (): Authenticator => {
 
   /**
    * Enable the user to login to the selected endpoint
-   * @param loginConfig username and password is required to login the user
-   * @returns Authentication token for the user
-   * @error throws an error if the provided credentials are invalid
    */
   const login = async (loginConfig: LoginParams): Promise<string | undefined> => {
     if (!noauth) {
@@ -361,8 +334,6 @@ const _QorusAuthenticator = (): Authenticator => {
 
   /**
    * Allows the user to renew the selected endpoint authentication token
-   *
-   * @param props Username and Password of the the user
    */
   const renewSelectedEndpointToken = async (props: LoginParams): Promise<string | undefined> => {
     const { user, pass } = props;
@@ -378,8 +349,6 @@ const _QorusAuthenticator = (): Authenticator => {
 
   /**
    * A getter to return the auth token of the selected endpoint
-   *
-   * @returns Authentication token for the selected endpoint
    */
   const getAuthToken = (): string | undefined => {
     return selectedEndpoint.authToken;
@@ -387,9 +356,6 @@ const _QorusAuthenticator = (): Authenticator => {
 
   /**
    * A getter to get the api version of a endpoint
-   *
-   * @param id Optional id parameter to get the version of a certain endpoint
-   * @returns Version of the selected endpoint if the id parameter is not provided otherwise returns the version of a certain endpoint
    */
   const getEndpointVersion = (id?: string): Version | undefined => {
     if (id) {
@@ -405,9 +371,6 @@ const _QorusAuthenticator = (): Authenticator => {
 
   /**
    * A setter to edit the version of the endpoint
-   *
-   * @param props version is required to set a new version of the selected endpoint. Optional id can be supplied to change the version of a specific endpoint
-   * @returns true if the version change is successful false otherwise
    */
   const setEndpointVersion = async (
     version: Version,
@@ -439,9 +402,6 @@ const _QorusAuthenticator = (): Authenticator => {
 
   /**
    * A setter to set the url of the selected endpoint
-   *
-   * @param props url is required to change the url of the selected endpoint. Option id parameter can be provided to change the url of a specific endpoint
-   * @returns true if the url change is successful, false otherwise
    */
   const setEndpointUrl = async (url: string, id: string = selectedEndpoint.id): Promise<string | undefined> => {
     if (id) {
@@ -469,8 +429,6 @@ const _QorusAuthenticator = (): Authenticator => {
 
   /**
    * A getter to return the api paths for the selected endpoint
-   *
-   * @returns api paths for the selected endpoint
    */
   const getApiPaths = (): ApiPaths => {
     return apiPaths;
@@ -478,8 +436,6 @@ const _QorusAuthenticator = (): Authenticator => {
 
   /**
    * A getter to get all the available endpoints
-   *
-   * @returns endpoints array with the current config
    */
   const getAllEndpoints = (): Endpoint[] => {
     return endpoints;

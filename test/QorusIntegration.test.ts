@@ -18,10 +18,17 @@ describe('QorusLogin Utility Class Tests', () => {
     expect(endpoint).toMatchSnapshot();
   });
 
-  it('Should return user token after authentication', async () => {
+  it('Should return user token after authentication (login)', async () => {
     const token = await QorusAuth.login({ user: process.env.TESTUSER!, pass: process.env.TESTPASS! });
 
     expect(token).not.toBeNull();
+  });
+
+  it('Should return true after successfully loging out the user ', async () => {
+    await QorusAuth.login({ user: process.env.TESTUSER!, pass: process.env.TESTPASS! });
+    const logoutResult: boolean = await QorusAuth.logout();
+
+    expect(logoutResult).toEqual(true);
   });
 
   it('Should return the enpoint from the endpoints array', () => {

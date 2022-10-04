@@ -1,0 +1,85 @@
+name: Beta release
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  Publish-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      # SETUP GIT USER
+      - name: Setup git user
+        run: |
+          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+      # SETUP NODE
+      - uses: actions/setup-node@v3
+        with:
+          node-version: latest
+      # INSTALL MODULES
+      - name: Installing modules
+        id: install_modules
+        run: |
+          rm -rf node_modules
+          npm install
+      # SAVE RELEASE VERSION
+      - name: Save release version to outputs
+        id: save_release_version
+        run: echo ::set-output name=version::$(node -pe "require('./package.json').version")
+      # TEST THE BUILD
+      - name: Build test
+        id: build_test
+        run: npm run build:test
+      # RUN UNIT TESTS
+      - name: Running tests
+        id: tests
+        run: npm run test
+      # PUBLISH TO NPM
+      - name: Publish to NPM
+        id: npm_publish
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          tag: beta
+          access: public
+      # CREATE GITHUB RELEASE
+      - name: Create a release
+        id: release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.save_release_version.outputs.version }}
+          release_name: v${{ steps.save_release_version.outputs.version }}
+          body: v${{ steps.save_release_version.outputs.version }}
+          draft: false
+          prerelease: false
+      # NOTIFY SLACK IF SUCCESS
+      - name: Slack notification
+        uses: Foxhoundn/slack@v1.2.94
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+        if: success()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_USERNAME: Qorus Toolkit Publish & Release
+          SLACK_MESSAGE: ':white_check_mark: Release *v${{ steps.save_release_version.outputs.version }}* successfuly created & published!'
+      # NOTIFY SLACK IF FAILURE
+      - name: Slack notification
+        uses: Foxhoundn/slack@v1.2.94
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_USERNAME: Qorus Toolkit Publish & Release
+          SLACK_MESSAGE: ':exclamation: There was an error creating release *v${{ steps.save_release_version.outputs.version }}*. Please check the steps below.'

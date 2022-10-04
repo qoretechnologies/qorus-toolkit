@@ -1,7 +1,9 @@
-var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-const { QorusAuthenticator } = qorusAuth;
-await QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
+await Qorus.QorusAuthenticator.initEndpoint({
+  id: 'rippy',
+  url: 'https://hq.qoretechnologies.com:8092',
+  version: 'latest',
+});
 
 // Returns selected endpoint
-const endpoint = await QorusAuthenticator.getSelectedEndpoint();
+await Qorus.QorusAuthenticator.getSelectedEndpoint();
 // => {"url":"https://hq.qoretechnologies.com:8092","id":"rippy","version":"latest"}
