@@ -48,7 +48,7 @@ jobs:
         run: npm version ${{ steps.save_release_version.outputs.version }}
       - name: Clean code
         id: clean_code
-        run: chmod+x ./cleanCode.sh && ./cleanCode.sh
+        run: ${GITHUB_WORKSPACE}/.github/cleanCode.sh
       - name: Publish to NPM
         id: npm_publish
         uses: JS-DevTools/npm-publish@v1
