@@ -132,14 +132,6 @@ export interface CheckAuth {
 /**
  * Enables the user to authenticate with multiple user defined endpoints.
  * @returns QorusAuthenticator object with all the supporting operations
- * @example
- * ```ts
- * QorusAuth.init({url: "https://url of the instance", id: "rippy"});
- * const selectedEndpoint = QorusAuth.getSelectedEndpoint();
- * QorusAuth.login({user: 'username', pass: 'pass'});
- * QorusAuth.logout();
- * ```
- *
  * @Category QorusAuthenticator
  */
 const _QorusAuthenticator: () => Authenticator = (): Authenticator => {

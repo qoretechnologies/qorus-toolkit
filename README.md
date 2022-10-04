@@ -1,5 +1,7 @@
 # @qoretechnologies/qorus-toolkit
 
+A modern TypeScript utility library for enhancing Qore Technologies no-code infrastructure solutions.
+
 ![](./coverage/badge-functions.svg) ![](./coverage/badge-lines.svg) ![](./coverage/badge-statements.svg)
 
 ## Installation
@@ -20,25 +22,17 @@ Installation is done using the
 $ npm install @qoretechnologies/qorus-toolkit
 ```
 
-Follow [our installing guide]()
-for more information.
-
 ## Features
 
 - QorusAuthenticator
 
-  A authentication module for QoreTechnologies, allows user to create
-  multiple connections as endpoints and manage authentication to them.
+  An authentication module for Qorus Integration Engine(R), allows users to create multiple connections as endpoints and manage authentication to them.
 
 ## Docs & Community
 
 - [Documentation]()
-
-- [#qoretechnologies]() on freenode IRC
 - [GitHub Organization](https://github.com/qoretechnologies) for Official Middleware & Modules
-- Visit the [Wiki]()
-- [Google Group]() for discussion
-- [Gitter]() for support and discussion
+- [Discord]() for support and discussion
 
 ## Philosophy
 
