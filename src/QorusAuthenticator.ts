@@ -134,7 +134,7 @@ export interface CheckAuth {
  * @returns QorusAuthenticator object with all the supporting operations
  * @Category QorusAuthenticator
  */
-const _QorusAuthenticator: () => Authenticator = (): Authenticator => {
+const _QorusAuthenticator = (): Authenticator => {
   //**Array of user defined endpoints */
   const endpoints: Endpoint[] = [];
 
