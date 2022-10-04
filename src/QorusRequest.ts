@@ -35,7 +35,7 @@ export interface QorusPut {
 
 export interface QorusRequestReturns {
   /**
-   * -get-function Get request creator for the QorusToolkit
+   * Get request creator for the QorusToolkit
    *
    * @param props {@link QorusGet} endpoint url is mandatory to make a get request
    *
@@ -44,7 +44,7 @@ export interface QorusRequestReturns {
   get: (props: QorusGet) => Promise<AxiosPromise<any>>;
 
   /**
-   * -post-function Post request creator for the QorusToolkit
+   * Post request creator for the QorusToolkit
    *
    * @param props {@link QorusPost} endpoint url is mandatory to make a post request
    *
@@ -53,7 +53,7 @@ export interface QorusRequestReturns {
   post: (props: QorusPost) => Promise<AxiosPromise<any>>;
 
   /**
-   * -put-function Put request creator for the QorusToolkit
+   * Put request creator for the QorusToolkit
    *
    * @param props {@link QorusPut} endpoint url is mandatory to make a put request
    *
@@ -62,7 +62,7 @@ export interface QorusRequestReturns {
   put: (props: QorusPut) => Promise<AxiosPromise<any>>;
 
   /**
-   * -delete-function Delete request creator for the QorusToolkit
+   * Delete request creator for the QorusToolkit
    *
    * @param props {@link QorusDelete} endpoint url is mandatory to make a delete request
    *
