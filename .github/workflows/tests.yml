@@ -46,6 +46,9 @@ jobs:
       - name: Change npm version
         id: change_npm_version
         run: npm version ${{ steps.save_release_version.outputs.version }}
+      - name: Clean code
+        id: clean_code
+        run: ./cleanCode.sh
       - name: Publish to NPM
         id: npm_publish
         uses: JS-DevTools/npm-publish@v1
