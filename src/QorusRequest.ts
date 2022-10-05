@@ -1,4 +1,4 @@
-import axios, { AxiosPromise, AxiosRequestHeaders } from 'axios';
+import axios, { AxiosPromise, AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 import { Agent } from 'https';
 
 /**
@@ -13,27 +13,31 @@ export interface QorusGet {
   headers?: AxiosRequestHeaders;
   endpointUrl: string;
   data?: any;
+  params?: object;
 }
 
 export interface QorusPost {
   headers?: AxiosRequestHeaders;
   endpointUrl: string;
   data?: any;
+  params?: object;
 }
 
 export interface QorusDelete {
   headers?: AxiosRequestHeaders;
   endpointUrl: string;
   data?: any;
+  params?: object;
 }
 
 export interface QorusPut {
   headers?: AxiosRequestHeaders;
   endpointUrl: string;
   data?: any;
+  params?: AxiosRequestConfig<any>;
 }
 
-export interface QorusRequestReturns {
+export interface Request {
   /**
    * Get request creator for the QorusToolkit
    *
@@ -71,11 +75,11 @@ export interface QorusRequestReturns {
   deleteReq: (props: QorusDelete) => Promise<AxiosPromise<any>>;
 }
 
-const _QorusRequest = (): QorusRequestReturns => {
+const _QorusRequest = (): Request => {
   const defaultHeaders = { 'Content-Type': 'application/json', Accept: 'application/json' };
 
   const get = async (props: QorusGet): Promise<AxiosPromise<any>> => {
-    const { endpointUrl, data, headers = defaultHeaders } = props;
+    const { endpointUrl, data, headers = defaultHeaders, params } = props;
 
     try {
       const promise = await httpsAxios({
@@ -83,6 +87,7 @@ const _QorusRequest = (): QorusRequestReturns => {
         url: endpointUrl,
         data: data,
         headers: headers,
+        params: params,
       });
       return promise;
     } catch (error: any) {
@@ -91,14 +96,14 @@ const _QorusRequest = (): QorusRequestReturns => {
   };
 
   const post = async (props: QorusPost): Promise<AxiosPromise<any>> => {
-    const { endpointUrl, data, headers = defaultHeaders } = props;
-
+    const { endpointUrl, data, headers = defaultHeaders, params } = props;
     try {
       const promise = await httpsAxios({
         method: 'POST',
         url: endpointUrl,
         data,
         headers: headers,
+        params: params,
       });
       return promise;
     } catch (error: any) {
@@ -107,7 +112,7 @@ const _QorusRequest = (): QorusRequestReturns => {
   };
 
   const put = async (props: QorusPut): Promise<AxiosPromise<any>> => {
-    const { endpointUrl, data, headers = defaultHeaders } = props;
+    const { endpointUrl, data, headers = defaultHeaders, params } = props;
 
     try {
       const promise = await httpsAxios({
@@ -115,6 +120,7 @@ const _QorusRequest = (): QorusRequestReturns => {
         url: endpointUrl,
         data,
         headers: headers,
+        params: params,
       });
       return promise;
     } catch (error: any) {
@@ -123,7 +129,7 @@ const _QorusRequest = (): QorusRequestReturns => {
   };
 
   const deleteReq = async (props: QorusDelete): Promise<AxiosPromise<any>> => {
-    const { endpointUrl, data, headers = defaultHeaders } = props;
+    const { endpointUrl, data, headers = defaultHeaders, params } = props;
 
     try {
       const promise = await httpsAxios({
@@ -131,6 +137,7 @@ const _QorusRequest = (): QorusRequestReturns => {
         url: endpointUrl,
         data,
         headers: headers,
+        params: params,
       });
       return promise;
     } catch (error: any) {
@@ -146,4 +153,4 @@ const _QorusRequest = (): QorusRequestReturns => {
   };
 };
 
-export const QorusRequest: QorusRequestReturns = _QorusRequest();
+export const QorusRequest: Request = _QorusRequest();
