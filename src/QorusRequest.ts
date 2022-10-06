@@ -9,76 +9,73 @@ export const httpsAgent = new Agent({
 });
 export const httpsAxios = axios.create({ httpsAgent });
 
-export interface QorusGet {
+export interface QorusRequestParams {
+  /**
+   * Headers for the request
+   */
   headers?: AxiosRequestHeaders;
-  endpointUrl: string;
-  data?: any;
-  params?: object;
-}
 
-export interface QorusPost {
-  headers?: AxiosRequestHeaders;
+  /**
+   * Complete endpoint url for the request
+   */
   endpointUrl: string;
-  data?: any;
-  params?: object;
-}
 
-export interface QorusDelete {
-  headers?: AxiosRequestHeaders;
-  endpointUrl: string;
+  /**
+   * Data for the request
+   */
   data?: any;
-  params?: object;
-}
 
-export interface QorusPut {
-  headers?: AxiosRequestHeaders;
-  endpointUrl: string;
-  data?: any;
+  /**
+   * URL Parameters for the request
+   */
   params?: AxiosRequestConfig<any>;
 }
 
 export interface Request {
   /**
-   * Get request creator for the QorusToolkit
+   * -get-function Get request creator for the QorusToolkit
    *
-   * @param props {@link QorusGet} endpoint url is mandatory to make a get request
+   * @param props {@link QorusRequestParams} endpoint url is mandatory to make a get request
    *
    * Returns the promise with the result of the get request
    */
-  get: (props: QorusGet) => Promise<AxiosPromise<any>>;
+  get: (props: QorusRequestParams) => Promise<AxiosPromise<any>>;
 
   /**
-   * Post request creator for the QorusToolkit
+   * -post-function Post request creator for the QorusToolkit
    *
-   * @param props {@link QorusPost} endpoint url is mandatory to make a post request
+   * @param props {@link QorusRequestParams} endpoint url is mandatory to make a post request
    *
    * Returns the promise with the result of the post request
    */
-  post: (props: QorusPost) => Promise<AxiosPromise<any>>;
+  post: (props: QorusRequestParams) => Promise<AxiosPromise<any>>;
 
   /**
-   * Put request creator for the QorusToolkit
+   * -put-function Put request creator for the QorusToolkit
    *
-   * @param props {@link QorusPut} endpoint url is mandatory to make a put request
+   * @param props {@link QorusRequestParams} endpoint url is mandatory to make a put request
    *
    * Returns the promise with the result of the put request
    */
-  put: (props: QorusPut) => Promise<AxiosPromise<any>>;
+  put: (props: QorusRequestParams) => Promise<AxiosPromise<any>>;
 
   /**
-   * Delete request creator for the QorusToolkit
+   * -deleteReq-function Delete request creator for the QorusToolkit
    *
-   * @param props {@link QorusDelete} endpoint url is mandatory to make a delete request
+   * @param props {@link QorusRequestParams} endpoint url is mandatory to make a delete request
    *
    * Returns the promise with the result of the delete request
    */
-  deleteReq: (props: QorusDelete) => Promise<AxiosPromise<any>>;
+  deleteReq: (props: QorusRequestParams) => Promise<AxiosPromise<any>>;
 }
 
 const _QorusRequest = (): Request => {
   const defaultHeaders = { 'Content-Type': 'application/json', Accept: 'application/json' };
 
-  const get = async (props: QorusGet): Promise<AxiosPromise<any>> => {
+  /**
+   * Get request creator for the QorusToolkit
+   */
+  const get = async (props: QorusRequestParams): Promise<AxiosPromise<any>> => {
     const { endpointUrl, data, headers = defaultHeaders, params } = props;
 
     try {
@@ -95,7 +92,10 @@ const _QorusRequest = (): Request => {
     }
   };
 
-  const post = async (props: QorusPost): Promise<AxiosPromise<any>> => {
+  /**
+   * Post request creator for the QorusToolkit
+   */
+  const post = async (props: QorusRequestParams): Promise<AxiosPromise<any>> => {
     const { endpointUrl, data, headers = defaultHeaders, params } = props;
     try {
       const promise = await httpsAxios({
@@ -111,7 +111,10 @@ const _QorusRequest = (): Request => {
     }
   };
 
-  const put = async (props: QorusPut): Promise<AxiosPromise<any>> => {
+  /**
+   * Put request creator for the QorusToolkit
+   */
+  const put = async (props: QorusRequestParams): Promise<AxiosPromise<any>> => {
     const { endpointUrl, data, headers = defaultHeaders, params } = props;
 
     try {
@@ -128,7 +131,10 @@ const _QorusRequest = (): Request => {
     }
   };
 
-  const deleteReq = async (props: QorusDelete): Promise<AxiosPromise<any>> => {
+  /**
+   * Delete request creator for the QorusToolkit
+   */
+  const deleteReq = async (props: QorusRequestParams): Promise<AxiosPromise<any>> => {
     const { endpointUrl, data, headers = defaultHeaders, params } = props;
 
     try {
