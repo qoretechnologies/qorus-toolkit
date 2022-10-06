@@ -1,0 +1,87 @@
+{
+  "name": "@qoretechnologies/qorus-toolkit",
+  "version": "0.1.2",
+  "description": "Utility library to interact with Qorus Integration Engine",
+  "keywords": [
+    "qoretechnologies",
+    "qorus-authenticator"
+  ],
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "jest": {
+    "preset": "ts-jest",
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ]
+  },
+  "pre-push": [
+    "lint",
+    "test",
+    "updatePullRequestVersion"
+  ],
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "npm test -- --coverage",
+    "test:badges": "npm run test:coverage  && jest-coverage-badges",
+    "build": "npx tsc",
+    "build:test": "npx tsc --noEmit",
+    "clean": "del-cli --force ./dist",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint . --ext .ts",
+    "docs": "npm run css & typedoc && npm run updateDocs && node ./src/examples/addExamplesToDocs.js && cpx ./coverage/**/* ./docs/coverage",
+    "docs:watch": "npm run css & typedoc --watch",
+    "updateDocs": "chmod +x updateDocs.sh && ./updateDocs.sh",
+    "css": "./node_modules/.bin/sass src/typedoc/index.scss src/typedoc/index.css",
+    "css:watch": "./node_modules/.bin/sass --watch src/typedoc/index.scss src/typedoc/index.css",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "updatePullRequestVersion": "chmod +x prePush.sh && ./prePush.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qoretechnologies/qorus-toolkit.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qoretechnologies/qorus-toolkit/issues"
+  },
+  "homepage": "https://github.com/qoretechnologies/qorus-toolkit#readme",
+  "devDependencies": {
+    "@tsconfig/node16": "^1.0.3",
+    "@types/jest": "^28.1.7",
+    "@types/node": "^18.7.11",
+    "@typescript-eslint/eslint-plugin": "^5.35.1",
+    "axios-mock-adapter": "^1.21.2",
+    "dotenv": "^16.0.2",
+    "eslint": "^8.22.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "pre-push": "^0.1.3",
+    "prettier": "^2.7.1",
+    "sass": "^1.55.0",
+    "ts-jest": "^28.0.8",
+    "typedoc": "^0.23.10",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "async": "^3.2.4",
+    "axios": "^0.27.2",
+    "cpx": "^1.5.0",
+    "del-cli": "^5.0.0",
+    "get-all-files": "^4.1.0",
+    "jest-coverage-badges": "^1.1.2",
+    "lodash": "^4.17.21",
+    "ssl-root-cas": "^1.3.1",
+    "supertest": "^6.2.4",
+    "validator": "^13.7.0",
+    "winston": "^3.8.1"
+  }
+}
