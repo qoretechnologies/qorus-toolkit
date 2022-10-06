@@ -400,10 +400,10 @@ const _QorusAuthenticator = (): Authenticator => {
     if (id) {
       const endpoint = getEndpointById(id);
 
-      if (endpoint) {
+      if (endpoint && endpoint.id && endpoint.version) {
         endpoints[endpoints.indexOf(endpoint)].version = version;
 
-        if (selectedEndpoint.id === endpoint.id) {
+        if (selectedEndpoint && selectedEndpoint.id === endpoint.id) {
           selectedEndpoint.version = version;
           apiPaths = createApiPaths({ version });
           await logout();
@@ -428,10 +428,10 @@ const _QorusAuthenticator = (): Authenticator => {
     if (id) {
       const endpoint = getEndpointById(id);
 
-      if (endpoint) {
+      if (endpoint && endpoint.id && endpoint.url) {
         endpoints[endpoints.indexOf(endpoint)].url = url;
 
-        if (selectedEndpoint.id === endpoint.id) {
+        if (selectedEndpoint && selectedEndpoint.id === endpoint.id) {
           selectedEndpoint.url = url;
           await logout();
         }
