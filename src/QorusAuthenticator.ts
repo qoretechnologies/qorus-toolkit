@@ -1,12 +1,12 @@
 import { getKeyValLocal, setKeyValLocal } from './managers/LocalStorage';
 import logger from './managers/logger';
-import { ApiPaths, apiPathsInitial, createApiPaths, Version } from './utils/apiPaths';
+import { ApiPaths, apiPathsInitial, createApiPaths, Version, WithEndpointVersion } from './utils/apiPaths';
 import { QorusReq } from './utils/QorusRequest';
 
 export interface Authenticator {
   /**
-   * -login-function takes optional username and password parameters to authenticate the user.
-   If the username and password is not provided it tries to authenticate using the locally stored token from the selected endpoint
+   * -login-function Takes optional username and password parameters to authenticate the user.
+   If the username and password is not provided it tries to authenticate using the locally stored token from the selected {@link Endpoint}
 
    * token if the authentication is successful else returns undefined
    */
@@ -36,7 +36,7 @@ export interface Authenticator {
   selectEndpoint: (id: string) => Promise<Endpoint | undefined>;
 
   /**
-   * -getSelectedEndpoint-function A getter to return selected endpoint
+   * -getSelectedEndpoint-function A getter to return selected {@link Endpoint}
    *
    * Returns the selected endpoint if it's created or returns undefined
    */
@@ -59,7 +59,8 @@ export interface Authenticator {
    */
   getEndpointById: (id: string) => Endpoint | undefined;
 
-  /** -setEndpointUrl-function A setter to set the url of the selected endpoint
+  /**
+   * -setEndpointUrl-function A setter to set the url of the selected {@link Endpoint}
    * @param url Base url for the endpoint
    * @param id Optional id parameter to change the url of a particular endpoint
    *
@@ -67,7 +68,7 @@ export interface Authenticator {
    */
   setEndpointUrl: (url: string, id?: string) => Promise<string | undefined>;
 
-  /** -setEndpointVersion-function A setter to edit the version of the endpoint
+  /** -setEndpointVersion-function A setter to edit the {@link Version} of the {@link Endpoint}
    * @param version Version of the qorus api
    * @param id Optional id parameter to change the url of a particular endpoint from the endpoints array
    *
@@ -76,14 +77,15 @@ export interface Authenticator {
    */
   setEndpointVersion: (version: Version, id?: string) => Promise<Version | undefined>;
 
-  /** -getAuthToken-function A getter to return the auth token of the selected endpoint
+  /**
+   * -getAuthToken-function A getter to return the auth token of the selected {@link Endpoint}
    *
    * Returns token if the the selected endpoint exists and the user is authenticated, otherwise returns undefined
    */
   getAuthToken: () => string | undefined;
 
   /**
-   * -getEndpointVersion-function A getter to get the api version of a endpoint
+   * -getEndpointVersion-function A getter to get the api {@link Version} of a {@link Endpoint}
    *
    * @param id Optional id parameter to get the version of a particular endpoint
    *
@@ -93,61 +95,81 @@ export interface Authenticator {
   getEndpointVersion: (id?: string) => Version | undefined;
 
   /**
-   * -getApiPaths-function A getter to return the api paths for the selected endpoint
+   * -getApiPaths-function A getter to return the api paths for the selected {@link Endpoint}
    *
    * Returns ApiPaths for the selected endpoint if exists, otherwise returns default api paths
    */
   getApiPaths: () => ApiPaths;
 
   /**
-   * -getAllEndpoints-function A getter to get all the available endpoints
+   * -getAllEndpoints-function A getter to get all the available {@link Endpoint}
    *
    * Returns endpoints array with all the available endpoints
    */
   getAllEndpoints: () => Endpoint[];
 }
 
+export type QorusEndpointId = string;
+export type QorusAuthToken = string;
+export type QorusEndpointURL = string;
+
+export interface WithQorusEndpointId {
+  /**
+   * Id for the {@link Endpoint} provided by the user, unique for every endpoint
+   */
+  id: QorusEndpointId;
+}
+
+export interface WithQorusAuthToken {
+  /**
+   * Auth token for the user provided {@link Endpoint}
+   */
+  authToken?: QorusAuthToken;
+}
+
+export interface WithQorusURL {
+  /**
+   * URL to your server for the provided {@link Endpoint}
+   */
+  url: QorusEndpointURL;
+}
+
 export interface LoginParams {
+  /**
+   * Username for the authentication to your server
+   */
   user?: string;
+  /**
+   * Password for the authentication to your server
+   */
   pass?: string;
 }
 
-export interface InitEndpoint {
-  id: string;
-  url: string;
-  version?: Version;
-}
+export interface InitEndpoint extends WithQorusURL, WithEndpointVersion, WithQorusEndpointId {}
 
-export interface Endpoint {
-  url: string;
-  version: Version;
-  id: string;
-  authToken?: string;
-}
+export interface Endpoint extends WithQorusURL, WithEndpointVersion, WithQorusAuthToken, WithQorusEndpointId {}
 
-export interface CheckAuth {
-  url: string;
-}
+export interface CheckAuth extends WithQorusURL {}
 
 /**
- * Enables the user to authenticate with multiple user defined endpoints.
+ * Enables the user to authenticate with multiple user defined endpoints
  * @returns QorusAuthenticator object with all the supporting operations
  * @Category QorusAuthenticator
  */
 const _QorusAuthenticator = (): Authenticator => {
-  //**Array of user defined endpoints */
+  //** Array of user defined endpoints */
   const endpoints: Endpoint[] = [];
 
-  /**Api paths for the selected endpoint */
+  /** Api paths for the selected endpoint */
   let apiPaths: ApiPaths = apiPathsInitial;
 
-  /**Selected endpoint from the endpoints array */
+  /** Selected endpoint from the endpoints array */
   let selectedEndpoint: Endpoint;
 
   let noauth = false;
 
   /**
-   * A getter to return the endpoint if exist in the endpoints array
+   * A getter to return the endpoint if it exist in the endpoints array
    */
   const getEndpointById = (id: string): Endpoint | undefined => {
     return endpoints.find((endpoint) => endpoint.id === id);
@@ -181,8 +203,8 @@ const _QorusAuthenticator = (): Authenticator => {
   };
 
   /**
-   * Allows the user to select a endpoint from the endpoints array,
-   * Logs out the user from the current selected endpoint
+   * Allows the user to select a endpoint from the endpoints array, logout the user from the current
+   * selected endpoint
    */
   const selectEndpoint = async (id: string): Promise<Endpoint | undefined> => {
     const endpoint = getEndpointById(id);
@@ -260,7 +282,7 @@ const _QorusAuthenticator = (): Authenticator => {
   };
 
   /**
-   * A getter that returns the selected endpoint
+   * A getter to return selected {@link Endpoint}
    */
   const getSelectedEndpoint = (): Endpoint | undefined => {
     return selectedEndpoint;
@@ -297,7 +319,8 @@ const _QorusAuthenticator = (): Authenticator => {
   };
 
   /**
-   * Enable the user to login to the selected endpoint
+   * Takes optional username and password parameters to authenticate the user.
+   If the username and password is not provided it tries to authenticate using the locally stored token from the selected {@link Endpoint}
    */
   const login = async (loginConfig: LoginParams): Promise<string | undefined> => {
     if (!noauth) {
@@ -348,14 +371,14 @@ const _QorusAuthenticator = (): Authenticator => {
   };
 
   /**
-   * A getter to return the auth token of the selected endpoint
+   * A getter to return the auth token of the selected {@link Endpoint}
    */
   const getAuthToken = (): string | undefined => {
     return selectedEndpoint.authToken;
   };
 
   /**
-   * A getter to get the api version of a endpoint
+   * A getter to get the api {@link Version} of a {@link Endpoint}
    */
   const getEndpointVersion = (id?: string): Version | undefined => {
     if (id) {
@@ -370,7 +393,7 @@ const _QorusAuthenticator = (): Authenticator => {
   };
 
   /**
-   * A setter to edit the version of the endpoint
+   * A setter to edit the {@link Version} of the {@link Endpoint}
    */
   const setEndpointVersion = async (
     version: Version,
@@ -401,7 +424,7 @@ const _QorusAuthenticator = (): Authenticator => {
   };
 
   /**
-   * A setter to set the url of the selected endpoint
+   * A setter to set the url of the selected {@link Endpoint}
    */
   const setEndpointUrl = async (url: string, id: string = selectedEndpoint.id): Promise<string | undefined> => {
     if (id) {
@@ -428,14 +451,14 @@ const _QorusAuthenticator = (): Authenticator => {
   };
 
   /**
-   * A getter to return the api paths for the selected endpoint
+   * A getter to return the api paths for the selected {@link Endpoint}
    */
   const getApiPaths = (): ApiPaths => {
     return apiPaths;
   };
 
   /**
-   * A getter to get all the available endpoints
+   * A getter to get all the available {@link Endpoints}
    */
   const getAllEndpoints = (): Endpoint[] => {
     return endpoints;

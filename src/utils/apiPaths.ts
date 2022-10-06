@@ -6,10 +6,13 @@ export interface ApiPaths {
 }
 
 export type Version = 1 | 2 | 3 | 4 | 5 | 6 | 'latest';
-
-export interface ApiPathsParams {
+export interface WithEndpointVersion {
+  /**
+   * Version for the server api
+   */
   version?: Version;
 }
+export interface ApiPathsParams extends WithEndpointVersion {}
 
 /**Initial api routes */
 export const apiPathsInitial: ApiPaths = {
