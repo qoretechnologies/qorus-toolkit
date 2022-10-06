@@ -45,7 +45,7 @@ jobs:
         run: npm run build:test
       - name: Change npm version
         id: change_npm_version
-        run: npm version ${{ steps.save_release_version.outputs.version }} -F
+        run: npm version ${{ steps.save_release_version.outputs.version }} --no-git-tag-version --force
       - name: Clean code
         id: clean_code
         run: ./cleanCode.sh
