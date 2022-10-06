@@ -6,8 +6,10 @@ export interface ApiPaths {
 }
 
 export type Version = 1 | 2 | 3 | 4 | 5 | 6 | 'latest';
-
-export interface ApiPathsParams {
+export interface WithEndpointVersion {
+  /**
+   * Version for the server api
+   */
   version?: Version;
 }
 
@@ -25,7 +27,7 @@ export const apiPathsInitial: ApiPaths = {
  * @param props optional version can be supplied to target the api with a specific version
  * @returns object with all the api endpoints
  */
-export const createApiPaths = (props: ApiPathsParams): ApiPaths => {
+export const createApiPaths = (props: WithEndpointVersion): ApiPaths => {
   const { version } = props;
   const V = version && version !== 'latest' ? `v${version}` : 'latest';
 

@@ -1,11 +1,3 @@
-export {
-  Authenticator,
-  CheckAuth,
-  Endpoint,
-  InitEndpoint,
-  LoginParams,
-  QorusAuthenticator,
-} from './QorusAuthenticator';
+export { Authenticator, Endpoint, InitEndpoint, LoginParams, QorusAuthenticator } from './QorusAuthenticator';
 export { Version } from './utils/apiPaths';
-
-export { QorusRequest, Request } from './QorusRequest';
+export { QorusRequest } from './QorusRequest';
