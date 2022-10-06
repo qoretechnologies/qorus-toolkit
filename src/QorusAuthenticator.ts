@@ -149,8 +149,6 @@ export interface InitEndpoint extends WithQorusURL, WithEndpointVersion, WithQor
 
 export interface Endpoint extends WithQorusURL, WithEndpointVersion, WithQorusAuthToken, WithQorusEndpointId {}
 
-export interface CheckAuth extends WithQorusURL {}
-
 /**
  * Enables the user to authenticate with multiple user defined endpoints
  * @returns QorusAuthenticator object with all the supporting operations
