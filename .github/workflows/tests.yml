@@ -45,7 +45,7 @@ jobs:
         run: npm run build:test
       - name: Change npm version
         id: change_npm_version
-        run: npm version ${{ steps.save_release_version.outputs.version }}
+        run: git add . && git commit && npm version ${{ steps.save_release_version.outputs.version }}
       - name: Clean code
         id: clean_code
         run: ./cleanCode.sh
