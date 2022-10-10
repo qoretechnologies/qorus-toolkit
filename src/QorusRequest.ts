@@ -67,10 +67,15 @@ export interface Request {
    * Returns the promise with the result of the delete request
    */
   deleteReq: (props: QorusRequestParams) => Promise<AxiosPromise<any>>;
+
+  /**
+   * Default headers for the QorusRequest
+   */
+  defaultHeaders: AxiosRequestHeaders;
 }
 
 const _QorusRequest = (): Request => {
-  const defaultHeaders = { 'Content-Type': 'application/json', Accept: 'application/json' };
+  const defaultHeaders: AxiosRequestHeaders = { 'Content-Type': 'application/json', Accept: 'application/json' };
 
   /**
    * Get request creator for the QorusToolkit
@@ -156,6 +161,7 @@ const _QorusRequest = (): Request => {
     post,
     put,
     deleteReq,
+    defaultHeaders,
   };
 };
 
