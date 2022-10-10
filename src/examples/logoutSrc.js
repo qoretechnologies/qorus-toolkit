@@ -5,7 +5,7 @@ await Qorus.QorusAuthenticator.initEndpoint({
   version: 'latest',
 });
 // Log in first
-await Qorus.QorusAuthenticator.login({ user: 'rmalik', pass: 'rmalik1234' });
+await Qorus.QorusAuthenticator.login({ user: 'sandbox', pass: 'sandbox' });
 // Logs out the user
 await Qorus.QorusAuthenticator.logout();
 // => void

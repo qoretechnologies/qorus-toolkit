@@ -4,5 +4,5 @@ await Qorus.QorusAuthenticator.initEndpoint({
   url: 'https://sandbox.qoretechnologies.com',
   version: 'latest',
 });
-await Qorus.QorusAuthenticator.login({ user: 'rmalik', pass: 'rmalik1234' });
+await Qorus.QorusAuthenticator.login({ user: 'sandbox', pass: 'sandbox' });
 // => "random token hash returned from the server"
