@@ -51,7 +51,7 @@ var qorusAuth = require("@qoretechnologies/qorus-toolkit");
 const { QorusAuthenticator } = qorusAuth;
 
 //Initialize the endpoint before authentication
-const endpoint = QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://hq.qoretechnologies.com:8092', version:'latest' });
+const endpoint = QorusAuthenticator.initEndpoint({ id: 'rippy', url: 'https://sandbox.qoretechnologies.com', version:'latest' });
 const token = await QorusAuthenticator.login({ user: 'sandbox', pass: 'sandbox' });
 ```
 
