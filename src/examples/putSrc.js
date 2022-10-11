@@ -10,6 +10,6 @@ await Qorus.QorusAuthenticator.login({ user: 'sandbox', pass: 'sandbox' });
 
 // Next we initialize a put request against our defined Qorus server
 const result = await Qorus.QorusRequest.put({
-  endpointUrl: 'api/latest/dataprovider/browse',
+  path: 'api/latest/dataprovider/browse',
   params: { context: 'api' },
 });

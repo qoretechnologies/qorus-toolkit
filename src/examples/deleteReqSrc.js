@@ -9,6 +9,6 @@ await Qorus.QorusAuthenticator.initEndpoint({
 await Qorus.QorusAuthenticator.login({ user: 'sandbox', pass: 'sandbox' });
 
 // Next we initialize a delete request against our defined Qorus server
-const result = await Qorus.QorusRequest.deleteReq({
-  endpointUrl: '/api/latest/classes/1',
+const result = await Qorus.QorusRequest.delete({
+  path: '/api/latest/classes/1',
 });
