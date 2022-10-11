@@ -11,5 +11,4 @@ await Qorus.QorusAuthenticator.login({ user: 'sandbox', pass: 'sandbox' });
 // Next we initialize a get request against our defined Qorus server
 const result = await Qorus.QorusRequest.get({
   path: 'api/latest/dataprovider/browse',
-  headers: headers,
 });
