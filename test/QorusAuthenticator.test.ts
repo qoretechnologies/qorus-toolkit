@@ -11,11 +11,24 @@ if (!(process.env.ENDPOINT && process.env.TESTUSER && process.env.TESTPASS)) {
 }
 
 describe('QorusLogin Utility Class Tests', () => {
-  it('Should initialize the endpoint and assign it to the selected endpoint', () => {
-    QorusAuth.initEndpoint({ url: process.env.ENDPOINT!, id: 'rippy' });
+  it('Should initialize the endpoint and assign it to the selected endpoint', async () => {
+    const endpoint = await QorusAuth.initEndpoint({
+      url: process.env.ENDPOINT!,
+      id: 'rippy',
+    });
 
-    const endpoint = QorusAuth.getSelectedEndpoint();
     expect(endpoint).toMatchSnapshot();
+  });
+
+  it('Should initialize the endpoint and assign it to the selected endpoint and authenticate the user', async () => {
+    const endpoint = await QorusAuth.initEndpoint({
+      url: process.env.ENDPOINT!,
+      id: 'rippy',
+      user: process.env.TESTUSER,
+      pass: process.env.TESTPASS,
+    });
+
+    expect(typeof endpoint.authToken).toEqual('string');
   });
 
   it('Should return user token after authentication (login)', async () => {

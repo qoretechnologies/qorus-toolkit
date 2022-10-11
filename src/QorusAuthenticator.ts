@@ -20,6 +20,7 @@ export interface Authenticator {
 
   /**
    * -initEndpoint-function Allows the user to add/initialize a new endpoint
+   * @param props {@link InitEndpoint} requires url and accepts optional user and pass parameters to initialize the endpoint and then authenticate the user
    *
    * Returns the newly created endpoint
    */
@@ -145,7 +146,7 @@ export interface LoginParams {
   pass?: string;
 }
 
-export interface InitEndpoint extends WithQorusURL, WithEndpointVersion, WithQorusEndpointId {}
+export interface InitEndpoint extends WithQorusURL, WithEndpointVersion, WithQorusEndpointId, LoginParams {}
 
 export interface Endpoint extends WithQorusURL, WithEndpointVersion, WithQorusAuthToken, WithQorusEndpointId {}
 
@@ -246,7 +247,7 @@ const _QorusAuthenticator = (): Authenticator => {
    * Allows the user to add/initialize a new endpoint
    */
   const initEndpoint = async (props: InitEndpoint): Promise<Endpoint> => {
-    const { id, url, version } = props;
+    const { id, url, version, user, pass } = props;
     const newEndpoint: Endpoint = {
       url,
       id,
@@ -264,10 +265,9 @@ const _QorusAuthenticator = (): Authenticator => {
       }
 
       await checkNoAuth();
-      return newEndpoint;
+      if (user && pass) await login({ user, pass });
+      return selectedEndpoint;
     } else {
-      endpoints.push(newEndpoint);
-
       if (selectedEndpoint) {
         await selectEndpoint(id);
       } else {
@@ -275,7 +275,8 @@ const _QorusAuthenticator = (): Authenticator => {
       }
 
       await checkNoAuth();
-      return newEndpoint;
+      if (user && pass) await login({ user, pass });
+      return selectedEndpoint;
     }
   };
 
