@@ -99,7 +99,7 @@ export interface Authenticator {
    *
    * Returns ApiPaths for the selected endpoint if exists, otherwise returns default api paths
    */
-  getApiPaths: () => ApiPaths;
+  getApiPaths: () => ApiPaths['authenticator'];
 
   /**
    * -getAllEndpoints-function A getter to get all the available {@link Endpoint}
@@ -159,7 +159,7 @@ const _QorusAuthenticator = (): Authenticator => {
   const endpoints: Endpoint[] = [];
 
   /** Api paths for the selected endpoint */
-  let apiPaths: ApiPaths = apiPathsInitial;
+  let apiPaths: ApiPaths['authenticator'] = apiPathsInitial.authenticator;
 
   /** Selected endpoint from the endpoints array */
   let selectedEndpoint: Endpoint;
@@ -184,7 +184,7 @@ const _QorusAuthenticator = (): Authenticator => {
         await QorusRequest.post({ endpointUrl: `${selectedEndpoint.url}${apiPaths.logout}` });
 
         selectedEndpoint.authToken = undefined;
-        apiPaths = apiPathsInitial;
+        apiPaths = apiPathsInitial.authenticator;
         noauth = false;
         successful = true;
       } catch (error: any) {
@@ -212,7 +212,7 @@ const _QorusAuthenticator = (): Authenticator => {
       }
 
       selectedEndpoint = endpoint;
-      apiPaths = createApiPaths({ version: endpoint.version });
+      apiPaths = createApiPaths({ version: endpoint.version }).authenticator;
 
       return endpoint;
     }
@@ -405,7 +405,7 @@ const _QorusAuthenticator = (): Authenticator => {
 
         if (selectedEndpoint && selectedEndpoint.id === endpoint.id) {
           selectedEndpoint.version = version;
-          apiPaths = createApiPaths({ version });
+          apiPaths = createApiPaths({ version }).authenticator;
           await logout();
         }
 
@@ -451,7 +451,7 @@ const _QorusAuthenticator = (): Authenticator => {
   /**
    * A getter to return the api paths for the selected {@link Endpoint}
    */
-  const getApiPaths = (): ApiPaths => {
+  const getApiPaths = (): ApiPaths['authenticator'] => {
     return apiPaths;
   };
 

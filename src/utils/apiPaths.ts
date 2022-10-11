@@ -1,8 +1,12 @@
-export interface ApiPaths {
-  login: string;
-  logout: string;
-  validateToken: string;
-  validateNoAuth: string;
+export interface ApiPaths extends ApiPathsAuthenticator {}
+
+export interface ApiPathsAuthenticator {
+  authenticator: {
+    login: string;
+    logout: string;
+    validateToken: string;
+    validateNoAuth: string;
+  };
 }
 
 export type Version = 1 | 2 | 3 | 4 | 5 | 6 | 'latest';
@@ -15,10 +19,12 @@ export interface WithEndpointVersion {
 
 /**Initial api routes */
 export const apiPathsInitial: ApiPaths = {
-  login: `/api/latest/public/login`,
-  logout: `/api/latest/logout`,
-  validateToken: `/api/latest/system?action=validateWsToken`,
-  validateNoAuth: `/api/latest/public/info`,
+  authenticator: {
+    login: `/api/latest/public/login`,
+    logout: `/api/latest/logout`,
+    validateToken: `/api/latest/system?action=validateWsToken`,
+    validateNoAuth: `/api/latest/public/info`,
+  },
 };
 
 /**
@@ -32,9 +38,11 @@ export const createApiPaths = (props: WithEndpointVersion): ApiPaths => {
   const V = version && version !== 'latest' ? `v${version}` : 'latest';
 
   return {
-    login: `/api/${V}/public/login`,
-    logout: `/api/${V}/logout`,
-    validateToken: `/api/${V}/system?action=validateWsToken`,
-    validateNoAuth: `/api/${V}/api/latest/public/info`,
+    authenticator: {
+      login: `/api/${V}/public/login`,
+      logout: `/api/${V}/logout`,
+      validateToken: `/api/${V}/system?action=validateWsToken`,
+      validateNoAuth: `/api/${V}/public/info`,
+    },
   };
 };
