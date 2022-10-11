@@ -1,4 +1,8 @@
-export interface ApiPaths extends ApiPathsAuthenticator {}
+export interface ApiPaths extends ApiPathsAuthenticator, ApiPathsDataProviders {}
+
+export interface ApiPathsDataProviders {
+  dataProviders: {};
+}
 
 export interface ApiPathsAuthenticator {
   authenticator: {
