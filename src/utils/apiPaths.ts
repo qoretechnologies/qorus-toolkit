@@ -1,7 +1,9 @@
-export interface ApiPaths extends ApiPathsAuthenticator, ApiPathsDataProviders {}
+export interface ApiPaths extends ApiPathsAuthenticator, ApiPathsDataProvider {}
 
-export interface ApiPathsDataProviders {
-  dataProviders: {};
+export interface ApiPathsDataProvider {
+  dataProviders: {
+    browse: string;
+  };
 }
 
 export interface ApiPathsAuthenticator {
@@ -29,6 +31,9 @@ export const apiPathsInitial: ApiPaths = {
     validateToken: `/api/latest/system?action=validateWsToken`,
     validateNoAuth: `/api/latest/public/info`,
   },
+  dataProviders: {
+    browse: '/api/latest/dataprovider/browse',
+  },
 };
 
 /**
@@ -47,6 +52,9 @@ export const createApiPaths = (props: WithEndpointVersion): ApiPaths => {
       logout: `/api/${V}/logout`,
       validateToken: `/api/${V}/system?action=validateWsToken`,
       validateNoAuth: `/api/${V}/public/info`,
+    },
+    dataProviders: {
+      browse: `/api/${V}/dataprovider/browse`,
     },
   };
 };

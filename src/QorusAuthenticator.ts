@@ -181,7 +181,7 @@ const _QorusAuthenticator = (): Authenticator => {
       let successful = false;
 
       try {
-        await QorusRequest.post({ endpointUrl: `${selectedEndpoint.url}${apiPaths.logout}` });
+        await QorusRequest.post({ path: `${apiPaths.logout}` });
 
         selectedEndpoint.authToken = undefined;
         apiPaths = apiPathsInitial.authenticator;
@@ -220,11 +220,11 @@ const _QorusAuthenticator = (): Authenticator => {
   };
 
   // Check if the server has noauth enabled
-  const checkNoAuth = async (url: string): Promise<null> => {
+  const checkNoAuth = async (): Promise<null> => {
     let resp;
 
     try {
-      resp = await QorusRequest.get({ endpointUrl: `${url}${apiPaths.validateNoAuth}` });
+      resp = await QorusRequest.get({ path: `${apiPaths.validateNoAuth}` });
       const _noauth = resp.data.noauth;
 
       if (typeof _noauth === 'boolean') {
@@ -263,7 +263,7 @@ const _QorusAuthenticator = (): Authenticator => {
         selectedEndpoint = newEndpoint;
       }
 
-      await checkNoAuth(url);
+      await checkNoAuth();
       return newEndpoint;
     } else {
       endpoints.push(newEndpoint);
@@ -274,7 +274,7 @@ const _QorusAuthenticator = (): Authenticator => {
         selectedEndpoint = newEndpoint;
       }
 
-      await checkNoAuth(url);
+      await checkNoAuth();
       return newEndpoint;
     }
   };
@@ -295,7 +295,7 @@ const _QorusAuthenticator = (): Authenticator => {
     if (authToken) {
       try {
         const resp = await QorusRequest.get({
-          endpointUrl: `${endpoints}${apiPaths.validateToken}`,
+          path: `${apiPaths.validateToken}`,
           data: { token: authToken },
         });
 
@@ -337,10 +337,10 @@ const _QorusAuthenticator = (): Authenticator => {
       } else
         try {
           const resp = await QorusRequest.post({
-            endpointUrl: `${selectedEndpoint.url}${apiPaths.login}`,
+            path: `${apiPaths.login}`,
             data: { user, pass },
           });
-          const { token } = resp.data;
+          const { token } = resp?.data;
           selectedEndpoint.authToken = token;
           setKeyValLocal({ key: `auth-token-${id}`, value: token });
 

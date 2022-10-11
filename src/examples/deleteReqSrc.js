@@ -1,18 +1,14 @@
-// Customizing default headers
-let headers = { ...Qorus.QorusRequest.defaultHeaders, 'Qorus-Token': '' };
-
-// Creating an endpoint
+// First we initialize an Endpoint
 await Qorus.QorusAuthenticator.initEndpoint({
   id: 'rippy',
   url: 'https://sandbox.qoretechnologies.com',
   version: 'latest',
 });
 
-// Authenticating User
-headers['Qorus-Token'] = await Qorus.QorusAuthenticator.login({ user: 'sandbox', pass: 'sandbox' });
+// Then we authenticate the user for the Selected Endpoint
+await Qorus.QorusAuthenticator.login({ user: 'sandbox', pass: 'sandbox' });
 
-// Using delete operation to delete a class
+// Next we initialize a delete request against our defined Qorus server
 const result = await Qorus.QorusRequest.deleteReq({
-  endpointUrl: 'https://sandbox.qoretechnologies.com/api/latest/classes/1',
-  headers: headers,
+  endpointUrl: '/api/latest/classes/1',
 });
