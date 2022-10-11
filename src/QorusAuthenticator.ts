@@ -244,43 +244,6 @@ const _QorusAuthenticator = (): Authenticator => {
   };
 
   /**
-   * Allows the user to add/initialize a new endpoint
-   */
-  const initEndpoint = async (props: InitEndpoint): Promise<Endpoint> => {
-    const { id, url, version, user, pass } = props;
-    const newEndpoint: Endpoint = {
-      url,
-      id,
-      version: version ? version : 'latest',
-    };
-    const endpoint = getEndpointById(id);
-
-    if (!endpoint) {
-      endpoints.push(newEndpoint);
-
-      if (selectedEndpoint) {
-        await selectEndpoint(id);
-      } else {
-        selectedEndpoint = newEndpoint;
-      }
-
-      await checkNoAuth();
-      if (user && pass) await login({ user, pass });
-      return selectedEndpoint;
-    } else {
-      if (selectedEndpoint) {
-        await selectEndpoint(id);
-      } else {
-        selectedEndpoint = newEndpoint;
-      }
-
-      await checkNoAuth();
-      if (user && pass) await login({ user, pass });
-      return selectedEndpoint;
-    }
-  };
-
-  /**
    * A getter to return selected {@link Endpoint}
    */
   const getSelectedEndpoint = (): Endpoint | undefined => {
@@ -352,6 +315,43 @@ const _QorusAuthenticator = (): Authenticator => {
     }
 
     return undefined;
+  };
+
+  /**
+   * Allows the user to add/initialize a new endpoint
+   */
+  const initEndpoint = async (props: InitEndpoint): Promise<Endpoint> => {
+    const { id, url, version, user, pass } = props;
+    const newEndpoint: Endpoint = {
+      url,
+      id,
+      version: version ? version : 'latest',
+    };
+    const endpoint = getEndpointById(id);
+
+    if (!endpoint) {
+      endpoints.push(newEndpoint);
+
+      if (selectedEndpoint) {
+        await selectEndpoint(id);
+      } else {
+        selectedEndpoint = newEndpoint;
+      }
+
+      await checkNoAuth();
+      if (user && pass) await login({ user, pass });
+      return selectedEndpoint;
+    } else {
+      if (selectedEndpoint) {
+        await selectEndpoint(id);
+      } else {
+        selectedEndpoint = newEndpoint;
+      }
+
+      await checkNoAuth();
+      if (user && pass) await login({ user, pass });
+      return selectedEndpoint;
+    }
   };
 
   /**
