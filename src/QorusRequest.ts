@@ -115,28 +115,32 @@ const _QorusRequest = (): Request => {
    * Get request creator for the QorusToolkit
    */
   const get = async (props: QorusRequestParams): Promise<AxiosPromise<any> | undefined> => {
-    return await makeRequest('GET', props);
+    const result = await makeRequest('GET', props);
+    return result;
   };
 
   /**
    * Post request creator for the QorusToolkit
    */
   const post = async (props: QorusRequestParams): Promise<AxiosPromise<any> | undefined> => {
-    return await makeRequest('POST', props);
+    const result = await makeRequest('POST', props);
+    return result;
   };
 
   /**
    * Put request creator for the QorusToolkit
    */
   const put = async (props: QorusRequestParams): Promise<AxiosPromise<any> | undefined> => {
-    return await makeRequest('PUT', props);
+    const result = await makeRequest('PUT', props);
+    return result;
   };
 
   /**
    * Delete request creator for the QorusToolkit
    */
   const deleteReq = async (props: QorusRequestParams): Promise<AxiosPromise<any> | undefined> => {
-    return await makeRequest('DELETE', props);
+    const result = await makeRequest('DELETE', props);
+    return result;
   };
 
   return {

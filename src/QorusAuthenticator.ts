@@ -458,7 +458,7 @@ const _QorusAuthenticator = (): Authenticator => {
    * A getter to return the api paths for the selected {@link Endpoint}
    */
   const getApiPaths = (): ApiPaths=> {
-    return all;
+    return allApiPaths;
   };
 
   /**
