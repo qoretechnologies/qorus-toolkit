@@ -14,10 +14,15 @@ exports[`QorusLogin Utility Class Tests Should return all the endpoints 1`] = `1
 
 exports[`QorusLogin Utility Class Tests Should return api paths for the selected endpoint 1`] = `
 Object {
-  "login": "/api/latest/public/login",
-  "logout": "/api/latest/logout",
-  "validateNoAuth": "/api/latest/public/info",
-  "validateToken": "/api/latest/system?action=validateWsToken",
+  "authenticator": Object {
+    "login": "/api/latest/public/login",
+    "logout": "/api/latest/logout",
+    "validateNoAuth": "/api/latest/public/info",
+    "validateToken": "/api/latest/system?action=validateWsToken",
+  },
+  "dataProviders": Object {
+    "browse": "/api/latest/dataprovider/browse",
+  },
 }
 `;
 

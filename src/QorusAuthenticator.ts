@@ -161,8 +161,8 @@ const _QorusAuthenticator = (): Authenticator => {
 
   /** All Api paths for the selected endpoint */
   let allApiPaths: ApiPaths = apiPathsInitial;
-  
-  let apiPathsAuthenticator: ApiPaths['authenticator'] = apiPathsInitial['authenticator'];
+
+  let apiPathsAuthenticator: ApiPaths['authenticator'] = apiPathsInitial.authenticator;
 
   /** Selected endpoint from the endpoints array */
   let selectedEndpoint: Endpoint;
@@ -188,7 +188,7 @@ const _QorusAuthenticator = (): Authenticator => {
 
         selectedEndpoint.authToken = undefined;
         allApiPaths = apiPathsInitial;
-        apiPathsAuthenticator = apiPathsInitial['authenticator'];
+        apiPathsAuthenticator = apiPathsInitial.authenticator;
         noauth = false;
         successful = true;
       } catch (error: any) {
@@ -216,7 +216,7 @@ const _QorusAuthenticator = (): Authenticator => {
       }
 
       selectedEndpoint = endpoint;
-      allApiPaths = createApiPaths({ version: endpoint.version })
+      allApiPaths = createApiPaths({ version: endpoint.version });
       apiPathsAuthenticator = allApiPaths.authenticator;
 
       return endpoint;
@@ -411,7 +411,7 @@ const _QorusAuthenticator = (): Authenticator => {
         if (selectedEndpoint && selectedEndpoint.id === endpoint.id) {
           selectedEndpoint.version = version;
           allApiPaths = createApiPaths({ version });
-          apiPathsAuthenticator = allApiPaths['authenticator'];
+          apiPathsAuthenticator = allApiPaths.authenticator;
           await logout();
         }
 
@@ -457,7 +457,7 @@ const _QorusAuthenticator = (): Authenticator => {
   /**
    * A getter to return the api paths for the selected {@link Endpoint}
    */
-  const getApiPaths = (): ApiPaths=> {
+  const getApiPaths = (): ApiPaths => {
     return allApiPaths;
   };
 
