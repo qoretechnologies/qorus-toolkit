@@ -100,7 +100,7 @@ export interface Authenticator {
    *
    * Returns ApiPaths for the selected endpoint if exists, otherwise returns default api paths
    */
-  getApiPaths: () => ApiPaths['authenticator'];
+  getApiPaths: () => ApiPaths;
 
   /**
    * -getAllEndpoints-function A getter to get all the available {@link Endpoint}
@@ -159,8 +159,10 @@ const _QorusAuthenticator = (): Authenticator => {
   //** Array of user defined endpoints */
   const endpoints: Endpoint[] = [];
 
-  /** Api paths for the selected endpoint */
-  let apiPaths: ApiPaths['authenticator'] = apiPathsInitial.authenticator;
+  /** All Api paths for the selected endpoint */
+  let allApiPaths: ApiPaths = apiPathsInitial;
+  
+  let apiPathsAuthenticator: ApiPaths['authenticator'] = apiPathsInitial['authenticator'];
 
   /** Selected endpoint from the endpoints array */
   let selectedEndpoint: Endpoint;
@@ -182,10 +184,11 @@ const _QorusAuthenticator = (): Authenticator => {
       let successful = false;
 
       try {
-        await QorusRequest.post({ path: `${apiPaths.logout}` });
+        await QorusRequest.post({ path: `${apiPathsAuthenticator.logout}` });
 
         selectedEndpoint.authToken = undefined;
-        apiPaths = apiPathsInitial.authenticator;
+        allApiPaths = apiPathsInitial;
+        apiPathsAuthenticator = apiPathsInitial['authenticator'];
         noauth = false;
         successful = true;
       } catch (error: any) {
@@ -213,7 +216,8 @@ const _QorusAuthenticator = (): Authenticator => {
       }
 
       selectedEndpoint = endpoint;
-      apiPaths = createApiPaths({ version: endpoint.version }).authenticator;
+      allApiPaths = createApiPaths({ version: endpoint.version })
+      apiPathsAuthenticator = allApiPaths.authenticator;
 
       return endpoint;
     }
@@ -225,7 +229,7 @@ const _QorusAuthenticator = (): Authenticator => {
     let resp;
 
     try {
-      resp = await QorusRequest.get({ path: `${apiPaths.validateNoAuth}` });
+      resp = await QorusRequest.get({ path: `${apiPathsAuthenticator.validateNoAuth}` });
       const _noauth = resp.data.noauth;
 
       if (typeof _noauth === 'boolean') {
@@ -259,7 +263,7 @@ const _QorusAuthenticator = (): Authenticator => {
     if (authToken) {
       try {
         const resp = await QorusRequest.get({
-          path: `${apiPaths.validateToken}`,
+          path: `${apiPathsAuthenticator.validateToken}`,
           data: { token: authToken },
         });
 
@@ -301,7 +305,7 @@ const _QorusAuthenticator = (): Authenticator => {
       } else
         try {
           const resp = await QorusRequest.post({
-            path: `${apiPaths.login}`,
+            path: `${apiPathsAuthenticator.login}`,
             data: { user, pass },
           });
           const { token } = resp?.data;
@@ -406,7 +410,8 @@ const _QorusAuthenticator = (): Authenticator => {
 
         if (selectedEndpoint && selectedEndpoint.id === endpoint.id) {
           selectedEndpoint.version = version;
-          apiPaths = createApiPaths({ version }).authenticator;
+          allApiPaths = createApiPaths({ version });
+          apiPathsAuthenticator = allApiPaths['authenticator'];
           await logout();
         }
 
@@ -452,8 +457,8 @@ const _QorusAuthenticator = (): Authenticator => {
   /**
    * A getter to return the api paths for the selected {@link Endpoint}
    */
-  const getApiPaths = (): ApiPaths['authenticator'] => {
-    return apiPaths;
+  const getApiPaths = (): ApiPaths=> {
+    return all;
   };
 
   /**

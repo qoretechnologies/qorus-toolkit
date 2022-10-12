@@ -82,10 +82,7 @@ export interface Request {
 const _QorusRequest = (): Request => {
   const defaultHeaders: AxiosRequestHeaders = { 'Content-Type': 'application/json', Accept: 'application/json' };
 
-  /**
-   * Get request creator for the QorusToolkit
-   */
-  const get = async (props: QorusRequestParams): Promise<AxiosPromise<any> | undefined> => {
+  const makeRequest = async (type: 'GET' | 'PUT' | 'POST' | 'DELETE', props: QorusRequestParams) => {
     const { path, data, headers = defaultHeaders, params } = props;
     const selectedEndpoint = QorusAuthenticator.getSelectedEndpoint();
     if (headers != defaultHeaders) {
@@ -98,7 +95,7 @@ const _QorusRequest = (): Request => {
 
       try {
         const promise = await httpsAxios({
-          method: 'GET',
+          method: type,
           url: selectedEndpoint?.url + path,
           data: data,
           headers: headers,
@@ -115,90 +112,31 @@ const _QorusRequest = (): Request => {
   };
 
   /**
+   * Get request creator for the QorusToolkit
+   */
+  const get = async (props: QorusRequestParams): Promise<AxiosPromise<any> | undefined> => {
+    return await makeRequest('GET', props);
+  };
+
+  /**
    * Post request creator for the QorusToolkit
    */
   const post = async (props: QorusRequestParams): Promise<AxiosPromise<any> | undefined> => {
-    const { path, data, headers = defaultHeaders, params } = props;
-    if (headers != defaultHeaders) {
-      Object.assign(headers, { ...defaultHeaders, headers });
-    }
-    const selectedEndpoint = QorusAuthenticator.getSelectedEndpoint();
-
-    if (selectedEndpoint?.url) {
-      try {
-        const promise = await httpsAxios({
-          method: 'POST',
-          url: selectedEndpoint?.url + path,
-          data,
-          headers: headers,
-          params: params,
-        });
-        return promise;
-      } catch (error: any) {
-        return error;
-      }
-    }
-
-    logger.error('Initialize an endpoint using QorusAuthenticator to use QorusRequest');
-    return;
+    return await makeRequest('POST', props);
   };
 
   /**
    * Put request creator for the QorusToolkit
    */
   const put = async (props: QorusRequestParams): Promise<AxiosPromise<any> | undefined> => {
-    const { path, data, headers = defaultHeaders, params } = props;
-    if (headers != defaultHeaders) {
-      Object.assign(headers, { ...defaultHeaders, headers });
-    }
-    const selectedEndpoint = QorusAuthenticator.getSelectedEndpoint();
-
-    if (selectedEndpoint?.url) {
-      try {
-        const promise = await httpsAxios({
-          method: 'PUT',
-          url: selectedEndpoint?.url + path,
-          data,
-          headers: headers,
-          params: params,
-        });
-        return promise;
-      } catch (error: any) {
-        return error;
-      }
-    }
-
-    logger.error('Initialize an endpoint using QorusAuthenticator to use QorusRequest');
-    return;
+    return await makeRequest('PUT', props);
   };
 
   /**
    * Delete request creator for the QorusToolkit
    */
   const deleteReq = async (props: QorusRequestParams): Promise<AxiosPromise<any> | undefined> => {
-    const { path, data, headers = defaultHeaders, params } = props;
-    if (headers != defaultHeaders) {
-      Object.assign(headers, { ...defaultHeaders, headers });
-    }
-    const selectedEndpoint = QorusAuthenticator.getSelectedEndpoint();
-
-    if (selectedEndpoint?.url) {
-      try {
-        const promise = await httpsAxios({
-          method: 'DELETE',
-          url: selectedEndpoint?.url + path,
-          data,
-          headers: headers,
-          params: params,
-        });
-        return promise;
-      } catch (error: any) {
-        return error;
-      }
-    }
-
-    logger.error('Initialize an endpoint using QorusAuthenticator to use QorusRequest');
-    return;
+    return await makeRequest('DELETE', props);
   };
 
   return {

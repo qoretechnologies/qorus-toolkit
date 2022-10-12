@@ -13,28 +13,39 @@ describe('QorusRequest Utility Tests', () => {
       path: '/api/latest/public/login',
       data: { user: process.env.TESTUSER, pass: process.env.TESTPASS },
     });
+
     expect(typeof result?.data.token).toEqual('string');
   });
 
   it('Should make a get request and return the result', async () => {
-    await QorusAuthenticator.login({ user: process.env.TESTUSER, pass: process.env.TESTPASS });
+    await QorusAuthenticator.initEndpoint({
+      url: process.env.ENDPOINT!,
+      id: 'rippy',
+      user: process.env.TESTUSER,
+      pass: process.env.TESTPASS,
+    });
 
     const result = await QorusRequest.get({
       path: 'api/latest/dataprovider/browse',
       data: { user: process.env.TESTUSER, pass: process.env.TESTPASS },
     });
+
     expect(result?.data.type).toEqual('nav');
   });
 
   it('Should make a put request and return the result', async () => {
-    if (!QorusAuthenticator.getSelectedEndpoint()?.authToken)
-      await QorusAuthenticator.login({ user: process.env.TESTUSER, pass: process.env.TESTPASS });
+    await QorusAuthenticator.initEndpoint({
+      url: process.env.ENDPOINT!,
+      id: 'rippy',
+      user: process.env.TESTUSER,
+      pass: process.env.TESTPASS,
+    });
 
     const result = await QorusRequest.put({
       path: 'api/latest/dataprovider/browse',
       params: { context: 'api' },
-      data: { user: process.env.TESTUSER, pass: process.env.TESTPASS },
     });
+
     expect(result?.data.type).toEqual('nav');
   });
 
