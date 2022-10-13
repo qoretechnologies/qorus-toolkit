@@ -1,7 +1,7 @@
 import { getKeyValLocal, setKeyValLocal } from './managers/LocalStorage';
 import logger from './managers/logger';
 import { ApiPaths, apiPathsInitial, createApiPaths, Version, WithEndpointVersion } from './utils/apiPaths';
-import { QorusReq } from './utils/QorusRequest';
+import { QorusRequest } from './QorusRequest';
 
 export interface Authenticator {
   /**
@@ -20,6 +20,7 @@ export interface Authenticator {
 
   /**
    * -initEndpoint-function Allows the user to add/initialize a new endpoint
+   * @param props {@link InitEndpoint} requires url and accepts optional user and pass parameters to initialize the endpoint and then authenticate the user
    *
    * Returns the newly created endpoint
    */
@@ -145,7 +146,7 @@ export interface LoginParams {
   pass?: string;
 }
 
-export interface InitEndpoint extends WithQorusURL, WithEndpointVersion, WithQorusEndpointId {}
+export interface InitEndpoint extends WithQorusURL, WithEndpointVersion, WithQorusEndpointId, LoginParams {}
 
 export interface Endpoint extends WithQorusURL, WithEndpointVersion, WithQorusAuthToken, WithQorusEndpointId {}
 
@@ -158,8 +159,10 @@ const _QorusAuthenticator = (): Authenticator => {
   //** Array of user defined endpoints */
   const endpoints: Endpoint[] = [];
 
-  /** Api paths for the selected endpoint */
-  let apiPaths: ApiPaths = apiPathsInitial;
+  /** All Api paths for the selected endpoint */
+  let allApiPaths: ApiPaths = apiPathsInitial;
+
+  let apiPathsAuthenticator: ApiPaths['authenticator'] = apiPathsInitial.authenticator;
 
   /** Selected endpoint from the endpoints array */
   let selectedEndpoint: Endpoint;
@@ -181,10 +184,11 @@ const _QorusAuthenticator = (): Authenticator => {
       let successful = false;
 
       try {
-        await QorusReq.post({ endpointUrl: `${selectedEndpoint.url}${apiPaths.logout}` });
+        await QorusRequest.post({ path: `${apiPathsAuthenticator.logout}` });
 
         selectedEndpoint.authToken = undefined;
-        apiPaths = apiPathsInitial;
+        allApiPaths = apiPathsInitial;
+        apiPathsAuthenticator = apiPathsInitial.authenticator;
         noauth = false;
         successful = true;
       } catch (error: any) {
@@ -212,7 +216,8 @@ const _QorusAuthenticator = (): Authenticator => {
       }
 
       selectedEndpoint = endpoint;
-      apiPaths = createApiPaths({ version: endpoint.version });
+      allApiPaths = createApiPaths({ version: endpoint.version });
+      apiPathsAuthenticator = allApiPaths.authenticator;
 
       return endpoint;
     }
@@ -220,11 +225,11 @@ const _QorusAuthenticator = (): Authenticator => {
   };
 
   // Check if the server has noauth enabled
-  const checkNoAuth = async (url: string): Promise<null> => {
+  const checkNoAuth = async (): Promise<null> => {
     let resp;
 
     try {
-      resp = await QorusReq.get({ endpointUrl: `${url}${apiPaths.validateNoAuth}` });
+      resp = await QorusRequest.get({ path: `${apiPathsAuthenticator.validateNoAuth}` });
       const _noauth = resp.data.noauth;
 
       if (typeof _noauth === 'boolean') {
@@ -243,43 +248,6 @@ const _QorusAuthenticator = (): Authenticator => {
   };
 
   /**
-   * Allows the user to add/initialize a new endpoint
-   */
-  const initEndpoint = async (props: InitEndpoint): Promise<Endpoint> => {
-    const { id, url, version } = props;
-    const newEndpoint: Endpoint = {
-      url,
-      id,
-      version: version ? version : 'latest',
-    };
-    const endpoint = getEndpointById(id);
-
-    if (!endpoint) {
-      endpoints.push(newEndpoint);
-
-      if (selectedEndpoint) {
-        await selectEndpoint(id);
-      } else {
-        selectedEndpoint = newEndpoint;
-      }
-
-      await checkNoAuth(url);
-      return newEndpoint;
-    } else {
-      endpoints.push(newEndpoint);
-
-      if (selectedEndpoint) {
-        await selectEndpoint(id);
-      } else {
-        selectedEndpoint = newEndpoint;
-      }
-
-      await checkNoAuth(url);
-      return newEndpoint;
-    }
-  };
-
-  /**
    * A getter to return selected {@link Endpoint}
    */
   const getSelectedEndpoint = (): Endpoint | undefined => {
@@ -294,8 +262,8 @@ const _QorusAuthenticator = (): Authenticator => {
 
     if (authToken) {
       try {
-        const resp = await QorusReq.get({
-          endpointUrl: `${endpoints}${apiPaths.validateToken}`,
+        const resp = await QorusRequest.get({
+          path: `${apiPathsAuthenticator.validateToken}`,
           data: { token: authToken },
         });
 
@@ -336,11 +304,11 @@ const _QorusAuthenticator = (): Authenticator => {
         return currentUserToken;
       } else
         try {
-          const resp = await QorusReq.post({
-            endpointUrl: `${selectedEndpoint.url}${apiPaths.login}`,
+          const resp = await QorusRequest.post({
+            path: `${apiPathsAuthenticator.login}`,
             data: { user, pass },
           });
-          const { token } = resp.data;
+          const { token } = resp?.data;
           selectedEndpoint.authToken = token;
           setKeyValLocal({ key: `auth-token-${id}`, value: token });
 
@@ -351,6 +319,43 @@ const _QorusAuthenticator = (): Authenticator => {
     }
 
     return undefined;
+  };
+
+  /**
+   * Allows the user to add/initialize a new endpoint
+   */
+  const initEndpoint = async (props: InitEndpoint): Promise<Endpoint> => {
+    const { id, url, version, user, pass } = props;
+    const newEndpoint: Endpoint = {
+      url,
+      id,
+      version: version ? version : 'latest',
+    };
+    const endpoint = getEndpointById(id);
+
+    if (!endpoint) {
+      endpoints.push(newEndpoint);
+
+      if (selectedEndpoint) {
+        await selectEndpoint(id);
+      } else {
+        selectedEndpoint = newEndpoint;
+      }
+
+      await checkNoAuth();
+      if (user && pass) await login({ user, pass });
+      return selectedEndpoint;
+    } else {
+      if (selectedEndpoint) {
+        await selectEndpoint(id);
+      } else {
+        selectedEndpoint = newEndpoint;
+      }
+
+      await checkNoAuth();
+      if (user && pass) await login({ user, pass });
+      return selectedEndpoint;
+    }
   };
 
   /**
@@ -405,7 +410,8 @@ const _QorusAuthenticator = (): Authenticator => {
 
         if (selectedEndpoint && selectedEndpoint.id === endpoint.id) {
           selectedEndpoint.version = version;
-          apiPaths = createApiPaths({ version });
+          allApiPaths = createApiPaths({ version });
+          apiPathsAuthenticator = allApiPaths.authenticator;
           await logout();
         }
 
@@ -452,7 +458,7 @@ const _QorusAuthenticator = (): Authenticator => {
    * A getter to return the api paths for the selected {@link Endpoint}
    */
   const getApiPaths = (): ApiPaths => {
-    return apiPaths;
+    return allApiPaths;
   };
 
   /**
