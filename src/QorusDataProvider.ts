@@ -24,6 +24,7 @@ export interface ProviderOptions {
  * user wants to get a type, calls function getRecord connection datasource factory apicall
  */
 const _DataProvider = (): Provider => {
+  /*eslint-disable*/
   let providerOptions: ProviderOptions = {
     currentPath: apiPathsInitial.dataProviders.browse,
     dataObj: {},
@@ -52,7 +53,7 @@ const _DataProvider = (): Provider => {
       data: requestData,
     });
 
-    providerOptions['dataObj'] = result?.data;
+    providerOptions.dataObj = result?.data;
 
     // Returning only the children of the result data
     if (providerOptions?.dataObj?.hasOwnProperty('children')) return providerOptions?.dataObj?.children;
