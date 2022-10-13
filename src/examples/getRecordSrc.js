@@ -7,16 +7,16 @@ await Qorus.QorusAuthenticator.initEndpoint({
 });
 
 // Get Data Provider Types
-const dataProviderTypes = await Qorus.DataProvider.getRecord({});
+const dataProviderTypes = await Qorus.QorusDataProvider.getRecord({});
 
 // Selecting factory Data Provider
-const dataProviderFactories = await Qorus.DataProvider.getRecord({ select: dataProviderTypes[0] });
+const dataProviderFactories = await Qorus.QorusDataProvider.getRecord({ select: dataProviderTypes[0] });
 
 // Selecting db factory
 const selectDb = dataProviderFactories.filter((obj) => obj.name === 'db')[0];
 
 // Getting tables from db
-const dbProvider = await Qorus.DataProvider.getRecord({
+const dbProvider = await Qorus.QorusDataProvider.getRecord({
   select: selectDb,
   constructor_options: { datasource: 'pgsql:omquser/omquser@omquser%bee' },
 });

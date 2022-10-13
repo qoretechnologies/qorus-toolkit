@@ -68,4 +68,4 @@ const _DataProvider = (): Provider => {
   };
 };
 
-export const DataProvider: Provider = _DataProvider();
+export const QorusDataProvider: Provider = _DataProvider();
