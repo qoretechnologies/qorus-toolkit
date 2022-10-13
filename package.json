@@ -1,6 +1,6 @@
 {
   "name": "@qoretechnologies/qorus-toolkit",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Utility library to interact with Qorus Integration Engine",
   "keywords": [
     "qoretechnologies",
