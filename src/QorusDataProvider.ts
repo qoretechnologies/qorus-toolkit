@@ -2,11 +2,17 @@ import { QorusRequest } from './QorusRequest';
 import { apiPathsInitial } from './utils/apiPaths';
 
 export interface Provider {
-  putDataProviderRecord: (prop: PutDataProviderProps) => any;
+  /**
+   * -getRecord-function Get record of Data Providers from /dataprovider/browse endpoint
+   * @params props {@link ProviderProps}
+   *
+   * Returns array of records
+   */
+  getRecord: (props: ProviderProps) => any;
   getProviderOptions: () => ProviderOptions;
 }
 
-export interface PutDataProviderProps {
+export interface ProviderProps {
   select?: { [x: string]: string | number | boolean | any[] };
   data?: { [x: string]: string | number | boolean };
   constructor_options?: { [x: string]: any };
@@ -19,10 +25,6 @@ export interface ProviderOptions {
   };
 }
 
-/**
- *
- * user wants to get a type, calls function getRecord connection datasource factory apicall
- */
 const _DataProvider = (): Provider => {
   /*eslint-disable*/
   let providerOptions: ProviderOptions = {
@@ -36,7 +38,7 @@ const _DataProvider = (): Provider => {
   };
 
   // Put DataProvider request with context record
-  const putDataProviderRecord = async (props: PutDataProviderProps) => {
+  const getRecord = async (props: ProviderProps) => {
     // Select option defines the next value to be selected
     const { select, data, constructor_options } = props;
     if (select) {
@@ -61,7 +63,7 @@ const _DataProvider = (): Provider => {
   };
 
   return {
-    putDataProviderRecord,
+    getRecord,
     getProviderOptions,
   };
 };

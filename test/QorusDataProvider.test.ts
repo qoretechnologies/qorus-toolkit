@@ -16,18 +16,18 @@ describe('QorusDataProvider Utility Class Tests', () => {
       pass: process.env.TESTPASS,
     });
     // Get Data Provider Types
-    const dataProviderTypes = await DataProvider.putDataProviderRecord({});
+    const dataProviderTypes = await DataProvider.getRecord({});
     expect(dataProviderTypes.find((provider) => provider.name === 'factory')).not.toBeUndefined();
 
     // Selecting factory Data Provider
-    const dataProviderFactories = await DataProvider.putDataProviderRecord({ select: dataProviderTypes[0] });
+    const dataProviderFactories = await DataProvider.getRecord({ select: dataProviderTypes[0] });
 
     // Selecting db factory
     const selectDb = dataProviderFactories.filter((obj) => obj.name === 'db')[0];
     expect(selectDb).not.toBeUndefined();
 
     // Getting tables from db
-    const dbProvider = await DataProvider.putDataProviderRecord({
+    const dbProvider = await DataProvider.getRecord({
       select: selectDb,
       constructor_options: { datasource: 'pgsql:omquser/omquser@omquser%bee' },
     });
