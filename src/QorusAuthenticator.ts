@@ -2,6 +2,7 @@ import { getKeyValLocal, setKeyValLocal } from './managers/LocalStorage';
 import logger from './managers/logger';
 import { ApiPaths, apiPathsInitial, createApiPaths, Version, WithEndpointVersion } from './utils/apiPaths';
 import { QorusRequest } from './QorusRequest';
+import { AxiosResponse } from 'axios';
 
 export interface Authenticator {
   /**
@@ -308,7 +309,7 @@ const _QorusAuthenticator = (): Authenticator => {
             path: `${apiPathsAuthenticator.login}`,
             data: { user, pass },
           });
-          const { token } = resp?.data;
+          const { token } = (resp as AxiosResponse)?.data;
           selectedEndpoint.authToken = token;
           setKeyValLocal({ key: `auth-token-${id}`, value: token });
 

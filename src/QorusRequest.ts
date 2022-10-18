@@ -1,4 +1,4 @@
-import axios, { AxiosPromise, AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
+import axios, { AxiosError, AxiosPromise, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
 import { Agent } from 'https';
 import logger from './managers/logger';
 import { QorusAuthenticator } from './QorusAuthenticator';
@@ -44,7 +44,7 @@ export interface Request {
    *
    * Returns the promise with the result of the get request
    */
-  get: (props: QorusRequestParams) => Promise<AxiosPromise<any> | undefined>;
+  get: (props: QorusRequestParams) => Promise<AxiosResponse<any> | AxiosError | undefined>;
 
   /**
    * -post-function Post request creator for the QorusToolkit
@@ -53,7 +53,7 @@ export interface Request {
    *
    * Returns the promise with the result of the post request
    */
-  post: (props: QorusRequestParams) => Promise<AxiosPromise<any> | undefined>;
+  post: (props: QorusRequestParams) => Promise<AxiosResponse<any> | AxiosError | undefined>;
 
   /**
    * -put-function Put request creator for the QorusToolkit
@@ -62,7 +62,7 @@ export interface Request {
    *
    * Returns the promise with the result of the put request
    */
-  put: (props: QorusRequestParams) => Promise<AxiosPromise<any> | undefined>;
+  put: (props: QorusRequestParams) => Promise<AxiosResponse<any> | AxiosError | undefined>;
 
   /**
    * -deleteReq-function Delete request creator for the QorusToolkit
@@ -71,7 +71,7 @@ export interface Request {
    *
    * Returns the promise with the result of the delete request
    */
-  delete: (props: QorusRequestParams) => Promise<AxiosPromise<any> | undefined>;
+  delete: (props: QorusRequestParams) => Promise<AxiosResponse<any> | AxiosError | undefined>;
 
   /**
    * Default headers for the QorusRequest
@@ -82,7 +82,10 @@ export interface Request {
 const _QorusRequest = (): Request => {
   const defaultHeaders: AxiosRequestHeaders = { 'Content-Type': 'application/json', Accept: 'application/json' };
 
-  const makeRequest = async (type: 'GET' | 'PUT' | 'POST' | 'DELETE', props: QorusRequestParams) => {
+  const makeRequest = async (
+    type: 'GET' | 'PUT' | 'POST' | 'DELETE',
+    props: QorusRequestParams,
+  ): Promise<AxiosResponse | AxiosError | undefined> => {
     const { path, data, headers = defaultHeaders, params } = props;
     const selectedEndpoint = QorusAuthenticator.getSelectedEndpoint();
     if (headers != defaultHeaders) {
@@ -114,7 +117,7 @@ const _QorusRequest = (): Request => {
   /**
    * Get request creator for the QorusToolkit
    */
-  const get = async (props: QorusRequestParams): Promise<AxiosPromise<any> | undefined> => {
+  const get = async (props: QorusRequestParams): Promise<AxiosResponse<any> | AxiosError | undefined> => {
     const result = await makeRequest('GET', props);
     return result;
   };
@@ -122,7 +125,7 @@ const _QorusRequest = (): Request => {
   /**
    * Post request creator for the QorusToolkit
    */
-  const post = async (props: QorusRequestParams): Promise<AxiosPromise<any> | undefined> => {
+  const post = async (props: QorusRequestParams): Promise<AxiosResponse<any> | AxiosError | undefined> => {
     const result = await makeRequest('POST', props);
     return result;
   };
@@ -130,7 +133,7 @@ const _QorusRequest = (): Request => {
   /**
    * Put request creator for the QorusToolkit
    */
-  const put = async (props: QorusRequestParams): Promise<AxiosPromise<any> | undefined> => {
+  const put = async (props: QorusRequestParams): Promise<AxiosResponse<any> | AxiosError | undefined> => {
     const result = await makeRequest('PUT', props);
     return result;
   };
@@ -138,7 +141,7 @@ const _QorusRequest = (): Request => {
   /**
    * Delete request creator for the QorusToolkit
    */
-  const deleteReq = async (props: QorusRequestParams): Promise<AxiosPromise<any> | undefined> => {
+  const deleteReq = async (props: QorusRequestParams): Promise<AxiosResponse<any> | AxiosError | undefined> => {
     const result = await makeRequest('DELETE', props);
     return result;
   };
