@@ -10,18 +10,40 @@ export interface Provider {
    *
    * Returns array of records
    */
-  getRecord: (props: ProviderProps) => Promise<ProviderWithOptions>;
-  getProviderOptions: () => ProviderOptions;
-}
+  getRecord: () => Promise<ProviderWithOptions>;
 
-export interface ProviderProps {
-  select?: { [x: string]: string | number | boolean | any[] };
-  data?: { [x: string]: string | number | boolean };
-  constructor_options?: { [x: string]: any };
+  /**
+   * -getApi-function Get record of Data Providers from /dataprovider/browse endpoint
+   * @params props {@link ProviderProps}
+   *
+   * Returns array of records
+   */
+  getApi: () => Promise<ProviderWithOptions>;
+  /**
+   * -getEvent-function Get record of Data Providers from /dataprovider/browse endpoint
+   * @params props {@link ProviderProps}
+   *
+   * Returns array of records
+   */
+  getEvent: () => Promise<ProviderWithOptions>;
+  /**
+   * -getMessage-function Get record of Data Providers from /dataprovider/browse endpoint
+   * @params props {@link ProviderProps}
+   *
+   * Returns array of records
+   */
+  getMessage: () => Promise<ProviderWithOptions>;
+  /**
+   * -getType-function Get record of Data Providers from /dataprovider/browse endpoint
+   * @params props {@link ProviderProps}
+   *
+   * Returns array of records
+   */
+  getType: () => Promise<ProviderWithOptions>;
 }
 
 export interface ProviderOptions {
-  currentPath: string[];
+  initialPath: string[];
   dataObj: {
     [x: string]: string | number | boolean | any[];
   };
@@ -37,31 +59,14 @@ const getRequestPath = (path: string[]) => {
 
 const _DataProvider = (): Provider => {
   /*eslint-disable*/
-  let providerOptions: ProviderOptions = {
-    currentPath: [apiPathsInitial.dataProviders.browse],
-    dataObj: {},
-  };
 
-  // Temporary function
-  const getProviderOptions = () => {
-    return providerOptions;
-  };
+  const initialPath: string[] = [apiPathsInitial.dataProviders.browse];
 
-  // Put DataProvider request with context record
-  const getRecord = async (props: ProviderProps): Promise<ProviderWithOptions> => {
-    // Select option defines the next value to be selected
-    const { select, data, constructor_options } = props;
-
-    if (select) {
-      const selectPath: string = (select.name ?? '').toString();
-      // Updating the currentPath as we move forward
-      providerOptions.currentPath.push(selectPath);
-    }
-
-    const requestPath = getRequestPath(providerOptions.currentPath);
-    const requestData = { ...data, context: 'record', provider_options: constructor_options ?? {} };
-
+  const fetchWithContext = async (context: Context) => {
     // Making a put request
+    const requestPath = getRequestPath(initialPath);
+    const requestData = { context: context };
+
     const result = await QorusRequest.put({
       path: requestPath,
       data: requestData,
@@ -70,107 +75,138 @@ const _DataProvider = (): Provider => {
     const response = result as AxiosResponse;
     const error = result as AxiosError;
 
-    providerOptions.dataObj = response?.data;
+    if (error.code) {
+      logger.error(
+        `Failed to browse the data provider with context: ${context}, error: ${JSON.stringify(error.response?.data)}`,
+      );
+    }
 
-    // Returning only the children of the result data
-    // if (providerOptions?.dataObj?.hasOwnProperty('children')) return providerOptions?.dataObj?.children;
-    // return providerOptions?.dataObj;
-    return new ProviderWithOptions(providerOptions.currentPath, providerOptions.dataObj, 'record');
+    const providerResponse = response?.data;
+    const responseError = error.response?.data;
+
+    return new ProviderWithOptions(initialPath, providerResponse, context, providerResponse, responseError);
+  };
+
+  // Put DataProvider request with context record
+  const getRecord = async (): Promise<ProviderWithOptions> => {
+    return fetchWithContext('record');
+  };
+
+  // Put DataProvider request with context api
+  const getApi = async (): Promise<ProviderWithOptions> => {
+    return fetchWithContext('api');
+  };
+
+  // Put DataProvider request with context event
+  const getEvent = async (): Promise<ProviderWithOptions> => {
+    return fetchWithContext('event');
+  };
+
+  // Put DataProvider request with context message
+  const getMessage = async (): Promise<ProviderWithOptions> => {
+    return fetchWithContext('message');
+  };
+
+  // Put DataProvider request with context type
+  const getType = async (): Promise<ProviderWithOptions> => {
+    return fetchWithContext('type');
   };
 
   return {
     getRecord,
-    getProviderOptions,
+    getType,
+    getEvent,
+    getApi,
+    getMessage,
   };
 };
 
 export const QorusDataProvider: Provider = _DataProvider();
 
-type Context = 'record' | 'api' | 'event' | undefined;
+type Context = 'record' | 'api' | 'event' | 'message' | 'type' | undefined;
 
-const fetchProvider = async (
-  obj: ProviderWithOptions,
-  context: Context,
-  select?: string,
-  data?: any,
-  providerOptions?: any,
-) => {
+const fetchProvider = async (obj: ProviderWithOptions, context: Context, select?: string, providerOptions?: any) => {
   const children = obj.getChildren();
   let _path = obj.getPath();
 
-  if (select && children?.find((object) => object.name === select)) {
+  if (select) {
     if (_path[_path.length - 1] !== select) {
       _path.push(select);
     }
   }
+  console.log('path is = ', _path);
   const requestPath = getRequestPath(_path);
-  const requestData = { ...data, context: context, provider_options: providerOptions ?? {} };
+  const requestData = { context: context, provider_options: providerOptions ?? {} };
   // Making a put request
   const result = await QorusRequest.put({
     path: requestPath,
     data: requestData,
   });
+
   const response = result as AxiosResponse;
   const error = result as AxiosError;
 
   if (error.code) {
-    logger.error('Request is not valid, please verify provided data and provider options fields.');
-    let newObj = obj;
-    newObj.setPath(_path);
-    newObj.setDataObj(obj.getData().children.filter((object) => object.name === select));
-    return newObj;
+    logger.error('Request is not valid, please verify provided data and providerOptions fields.');
   }
+  const providerData = children?.filter((object) => object.name === select);
+  const providerResponse = response?.data;
+  const responseError = error.response?.data;
 
-  if (obj.getPath() === _path) {
-    obj.setDataObj(response?.data);
-    return obj;
-  }
-
-  return new ProviderWithOptions(_path, response?.data, context);
+  return new ProviderWithOptions(_path, providerResponse, context, providerData, responseError);
 };
+
+type ConstructorOptions = any;
 
 class ProviderWithOptions {
   private path: string[] = [''];
-  private dataObj: any = {};
+  private responseData: any = {};
   private context: Context;
+  private providerData: any = {};
+  private responseError: any = {};
 
-  constructor(path: string[], dataObj: any, context: Context) {
+  constructor(path: string[], responseData: any, context: Context, providerData?: any, responseError?: any) {
     this.path = path;
-    this.dataObj = dataObj;
+    this.responseData = responseData;
     this.context = context;
+    this.providerData = providerData;
+    this.responseError = responseError;
   }
 
   getPath() {
     return this.path;
   }
 
-  hasData() {
-    if (this.dataObj.matches_context) return true;
-    else return false;
-  }
-
-  getData() {
-    return this.dataObj;
-  }
-
-  getChildren() {
-    return this.dataObj.children;
-  }
-
-  setDataObj(dataObj: any) {
-    this.dataObj = dataObj;
-  }
-
   setPath(path: string[]) {
     this.path = path;
   }
 
-  async get(select?: string, data?: any, providerOptions?: any) {
+  getData() {
+    return { responseData: this.responseData, providerData: this.providerData };
+  }
+
+  private setData(responseData: any, providerData: any) {
+    this.responseData = responseData;
+    this.providerData = providerData;
+  }
+
+  getContext() {
+    return this.context;
+  }
+
+  hasData() {
+    if (this.responseData.matches_context) return true;
+    else return false;
+  }
+
+  getChildren() {
+    return this.responseData.children;
+  }
+
+  async get(select?: string, providerOptions?: ConstructorOptions) {
     if (!select) return this;
 
-    const childData = await fetchProvider(this, this.context, select, data, providerOptions);
-
-    // const selectChild = children?.filter((child) => child.name === name);
+    const childData = await fetchProvider(this, this.context, select, providerOptions);
     return childData;
   }
 }

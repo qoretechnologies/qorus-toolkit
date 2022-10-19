@@ -43,12 +43,9 @@ describe('QorusDataProvider Utility Class Tests', () => {
     });
 
     // Get Data Provider Types
-    const dataProviderTypes = await QorusDataProvider.getRecord({});
+    const dataProviderTypes = await QorusDataProvider.getApi();
     const factoryProvider = await dataProviderTypes.get('factory');
-    const db = await factoryProvider.get('db', {}, { datasource: 'pgsql:omquser/omquser@omquser%bee' });
+    const db = await factoryProvider.get('db', { datasource: 'pgsql:omquser/omquser@omquser%bee' });
     console.log(db);
-    // const dbFactory = await factoryProvider?.get('db', {provider_options: { datasource: 'pgsql:omquser/omquser@omquser%bee' }});
-    // console.log(JSON.stringify(dbFactory));
-    // console.log(await (await dataProviderTypes.get('factory')).get('db'));
   });
 });
