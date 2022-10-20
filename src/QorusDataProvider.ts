@@ -129,7 +129,8 @@ export const QorusDataProvider: Provider = _DataProvider();
 type Context = 'record' | 'api' | 'event' | 'message' | 'type' | undefined;
 
 /**
- * Fetch provider creates a put request to the QorusServer with and also creates adds the functionality to select the next children from dataprovider response list
+ * fetchProvider creates a put request to the QorusServer with context and also adds the
+ * functionality to select the next children from dataprovider response list
  *
  * @param obj previous parent object
  * @param context context parameter for the request
