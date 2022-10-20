@@ -5,7 +5,7 @@ import { apiPathsInitial } from './utils/apiPaths';
 
 export interface Provider {
   /**
-   * -getRecord-function Get record of Data Providers from /dataprovider/browse endpoint
+   * -getRecord-function Get record of Data Providers with context 'record' from /dataprovider/browse endpoint
    * @params props {@link ProviderProps}
    *
    * Returns array of records
@@ -13,28 +13,31 @@ export interface Provider {
   getRecord: () => Promise<ProviderWithOptions>;
 
   /**
-   * -getApi-function Get record of Data Providers from /dataprovider/browse endpoint
+   * -getApi-function Get record of Data Providers with context 'api'  from /dataprovider/browse endpoint
    * @params props {@link ProviderProps}
    *
    * Returns array of records
    */
   getApi: () => Promise<ProviderWithOptions>;
+
   /**
-   * -getEvent-function Get record of Data Providers from /dataprovider/browse endpoint
+   * -getEvent-function Get record of Data Providers with context 'event'  from /dataprovider/browse endpoint
    * @params props {@link ProviderProps}
    *
    * Returns array of records
    */
   getEvent: () => Promise<ProviderWithOptions>;
+
   /**
-   * -getMessage-function Get record of Data Providers from /dataprovider/browse endpoint
+   * -getMessage-function Get record of Data Providers with context 'message'  from /dataprovider/browse endpoint
    * @params props {@link ProviderProps}
    *
    * Returns array of records
    */
   getMessage: () => Promise<ProviderWithOptions>;
+
   /**
-   * -getType-function Get record of Data Providers from /dataprovider/browse endpoint
+   * -getType-function Get record of Data Providers with context 'type'  from /dataprovider/browse endpoint
    * @params props {@link ProviderProps}
    *
    * Returns array of records
@@ -73,7 +76,7 @@ const _DataProvider = (): Provider => {
     });
 
     const response = result as AxiosResponse;
-    const error = result as AxiosError;
+    const error = result as unknown as AxiosError;
 
     if (error.code) {
       logger.error(
@@ -125,6 +128,15 @@ export const QorusDataProvider: Provider = _DataProvider();
 
 type Context = 'record' | 'api' | 'event' | 'message' | 'type' | undefined;
 
+/**
+ * Fetch provider creates a put request to the QorusServer with and also creates adds the functionality to select the next children from dataprovider response list
+ *
+ * @param obj previous parent object
+ * @param context context parameter for the request
+ * @param select next provider to be selected, chosen from the parent's children list
+ * @param providerOptions constructor options for the dataprovider to be selected next
+ * @returns ProviderWithOptions object
+ */
 const fetchProvider = async (obj: ProviderWithOptions, context: Context, select?: string, providerOptions?: any) => {
   const children = obj.getChildren();
   let _path = obj.getPath();
@@ -134,7 +146,7 @@ const fetchProvider = async (obj: ProviderWithOptions, context: Context, select?
       _path.push(select);
     }
   }
-  console.log('path is = ', _path);
+
   const requestPath = getRequestPath(_path);
   const requestData = { context: context, provider_options: providerOptions ?? {} };
   // Making a put request
@@ -158,7 +170,10 @@ const fetchProvider = async (obj: ProviderWithOptions, context: Context, select?
 
 type ConstructorOptions = any;
 
-class ProviderWithOptions {
+/**
+ * Returns object with options to fetch manage dataproviders
+ */
+export class ProviderWithOptions {
   private path: string[] = [''];
   private responseData: any = {};
   private context: Context;
@@ -173,16 +188,19 @@ class ProviderWithOptions {
     this.responseError = responseError;
   }
 
+  // Returns the path array
   getPath() {
     return this.path;
   }
 
+  // Setter to set path
   setPath(path: string[]) {
     this.path = path;
   }
 
+  // Returns responseData, providerData and responseError
   getData() {
-    return { responseData: this.responseData, providerData: this.providerData };
+    return { responseData: this.responseData, providerData: this.providerData, errorData: this.responseError };
   }
 
   private setData(responseData: any, providerData: any) {
@@ -190,19 +208,37 @@ class ProviderWithOptions {
     this.providerData = providerData;
   }
 
+  // Returns the current context of the provider
   getContext() {
     return this.context;
   }
 
+  // Checks if the provider has children
   hasData() {
     if (this.responseData.matches_context) return true;
     else return false;
   }
 
+  // Returns a list of children for the provider
   getChildren() {
-    return this.responseData.children;
+    return this.responseData?.children;
   }
 
+  // Returns a list of children names for the provider
+  getChildrenNames() {
+    const children = this.getChildren();
+    let names: any = {};
+    children?.forEach((child) => (names[child.name] = child.name));
+
+    return names;
+  }
+
+  /**
+   *
+   * @param select next children to be selected
+   * @param providerOptions constructor options for the next children
+   * @returns {@link ProviderWithOptions} new object
+   */
   async get(select?: string, providerOptions?: ConstructorOptions) {
     if (!select) return this;
 
