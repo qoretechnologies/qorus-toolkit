@@ -11,8 +11,8 @@ if (!(process.env.ENDPOINT && process.env.TESTUSER && process.env.TESTPASS)) {
 }
 
 describe('QorusLogin Utility Class Tests', () => {
-  it('Should initialize the endpoint and assign it to the selected endpoint', () => {
-    QorusAuth.initEndpoint({ url: process.env.ENDPOINT!, id: 'rippy' });
+  it('Should initialize the endpoint and assign it to the selected endpoint', async () => {
+    await QorusAuth.initEndpoint({ url: process.env.ENDPOINT!, id: 'rippy' });
 
     const endpoint = QorusAuth.getSelectedEndpoint();
     expect(endpoint).toMatchSnapshot();
@@ -90,13 +90,13 @@ describe('QorusLogin Utility Class Tests', () => {
   });
 
   it('Should select the endpoint by the provided id', async () => {
-    if (process.env.ENDPOINT) QorusAuth.initEndpoint({ url: process.env.ENDPOINT, id: 'test' });
+    if (process.env.ENDPOINT) await QorusAuth.initEndpoint({ url: process.env.ENDPOINT, id: 'test' });
 
     expect(QorusAuth.selectEndpoint('test')).toMatchSnapshot();
   });
 
   describe('QorusLogin Utility Error Tests', () => {
-    it('Should throw an error when user tries to authenticate with wrong creadentials', async () => {
+    it('Should throw an error when user tries to authenticate with wrong credentials', async () => {
       if (process.env.ENDPOINT) await QorusAuth.initEndpoint({ url: process.env.ENDPOINT, id: 'rippy' });
       await QorusAuth.login({ user: 'bob', pass: 'pass' });
 

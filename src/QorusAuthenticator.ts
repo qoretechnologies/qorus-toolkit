@@ -2,7 +2,7 @@ import { getKeyValLocal, setKeyValLocal } from './managers/LocalStorage';
 import logger from './managers/logger';
 import { ApiPaths, apiPathsInitial, createApiPaths, Version, WithEndpointVersion } from './utils/apiPaths';
 import { QorusRequest } from './QorusRequest';
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 export interface Authenticator {
   /**
@@ -294,6 +294,7 @@ const _QorusAuthenticator = (): Authenticator => {
       const { user, pass } = loginConfig;
       const { id } = selectedEndpoint;
       const currentUserToken = await validateLocalUserToken(id);
+
       if (!(user && pass) && !currentUserToken) {
         logger.log({ level: 'error', message: 'Authentication is required with Username and Password' });
 
@@ -303,23 +304,25 @@ const _QorusAuthenticator = (): Authenticator => {
       if (currentUserToken && currentUserToken !== 'invalid') {
         selectedEndpoint.authToken = currentUserToken;
         return currentUserToken;
-      } else
-        try {
-          const resp = await QorusRequest.post({
-            path: `${apiPathsAuthenticator.login}`,
-            data: { user, pass },
-          });
-          const responseData = resp as AxiosResponse;
-          const { token } = responseData?.data;
-          selectedEndpoint.authToken = token;
-          setKeyValLocal({ key: `auth-token-${id}`, value: token });
+      } else {
+        const resp = await QorusRequest.post({
+          path: `${apiPathsAuthenticator.login}`,
+          data: { user, pass },
+        });
+        const responseData = resp as AxiosResponse;
+        const error = resp as unknown as AxiosError;
 
-          return token;
-        } catch (error: any) {
-          logger.log({ level: 'error', message: `Couldn't sign in user ${error.statusCode} ${error.message}` });
+        if (error?.code) {
+          logger.log({ level: 'error', message: `Couldn't sign in user ${error.code} ${error.message}` });
+          return undefined;
         }
-    }
+        const { token } = responseData?.data;
+        selectedEndpoint.authToken = token;
+        setKeyValLocal({ key: `auth-token-${id}`, value: token });
 
+        return token;
+      }
+    }
     return undefined;
   };
 
