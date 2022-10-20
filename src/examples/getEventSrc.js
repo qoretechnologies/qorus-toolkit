@@ -10,3 +10,4 @@ const dataProviderBrowse = await Qorus.QorusDataProvider.getEvent();
 // Select factory provider
 const browseChildrenNames = dataProviderBrowse.getChildrenNames();
 const factory = await dataProviderBrowse.get(browseChildrenNames.factory);
+// => ProviderWithOptions { path: ..., responseData: {...}, providerData: {...}, responseError: {...}, context: ...}

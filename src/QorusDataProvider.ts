@@ -169,19 +169,28 @@ const fetchProvider = async (obj: ProviderWithOptions, context: Context, select?
   return new ProviderWithOptions(_path, providerResponse, context, providerData, responseError);
 };
 
-type ConstructorOptions = any;
+export type ConstructorOptions = any;
+export type ResponseData = any;
+export type ResponseError = any;
+export type ProviderData = any;
 
 /**
  * Returns object with options to fetch manage dataproviders
  */
 export class ProviderWithOptions {
   private path: string[] = [''];
-  private responseData: any = {};
+  private responseData: ResponseData = {};
   private context: Context;
-  private providerData: any = {};
-  private responseError: any = {};
+  private providerData: ProviderData = {};
+  private responseError: ResponseError = {};
 
-  constructor(path: string[], responseData: any, context: Context, providerData?: any, responseError?: any) {
+  constructor(
+    path: string[],
+    responseData: ResponseData,
+    context: Context,
+    providerData?: ProviderData,
+    responseError?: ResponseError,
+  ) {
     this.path = path;
     this.responseData = responseData;
     this.context = context;
@@ -204,7 +213,7 @@ export class ProviderWithOptions {
     return { responseData: this.responseData, providerData: this.providerData, errorData: this.responseError };
   }
 
-  private setData(responseData: any, providerData: any) {
+  private setData(responseData: ResponseData, providerData: ProviderData) {
     this.responseData = responseData;
     this.providerData = providerData;
   }
