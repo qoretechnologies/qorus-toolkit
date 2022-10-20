@@ -309,8 +309,8 @@ const _QorusAuthenticator = (): Authenticator => {
             path: `${apiPathsAuthenticator.login}`,
             data: { user, pass },
           });
-          const responseData = (resp as AxiosResponse)?.data;
-          const { token } = responseData;
+          const responseData = resp as AxiosResponse;
+          const { token } = responseData?.data;
           selectedEndpoint.authToken = token;
           setKeyValLocal({ key: `auth-token-${id}`, value: token });
 

@@ -26,13 +26,13 @@ export interface WithEndpointVersion {
 /**Initial api routes */
 export const apiPathsInitial: ApiPaths = {
   authenticator: {
-    login: `api/latest/public/login`,
-    logout: `api/latest/logout`,
-    validateToken: `api/latest/system?action=validateWsToken`,
-    validateNoAuth: `api/latest/public/info`,
+    login: `/api/latest/public/login`,
+    logout: `/api/latest/logout`,
+    validateToken: `/api/latest/system?action=validateWsToken`,
+    validateNoAuth: `/api/latest/public/info`,
   },
   dataProviders: {
-    browse: 'api/latest/dataprovider/browse',
+    browse: '/api/latest/dataprovider/browse',
   },
 };
 
