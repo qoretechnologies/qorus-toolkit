@@ -90,27 +90,27 @@ const _DataProvider = (): Provider => {
     return new ProviderWithOptions(initialPath, providerResponse, context, providerResponse, responseError);
   };
 
-  // Put DataProvider request with context record
+  // Fetch DataProvider with context record
   const getRecord = async (): Promise<ProviderWithOptions> => {
     return fetchWithContext('record');
   };
 
-  // Put DataProvider request with context api
+  // Fetch DataProvider with with context api
   const getApi = async (): Promise<ProviderWithOptions> => {
     return fetchWithContext('api');
   };
 
-  // Put DataProvider request with context event
+  // Fetch DataProvider with with context event
   const getEvent = async (): Promise<ProviderWithOptions> => {
     return fetchWithContext('event');
   };
 
-  // Put DataProvider request with context message
+  // Fetch DataProvider with with context message
   const getMessage = async (): Promise<ProviderWithOptions> => {
     return fetchWithContext('message');
   };
 
-  // Put DataProvider request with context type
+  // Fetch DataProvider with with context type
   const getType = async (): Promise<ProviderWithOptions> => {
     return fetchWithContext('type');
   };
@@ -175,13 +175,22 @@ export type ResponseError = any;
 export type ProviderData = any;
 
 /**
- * Returns object with options to fetch manage dataproviders
+ * Class to manage data provider options
  */
 export class ProviderWithOptions {
+  // Array of request path, contains request path to the current provider
   private path: string[] = [''];
+
+  // Response data containing children, received after fetching the current provider
   private responseData: ResponseData = {};
+
+  // Context for the current provider
   private context: Context;
+
+  // Contains required properties for the current provider, including constructor_options
   private providerData: ProviderData = {};
+
+  // Error response received after making a request to the current provider
   private responseError: ResponseError = {};
 
   constructor(
@@ -198,17 +207,47 @@ export class ProviderWithOptions {
     this.responseError = responseError;
   }
 
-  // Returns the path array
+  /**
+   * Checks if the children exist on the provider
+   * @param name Name of the children you want to find
+   * @returns true if the children exist, false otherwise
+   */
+  hasChildren(name: string) {
+    const children = this.responseData?.children.find((child) => child.name === name);
+    if (typeof children === 'undefined' || !children.name) return false;
+    else return true;
+  }
+
+  /**
+   * A getter to the the stored path array for the current provider
+   * @returns path array
+   */
   getPath() {
     return this.path;
   }
 
-  // Setter to set path
+  /**
+   * A getter to get request path for the current provider
+   *
+   * @param path Optional path array to generate request path
+   * @returns
+   */
+  getPathString(path?: string[]) {
+    return getRequestPath(path ? path : this.path);
+  }
+
+  /**
+   * Setter to set path for the current provider
+   * @param path array of path strings to replace for path of the current provider
+   */
   setPath(path: string[]) {
     this.path = path;
   }
 
-  // Returns responseData, providerData and responseError
+  /**
+   * A getter to get available data for the current provider
+   * @returns responseData, providerData and errorData for the current provider
+   */
   getData() {
     return { responseData: this.responseData, providerData: this.providerData, errorData: this.responseError };
   }
@@ -218,23 +257,35 @@ export class ProviderWithOptions {
     this.providerData = providerData;
   }
 
-  // Returns the current context of the provider
+  /**
+   * A getter to get the context for the current provider
+   * @returns context string
+   */
   getContext() {
     return this.context;
   }
 
-  // Checks if the provider has children
+  /**
+   * Method to verify if the current provider has children
+   * @returns true if the children exist, false otherwise
+   */
   hasData() {
     if (this.responseData.matches_context) return true;
     else return false;
   }
 
-  // Returns a list of children for the provider
+  /**
+   * A getter to get available children for the current provider
+   * @returns a list of children
+   */
   getChildren() {
     return this.responseData?.children;
   }
 
-  // Returns a list of children names for the provider
+  /**
+   * A getter to get children names for the current provider
+   * @returns list of children names
+   */
   getChildrenNames() {
     const children = this.getChildren();
     let names: any = {};
@@ -244,7 +295,7 @@ export class ProviderWithOptions {
   }
 
   /**
-   *
+   * Method to select the next children from the current provider for further operations
    * @param select next children to be selected
    * @param providerOptions constructor options for the next children
    * @returns {@link ProviderWithOptions} new object
