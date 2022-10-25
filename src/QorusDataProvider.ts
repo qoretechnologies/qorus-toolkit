@@ -1,5 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import logger from './managers/logger';
+import { QorusOptions } from './QorusOptions';
 import { QorusRequest } from './QorusRequest';
 import { apiPathsInitial } from './utils/apiPaths';
 
@@ -280,6 +281,12 @@ export class ProviderWithOptions {
    */
   getChildren() {
     return this.responseData?.children;
+  }
+
+  getOptions(childrenName: string) {
+    const children = this.getChildren();
+    const filteredChildren = children.filter((child) => child.name === childrenName);
+    return new QorusOptions(filteredChildren);
   }
 
   /**

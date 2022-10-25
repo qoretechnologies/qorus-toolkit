@@ -1,4 +1,3 @@
-import { type } from 'os';
 import logger from './managers/logger';
 
 export interface Properties {
@@ -24,6 +23,24 @@ const qorusDataTypesToJsTypesMapper = {
 
 export class QorusOptions {
   private options: ConstructorOption[] = [];
+
+  constructor(children: any[]) {
+    this.options = this.parseChildren(children);
+  }
+
+  private parseChildren(children: any[]) {
+    let allChildrenProperties: ConstructorOption[] = [];
+    children.forEach((child) => {
+      const option: ConstructorOption = {
+        name: child.name,
+        properties: child.constructor_options,
+      };
+
+      allChildrenProperties.push(option);
+    });
+
+    return allChildrenProperties;
+  }
 
   getOptionType(option?: ConstructorOption) {
     const optionType = option?.properties.type;

@@ -129,4 +129,18 @@ describe('QorusDataProvider Utility Class Tests', () => {
     expect(dbError).toContain('DbDataProvider');
     expect(winstonLoggerMock).toHaveBeenCalledTimes(1);
   });
+
+  it('should return constructor options for the provider', async () => {
+    await QorusAuth.initEndpoint({
+      url: process.env.ENDPOINT!,
+      id: 'rippy',
+      user: process.env.TESTUSER,
+      pass: process.env.TESTPASS,
+    });
+
+    const dataProviderBrowse = await QorusDataProvider.getRecord();
+    const factoryProvider = await dataProviderBrowse.get('factory');
+    const options = factoryProvider.getOptions('db');
+    console.log(JSON.stringify(options));
+  });
 });
