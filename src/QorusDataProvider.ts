@@ -246,7 +246,7 @@ export class ProviderWithOptions {
 
   /**
    * A getter to get available data for the current provider
-   * @returns reponseData, providerData and errorData for the current provider
+   * @returns responseData, providerData and errorData for the current provider
    */
   getData() {
     return { responseData: this.responseData, providerData: this.providerData, errorData: this.responseError };
