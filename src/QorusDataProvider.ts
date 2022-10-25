@@ -63,16 +63,12 @@ const getRequestPath = (path: string[]) => {
 
 const _DataProvider = (): Provider => {
   /*eslint-disable*/
-
-  const initialPath: string[] = [apiPathsInitial.dataProviders.browse];
-
   const fetchWithContext = async (context: Context) => {
     // Making a put request
-    const requestPath = getRequestPath(initialPath);
     const requestData = { context: context };
 
     const result = await QorusRequest.put({
-      path: requestPath,
+      path: apiPathsInitial.dataProviders.browse,
       data: requestData,
     });
 
@@ -88,7 +84,13 @@ const _DataProvider = (): Provider => {
     const providerResponse = response?.data;
     const responseError = error.response?.data;
 
-    return new ProviderWithOptions(initialPath, providerResponse, context, providerResponse, responseError);
+    return new ProviderWithOptions(
+      [apiPathsInitial.dataProviders.browse],
+      providerResponse,
+      context,
+      providerResponse,
+      responseError,
+    );
   };
 
   // Fetch DataProvider with context record
@@ -285,7 +287,7 @@ export class ProviderWithOptions {
 
   getOptions(childrenName: string) {
     const children = this.getChildren();
-    const filteredChildren = children.filter((child) => child.name === childrenName);
+    const filteredChildren = children?.filter((child) => child.name === childrenName);
     return new QorusOptions(filteredChildren);
   }
 

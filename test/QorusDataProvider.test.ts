@@ -133,12 +133,14 @@ describe('QorusDataProvider Utility Class Tests', () => {
   it('should return constructor options for the provider', async () => {
     await QorusAuth.initEndpoint({
       url: process.env.ENDPOINT!,
-      id: 'rippy',
+      id: 'rippy1',
       user: process.env.TESTUSER,
       pass: process.env.TESTPASS,
     });
 
     const dataProviderBrowse = await QorusDataProvider.getRecord();
+    console.log('data provider browse = ', dataProviderBrowse);
+
     const factoryProvider = await dataProviderBrowse.get('factory');
     const options = factoryProvider.getOptions('db');
     console.log(JSON.stringify(options));
