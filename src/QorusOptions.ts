@@ -29,6 +29,7 @@ export class QorusOptions {
   }
 
   private parseChildren(children: any[]) {
+    /*eslint-disable*/
     let allChildrenProperties: ConstructorOption[] = [];
     children.forEach((child) => {
       const option: ConstructorOption = {
