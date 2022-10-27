@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import logger from './managers/logger';
-import { QorusOptions } from './QorusOptions';
+import { ConstructorOption, QorusOptions } from './QorusOptions';
 import { QorusRequest } from './QorusRequest';
 import { apiPathsInitial } from './utils/apiPaths';
 
@@ -172,7 +172,6 @@ const fetchProvider = async (obj: ProviderWithOptions, context: Context, select?
   return new ProviderWithOptions(_path, providerResponse, context, providerData, responseError);
 };
 
-export type ConstructorOptions = any;
 export type ResponseData = any;
 export type ResponseError = any;
 export type ProviderData = any;
@@ -285,10 +284,20 @@ export class ProviderWithOptions {
     return this.responseData?.children;
   }
 
-  getOptions(childrenName: string) {
+  getOptions(childrenName: string): ConstructorOption {
     const children = this.getChildren();
     const filteredChildren = children?.filter((child) => child.name === childrenName);
-    return new QorusOptions(filteredChildren);
+    return new QorusOptions(filteredChildren[0]);
+  }
+
+  getAllOptions(): ConstructorOption[] {
+    const children = this.getChildren();
+    let allOptions: any[] = [];
+    children.forEach((child) => {
+      const option = new QorusOptions(child);
+      allOptions.push(option);
+    });
+    return allOptions;
   }
 
   /**
@@ -309,7 +318,7 @@ export class ProviderWithOptions {
    * @param providerOptions constructor options for the next children
    * @returns {@link ProviderWithOptions} new object
    */
-  async get(select?: string, providerOptions?: ConstructorOptions) {
+  async get(select?: string, providerOptions?: ProviderData) {
     if (!select) return this;
 
     const childData = await fetchProvider(this, this.context, select, providerOptions);

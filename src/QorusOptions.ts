@@ -3,18 +3,19 @@ import logger from './managers/logger';
 export interface Properties {
   name: string;
   required: boolean;
-  type: string;
-  jsType: string;
-  value: string;
+  types: string[];
+  jsTypes: string[];
+  value?: { type: string; value: any } | null;
 }
 
 export interface ConstructorOption {
   name: string;
-  properties: Properties;
+  constructorOptions: Properties[];
 }
 
 const qorusDataTypesToJsTypesMapper = {
   'object<InputStream>': 'object',
+  'object<AbstractDatasource>': 'object',
   'hash<auto>': 'object',
   softint: 'number',
   softbool: 'boolean',
@@ -22,73 +23,120 @@ const qorusDataTypesToJsTypesMapper = {
 };
 
 export class QorusOptions {
-  private options: ConstructorOption[] = [];
+  name: string = '';
+  constructorOptions: Properties[] = [];
 
-  constructor(children: any[]) {
-    this.options = this.parseChildren(children);
+  constructor(children: any) {
+    this.parseChildren(children);
   }
 
-  private parseChildren(children: any[]) {
+  private parseChildren(children: any) {
     /*eslint-disable*/
-    let allChildrenProperties: ConstructorOption[] = [];
-    children.forEach((child) => {
-      const option: ConstructorOption = {
-        name: child.name,
-        properties: child.constructor_options,
-      };
 
-      allChildrenProperties.push(option);
+    const constructorOptions = children.constructor_options;
+    const name = children.name;
+    let allProperties: Properties[] = [];
+
+    for (const key in constructorOptions) {
+      const property: Properties = {
+        name: key,
+        required: constructorOptions[key].required,
+        types: constructorOptions[key].type,
+        jsTypes: this.createJsTypes(constructorOptions[key].type),
+        value: null,
+      };
+      allProperties.push(property);
+    }
+
+    const option: ConstructorOption = {
+      name,
+      constructorOptions: allProperties,
+    };
+
+    this.name = name;
+    this.constructorOptions = allProperties;
+
+    return option;
+  }
+
+  private createJsTypes(types: string[]) {
+    if (!types) return [];
+    let jsTypes: string[] = [];
+    types.forEach((type) => {
+      jsTypes.push(this.convertToJsType(type));
     });
 
-    return allChildrenProperties;
+    return jsTypes;
   }
 
-  getOptionType(option?: ConstructorOption) {
-    const optionType = option?.properties.type;
-    if (typeof option === 'undefined') return;
-    if (!option?.properties.type) {
-      logger.error('Constructor option provided does not contain a type');
-      return;
+  private convertToJsType(type: string) {
+    if (qorusDataTypesToJsTypesMapper[type]) {
+      return qorusDataTypesToJsTypesMapper[type];
+    } else return type;
+  }
+
+  getType(propertyName: string) {
+    const property = this.constructorOptions.find((property) => property.name === propertyName);
+    if (!property?.types) {
+      logger.error(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`);
     }
-
-    if (qorusDataTypesToJsTypesMapper[optionType!] !== undefined) {
-      return qorusDataTypesToJsTypesMapper[optionType!];
-    } else return optionType;
+    return property?.types;
   }
 
-  validate(optionName: string, value?: any) {
-    const selectedOption = this.options.find((option) => option.name === optionName);
-    const properties = selectedOption?.properties;
-    const optionType = this.getOptionType(selectedOption);
+  getJsType(propertyName: string) {
+    const property = this.constructorOptions.find((property) => property.name === propertyName);
+    if (!property?.jsTypes) {
+      logger.error(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`);
+    }
+    return property?.jsTypes;
+  }
+
+  get(propertyName: string) {
+    const property = this.constructorOptions.find((property) => property.name === propertyName);
+    if (!property) {
+      logger.error(`Property ${propertyName} doesn't exist or doesn't contain any value for ${this.name}`);
+    }
+    return property;
+  }
+
+  set(propertyName: string, value: any) {
+    const isValid = this.validate(propertyName, value);
+    if (!isValid) {
+      return;
+    } else console.log("it's valid");
+    let propertyIndex = this.constructorOptions.findIndex((property) => property.name === propertyName);
+    const jsTypes = this.get(propertyName)?.jsTypes;
+    const valueType = typeof value;
+    const filteredType = jsTypes?.find((type) => type === valueType);
+    if (filteredType) {
+      console.log('filteredType type is = ', filteredType);
+
+      this.constructorOptions[propertyIndex].value = { type: filteredType, value: value };
+      return this.constructorOptions[propertyIndex];
+    }
+    return undefined;
+  }
+
+  validate(propertyName: string, value: any) {
+    const jsTypes = this.get(propertyName)?.jsTypes;
     const valueType = typeof value;
 
-    // If the selected option does not exists in constructor_options return false
-    if (typeof selectedOption === 'undefined' || typeof optionType === 'undefined') {
-      logger.error('Provided option does not exist');
+    if (Array.isArray(value)) {
+      logger.error(`Value for property ${propertyName} is not valid, please provide values of type ${jsTypes}`);
       return false;
     }
 
-    // If the selected option is required and the value is undefined, return false
-    if (properties?.required && valueType === 'undefined') {
-      logger.error(`Option: ${optionName} is required, please provide a valid value.`);
+    if (!jsTypes) {
+      logger.error(`Property ${propertyName} doesn't exist in ${this.name} options`);
       return false;
     }
 
-    // If the selected option type and the type of value is equal return true
-    if (optionType === valueType) return true;
+    const filteredType = jsTypes.find((type) => type === valueType);
+    if (!filteredType) {
+      logger.error(`Value for property ${propertyName} is not valid, please provide values of type ${jsTypes}`);
+      return false;
+    }
 
-    return false;
-  }
-
-  getJsType(optionName: string) {
-    const selectedOption = this.options.find((option) => option.name === optionName);
-
-    return this.getOptionType(selectedOption);
-  }
-
-  getType(optionName: string) {
-    const selectedOption = this.options.find((option) => option.name === optionName);
-
-    return selectedOption?.properties.type;
+    return true;
   }
 }
