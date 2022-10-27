@@ -174,14 +174,14 @@ export class QorusOptions {
     const isValid = this.validateProperty(propertyName, value);
     if (!isValid) {
       return;
-    } else console.log("it's valid");
+    }
+
     let propertyIndex = this.constructorOptions.findIndex((property) => property.name === propertyName);
     const jsTypes = this.get(propertyName)?.jsTypes;
     const valueType = typeof value;
     const filteredType = jsTypes?.find((type) => type === valueType);
-    if (filteredType) {
-      console.log('filteredType type is = ', filteredType);
 
+    if (filteredType) {
       this.constructorOptions[propertyIndex].value = { type: filteredType, value: value };
       return this.constructorOptions[propertyIndex];
     }
