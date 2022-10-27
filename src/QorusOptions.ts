@@ -23,7 +23,10 @@ const qorusDataTypesToJsTypesMapper = {
 };
 
 export class QorusOptions {
+  // Name of the provider options
   name = '';
+
+  // Properties for provider
   constructorOptions: Properties[] = [];
 
   constructor(children: any) {
