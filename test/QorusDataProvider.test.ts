@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
-import { QorusAuthenticator as QorusAuth, QorusDataProvider } from '../src';
+import QorusAuthenticator from '../src/QorusAuthenticator';
+import { QorusDataProvider } from '../src';
 import logger from '../src/managers/logger';
 
 dotenv.config();
@@ -11,7 +12,7 @@ if (!(process.env.ENDPOINT && process.env.TESTUSER && process.env.TESTPASS)) {
 
 describe('QorusDataProvider Utility Class Tests', () => {
   it('should browse the data providers with context record', async () => {
-    await QorusAuth.initEndpoint({
+    await QorusAuthenticator.initEndpoint({
       url: process.env.ENDPOINT!,
       id: 'rippy',
       user: process.env.TESTUSER,
@@ -27,7 +28,7 @@ describe('QorusDataProvider Utility Class Tests', () => {
   });
 
   it('should browse the data providers with context api', async () => {
-    await QorusAuth.initEndpoint({
+    await QorusAuthenticator.initEndpoint({
       url: process.env.ENDPOINT!,
       id: 'rippy',
       user: process.env.TESTUSER,
@@ -43,7 +44,7 @@ describe('QorusDataProvider Utility Class Tests', () => {
   });
 
   it('should browse the data providers with context event', async () => {
-    await QorusAuth.initEndpoint({
+    await QorusAuthenticator.initEndpoint({
       url: process.env.ENDPOINT!,
       id: 'rippy',
       user: process.env.TESTUSER,
@@ -59,7 +60,7 @@ describe('QorusDataProvider Utility Class Tests', () => {
   });
 
   it('should browse the data providers with context message', async () => {
-    await QorusAuth.initEndpoint({
+    await QorusAuthenticator.initEndpoint({
       url: process.env.ENDPOINT!,
       id: 'rippy',
       user: process.env.TESTUSER,
@@ -75,7 +76,7 @@ describe('QorusDataProvider Utility Class Tests', () => {
   });
 
   it('should browse the data providers with context type', async () => {
-    await QorusAuth.initEndpoint({
+    await QorusAuthenticator.initEndpoint({
       url: process.env.ENDPOINT!,
       id: 'rippy',
       user: process.env.TESTUSER,
@@ -91,7 +92,7 @@ describe('QorusDataProvider Utility Class Tests', () => {
   });
 
   it('should select db factory data providers with context record', async () => {
-    await QorusAuth.initEndpoint({
+    await QorusAuthenticator.initEndpoint({
       url: process.env.ENDPOINT!,
       id: 'rippy',
       user: process.env.TESTUSER,
@@ -110,7 +111,7 @@ describe('QorusDataProvider Utility Class Tests', () => {
   });
 
   it('should fail to select db factory when provider options are not valid', async () => {
-    await QorusAuth.initEndpoint({
+    await QorusAuthenticator.initEndpoint({
       url: process.env.ENDPOINT!,
       id: 'rippy',
       user: process.env.TESTUSER,

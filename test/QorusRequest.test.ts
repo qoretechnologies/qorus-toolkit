@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import dotenv from 'dotenv';
-import { QorusAuthenticator } from '../src';
+import QorusAuthenticator from '../src/QorusAuthenticator';
 import { QorusRequest } from '../src/QorusRequest';
 dotenv.config();
 
