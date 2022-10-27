@@ -146,6 +146,8 @@ describe('QorusDataProvider Utility Class Tests', () => {
     // console.log(JSON.stringify(options));
     // console.log(options.getJsType('datasource'));
     console.log(options.set('datasource', 'something'));
+    console.log(options.validate());
+    console.log(options.getAllValues());
     // console.log(factoryProvider.getAllOptions());
   });
 });

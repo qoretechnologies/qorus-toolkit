@@ -211,7 +211,7 @@ export class ProviderWithOptions {
 
   /**
    * Checks if the children exist on the provider
-   * @param name Name of the children you want to find
+   * @param name Name of the children
    * @returns true if the children exist, false otherwise
    */
   hasChildren(name: string) {
@@ -284,13 +284,21 @@ export class ProviderWithOptions {
     return this.responseData?.children;
   }
 
-  getOptions(childrenName: string): ConstructorOption {
+  /**
+   * A getter to get constructor options for a selected provider
+   * @returns object with constructor options
+   */
+  getOptions(childrenName: string) {
     const children = this.getChildren();
     const filteredChildren = children?.filter((child) => child.name === childrenName);
     return new QorusOptions(filteredChildren[0]);
   }
 
-  getAllOptions(): ConstructorOption[] {
+  /**
+   * A getter to get constructor options for all providers
+   * @returns object with constructor options array {@link ConstructorOption}
+   */
+  getAllOptions() {
     const children = this.getChildren();
     let allOptions: any[] = [];
     children.forEach((child) => {

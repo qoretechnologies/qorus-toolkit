@@ -30,7 +30,12 @@ export class QorusOptions {
     this.parseChildren(children);
   }
 
-  private parseChildren(children: any) {
+  /**
+   * A parser function to modify options object
+   * @param children children for which options will be created
+   * @returns object with constructor options {@link ConstructorOption}
+   */
+  private parseChildren(children: any): ConstructorOption {
     /*eslint-disable*/
 
     const constructorOptions = children.constructor_options;
@@ -59,6 +64,46 @@ export class QorusOptions {
     return option;
   }
 
+  /**
+   * A validator to verify if all the required values are provided
+   * @returns true if all the value exist, false otherwise
+   */
+  validate() {
+    this.constructorOptions.forEach((option): void | boolean => {
+      if (option.required) {
+        if (!option.value) {
+          logger.error(`${option.name} is required for ${this.name} provider`);
+          return false;
+        }
+      }
+    });
+    return true;
+  }
+
+  /**
+   * Get all values required for the provider
+   * @returns all values if required values exist, undefined otherwise
+   */
+  getAllValues() {
+    const isValid = this.validate();
+    if (!isValid) return;
+
+    let values = {};
+
+    this.constructorOptions.forEach((option) => {
+      if (option.value?.value) {
+        values[`${option.name}`] = option.value?.value;
+      }
+    });
+
+    return values;
+  }
+
+  /**
+   * A parser function to modify options object
+   * @param children children for which options will be created
+   * @returns object with constructor options {@link ConstructorOption}
+   */
   private createJsTypes(types: string[]) {
     if (!types) return [];
     let jsTypes: string[] = [];
@@ -69,12 +114,22 @@ export class QorusOptions {
     return jsTypes;
   }
 
+  /**
+   * A private function to convert types to js types
+   * @param type type to be converted
+   * @returns converted type
+   */
   private convertToJsType(type: string) {
     if (qorusDataTypesToJsTypesMapper[type]) {
       return qorusDataTypesToJsTypesMapper[type];
     } else return type;
   }
 
+  /**
+   * A getter to get property type
+   * @param propertyName name of the property
+   * @return types accepted by the property
+   */
   getType(propertyName: string) {
     const property = this.constructorOptions.find((property) => property.name === propertyName);
     if (!property?.types) {
@@ -83,6 +138,11 @@ export class QorusOptions {
     return property?.types;
   }
 
+  /**
+   * A getter to get js types for a property
+   * @param propertyName name of the property
+   * @returns js types accepted by the property
+   */
   getJsType(propertyName: string) {
     const property = this.constructorOptions.find((property) => property.name === propertyName);
     if (!property?.jsTypes) {
@@ -91,6 +151,11 @@ export class QorusOptions {
     return property?.jsTypes;
   }
 
+  /**
+   * A getter to get property object
+   * @param propertyName name of the property
+   * @returns property object
+   */
   get(propertyName: string) {
     const property = this.constructorOptions.find((property) => property.name === propertyName);
     if (!property) {
@@ -99,8 +164,14 @@ export class QorusOptions {
     return property;
   }
 
+  /**
+   * A setter to set property value
+   * @param propertyName name of the property
+   * @param propertyValue value for the property
+   * @returns property object
+   */
   set(propertyName: string, value: any) {
-    const isValid = this.validate(propertyName, value);
+    const isValid = this.validateProperty(propertyName, value);
     if (!isValid) {
       return;
     } else console.log("it's valid");
@@ -117,7 +188,13 @@ export class QorusOptions {
     return undefined;
   }
 
-  validate(propertyName: string, value: any) {
+  /**
+   * A setter to set property value
+   * @param propertyName name of the property
+   * @param propertyValue value for the property
+   * @returns property object
+   */
+  validateProperty(propertyName: string, value: any) {
     const jsTypes = this.get(propertyName)?.jsTypes;
     const valueType = typeof value;
 
