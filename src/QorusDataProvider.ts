@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import logger from './managers/logger';
-import { QorusRequest } from './QorusRequest';
+import QorusRequest from './QorusRequest';
 import { apiPathsInitial } from './utils/apiPaths';
 
 export interface Provider {

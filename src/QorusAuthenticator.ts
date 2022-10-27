@@ -1,7 +1,7 @@
 import { getKeyValLocal, setKeyValLocal } from './managers/LocalStorage';
 import logger from './managers/logger';
 import { ApiPaths, apiPathsInitial, createApiPaths, Version, WithEndpointVersion } from './utils/apiPaths';
-import { QorusRequest } from './QorusRequest';
+import  QorusRequest  from './QorusRequest';
 import { AxiosError, AxiosResponse } from 'axios';
 
 export type QorusEndpointId = string;
