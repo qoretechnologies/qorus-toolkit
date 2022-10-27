@@ -87,7 +87,7 @@ export class QorusOptions {
    * Get all values required for the provider
    * @returns all values if required values exist, undefined otherwise
    */
-  getAllValues() {
+  getAll() {
     const isValid = this.validate();
     if (!isValid) return;
 

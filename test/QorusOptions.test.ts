@@ -80,7 +80,7 @@ describe('QorusDataProvider Utility Class Tests', () => {
     const options = factoryProvider.getOptions('db');
     options.set('datasource', 'pgsql:omquser/omquser@omquser%bee');
 
-    const dbProvider = await factoryProvider.get('db', options.getAllValues());
+    const dbProvider = await factoryProvider.get('db', options.getAll());
 
     expect(dbProvider.getChildren()).not.toBeNull;
   });
