@@ -73,4 +73,15 @@ describe('QorusDataProvider Utility Class Tests', () => {
 
     expect(isValid).toEqual(true);
   });
+
+  it('should get all the values needed for the provider and the request should be successful', async () => {
+    const dataProviderBrowse = await QorusDataProvider.getRecord();
+    const factoryProvider = await dataProviderBrowse.get('factory');
+    const options = factoryProvider.getOptions('db');
+    options.set('datasource', 'pgsql:omquser/omquser@omquser%bee');
+
+    const dbProvider = await factoryProvider.get('db', options.getAllValues());
+
+    expect(dbProvider.getChildren()).not.toBeNull;
+  });
 });
