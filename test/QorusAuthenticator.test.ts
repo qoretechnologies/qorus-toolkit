@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import QorusAuthenticator from '../src/QorusAuthenticator';
+import { QorusAuthenticator } from '../src';
 import logger from '../src/managers/logger';
 
 dotenv.config();
