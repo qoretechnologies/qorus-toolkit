@@ -32,7 +32,7 @@ describe('QorusDataProvider Utility Class Tests', () => {
     const options = factoryProvider.getOptions('db');
 
     options.set('datasource', 'pgsql:omquser/omquser@omquser%bee');
-    const values: any = options.getAllValues();
+    const values: any = options.getAll();
 
     expect(values?.datasource).toEqual('pgsql:omquser/omquser@omquser%bee');
   });
