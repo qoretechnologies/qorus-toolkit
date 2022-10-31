@@ -23,7 +23,7 @@ describe('QorusDataProvider Utility Class Tests', () => {
     const dataProviderBrowse = await QorusDataProvider.getRecord();
     const factoryProvider = await dataProviderBrowse.get('factory');
     const options = factoryProvider.getOptions('db');
-    expect(options.name).toEqual('db');
+    expect(options?.name).toEqual('db');
   });
 
   it('should set property value for the provider', async () => {
@@ -31,8 +31,8 @@ describe('QorusDataProvider Utility Class Tests', () => {
     const factoryProvider = await dataProviderBrowse.get('factory');
     const options = factoryProvider.getOptions('db');
 
-    options.set('datasource', 'pgsql:omquser/omquser@omquser%bee');
-    const values: any = options.getAll();
+    options?.set('datasource', 'pgsql:omquser/omquser@omquser%bee');
+    const values: any = options?.getAll();
 
     expect(values?.datasource).toEqual('pgsql:omquser/omquser@omquser%bee');
   });
@@ -42,7 +42,7 @@ describe('QorusDataProvider Utility Class Tests', () => {
     const factoryProvider = await dataProviderBrowse.get('factory');
     const options = factoryProvider.getOptions('db');
 
-    const property = options.get('datasource');
+    const property = options?.get('datasource');
     expect(property?.name).toEqual('datasource');
   });
 
@@ -50,7 +50,7 @@ describe('QorusDataProvider Utility Class Tests', () => {
     const dataProviderBrowse = await QorusDataProvider.getRecord();
     const factoryProvider = await dataProviderBrowse.get('factory');
     const options = factoryProvider.getOptions('db');
-    const jsTypes = options.getJsType('datasource');
+    const jsTypes = options?.getJsType('datasource');
     expect(jsTypes![1]).toEqual('object');
   });
 
@@ -58,7 +58,7 @@ describe('QorusDataProvider Utility Class Tests', () => {
     const dataProviderBrowse = await QorusDataProvider.getRecord();
     const factoryProvider = await dataProviderBrowse.get('factory');
     const options = factoryProvider.getOptions('db');
-    const originalTypes = options.getType('datasource');
+    const originalTypes = options?.getType('datasource');
 
     expect(originalTypes![1]).toEqual('object<AbstractDatasource>');
   });
@@ -67,9 +67,9 @@ describe('QorusDataProvider Utility Class Tests', () => {
     const dataProviderBrowse = await QorusDataProvider.getRecord();
     const factoryProvider = await dataProviderBrowse.get('factory');
     const options = factoryProvider.getOptions('db');
-    options.set('datasource', 'pgsql:omquser/omquser@omquser%bee');
+    options?.set('datasource', 'pgsql:omquser/omquser@omquser%bee');
 
-    const isValid = options.validate();
+    const isValid = options?.validate();
 
     expect(isValid).toEqual(true);
   });
@@ -78,10 +78,25 @@ describe('QorusDataProvider Utility Class Tests', () => {
     const dataProviderBrowse = await QorusDataProvider.getRecord();
     const factoryProvider = await dataProviderBrowse.get('factory');
     const options = factoryProvider.getOptions('db');
-    options.set('datasource', 'pgsql:omquser/omquser@omquser%bee');
+    options?.set('datasource', 'pgsql:omquser/omquser@omquser%bee');
 
-    const dbProvider = await factoryProvider.get('db', options.getAll());
+    const dbProvider = await factoryProvider.get('db', options?.getAll());
 
     expect(dbProvider.getChildren()).not.toBeNull;
+  });
+
+  it('should fail with error, Children for the provider does not exist', async () => {
+    const dataProviderBrowse = await QorusDataProvider.getRecord();
+    const factoryProvider = await dataProviderBrowse.get('factory');
+    factoryProvider.getOptions('some');
+    expect(winstonLoggerMock.mock.lastCall[0]).toContain('Children for the provider "some" does not exist');
+  });
+
+  it('should print all the properties that requires validation', async () => {
+    const dataProviderBrowse = await QorusDataProvider.getRecord();
+    const factoryProvider = await dataProviderBrowse.get('factory');
+    const options = factoryProvider.getOptions('db');
+    options?.validate();
+    expect(winstonLoggerMock.mock.lastCall[0]).toContain('datasource is required for db provider');
   });
 });

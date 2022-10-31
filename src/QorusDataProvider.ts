@@ -84,10 +84,9 @@ export class QorusDataProvider {
     }
   }
 
-  initialPath: string[] = [apiPathsInitial.dataProviders.browse];
   private fetchWithContext = async (context: Context) => {
     // Making a put request
-    const requestPath = getRequestPath(this.initialPath);
+    const requestPath = getRequestPath([apiPathsInitial.dataProviders.browse]);
     const requestData = { context: context };
 
     const result = await QorusRequest.put({
@@ -108,7 +107,7 @@ export class QorusDataProvider {
     const responseError = error.response?.data;
 
     return new QorusDataProvider({
-      path: this.initialPath,
+      path: [apiPathsInitial.dataProviders.browse],
       responseData: responseData,
       context,
       providerData: responseData,
@@ -249,8 +248,14 @@ export class QorusDataProvider {
    * @returns object with constructor options
    */
   getOptions(childrenName: string) {
-    const children = this.getChildren();
+    const children: any[] = this.getChildren();
     const filteredChildren = children?.filter((child) => child.name === childrenName);
+    if (typeof filteredChildren[0] === 'undefined') {
+      logger.error(
+        `Children for the provider "${childrenName}" does not exist, please check the provider name and try again`,
+      );
+      return;
+    }
     return new QorusOptions(filteredChildren[0]);
   }
 
@@ -260,6 +265,10 @@ export class QorusDataProvider {
    */
   getAllOptions() {
     const children = this.getChildren();
+    if (typeof children === 'undefined') {
+      logger.error(`Children for the provider does not exist, please check the provider and try again`);
+      return;
+    }
     let allOptions: any[] = [];
     children.forEach((child) => {
       const option = new QorusOptions(child);

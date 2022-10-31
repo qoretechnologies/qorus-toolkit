@@ -38,9 +38,12 @@ export class QorusOptions {
    * @param children children for which options will be created
    * @returns object with constructor options {@link ConstructorOption}
    */
-  private parseChildren(children: any): ConstructorOption {
+  private parseChildren(children: any): ConstructorOption | undefined {
     /*eslint-disable*/
-
+    if (!children) {
+      logger.error(`Children does not exist`);
+      return undefined;
+    }
     const constructorOptions = children.constructor_options;
     const name = children.name;
     let allProperties: Properties[] = [];
@@ -72,15 +75,16 @@ export class QorusOptions {
    * @returns true if all the value exist, false otherwise
    */
   validate() {
+    let result = true;
     this.constructorOptions.forEach((option): void | boolean => {
       if (option.required) {
         if (!option.value) {
+          result = false;
           logger.error(`${option.name} is required for ${this.name} provider`);
-          return false;
         }
       }
     });
-    return true;
+    return result;
   }
 
   /**
