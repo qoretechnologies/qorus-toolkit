@@ -71,7 +71,7 @@ export class QorusOptions {
   }
 
   /**
-   * A validator to verify if all the required values are provided
+   * -validate-function A validator to verify if all the required values are provided
    * @returns true if all the value exist, false otherwise
    */
   validate() {
@@ -88,7 +88,7 @@ export class QorusOptions {
   }
 
   /**
-   * Get all values required for the provider
+   * -getAll-function Get all values required for the provider
    * @returns all values if required values exist, undefined otherwise
    */
   getAll() {
@@ -133,7 +133,7 @@ export class QorusOptions {
   }
 
   /**
-   * A getter to get property type
+   * -getTypeOptions-function A getter to get property type
    * @param propertyName name of the property
    * @return types accepted by the property
    */
@@ -146,7 +146,7 @@ export class QorusOptions {
   }
 
   /**
-   * A getter to get js types for a property
+   * -getJsType-function A getter to get js types for a property
    * @param propertyName name of the property
    * @returns js types accepted by the property
    */
@@ -159,7 +159,7 @@ export class QorusOptions {
   }
 
   /**
-   * A getter to get property object
+   * -getProperty-function A getter to get property object
    * @param propertyName name of the property
    * @returns property object
    */
@@ -172,7 +172,7 @@ export class QorusOptions {
   }
 
   /**
-   * A setter to set property value
+   * -setOptions-function A setter to set property value
    * @param propertyName name of the property
    * @param propertyValue value for the property
    * @returns property object
@@ -196,10 +196,10 @@ export class QorusOptions {
   }
 
   /**
-   * A setter to set property value
+   * -validateProperty-function A method to validate if the provided value can be used by the property
    * @param propertyName name of the property
    * @param propertyValue value for the property
-   * @returns property object
+   * @returns true if value can be used false otherwise
    */
   validateProperty(propertyName: string, value: any) {
     const jsTypes = this.get(propertyName)?.jsTypes;
