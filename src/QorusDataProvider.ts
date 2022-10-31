@@ -1,57 +1,8 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import logger from './managers/logger';
 import { ConstructorOption, QorusOptions } from './QorusOptions';
-import { QorusRequest } from './QorusRequest';
+import QorusRequest from './QorusRequest';
 import { apiPathsInitial } from './utils/apiPaths';
-
-export interface Provider {
-  /**
-   * -getRecord-function Get record of Data Providers with context 'record' from /dataprovider/browse endpoint
-   * @params props {@link ProviderProps}
-   *
-   * Returns array of records
-   */
-  getRecord: () => Promise<ProviderWithOptions>;
-
-  /**
-   * -getApi-function Get record of Data Providers with context 'api'  from /dataprovider/browse endpoint
-   * @params props {@link ProviderProps}
-   *
-   * Returns array of records
-   */
-  getApi: () => Promise<ProviderWithOptions>;
-
-  /**
-   * -getEvent-function Get record of Data Providers with context 'event'  from /dataprovider/browse endpoint
-   * @params props {@link ProviderProps}
-   *
-   * Returns array of records
-   */
-  getEvent: () => Promise<ProviderWithOptions>;
-
-  /**
-   * -getMessage-function Get record of Data Providers with context 'message'  from /dataprovider/browse endpoint
-   * @params props {@link ProviderProps}
-   *
-   * Returns array of records
-   */
-  getMessage: () => Promise<ProviderWithOptions>;
-
-  /**
-   * -getType-function Get record of Data Providers with context 'type'  from /dataprovider/browse endpoint
-   * @params props {@link ProviderProps}
-   *
-   * Returns array of records
-   */
-  getType: () => Promise<ProviderWithOptions>;
-}
-
-export interface ProviderOptions {
-  initialPath: string[];
-  dataObj: {
-    [x: string]: string | number | boolean | any[];
-  };
-}
 
 const getRequestPath = (path: string[]) => {
   let requestPath = '';
@@ -61,76 +12,13 @@ const getRequestPath = (path: string[]) => {
   return requestPath;
 };
 
-const _DataProvider = (): Provider => {
-  /*eslint-disable*/
-  const fetchWithContext = async (context: Context) => {
-    // Making a put request
-    const requestData = { context: context };
+export type Context = 'record' | 'api' | 'event' | 'message' | 'type' | undefined;
 
-    const result = await QorusRequest.put({
-      path: apiPathsInitial.dataProviders.browse,
-      data: requestData,
-    });
-
-    const response = result as AxiosResponse;
-    const error = result as unknown as AxiosError;
-
-    if (error.code) {
-      logger.error(
-        `Failed to browse the data provider with context: ${context}, error: ${JSON.stringify(error.response?.data)}`,
-      );
-    }
-
-    const providerResponse = response?.data;
-    const responseError = error.response?.data;
-
-    return new ProviderWithOptions(
-      [apiPathsInitial.dataProviders.browse],
-      providerResponse,
-      context,
-      providerResponse,
-      responseError,
-    );
-  };
-
-  // Fetch DataProvider with context record
-  const getRecord = async (): Promise<ProviderWithOptions> => {
-    return fetchWithContext('record');
-  };
-
-  // Fetch DataProvider with with context api
-  const getApi = async (): Promise<ProviderWithOptions> => {
-    return fetchWithContext('api');
-  };
-
-  // Fetch DataProvider with with context event
-  const getEvent = async (): Promise<ProviderWithOptions> => {
-    return fetchWithContext('event');
-  };
-
-  // Fetch DataProvider with with context message
-  const getMessage = async (): Promise<ProviderWithOptions> => {
-    return fetchWithContext('message');
-  };
-
-  // Fetch DataProvider with with context type
-  const getType = async (): Promise<ProviderWithOptions> => {
-    return fetchWithContext('type');
-  };
-
-  return {
-    getRecord,
-    getType,
-    getEvent,
-    getApi,
-    getMessage,
-  };
-};
-
-export const QorusDataProvider: Provider = _DataProvider();
-
-type Context = 'record' | 'api' | 'event' | 'message' | 'type' | undefined;
-
+export type ConstructorOptions = any;
+export type ResponseData = any;
+export type ResponseError = any;
+export type ProviderData = any;
+/*eslint-disable */
 /**
  * fetchProvider creates a put request to the QorusServer with context and also adds the
  * functionality to select the next children from dataprovider response list
@@ -138,20 +26,21 @@ type Context = 'record' | 'api' | 'event' | 'message' | 'type' | undefined;
  * @param obj previous parent object
  * @param context context parameter for the request
  * @param select next provider to be selected, chosen from the parent's children list
- * @param providerOptions constructor options for the dataprovider to be selected next
- * @returns ProviderWithOptions object
+ * @param QorusDataProvider constructor options for the dataprovider to be selected next
+ *
+ * Returns ProviderWithOptions object
  */
-const fetchProvider = async (obj: ProviderWithOptions, context: Context, select?: string, providerOptions?: any) => {
+const fetchProvider = async (obj: QorusDataProvider, context: Context, select?: string, providerOptions?: any) => {
   const children = obj.getChildren();
   let _path = obj.getPath();
 
-  if (select) {
+  if (select && _path) {
     if (_path[_path.length - 1] !== select) {
       _path.push(select);
     }
   }
 
-  const requestPath = getRequestPath(_path);
+  const requestPath = getRequestPath(_path!);
   const requestData = { context: context, provider_options: providerOptions ?? {} };
   // Making a put request
   const result = await QorusRequest.put({
@@ -169,52 +58,116 @@ const fetchProvider = async (obj: ProviderWithOptions, context: Context, select?
   const providerResponse = response?.data;
   const responseError = error.response?.data;
 
-  return new ProviderWithOptions(_path, providerResponse, context, providerData, responseError);
+  return new QorusDataProvider({ path: _path!, responseData: providerResponse, context, providerData, responseError });
 };
 
-export type ResponseData = any;
-export type ResponseError = any;
-export type ProviderData = any;
+export class QorusDataProvider {
+  path?: string[] = [];
+  responseData: ResponseData;
+  context: Context;
+  providerData?: ProviderData;
+  responseError?: ResponseError;
 
-/**
- * Class to manage data provider options
- */
-export class ProviderWithOptions {
-  // Array of request path, contains request path to the current provider
-  private path: string[] = [''];
-
-  // Response data containing children, received after fetching the current provider
-  private responseData: ResponseData = {};
-
-  // Context for the current provider
-  private context: Context;
-
-  // Contains required properties for the current provider, including constructor_options
-  private providerData: ProviderData = {};
-
-  // Error response received after making a request to the current provider
-  private responseError: ResponseError = {};
-
-  constructor(
-    path: string[],
-    responseData: ResponseData,
-    context: Context,
-    providerData?: ProviderData,
-    responseError?: ResponseError,
-  ) {
-    this.path = path;
-    this.responseData = responseData;
-    this.context = context;
-    this.providerData = providerData;
-    this.responseError = responseError;
+  constructor(options?: {
+    path: string[];
+    responseData: ResponseData;
+    context: Context;
+    providerData?: ProviderData;
+    responseError?: ResponseError;
+  }) {
+    if (options) {
+      this.path = options.path;
+      this.responseData = options.responseData;
+      this.context = options.context;
+      this.providerData = options.providerData;
+      this.responseError = options.responseError;
+    }
   }
+
+  initialPath: string[] = [apiPathsInitial.dataProviders.browse];
+  private fetchWithContext = async (context: Context) => {
+    // Making a put request
+    const requestPath = getRequestPath(this.initialPath);
+    const requestData = { context: context };
+
+    const result = await QorusRequest.put({
+      path: requestPath,
+      data: requestData,
+    });
+
+    const response = result as AxiosResponse;
+    const error = result as unknown as AxiosError;
+
+    if (error.code) {
+      logger.error(
+        `Failed to browse the data provider with context: ${context}, error: ${JSON.stringify(error.response?.data)}`,
+      );
+    }
+
+    const responseData = response?.data;
+    const responseError = error.response?.data;
+
+    return new QorusDataProvider({
+      path: this.initialPath,
+      responseData: responseData,
+      context,
+      providerData: responseData,
+      responseError,
+    });
+  };
+
+  /**
+   * -getRecord-function Get record of Data Providers with context 'record' from /dataprovider/browse endpoint
+   *
+   * Returns array of records
+   */
+  getRecord = async (): Promise<QorusDataProvider> => {
+    return this.fetchWithContext('record');
+  };
+
+  /**
+   * -getApi-function Get record of Data Providers with context 'api'  from /dataprovider/browse endpoint
+   *
+   * Returns array of records
+   */
+
+  getApi = async (): Promise<QorusDataProvider> => {
+    return this.fetchWithContext('api');
+  };
+
+  /**
+   * -getEvent-function Get record of Data Providers with context 'Event'  from /dataprovider/browse endpoint
+   *
+   * Returns array of records
+   */
+  getEvent = async (): Promise<QorusDataProvider> => {
+    return this.fetchWithContext('event');
+  };
+
+  /**
+   * -getEvent-function Get record of Data Providers with context 'message'  from /dataprovider/browse endpoint
+   *
+   * Returns array of records
+   */
+  getMessage = async (): Promise<QorusDataProvider> => {
+    return this.fetchWithContext('message');
+  };
+
+  /**
+   * -getEvent-function Get record of Data Providers with context 'type'  from /dataprovider/browse endpoint
+   *
+   * Returns array of records
+   */
+  getType = async (): Promise<QorusDataProvider> => {
+    return this.fetchWithContext('type');
+  };
 
   /**
    * Checks if the children exist on the provider
    * @param name Name of the children
    * @returns true if the children exist, false otherwise
    */
-  hasChildren(name: string) {
+  has(name: string) {
     const children = this.responseData?.children.find((child) => child.name === name);
     if (typeof children === 'undefined' || !children.name) return false;
     else return true;
@@ -222,7 +175,8 @@ export class ProviderWithOptions {
 
   /**
    * A getter to the the stored path array for the current provider
-   * @returns path array
+   *
+   * Returns path array
    */
   getPath() {
     return this.path;
@@ -232,15 +186,17 @@ export class ProviderWithOptions {
    * A getter to get request path for the current provider
    *
    * @param path Optional path array to generate request path
-   * @returns
+   *
+   * Returns request path string
    */
   getPathString(path?: string[]) {
-    return getRequestPath(path ? path : this.path);
+    return getRequestPath(path ? path : this.path!);
   }
 
   /**
    * Setter to set path for the current provider
    * @param path array of path strings to replace for path of the current provider
+   *
    */
   setPath(path: string[]) {
     this.path = path;
@@ -248,7 +204,8 @@ export class ProviderWithOptions {
 
   /**
    * A getter to get available data for the current provider
-   * @returns responseData, providerData and errorData for the current provider
+   *
+   * Returns responseData, providerData and errorData for the current provider
    */
   getData() {
     return { responseData: this.responseData, providerData: this.providerData, errorData: this.responseError };
@@ -261,7 +218,8 @@ export class ProviderWithOptions {
 
   /**
    * A getter to get the context for the current provider
-   * @returns context string
+   *
+   * Returns context string
    */
   getContext() {
     return this.context;
@@ -269,7 +227,8 @@ export class ProviderWithOptions {
 
   /**
    * Method to verify if the current provider has children
-   * @returns true if the children exist, false otherwise
+   *
+   * Returns true if the children exist, false otherwise
    */
   hasData() {
     if (this.responseData.matches_context) return true;
@@ -278,7 +237,8 @@ export class ProviderWithOptions {
 
   /**
    * A getter to get available children for the current provider
-   * @returns a list of children
+   *
+   * Returns a list of children
    */
   getChildren() {
     return this.responseData?.children;
@@ -310,9 +270,11 @@ export class ProviderWithOptions {
 
   /**
    * A getter to get children names for the current provider
-   * @returns list of children names
+   *
+   * Returns list of children names
    */
   getChildrenNames() {
+    /*eslint-disable */
     const children = this.getChildren();
     let names: any = {};
     children?.forEach((child) => (names[child.name] = child.name));
@@ -323,8 +285,9 @@ export class ProviderWithOptions {
   /**
    * Method to select the next children from the current provider for further operations
    * @param select next children to be selected
-   * @param providerOptions constructor options for the next children
-   * @returns {@link ProviderWithOptions} new object
+   * @param QorusDataProvider constructor options for the next children
+   *
+   * Returns {@link QorusDataProvider} new object
    */
   async get(select?: string, providerOptions?: ProviderData) {
     if (!select) return this;
@@ -333,3 +296,5 @@ export class ProviderWithOptions {
     return childData;
   }
 }
+
+export default new QorusDataProvider();
