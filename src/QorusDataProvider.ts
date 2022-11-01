@@ -162,8 +162,8 @@ export class QorusDataProvider {
   };
 
   /**
-   * Checks if the children exist on the provider
-   * @param name Name of the children
+   * -has-function Checks if the children exist on the provider
+   * @param name Name of the children you want to find
    * @returns true if the children exist, false otherwise
    */
   has(name: string) {
@@ -188,7 +188,7 @@ export class QorusDataProvider {
    *
    * Returns request path string
    */
-  getPathString(path?: string[]) {
+  getFinalPath(path?: string[]) {
     return getRequestPath(path ? path : this.path!);
   }
 
@@ -244,41 +244,7 @@ export class QorusDataProvider {
   }
 
   /**
-   * A getter to get constructor options for a selected provider
-   * @returns object with constructor options
-   */
-  getOptions(childrenName: string) {
-    const children: any[] = this.getChildren();
-    const filteredChildren = children?.filter((child) => child.name === childrenName);
-    if (typeof filteredChildren[0] === 'undefined') {
-      logger.error(
-        `Children for the provider "${childrenName}" does not exist, please check the provider name and try again`,
-      );
-      return;
-    }
-    return new QorusOptions(filteredChildren[0]);
-  }
-
-  /**
-   * A getter to get constructor options for all providers
-   * @returns object with constructor options array {@link ConstructorOption}
-   */
-  getAllOptions() {
-    const children = this.getChildren();
-    if (typeof children === 'undefined') {
-      logger.error(`Children for the provider does not exist, please check the provider and try again`);
-      return;
-    }
-    let allOptions: any[] = [];
-    children.forEach((child) => {
-      const option = new QorusOptions(child);
-      allOptions.push(option);
-    });
-    return allOptions;
-  }
-
-  /**
-   * A getter to get children names for the current provider
+   * -getChildrenNames-function A getter to get children names for the current provider
    *
    * Returns list of children names
    */
@@ -292,7 +258,7 @@ export class QorusDataProvider {
   }
 
   /**
-   * Method to select the next children from the current provider for further operations
+   * -getProvider-function Method to select the next children from the current provider for further operations
    * @param select next children to be selected
    * @param QorusDataProvider constructor options for the next children
    *
