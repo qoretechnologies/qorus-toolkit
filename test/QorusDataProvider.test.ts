@@ -110,6 +110,37 @@ describe('QorusDataProvider Utility Class Tests', () => {
     expect(dbChildren.table_1).toEqual('table_1');
   });
 
+  it('should check if the child is available', async () => {
+    await QorusAuthenticator.initEndpoint({
+      url: process.env.ENDPOINT!,
+      id: 'rippy',
+      user: process.env.TESTUSER,
+      pass: process.env.TESTPASS,
+    });
+
+    const dataProviderBrowse = await QorusDataProvider.getRecord();
+    const browseChildrenNames = dataProviderBrowse.getChildrenNames();
+    const factory = await dataProviderBrowse.get(browseChildrenNames.factory);
+
+    const db = await factory.has('db');
+
+    expect(db).toEqual(true);
+  });
+
+  it('should return all the children names for the provider', async () => {
+    await QorusAuthenticator.initEndpoint({
+      url: process.env.ENDPOINT!,
+      id: 'rippy',
+      user: process.env.TESTUSER,
+      pass: process.env.TESTPASS,
+    });
+
+    const dataProviderBrowse = await QorusDataProvider.getRecord();
+    const browseChildrenNames = dataProviderBrowse.getChildrenNames();
+
+    expect(browseChildrenNames.factory).toEqual('factory');
+  });
+
   it('should fail to select db factory when provider options are not valid', async () => {
     await QorusAuthenticator.initEndpoint({
       url: process.env.ENDPOINT!,
@@ -128,6 +159,5 @@ describe('QorusDataProvider Utility Class Tests', () => {
 
     expect(dbError).toContain('datasource');
     expect(dbError).toContain('DbDataProvider');
-    expect(winstonLoggerMock).toHaveBeenCalledTimes(1);
   });
 });

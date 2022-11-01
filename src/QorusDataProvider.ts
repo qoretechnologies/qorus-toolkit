@@ -83,10 +83,9 @@ export class QorusDataProvider {
     }
   }
 
-  initialPath: string[] = [apiPathsInitial.dataProviders.browse];
   private fetchWithContext = async (context: Context) => {
     // Making a put request
-    const requestPath = getRequestPath(this.initialPath);
+    const requestPath = getRequestPath([apiPathsInitial.dataProviders.browse]);
     const requestData = { context: context };
 
     const result = await QorusRequest.put({
@@ -107,7 +106,7 @@ export class QorusDataProvider {
     const responseError = error.response?.data;
 
     return new QorusDataProvider({
-      path: this.initialPath,
+      path: [apiPathsInitial.dataProviders.browse],
       responseData: responseData,
       context,
       providerData: responseData,
@@ -162,7 +161,7 @@ export class QorusDataProvider {
   };
 
   /**
-   * Checks if the children exist on the provider
+   * -has-function Checks if the children exist on the provider
    * @param name Name of the children you want to find
    * @returns true if the children exist, false otherwise
    */
@@ -188,7 +187,7 @@ export class QorusDataProvider {
    *
    * Returns request path string
    */
-  getPathString(path?: string[]) {
+  getFinalPath(path?: string[]) {
     return getRequestPath(path ? path : this.path!);
   }
 
@@ -244,7 +243,7 @@ export class QorusDataProvider {
   }
 
   /**
-   * A getter to get children names for the current provider
+   * -getChildrenNames-function A getter to get children names for the current provider
    *
    * Returns list of children names
    */
@@ -258,7 +257,7 @@ export class QorusDataProvider {
   }
 
   /**
-   * Method to select the next children from the current provider for further operations
+   * -getProvider-function Method to select the next children from the current provider for further operations
    * @param select next children to be selected
    * @param QorusDataProvider constructor options for the next children
    *
