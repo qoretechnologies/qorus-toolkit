@@ -30,4 +30,6 @@ exports[`QorusLogin Utility Class Tests Should return the current endpoint 1`] =
 
 exports[`QorusLogin Utility Class Tests Should select the endpoint by the provided id 1`] = `Promise {}`;
 
+exports[`QorusLogin Utility Class Tests Should select the endpoint by the provided id 2`] = `Promise {}`;
+
 exports[`QorusLogin Utility Class Tests Should set a new version for the endpoint 1`] = `5`;

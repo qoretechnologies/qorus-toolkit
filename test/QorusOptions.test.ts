@@ -85,6 +85,14 @@ describe('QorusDataProvider Utility Class Tests', () => {
     expect(dbProvider.getChildren()).not.toBeNull;
   });
 
+  it('should validate the value for a property', async () => {
+    const dataProviderBrowse = await QorusDataProvider.getRecord();
+    const factoryProvider = await dataProviderBrowse.get('factory');
+    const options = factoryProvider.getOptions('db');
+
+    expect(options?.validateProperty('datasource', 'pgsql:omquser/omquser@omquser%bee')).toEqual(true);
+  });
+
   it('should fail with error, Children for the provider does not exist', async () => {
     const dataProviderBrowse = await QorusDataProvider.getRecord();
     const factoryProvider = await dataProviderBrowse.get('factory');

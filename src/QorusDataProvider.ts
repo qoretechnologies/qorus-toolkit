@@ -258,6 +258,36 @@ export class QorusDataProvider {
   }
 
   /**
+   * A getter to get options by name for a children provider
+   * @param childrenName name of the children provider
+   * Returns QorusOptions object
+   */
+  getOptions(childrenName: string): QorusOptions | undefined {
+    const children = this.getChildren();
+    const filteredChildren = children?.filter((child) => child.name === childrenName);
+
+    if (!filteredChildren[0]) {
+      logger.error(`Children for the provider "${childrenName}" does not exist, please verify if the provider exist`);
+      return;
+    }
+    return new QorusOptions(filteredChildren[0]);
+  }
+
+  /**
+   * A getter to get options by name for a children provider
+   * Returns QorusOptions object array
+   */
+  getAllOptions(): QorusOptions[] {
+    const children = this.getChildren();
+    let allOptions: any[] = [];
+    children.forEach((child) => {
+      const option = new QorusOptions(child);
+      allOptions.push(option);
+    });
+    return allOptions;
+  }
+
+  /**
    * -getProvider-function Method to select the next children from the current provider for further operations
    * @param select next children to be selected
    * @param QorusDataProvider constructor options for the next children

@@ -1,4 +1,5 @@
 import logger from './managers/logger';
+import { validateField } from './utils/validation/validation';
 
 export interface Properties {
   name: string;
@@ -202,25 +203,16 @@ export class QorusOptions {
    * @returns true if value can be used false otherwise
    */
   validateProperty(propertyName: string, value: any) {
-    const jsTypes = this.get(propertyName)?.jsTypes;
-    const valueType = typeof value;
-
-    if (Array.isArray(value)) {
-      logger.error(`Value for property ${propertyName} is not valid, please provide values of type ${jsTypes}`);
-      return false;
+    const types = this.get(propertyName)?.types;
+    if (types) {
+      let result = false;
+      types.forEach((type) => {
+        if (validateField(type, value)) {
+          result = true;
+        }
+      });
+      return result;
     }
-
-    if (!jsTypes) {
-      logger.error(`Property ${propertyName} doesn't exist in ${this.name} options`);
-      return false;
-    }
-
-    const filteredType = jsTypes.find((type) => type === valueType);
-    if (!filteredType) {
-      logger.error(`Value for property ${propertyName} is not valid, please provide values of type ${jsTypes}`);
-      return false;
-    }
-
-    return true;
+    return false;
   }
 }
