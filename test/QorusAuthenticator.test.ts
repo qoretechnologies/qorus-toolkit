@@ -11,6 +11,8 @@ if (!(process.env.ENDPOINT && process.env.TESTUSER && process.env.TESTPASS)) {
 }
 
 describe('QorusLogin Utility Class Tests', () => {
+  jest.setTimeout(30000);
+
   it('Should initialize the endpoint and assign it to the selected endpoint', async () => {
     await QorusAuthenticator.initEndpoint({ url: process.env.ENDPOINT!, id: 'rippy' });
 
