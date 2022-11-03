@@ -27,7 +27,7 @@ export const templatesList = [
   'state',
   'qore-expr-value',
 ];
-
+/*eslint-disable */
 export const isValueTemplate = (value?: any) => {
   if (typeof value !== 'string' || !value?.startsWith('$') || !value?.includes(':')) {
     return false;

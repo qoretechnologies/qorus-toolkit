@@ -22,8 +22,7 @@ import {
   TOption,
   TTrigger,
 } from './utils';
-
-//=============================================================================================
+/*eslint-disable */
 const cron = require('cron-validator');
 
 export const validateField: (type: string | IQorusType, value?: any, canBeNull?: boolean) => boolean = (
