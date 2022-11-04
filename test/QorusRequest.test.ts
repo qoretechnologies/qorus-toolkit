@@ -1,7 +1,6 @@
-import { AxiosResponse } from 'axios';
 import dotenv from 'dotenv';
 import { QorusAuthenticator } from '../src';
-import { QorusRequest } from '../src';
+import { QorusRequest } from '../src/QorusRequest';
 dotenv.config();
 
 describe('QorusRequest Utility Tests', () => {
@@ -14,9 +13,8 @@ describe('QorusRequest Utility Tests', () => {
       path: '/api/latest/public/login',
       data: { user: process.env.TESTUSER, pass: process.env.TESTPASS },
     });
-    const response = result as AxiosResponse;
 
-    expect(typeof response?.data.token).toEqual('string');
+    expect(typeof result?.data.token).toEqual('string');
   });
 
   it('Should make a get request and return the result', async () => {
@@ -31,9 +29,8 @@ describe('QorusRequest Utility Tests', () => {
       path: 'api/latest/dataprovider/browse',
       data: { user: process.env.TESTUSER, pass: process.env.TESTPASS },
     });
-    const response = result as AxiosResponse;
 
-    expect(response?.data.type).toEqual('nav');
+    expect(result?.data.type).toEqual('nav');
   });
 
   it('Should make a put request and return the result', async () => {
@@ -48,9 +45,8 @@ describe('QorusRequest Utility Tests', () => {
       path: 'api/latest/dataprovider/browse',
       params: { context: 'api' },
     });
-    const response = result as AxiosResponse;
 
-    expect(response?.data.type).toEqual('nav');
+    expect(result?.data.type).toEqual('nav');
   });
 
   // Todo delete request test
