@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { QorusAuthenticator } from '../src';
+import { QorusAuthenticator as QorusAuth } from '../src';
 import logger from '../src/managers/logger';
 
 dotenv.config();
@@ -11,102 +11,114 @@ if (!(process.env.ENDPOINT && process.env.TESTUSER && process.env.TESTPASS)) {
 }
 
 describe('QorusLogin Utility Class Tests', () => {
-  jest.setTimeout(30000);
   it('Should initialize the endpoint and assign it to the selected endpoint', async () => {
-    await QorusAuthenticator.initEndpoint({ url: process.env.ENDPOINT!, id: 'rippy' });
+    const endpoint = await QorusAuth.initEndpoint({
+      url: process.env.ENDPOINT!,
+      id: 'rippy',
+    });
 
-    const endpoint = QorusAuthenticator.getSelectedEndpoint();
     expect(endpoint).toMatchSnapshot();
   });
 
+  it('Should initialize the endpoint and assign it to the selected endpoint and authenticate the user', async () => {
+    const endpoint = await QorusAuth.initEndpoint({
+      url: process.env.ENDPOINT!,
+      id: 'rippy',
+      user: process.env.TESTUSER,
+      pass: process.env.TESTPASS,
+    });
+
+    expect(typeof endpoint.authToken).toEqual('string');
+  });
+
   it('Should return user token after authentication (login)', async () => {
-    const token = await QorusAuthenticator.login({ user: process.env.TESTUSER!, pass: process.env.TESTPASS! });
+    const token = await QorusAuth.login({ user: process.env.TESTUSER!, pass: process.env.TESTPASS! });
 
     expect(token).not.toBeNull();
   });
 
   it('Should return true after successfully loging out the user ', async () => {
-    await QorusAuthenticator.login({ user: process.env.TESTUSER!, pass: process.env.TESTPASS! });
-    const logoutResult: boolean = await QorusAuthenticator.logout();
+    await QorusAuth.login({ user: process.env.TESTUSER!, pass: process.env.TESTPASS! });
+    const logoutResult: boolean = await QorusAuth.logout();
 
     expect(logoutResult).toEqual(true);
   });
 
   it('Should return the enpoint from the endpoints array', () => {
-    const endpoint = QorusAuthenticator.getEndpointById('rippy');
+    const endpoint = QorusAuth.getEndpointById('rippy');
 
     expect(endpoint?.id).toEqual('rippy');
   });
 
   it('Should return all the available endpoints ', () => {
-    const endpoints = QorusAuthenticator.getAllEndpoints();
+    const endpoints = QorusAuth.getAllEndpoints();
 
     expect(endpoints).not.toBeNull();
   });
 
   it('Should return version of the selected endpoint', () => {
-    const version = QorusAuthenticator.getEndpointVersion();
+    const version = QorusAuth.getEndpointVersion();
 
     expect(version).toEqual('latest');
   });
 
   it('Should return api paths for the selected endpoint', () => {
-    expect(QorusAuthenticator.getApiPaths()).toMatchSnapshot();
+    expect(QorusAuth.getApiPaths()).toMatchSnapshot();
   });
 
   it('Should set a new version for the endpoint', async () => {
-    expect(await QorusAuthenticator.setEndpointVersion(5)).toMatchSnapshot();
+    expect(await QorusAuth.setEndpointVersion(5)).toMatchSnapshot();
   });
 
   it('Should revalidate the user auth token for the selected endpoint', async () => {
-    await QorusAuthenticator.renewSelectedEndpointToken({ user: process.env.TESTUSER!, pass: process.env.TESTPASS! });
-    const token = QorusAuthenticator.getAuthToken();
+    await QorusAuth.renewSelectedEndpointToken({ user: process.env.TESTUSER!, pass: process.env.TESTPASS! });
+    const token = QorusAuth.getAuthToken();
 
     expect(typeof token).toEqual('string');
   });
 
   it('Should return current user token if the user is authenticated', () => {
-    const token = QorusAuthenticator.getAuthToken();
+    const token = QorusAuth.getAuthToken();
 
     expect(typeof token).toEqual('string');
   });
 
   it('Should return the current endpoint', () => {
-    const config = QorusAuthenticator.getSelectedEndpoint();
+    const config = QorusAuth.getSelectedEndpoint();
 
     expect(config!.id).toMatchSnapshot();
   });
 
   it('Should return all the endpoints', () => {
-    const endpoints = QorusAuthenticator.getAllEndpoints();
+    const endpoints = QorusAuth.getAllEndpoints();
 
     expect(endpoints.length).toMatchSnapshot();
   });
 
   it('Should change the selected endpoint url and logout the user', async () => {
-    const url = await QorusAuthenticator.setEndpointUrl('https://testme.com');
+    const url = await QorusAuth.setEndpointUrl('https://testme.com');
 
     expect(url).toMatchSnapshot();
-    expect(QorusAuthenticator.getAuthToken()).toBeUndefined();
+    expect(QorusAuth.getAuthToken()).toBeUndefined();
   });
 
   it('Should select the endpoint by the provided id', async () => {
-    if (process.env.ENDPOINT) await QorusAuthenticator.initEndpoint({ url: process.env.ENDPOINT, id: 'test' });
+    if (process.env.ENDPOINT) QorusAuth.initEndpoint({ url: process.env.ENDPOINT, id: 'test' });
 
-    expect(QorusAuthenticator.selectEndpoint('test')).toMatchSnapshot();
+    expect(QorusAuth.selectEndpoint('test')).toMatchSnapshot();
   });
 
   describe('QorusLogin Utility Error Tests', () => {
-    it('Should throw an error when user tries to authenticate with wrong credentials', async () => {
-      if (process.env.ENDPOINT) await QorusAuthenticator.initEndpoint({ url: process.env.ENDPOINT, id: 'rippy' });
-      await QorusAuthenticator.login({ user: 'bob', pass: 'pass' });
+    it('Should throw an error when user tries to authenticate with wrong creadentials', async () => {
+      if (process.env.ENDPOINT) await QorusAuth.initEndpoint({ url: process.env.ENDPOINT, id: 'rippy' });
+      await QorusAuth.login({ user: 'bob', pass: 'pass' });
 
       expect(winstonLoggerMock).toHaveBeenCalled();
     });
 
     it('Should throw an error if the user does not provide username and password for authentication.', async () => {
-      if (process.env.ENDPOINT) await QorusAuthenticator.initEndpoint({ url: process.env.ENDPOINT, id: 'rippy' });
-      await QorusAuthenticator.login({});
+      if (process.env.ENDPOINT) await QorusAuth.initEndpoint({ url: process.env.ENDPOINT, id: 'rippy' });
+      await QorusAuth.login({});
 
       expect(winstonLoggerMock).toHaveBeenCalled();
     });
