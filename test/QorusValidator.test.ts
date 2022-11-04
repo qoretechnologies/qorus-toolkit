@@ -271,4 +271,12 @@ describe('QorusDataProvider Utility Class Tests', () => {
       ]),
     ).toEqual(false);
   });
+
+  it('should return true if the value is a valid class-array', () => {
+    expect(QorusValidator.validateField('class-array', [{ name: 'Qorus test string' }])).toEqual(true);
+  });
+
+  it('should return false if the value is not a valid class-array', () => {
+    expect(QorusValidator.validateField('class-array', [])).toEqual(false);
+  });
 });

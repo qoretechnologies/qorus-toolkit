@@ -14,11 +14,12 @@ import {
 } from './utils/validation/utils';
 import uniqWith from 'lodash/uniqWith';
 import size from 'lodash/size';
-const yaml = require('js-yaml');
+import jsYaml from 'js-yaml';
 import every from 'lodash/every';
-
 import { getTypeFromValue } from './utils/validation/validation';
+
 const cron = require('cron-validator');
+/*eslint-disable */
 
 export class QorusValidator {
   validateField: (type: string | IQorusType, value?: any, canBeNull?: boolean) => boolean = (
@@ -176,7 +177,7 @@ export class QorusValidator {
       case 'update':
       case 'delete':
       case 'create':
-        let newValue = maybeBuildOptionProvider(value);
+        const newValue = maybeBuildOptionProvider(value);
         if (!newValue) {
           return false;
         }
@@ -242,7 +243,7 @@ export class QorusValidator {
         let parsedData;
         // Parse the yaml
         try {
-          parsedData = yaml.load(value);
+          parsedData = jsYaml.load(value);
         } catch (e) {
           yamlCorrect = false;
         }
@@ -332,7 +333,7 @@ export class QorusValidator {
         return isValid(value);
       }
       case 'system-options-with-operators': {
-        const isValid = (val: unknown) => {
+        const isValidVal = (val: unknown) => {
           if (!val || size(val) === 0) {
             if (canBeNull) {
               return true;
@@ -361,10 +362,10 @@ export class QorusValidator {
         };
 
         if (Array.isArray(value)) {
-          return value.every(isValid);
+          return value.every(isValidVal);
         }
 
-        return isValid(value);
+        return isValidVal(value);
       }
       case 'byte-size': {
         let valid = true;
@@ -373,12 +374,13 @@ export class QorusValidator {
         const result = splitByteSize(value)!;
         if (!result?.[0] || !result?.[1]) return false;
 
-        const [bytes, size] = result;
+        const bytes = result[0];
+        const sizeN = result[1];
         if (!this.validateField('number', bytes)) {
           valid = false;
         }
 
-        if (!this.validateField('string', size)) {
+        if (!this.validateField('string', sizeN)) {
           valid = false;
         }
 
