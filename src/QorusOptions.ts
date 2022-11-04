@@ -1,5 +1,5 @@
 import logger from './managers/logger';
-import { validateField } from './utils/validation/validation';
+import QorusValidator from './QorusValidator';
 
 export interface Properties {
   name: string;
@@ -207,7 +207,7 @@ export class QorusOptions {
     if (types) {
       let result = false;
       types.forEach((type) => {
-        if (validateField(type, value)) {
+        if (QorusValidator.validateField(type, value)) {
           result = true;
         }
       });

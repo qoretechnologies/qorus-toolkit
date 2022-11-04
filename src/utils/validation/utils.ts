@@ -61,7 +61,7 @@ export type TTrigger = { class?: string; connector?: string; method?: string };
 export const splitByteSize = (value: string): [number, string] | null => {
   const bytes: string[] | null = (value || '').match(/\d+/g);
   const size: string[] | null = (value || '').match(/[a-zA-Z]+/g);
-  if (size) return [Number(bytes?.[0]), size?.[0]];
+  if (size) return [Number(bytes?.[0] ?? null), size?.[0] ?? null];
   else return null;
 };
 

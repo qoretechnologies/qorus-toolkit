@@ -89,8 +89,11 @@ export const validateField: (type: string | IQorusType, value?: any, canBeNull?:
       let valid = true;
       // Check if every pair has name, input method and output method
       // assigned properly
-      if (!value?.every((pair: { [key: string]: string }): boolean => pair.name !== '' && pair.method !== '')) {
-        valid = false;
+      console.log('I am here ');
+      if (!Array.isArray(value) && !value.every((val) => val.name && val.method)) {
+        console.log('I am here  too');
+
+        return false;
       }
       // Get a list of unique values
       const uniqueValues: any[] = uniqWith(value, (cur, prev) => cur.name === prev.name);
@@ -101,6 +104,9 @@ export const validateField: (type: string | IQorusType, value?: any, canBeNull?:
 
       return valid;
     }
+
+    // Later will do
+    //=========================================
     // Classes check
     case 'class-array': {
       let valid = true;
