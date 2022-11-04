@@ -107,6 +107,7 @@ export class QorusValidator {
         // test-undone
         let valid = true;
         // Check if the fields are not empty
+        if (!Array.isArray(value) || !value[0]) return false;
         if (!value?.every((pair: { [key: string]: string }): any => pair.name && pair.name !== '')) {
           valid = false;
         }
