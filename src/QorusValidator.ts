@@ -18,7 +18,7 @@ import jsYaml from 'js-yaml';
 import every from 'lodash/every';
 import { getTypeFromValue } from './utils/validation/validation';
 
-const cron = require('cron-validator');
+import cron from 'cron-validator';
 /*eslint-disable */
 
 export class QorusValidator {
