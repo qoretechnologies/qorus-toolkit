@@ -81,7 +81,7 @@ export class QorusRequest {
    *
    * Returns the promise with the result of the get request
    */
-  get = async (props: QorusRequestParams): Promise<AxiosResponse<any> | AxiosError | undefined> => {
+  get = async (props: QorusRequestParams): Promise<AxiosResponse | AxiosError | undefined> => {
     const result = await this.makeRequest('GET', props);
     return result;
   };
@@ -93,7 +93,7 @@ export class QorusRequest {
    *
    * Returns the promise with the result of the post request
    */
-  post = async (props: QorusRequestParams): Promise<AxiosResponse<any> | AxiosError | undefined> => {
+  post = async (props: QorusRequestParams): Promise<AxiosResponse | AxiosError | undefined> => {
     const result = await this.makeRequest('POST', props);
     return result;
   };
@@ -105,7 +105,7 @@ export class QorusRequest {
    *
    * Returns the promise with the result of the put request
    */
-  put = async (props: QorusRequestParams): Promise<AxiosResponse<any> | AxiosError | undefined> => {
+  put = async (props: QorusRequestParams): Promise<AxiosResponse | AxiosError | undefined> => {
     const result = await this.makeRequest('PUT', props);
     return result;
   };
@@ -117,7 +117,7 @@ export class QorusRequest {
    *
    * Returns the promise with the result of the delete request
    */
-  deleteReq = async (props: QorusRequestParams): Promise<AxiosResponse<any> | AxiosError | undefined> => {
+  deleteReq = async (props: QorusRequestParams): Promise<AxiosResponse | AxiosError | undefined> => {
     const result = await this.makeRequest('DELETE', props);
     return result;
   };

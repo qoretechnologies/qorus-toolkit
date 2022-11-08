@@ -1,4 +1,4 @@
-import isArray from 'lodash/isArray';
+import { isArray } from 'lodash';
 import { reduce, size } from 'lodash';
 
 export const getAddress = (v) => {
@@ -28,7 +28,8 @@ export const templatesList = [
   'qore-expr-value',
 ];
 /*eslint-disable */
-export const isValueTemplate = (value?: any) => {
+export type ValueTemplate = any;
+export const isValueTemplate = (value?: ValueTemplate) => {
   if (typeof value !== 'string' || !value?.startsWith('$') || !value?.includes(':')) {
     return false;
   }
@@ -77,7 +78,7 @@ export const maybeBuildOptionProvider = (provider) => {
   // Check if the provider is a factory
   if (provider.startsWith('factory')) {
     // Get everything between the < and >
-    //const factory = provider.substring(provider.indexOf('<') + 1, provider.indexOf('>'));
+    // const factory = provider.substring(provider.indexOf('<') + 1, provider.indexOf('>'));
     // Get the factory name
     const [factoryType, nameWithOptions]: string[] = provider.split('/');
     // Get everything between the first / and { bracket
@@ -167,42 +168,6 @@ export interface IOptionsSchemaArg {
 
 export interface IOptionsSchema {
   [optionName: string]: IOptionsSchemaArg;
-}
-export interface IField {
-  get_message?: {
-    action: string;
-    object_type: string;
-    return_value?: string;
-    message_data?: any;
-  };
-  return_message?: { action: string; object_type: string; return_value?: string };
-  style?: string;
-  type: string;
-  default_value?: string;
-  items?: { value: string; icon_filename: string }[];
-  prefill?: any;
-  name: string;
-  mandatory?: boolean;
-  placeholder?: string;
-  selected?: boolean;
-  fields?: string[];
-  value?: any;
-  isValid?: boolean;
-  hasValueSet?: boolean;
-  internal?: boolean;
-  on_change?: string | string[];
-  notify_on_remove?: boolean;
-  notify_on_add?: boolean;
-  markdown?: boolean;
-  disabled?: boolean;
-  requires_fields?: string[];
-  resetClassConnections?: () => void;
-  read_only?: boolean;
-  reference?: {
-    iface_kind: string;
-    type?: string;
-  };
-  iface_kind?: string;
 }
 
 export type TRecordType = 'search' | 'search-single' | 'create' | 'update' | 'delete';

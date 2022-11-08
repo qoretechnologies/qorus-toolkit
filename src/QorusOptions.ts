@@ -23,6 +23,8 @@ const qorusDataTypesToJsTypesMapper = {
   'softlist<string>': 'array',
 };
 
+export type ProviderChildren = any;
+
 export class QorusOptions {
   // Name of the provider options
   name = '';
@@ -30,7 +32,7 @@ export class QorusOptions {
   // Properties for provider
   constructorOptions: Properties[] = [];
 
-  constructor(children: any) {
+  constructor(children: ProviderChildren) {
     this.parseChildren(children);
   }
 
@@ -39,7 +41,7 @@ export class QorusOptions {
    * @param children children for which options will be created
    * @returns object with constructor options {@link ConstructorOption}
    */
-  private parseChildren(children: any): ConstructorOption | undefined {
+  private parseChildren(children: ProviderChildren): ConstructorOption | undefined {
     /*eslint-disable*/
     if (!children) {
       logger.error(`Children does not exist`);
@@ -207,7 +209,7 @@ export class QorusOptions {
     if (types) {
       let result = false;
       types.forEach((type) => {
-        if (QorusValidator.validateField(type, value)) {
+        if (QorusValidator.validate(type, value)) {
           result = true;
         }
       });

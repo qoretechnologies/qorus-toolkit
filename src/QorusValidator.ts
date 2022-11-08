@@ -11,30 +11,30 @@ import {
   splitByteSize,
   getProtocol,
   getAddress,
-} from './utils/validation/utils';
+} from './utils/validation';
 import uniqWith from 'lodash/uniqWith';
 import size from 'lodash/size';
 import jsYaml from 'js-yaml';
 import every from 'lodash/every';
-import { getTypeFromValue } from './utils/validation/validation';
 
 import cron from 'cron-validator';
 /*eslint-disable */
 
 export class QorusValidator {
-  validateField: (type: string | IQorusType, value?: any, canBeNull?: boolean) => boolean = (
-    type,
-    value,
-    canBeNull,
-  ) => {
+  private nullType(type: string) {
+    if (type.startsWith('*')) {
+      type = type.substring(1);
+      return true;
+    }
+    return false;
+  }
+
+  validate: (type: string | IQorusType, value?: any, canBeNull?: boolean) => boolean = (type, value, canBeNull) => {
     if (!type) {
       return false;
     }
     // Check if the type starts with a * to indicate it can be null
-    if (type.startsWith('*')) {
-      type = type.substring(1);
-      canBeNull = true;
-    }
+    canBeNull = this.nullType(type);
     // If the value can be null an is null
     // immediately return true, no matter what type
     if (canBeNull && value === null) {
@@ -42,12 +42,11 @@ export class QorusValidator {
     }
     // Get the actual type
     // Check if there is a `<` in the type
-    const pos: number = type.indexOf('<');
-    // If there is a <
-    if (pos > 0) {
-      // Get the type from start to the position of the `<`
-      type = type.slice(0, pos);
+    if (type.includes('<')) {
+      // Extract internal type from the type
+      type = type.slice(0, type.indexOf('<'));
     }
+
     // Check if the value is a template string
     if (isValueTemplate(value)) {
       // Check if the template has both the key and value
@@ -68,15 +67,10 @@ export class QorusValidator {
       case 'file-as-string':
       case 'long-string':
       case 'method-name': {
-        if (value === undefined || value === null || value === '') {
+        if (typeof value === 'undefined' || typeof value !== 'string' || value.length === 0) {
           return false;
         }
-        if (typeof value !== 'string') return false;
-
-        let isValid = true;
-
-        // Strings cannot be empty
-        return isValid;
+        return true;
       }
       case 'array-of-pairs': {
         let valid = true;
@@ -126,9 +120,9 @@ export class QorusValidator {
       case 'int':
       case 'softint':
       case 'number':
-        return !isNaN(value) && getTypeFromValue(value) === 'int';
+        return !isNaN(value) && this.getTypeFromValue(value) === 'int';
       case 'float':
-        return !isNaN(value) && (getTypeFromValue(value) === 'float' || getTypeFromValue(value) === 'int');
+        return !isNaN(value) && (this.getTypeFromValue(value) === 'float' || this.getTypeFromValue(value) === 'int');
       case 'select-array':
       case 'array':
       case 'file-tree':
@@ -169,7 +163,7 @@ export class QorusValidator {
         // Split the value
         const [code, method] = value.split('::');
         // Both fields need to be strings & filled
-        return this.validateField('string', code) && this.validateField('string', method);
+        return this.validate('string', code) && this.validate('string', method);
       case 'type-selector':
       case 'data-provider':
       case 'api-call':
@@ -192,21 +186,21 @@ export class QorusValidator {
           value.use_args &&
           value.args &&
           value.args?.type !== 'nothing' &&
-          !this.validateField(value.args.type === 'hash' ? 'system-options' : value.args.type, value.args.value)
+          !this.validate(value.args.type === 'hash' ? 'system-options' : value.args.type, value.args.value)
         ) {
           return false;
         }
 
         if (
           (type === 'search-single' || type === 'search') &&
-          (size(value.search_args) === 0 || !this.validateField('system-options-with-operators', value.search_args))
+          (size(value.search_args) === 0 || !this.validate('system-options-with-operators', value.search_args))
         ) {
           return false;
         }
 
         if (
           (type === 'update' || type === 'create') &&
-          (size(value[`${type}_args`]) === 0 || !this.validateField('system-options', value[`${type}_args`]))
+          (size(value[`${type}_args`]) === 0 || !this.validate('system-options', value[`${type}_args`]))
         ) {
           return false;
         }
@@ -219,11 +213,11 @@ export class QorusValidator {
           let options = true;
 
           if (newValue.options) {
-            options = this.validateField('system-options', newValue.options);
+            options = this.validate('system-options', newValue.options);
           }
 
           if (newValue.search_options) {
-            options = this.validateField('system-options', newValue.search_options);
+            options = this.validate('system-options', newValue.search_options);
           }
 
           // Type path and name are required
@@ -234,7 +228,7 @@ export class QorusValidator {
       case 'context-selector':
         if (typeof value === 'string') {
           const cont: string[] = value.split(':');
-          return this.validateField('string', cont[0]) && this.validateField('string', cont[1]);
+          return this.validate('string', cont[0]) && this.validate('string', cont[1]);
         }
         return !!value.iface_kind && !!value.name;
       case 'auto':
@@ -254,7 +248,7 @@ export class QorusValidator {
         }
 
         if (parsedData) {
-          return this.validateField(getTypeFromValue(parsedData), value);
+          return this.validate(this.getTypeFromValue(parsedData), value);
         }
 
         return false;
@@ -266,10 +260,10 @@ export class QorusValidator {
         }
 
         // Validate the input and output types
-        if (!this.validateField('type-selector', value['processor-input-type'])) {
+        if (!this.validate('type-selector', value['processor-input-type'])) {
           valid = false;
         }
-        if (!this.validateField('type-selector', value['processor-output-type'])) {
+        if (!this.validate('type-selector', value['processor-output-type'])) {
           valid = false;
         }
 
@@ -278,9 +272,7 @@ export class QorusValidator {
       case 'fsm-list': {
         return (
           value.length !== 0 &&
-          value?.every(
-            (val: { name: string; triggers?: TTrigger[] }) => this.validateField('string', val.name) === true,
-          )
+          value?.every((val: { name: string; triggers?: TTrigger[] }) => this.validate('string', val.name) === true)
         );
       }
       case 'api-manager': {
@@ -291,9 +283,9 @@ export class QorusValidator {
         let valid = true;
 
         if (
-          !this.validateField('string', value.factory) ||
-          !this.validateField('system-options', value['provider-options']) ||
-          !this.validateField('api-endpoints', value.endpoints)
+          !this.validate('string', value.factory) ||
+          !this.validate('system-options', value['provider-options']) ||
+          !this.validate('api-endpoints', value.endpoints)
         ) {
           valid = false;
         }
@@ -305,7 +297,7 @@ export class QorusValidator {
           return false;
         }
 
-        return value.every((endpoint: any) => this.validateField('string', endpoint.value));
+        return value.every((endpoint: any) => this.validate('string', endpoint.value));
       }
       case 'options':
       case 'pipeline-options':
@@ -322,8 +314,8 @@ export class QorusValidator {
 
           return every(val, (optionData) =>
             typeof optionData !== 'object'
-              ? this.validateField(getTypeFromValue(optionData), optionData)
-              : this.validateField(optionData.type, optionData.value),
+              ? this.validate(this.getTypeFromValue(optionData), optionData)
+              : this.validate(optionData.type, optionData.value),
           );
         };
 
@@ -346,13 +338,13 @@ export class QorusValidator {
           return every(val, (optionData: TOption) => {
             let isValid: boolean =
               typeof optionData !== 'object'
-                ? this.validateField(getTypeFromValue(optionData), optionData)
-                : this.validateField(optionData.type, optionData.value);
+                ? this.validate(this.getTypeFromValue(optionData), optionData)
+                : this.validate(optionData.type, optionData.value);
 
             if (
               !optionData.op ||
               !(fixOperatorValue(optionData.op)! as TOperatorValue[]).every((operator) =>
-                this.validateField('string', operator),
+                this.validate('string', operator),
               )
             ) {
               isValid = false;
@@ -377,24 +369,59 @@ export class QorusValidator {
 
         const bytes = result[0];
         const sizeN = result[1];
-        if (!this.validateField('number', bytes)) {
+        if (!this.validate('number', bytes)) {
           valid = false;
         }
 
-        if (!this.validateField('string', sizeN)) {
+        if (!this.validate('string', sizeN)) {
           valid = false;
         }
 
         return valid;
       }
       case 'url': {
-        return this.validateField('string', getProtocol(value)) && this.validateField('string', getAddress(value));
+        return this.validate('string', getProtocol(value)) && this.validate('string', getAddress(value));
       }
       case 'nothing':
         return false;
       default:
         return true;
     }
+  };
+
+  getTypeFromValue = (value: any) => {
+    if (value === null) {
+      return 'null';
+    }
+    if (typeof value === 'boolean') {
+      return 'bool';
+    }
+
+    if (value === 0 || (Number(value) === value && value % 1 === 0)) {
+      return 'int';
+    }
+
+    if (value === 0 || value === 0.0 || (Number(value) === value && value % 1 !== 0)) {
+      return 'float';
+    }
+
+    if (Array.isArray(value)) {
+      return 'list';
+    }
+
+    if (new Date(value).toString() !== 'Invalid Date') {
+      return 'date';
+    }
+
+    if (value !== null && typeof value === 'object') {
+      return 'hash';
+    }
+
+    if (typeof value === 'string') {
+      return 'string';
+    }
+
+    return 'none';
   };
 }
 
