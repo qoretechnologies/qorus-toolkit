@@ -20,6 +20,9 @@ import every from 'lodash/every';
 import cron from 'cron-validator';
 /*eslint-disable */
 
+/**
+ * Utility class to validate provider_options properties
+ */
 export class QorusValidator {
   private nullType(type: string) {
     if (type.startsWith('*')) {
@@ -29,6 +32,13 @@ export class QorusValidator {
     return false;
   }
 
+  /**
+   * Validate property for the provider-options for data-provider
+   * @param type type of value for the property
+   * @param value value for the property
+   * @param canBeNull if the value can be null
+   * @returns true if the value can be accepted for the type
+   */
   validate: (type: string | IQorusType, value?: any, canBeNull?: boolean) => boolean = (type, value, canBeNull) => {
     if (!type) {
       return false;
@@ -389,6 +399,11 @@ export class QorusValidator {
     }
   };
 
+  /**
+   * Get QorusType from the value
+   * @param value any accepted type value
+   * @returns QorusType string
+   */
   getTypeFromValue = (value: any) => {
     if (value === null) {
       return 'null';
