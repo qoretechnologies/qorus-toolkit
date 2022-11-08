@@ -1,10 +1,8 @@
 import dotenv from 'dotenv';
-import logger from '../src/managers/logger';
 import QorusValidator from '../src/QorusValidator';
 import { fixOperatorValue, getAddress, splitByteSize } from '../src/utils/validation';
 
 dotenv.config();
-const winstonLoggerMock = jest.spyOn(logger, 'error');
 
 if (!(process.env.ENDPOINT && process.env.TESTUSER && process.env.TESTPASS)) {
   throw new Error('Missing required environment variables');
