@@ -76,6 +76,7 @@
     "axios": "^0.27.2",
     "cpx": "^1.5.0",
     "del-cli": "^5.0.0",
+    "eslint-plugin-import": "^2.26.0",
     "get-all-files": "^4.1.0",
     "jest-coverage-badges": "^1.1.2",
     "jest-mock-axios": "^4.7.0-beta",
