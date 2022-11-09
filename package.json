@@ -1,6 +1,6 @@
 {
   "name": "@qoretechnologies/qorus-toolkit",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Utility library to interact with Qorus Integration Engine",
   "keywords": [
     "qoretechnologies",
@@ -76,11 +76,13 @@
     "async": "^3.2.4",
     "axios": "^0.27.2",
     "cpx": "^1.5.0",
+    "cron-validator": "^1.3.1",
     "del-cli": "^5.0.0",
     "eslint-plugin-import": "^2.26.0",
     "get-all-files": "^4.1.0",
-    "jest-coverage-badges": "^1.1.2",
+    "jest-coverage-badges": "^1.0.0",
     "jest-mock-axios": "^4.7.0-beta",
+    "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "ssl-root-cas": "^1.3.1",
     "supertest": "^6.2.4",
