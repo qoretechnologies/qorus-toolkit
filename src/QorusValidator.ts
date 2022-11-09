@@ -3,7 +3,6 @@ import {
   isValueTemplate,
   getTemplateKey,
   getTemplateValue,
-  maybeBuildOptionProvider,
   TTrigger,
   TOption,
   fixOperatorValue,
@@ -182,11 +181,6 @@ export class QorusValidator {
       case 'update':
       case 'delete':
       case 'create':
-        const newValue = maybeBuildOptionProvider(value);
-        if (!newValue) {
-          return false;
-        }
-
         // Api call only supports  requests / response
         if (type === 'api-call' && !value.supports_request) {
           return false;
@@ -215,26 +209,26 @@ export class QorusValidator {
           return false;
         }
 
-        if (newValue?.type === 'factory') {
-          if (newValue.optionsChanged) {
+        if (value?.type === 'factory') {
+          if (value.optionsChanged) {
             return false;
           }
 
           let options = true;
 
-          if (newValue.options) {
-            options = this.validate('system-options', newValue.options);
+          if (value.options) {
+            options = this.validate('system-options', value.options);
           }
 
-          if (newValue.search_options) {
-            options = this.validate('system-options', newValue.search_options);
+          if (value.search_options) {
+            options = this.validate('system-options', value.search_options);
           }
 
           // Type path and name are required
-          return !!(newValue.type && newValue.name && options);
+          return !!(value.type && value.name && options);
         }
 
-        return !!(newValue.type && newValue.path && newValue.name);
+        return !!(value.type && value.path && value.name);
       case 'context-selector':
         if (typeof value === 'string') {
           const cont: string[] = value.split(':');

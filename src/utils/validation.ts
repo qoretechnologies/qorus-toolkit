@@ -1,12 +1,24 @@
 import { isArray } from 'lodash';
 import { reduce, size } from 'lodash';
 
-export const getAddress = (v) => {
+/**
+ * Function to trimmed address for a url
+ * @param v address url
+ * @returns address without https://
+ */
+export const getAddress = (v: string) => {
   return v?.split('://')?.[1] || '';
 };
+
+/**
+ * Function to convert operator to array if not
+ * @param operator operator, can be string or string[]
+ * @returns array of strings
+ */
 export const fixOperatorValue = (operator: TOperatorValue): string | TOperatorValue[] | null | undefined => {
   return isArray(operator) ? operator : [operator];
 };
+
 export const templatesList = [
   'local',
   'timestamp',
@@ -29,6 +41,12 @@ export const templatesList = [
 ];
 /*eslint-disable */
 export type ValueTemplate = any;
+
+/**
+ * Function to verify if the value is a Template string
+ * @param value value for the property
+ * @returns true if value is a template string
+ */
 export const isValueTemplate = (value?: ValueTemplate) => {
   if (typeof value !== 'string' || !value?.startsWith('$') || !value?.includes(':')) {
     return false;
@@ -39,10 +57,20 @@ export const isValueTemplate = (value?: ValueTemplate) => {
   return templatesList.includes(template);
 };
 
-export const getProtocol = (v) => {
+/**
+ * Function to return protocol address
+ * @param v string with protocol address
+ * @returns trimmed protocol string with https://
+ */
+export const getProtocol = (v: string) => {
   return v?.split('://')?.[0] || '';
 };
 
+/**
+ * Function to return template value
+ * @param value value for the template
+ * @returns string containing template value
+ */
 export const getTemplateValue = (value?: string) => {
   if (value && isValueTemplate(value)) {
     return value.substring(value.indexOf(':') + 1);
@@ -50,6 +78,11 @@ export const getTemplateValue = (value?: string) => {
   return null;
 };
 
+/**
+ * Function to return key for the template value
+ * @param value template string
+ * @returns key for the template property
+ */
 export const getTemplateKey = (value?: string) => {
   if (value && isValueTemplate(value)) {
     return value.substring(value.indexOf('$') + 1, value.indexOf(':'));
@@ -59,69 +92,16 @@ export const getTemplateKey = (value?: string) => {
 };
 export type TTrigger = { class?: string; connector?: string; method?: string };
 
+/**
+ * Splits the size string in bytes and size
+ * @param value string with bytes and size 32MB
+ * @returns array with [byte, size]
+ */
 export const splitByteSize = (value: string): [number, string] | null => {
   const bytes: string[] | null = (value || '').match(/\d+/g);
   const size: string[] | null = (value || '').match(/[a-zA-Z]+/g);
   if (size) return [Number(bytes?.[0] ?? null), size?.[0] ?? null];
   else return null;
-};
-
-export const maybeBuildOptionProvider = (provider) => {
-  if (!provider) {
-    return null;
-  }
-
-  // If the provider is an object, return it
-  if (typeof provider === 'object') {
-    return provider;
-  }
-  // Check if the provider is a factory
-  if (provider.startsWith('factory')) {
-    // Get everything between the < and >
-    // const factory = provider.substring(provider.indexOf('<') + 1, provider.indexOf('>'));
-    // Get the factory name
-    const [factoryType, nameWithOptions]: string[] = provider.split('/');
-    // Get everything between the first / and { bracket
-    const [factoryName] = nameWithOptions.split('{');
-    // Get everything in the provider between first { and last }, which are the options
-    const options = nameWithOptions.substring(nameWithOptions.indexOf('{') + 1, nameWithOptions.lastIndexOf('}'));
-    // Split the options by comma
-    const optionsArray = options.split(',');
-    let optionsObject = {};
-    if (size(optionsArray)) {
-      // Map through all the options and split each by =, which is the key and value
-      optionsObject = reduce(
-        optionsArray,
-        (newOptions, option) => {
-          const [key, value] = option.split('=');
-          return { ...newOptions, [key]: value };
-        },
-        {},
-      );
-    }
-    // Return the new provider
-    const result: IProviderType = {
-      type: factoryType,
-      name: factoryName,
-      // Get everything after the last }/ from the provider
-      path: provider.substring(provider.lastIndexOf('}/') + 2),
-      options: optionsObject,
-    };
-    // Add the optionsChanged key if the provider includes the "?options_changed" string
-    if (provider.includes('?options_changed')) {
-      result.optionsChanged = true;
-    }
-
-    return result;
-  }
-  // split the provider by /
-  const [type, name, ...path] = provider.split('/');
-  // Return it
-  return {
-    type,
-    name,
-    path: path.join('/'),
-  };
 };
 
 export type TOption = {
