@@ -1,17 +1,8 @@
 import axios, { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios';
-import { Agent } from 'node:https';
-
 import logger from './managers/logger';
 import QorusAuthenticator from './QorusAuthenticator';
 
-/**
- * A axios wrapper of https operations
- */
-export const httpsAgent = new Agent({
-  rejectUnauthorized: false,
-});
-
-export const httpsAxios = axios.create({ httpsAgent });
+export const httpsAxios = axios.create();
 
 export interface QorusRequestParams {
   /**

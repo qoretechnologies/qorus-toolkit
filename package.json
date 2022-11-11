@@ -79,7 +79,6 @@
     "del-cli": "^5.0.0",
     "eslint-plugin-import": "^2.26.0",
     "get-all-files": "^4.1.0",
-    "https": "^1.0.0",
     "jest-coverage-badges": "^1.0.0",
     "jest-mock-axios": "^4.7.0-beta",
     "js-yaml": "^4.1.0",
