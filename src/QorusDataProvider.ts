@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import logger from './managers/logger';
-import { ConstructorOption, QorusOptions } from './QorusOptions';
+import { QorusOptions } from './QorusOptions';
 import QorusRequest from './QorusRequest';
 import { apiPathsInitial } from './utils/apiPaths';
 

@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosPromise, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios';
 import { Agent } from 'https';
 import logger from './managers/logger';
 import QorusAuthenticator from './QorusAuthenticator';
