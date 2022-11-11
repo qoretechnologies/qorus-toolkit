@@ -1,3 +1,3 @@
-var logger = require('tracer').colorConsole();
+import logger from 'tracer';
 
-export default logger;
+export default logger.colorConsole();
