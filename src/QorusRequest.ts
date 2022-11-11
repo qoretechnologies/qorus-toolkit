@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios';
-import { Agent } from 'https';
+import { Agent } from 'node:https';
+
 import logger from './managers/logger';
 import QorusAuthenticator from './QorusAuthenticator';
 
