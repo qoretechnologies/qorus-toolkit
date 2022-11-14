@@ -1,6 +1,6 @@
 {
   "name": "@qoretechnologies/qorus-toolkit",
-  "version": "0.2.2",
+  "version": "2.2.1",
   "description": "Utility library to interact with Qorus Integration Engine",
   "keywords": [
     "qoretechnologies",
@@ -12,15 +12,6 @@
   "files": [
     "dist/**/*"
   ],
-  "exports": {
-    "node": {
-      "import": "./feature-node.mjs",
-      "require": "./feature-node.cjs"
-    },
-    "browser": {
-      "import": "./feature.mjs"
-    }
-  },
   "jest": {
     "preset": "ts-jest",
     "coverageReporters": [
