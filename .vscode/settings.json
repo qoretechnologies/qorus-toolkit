@@ -19,5 +19,6 @@
     "titleBar.inactiveForeground": "#e7e7e799"
   },
   "peacock.remoteColor": "#22147d",
-  "cSpell.words": ["jsyaml"]
+  "cSpell.words": ["jsyaml"],
+  "docwriter.hotkey.mac": "⌥ + ."
 }

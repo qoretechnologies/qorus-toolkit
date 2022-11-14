@@ -210,7 +210,7 @@ export class QorusDataProvider {
     return { responseData: this.responseData, providerData: this.providerData, errorData: this.responseError };
   }
 
-  private setData(responseData: ResponseData, providerData: ProviderData) {
+  setData(responseData: ResponseData, providerData: ProviderData) {
     this.responseData = responseData;
     this.providerData = providerData;
   }
