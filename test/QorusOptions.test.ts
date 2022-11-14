@@ -3,7 +3,7 @@ import { QorusAuthenticator as QorusAuth, QorusDataProvider } from '../src';
 import logger from '../src/managers/logger';
 
 dotenv.config();
-const winstonLoggerMock = jest.spyOn(logger, 'error');
+const loggerMock = jest.spyOn(logger, 'error');
 
 if (!(process.env.ENDPOINT && process.env.TESTUSER && process.env.TESTPASS)) {
   throw new Error('Missing required environment variables');
@@ -97,7 +97,7 @@ describe('QorusDataProvider Utility Class Tests', () => {
     const dataProviderBrowse = await QorusDataProvider.getRecord();
     const factoryProvider = await dataProviderBrowse.get('factory');
     factoryProvider.getOptions('some');
-    expect(winstonLoggerMock.mock.lastCall[0]).toContain('Children for the provider "some" does not exist');
+    expect(loggerMock.mock.lastCall[0]).toContain('Children for the provider "some" does not exist');
   });
 
   it('should print all the properties that requires validation', async () => {
@@ -105,6 +105,6 @@ describe('QorusDataProvider Utility Class Tests', () => {
     const factoryProvider = await dataProviderBrowse.get('factory');
     const options = factoryProvider.getOptions('db');
     options?.validate();
-    expect(winstonLoggerMock.mock.lastCall[0]).toContain('datasource is required for db provider');
+    expect(loggerMock.mock.lastCall[0]).toContain('datasource is required for db provider');
   });
 });

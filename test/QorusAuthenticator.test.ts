@@ -4,7 +4,7 @@ import logger from '../src/managers/logger';
 
 dotenv.config();
 
-const winstonLoggerMock = jest.spyOn(logger, 'log');
+const loggerMock = jest.spyOn(logger, 'log');
 
 if (!(process.env.ENDPOINT && process.env.TESTUSER && process.env.TESTPASS)) {
   throw new Error('Missing required environment variables');
@@ -101,14 +101,14 @@ describe('QorusLogin Utility Class Tests', () => {
       if (process.env.ENDPOINT) await QorusAuthenticator.initEndpoint({ url: process.env.ENDPOINT, id: 'rippy' });
       await QorusAuthenticator.login({ user: 'bob', pass: 'pass' });
 
-      expect(winstonLoggerMock).toHaveBeenCalled();
+      expect(loggerMock).toHaveBeenCalled();
     });
 
     it('Should throw an error if the user does not provide username and password for authentication.', async () => {
       if (process.env.ENDPOINT) await QorusAuthenticator.initEndpoint({ url: process.env.ENDPOINT, id: 'rippy' });
       await QorusAuthenticator.login({});
 
-      expect(winstonLoggerMock).toHaveBeenCalled();
+      expect(loggerMock).toHaveBeenCalled();
     });
   });
 });

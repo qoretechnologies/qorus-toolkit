@@ -1,6 +1,6 @@
 {
   "name": "@qoretechnologies/qorus-toolkit",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Utility library to interact with Qorus Integration Engine",
   "keywords": [
     "qoretechnologies",
@@ -12,6 +12,15 @@
   "files": [
     "dist/**/*"
   ],
+  "exports": {
+    "node": {
+      "import": "./feature-node.mjs",
+      "require": "./feature-node.cjs"
+    },
+    "browser": {
+      "import": "./feature.mjs"
+    }
+  },
   "jest": {
     "preset": "ts-jest",
     "coverageReporters": [
@@ -31,7 +40,6 @@
     "test:badges": "npm run test:coverage  && jest-coverage-badges",
     "build": "npx tsc",
     "build:test": "npx tsc --noEmit",
-    "clean": "del-cli --force ./dist",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint . --ext .ts",
     "docs": "npm run css & typedoc && npm run updateDocs && node ./src/examples/addExamplesToDocs.js && cpx ./coverage/**/* ./docs/coverage",
@@ -86,7 +94,6 @@
     "lodash": "^4.17.21",
     "ssl-root-cas": "^1.3.1",
     "supertest": "^6.2.4",
-    "validator": "^13.7.0",
-    "winston": "^3.8.1"
+    "tracer": "^1.1.6"
   }
 }

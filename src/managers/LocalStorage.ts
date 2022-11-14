@@ -3,7 +3,7 @@
  *
  * @returns 'node' or 'browser' based on the current environment
  */
-const detectEnvironment = (): 'node' | 'browser' | 'unknown' => {
+export const detectEnvironment = (): 'node' | 'browser' | 'unknown' => {
   if (typeof process !== 'undefined' && process.title === 'node') {
     return 'node';
   } else if (typeof window != 'undefined') {

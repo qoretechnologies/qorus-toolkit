@@ -91,10 +91,7 @@ export class QorusAuthenticator {
         this.noauth = false;
         successful = true;
       } catch (error: any) {
-        logger.log({
-          level: 'error',
-          message: `Couldn't logout user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`,
-        });
+        logger.error(`Couldn't logout user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
       }
 
       return successful;
@@ -141,10 +138,7 @@ export class QorusAuthenticator {
 
       return null;
     } catch (error: any) {
-      logger.log({
-        level: 'error',
-        message: `Couldn't check the noauth status: ${error.statusCode}, ErrorMessage: ${error.message}`,
-      });
+      logger.error(`Couldn't check the noauth status: ${error.statusCode}, ErrorMessage: ${error.message}`);
     }
 
     return null;
@@ -178,11 +172,7 @@ export class QorusAuthenticator {
       } catch (error: any) {
         if (error.code === '409') {
           return 'invalid';
-        } else
-          logger.log({
-            level: 'error',
-            message: `Can't validate token, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`,
-          });
+        } else logger.error(`Can't validate token, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
       }
     }
 
@@ -202,7 +192,7 @@ export class QorusAuthenticator {
       const currentUserToken = await this.validateLocalUserToken(id);
 
       if (!(user && pass) && !currentUserToken) {
-        logger.log({ level: 'error', message: 'Authentication is required with Username and Password' });
+        logger.error('Authentication is required with Username and Password');
 
         return undefined;
       }
@@ -219,7 +209,7 @@ export class QorusAuthenticator {
         const error = resp as unknown as AxiosError;
 
         if (error?.code) {
-          logger.log({ level: 'error', message: `Couldn't sign in user ${error.code} ${error.message}` });
+          logger.error(`Couldn't sign in user ${error.code} ${error.message}`);
           return undefined;
         }
         const { token } = responseData?.data;
@@ -341,15 +331,15 @@ export class QorusAuthenticator {
           await this.logout();
         }
 
-        logger.log({ level: 'info', message: 'Changed endpoint version successfully.' });
+        logger.log('Changed endpoint version successfully.');
         return version;
       }
 
-      logger.log({ level: 'info', message: 'enpoint does not exist, please try again.' });
+      logger.error('enpoint does not exist, please try again.');
       return undefined;
     }
 
-    logger.log({ level: 'info', message: 'id is required to change the version of a endpoint.' });
+    logger.error('id is required to change the version of a endpoint.');
     return undefined;
   };
 
@@ -373,15 +363,15 @@ export class QorusAuthenticator {
           await this.logout();
         }
 
-        logger.log({ level: 'info', message: 'Changed endpoint url successfully.' });
+        logger.log('Changed endpoint url successfully.');
         return url;
       }
 
-      logger.log({ level: 'info', message: 'enpoint does not exist, please try again.' });
+      logger.error('enpoint does not exist, please try again.');
       return undefined;
     }
 
-    logger.log({ level: 'info', message: 'id is required to change the url of a endpoint.' });
+    logger.error('id is required to change the url of a endpoint.');
     return undefined;
   };
 
