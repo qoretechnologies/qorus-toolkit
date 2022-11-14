@@ -28,6 +28,11 @@
       "lcov"
     ]
   },
+  "pre-push": [
+    "lint",
+    "test",
+    "updatePullRequestVersion"
+  ],
   "scripts": {
     "test": "./node_modules/.bin/jest --json --outputFile=tests.json",
     "test:coverage": "npm test -- --coverage",
