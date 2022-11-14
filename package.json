@@ -12,6 +12,15 @@
   "files": [
     "dist/**/*"
   ],
+  "exports": {
+    "node": {
+      "import": "./feature-node.mjs",
+      "require": "./feature-node.cjs"
+    },
+    "browser": {
+      "import": "./feature.mjs"
+    }
+  },
   "jest": {
     "preset": "ts-jest",
     "coverageReporters": [

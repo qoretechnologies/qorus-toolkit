@@ -1,3 +1,16 @@
-import logger from 'tracer';
+// import logger from 'tracer';
 
-export default logger.colorConsole();
+const logger = () => {
+  const error = (message: string) => {
+    console.log(message);
+  };
+  const log = (message: string) => {
+    console.log(message);
+  };
+  return {
+    error,
+    log,
+  };
+};
+
+export default logger();
