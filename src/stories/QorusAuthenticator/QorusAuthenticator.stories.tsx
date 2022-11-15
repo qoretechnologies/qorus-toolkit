@@ -1,6 +1,4 @@
-import { ReqorePanel } from '@qoretechnologies/reqore';
-import ReactRunkit from 'react-runkit';
-import { version } from '../../../pullRequestRelease.json';
+import { DocumentationExample } from '../components/example';
 import { DocumentationItem } from '../components/item';
 import { DocumentationType } from '../components/type';
 import { DocumentationWrapper } from '../components/wrapper';
@@ -22,13 +20,7 @@ const Template: DocumentationStory = ({ content, ...rest }, context) => {
       code="import { QorusAuthenticator } from '@qoretechnologies/qorus-toolkit'"
     >
       <DocumentationItem {...rest}>{content}</DocumentationItem>
-      <ReqorePanel label="Example" flat headerSize={3} collapsible isCollapsed>
-        <ReactRunkit
-          source="console.log('test')"
-          nodeVersion="16"
-          preamble={`const Qorus = require('@qoretechnologies/qorus-toolkit@${version}')`}
-        />
-      </ReqorePanel>
+      <DocumentationExample label={context.story} />
     </DocumentationWrapper>
   );
 };

@@ -1,4 +1,4 @@
-import { ReqoreColumn, ReqoreColumns, ReqoreH1, ReqoreIcon, ReqorePanel, ReqoreSpacer } from '@qoretechnologies/reqore';
+import { ReqoreColumn, ReqoreColumns, ReqoreH1, ReqoreMessage, ReqoreSpacer } from '@qoretechnologies/reqore';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
@@ -14,14 +14,14 @@ export const DocumentationWrapper = ({ title, description, code, children }: IDo
     <ReqoreColumns style={{ maxWidth: '800px', margin: '0 auto' }}>
       <ReqoreColumn flexFlow="column">
         <ReqoreH1>{title}</ReqoreH1>
-        <ReqoreSpacer height={30} />
+        <ReqoreSpacer height={10} />
         <SyntaxHighlighter language="typescript" style={atomDark}>
           {code}
         </SyntaxHighlighter>
         <ReqoreSpacer height={20} />
-        <ReqorePanel contentSize="big" minimal customTheme={{ main: '#143a40' }}>
-          <ReqoreIcon icon="InformationLine" size="20px" /> {description}
-        </ReqorePanel>
+        <ReqoreMessage size="big" customTheme={{ main: '#143240' }} icon="InformationLine" flat>
+          {description}
+        </ReqoreMessage>
         <ReqoreSpacer height={30} />
         {children}
       </ReqoreColumn>
