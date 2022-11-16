@@ -1,8 +1,9 @@
+import { AxiosError, AxiosResponse } from 'axios';
 import { getKeyValLocal, setKeyValLocal } from './managers/LocalStorage';
 import logger from './managers/logger';
-import { ApiPaths, apiPathsInitial, createApiPaths, Version, WithEndpointVersion } from './utils/apiPaths';
 import QorusRequest from './QorusRequest';
-import { AxiosError, AxiosResponse } from 'axios';
+import QorusValidator from './QorusValidator';
+import { ApiPaths, apiPathsInitial, createApiPaths, Version, WithEndpointVersion } from './utils/apiPaths';
 
 export type QorusEndpointId = string;
 export type QorusAuthToken = string;
@@ -154,6 +155,49 @@ export class QorusAuthenticator {
   };
 
   /**
+   * Fixed the endpoint data
+   * param data {@link InitEndpoint} to be fixed
+   */
+  #fixEndpointData(data: InitEndpoint): InitEndpoint {
+    const newData = { ...data };
+
+    if (!newData.version) {
+      newData.version = 'latest';
+    }
+
+    return newData;
+  }
+
+  /**
+   * Checks the validity of the selected endpoint, if the endpoint data ar valid returns true, false otherwise.
+   * @param data {@link InitEndpoint} to be checked
+   * @param withCredentials boolean to check if the endpoint has credentials
+   */
+  validateEndpointData = (data: InitEndpoint, withCredentials?: boolean): boolean => {
+    let valid: boolean = true;
+    const fixedData = this.#fixEndpointData(data);
+
+    if (
+      !(
+        QorusValidator.validate('string', fixedData.id) &&
+        QorusValidator.validate('string', fixedData.url) &&
+        QorusValidator.validate('version', fixedData.version)
+      )
+    ) {
+      valid = false;
+    }
+
+    if (
+      withCredentials &&
+      !(QorusValidator.validate('string', fixedData.user) && QorusValidator.validate('string', fixedData.pass))
+    ) {
+      valid = false;
+    }
+
+    return valid;
+  };
+
+  /**
    * Validates the local stored authentication token for the endpoint
    */
   validateLocalUserToken = async (endpointId: string): Promise<string | 'invalid' | null> => {
@@ -229,12 +273,8 @@ export class QorusAuthenticator {
    * Returns the newly created endpoint
    */
   initEndpoint = async (props: InitEndpoint): Promise<Endpoint> => {
-    const { id, url, version, user, pass } = props;
-    const newEndpoint: Endpoint = {
-      url,
-      id,
-      version: version ? version : 'latest',
-    };
+    const { id, user, pass } = props;
+    const newEndpoint: Endpoint = this.#fixEndpointData(props);
     const endpoint = this.getEndpointById(id);
 
     if (!endpoint) {

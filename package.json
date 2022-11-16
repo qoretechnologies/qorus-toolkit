@@ -54,7 +54,7 @@
   "homepage": "https://github.com/qoretechnologies/qorus-toolkit#readme",
   "devDependencies": {
     "@babel/core": "^7.20.2",
-    "@qoretechnologies/reqore": "^0.25.5",
+    "@qoretechnologies/reqore": "^0.25.7",
     "@storybook/addon-actions": "^6.5.13",
     "@storybook/addon-essentials": "^6.5.13",
     "@storybook/addon-interactions": "^6.5.13",

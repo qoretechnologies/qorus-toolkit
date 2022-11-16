@@ -7,6 +7,8 @@ export const parameters = {
   layout: 'fullscreen',
   options: {
     panelPosition: 'right',
+    // Hide the panel that shows the addon configurations
+    showPanel: false,
     sidebar: {
       showRoots: true,
     },
@@ -17,7 +19,7 @@ export const parameters = {
       date: /Date$/,
     },
     hideNoControlsWarning: true,
-    expanded: true,
+    expanded: false,
   },
   chromatic: {
     delay: 500,

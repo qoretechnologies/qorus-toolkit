@@ -1,23 +1,25 @@
-import {
-  IQorusType,
-  isValueTemplate,
-  getTemplateKey,
-  getTemplateValue,
-  TTrigger,
-  TOption,
-  fixOperatorValue,
-  TOperatorValue,
-  splitByteSize,
-  getProtocol,
-  getAddress,
-} from './utils/validation';
-import uniqWith from 'lodash/uniqWith';
-import size from 'lodash/size';
 import jsYaml from 'js-yaml';
 import every from 'lodash/every';
+import size from 'lodash/size';
+import uniqWith from 'lodash/uniqWith';
+import {
+  fixOperatorValue,
+  getAddress,
+  getProtocol,
+  getTemplateKey,
+  getTemplateValue,
+  IQorusType,
+  isValueTemplate,
+  splitByteSize,
+  TOperatorValue,
+  TOption,
+  TTrigger,
+} from './utils/validation';
 
 import cron from 'cron-validator';
 /*eslint-disable */
+
+export const versions = [1, 2, 3, 4, 5, 6, 'latest'];
 
 /**
  * Utility class to validate provider_options properties
@@ -385,6 +387,9 @@ export class QorusValidator {
       }
       case 'url': {
         return this.validate('string', getProtocol(value)) && this.validate('string', getAddress(value));
+      }
+      case 'version': {
+        return versions.includes(value);
       }
       case 'nothing':
         return false;

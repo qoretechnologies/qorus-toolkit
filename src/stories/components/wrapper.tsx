@@ -12,7 +12,7 @@ export interface IDocumentationProps {
 export const DocumentationWrapper = ({ title, description, code, children }: IDocumentationProps) => {
   return (
     <ReqoreColumns style={{ maxWidth: '800px', margin: '0 auto' }}>
-      <ReqoreColumn flexFlow="column">
+      <ReqoreColumn flexFlow="column" alignItems="stretch">
         <ReqoreH1>{title}</ReqoreH1>
         <ReqoreSpacer height={10} />
         <SyntaxHighlighter language="typescript" style={atomDark}>
