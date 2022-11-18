@@ -20,9 +20,10 @@ describe('QorusLogin Utility Class Tests', () => {
   });
 
   it('Should return user token after authentication (login)', async () => {
-    const token = await QorusAuthenticator.login({ user: process.env.TESTUSER!, pass: process.env.TESTPASS! });
+    let token;
+    await QorusAuthenticator.login({ user: process.env.TESTUSER!, pass: process.env.TESTPASS! });
 
-    expect(token).not.toBeNull();
+    expect(typeof token).toEqual('string');
   });
 
   it('Should return true after successfully loging out the user ', async () => {
@@ -59,6 +60,7 @@ describe('QorusLogin Utility Class Tests', () => {
   });
 
   it('Should revalidate the user auth token for the selected endpoint', async () => {
+    await QorusAuthenticator.setEndpointVersion('latest');
     await QorusAuthenticator.renewSelectedEndpointToken({ user: process.env.TESTUSER!, pass: process.env.TESTPASS! });
     const token = QorusAuthenticator.getAuthToken();
 
@@ -110,5 +112,87 @@ describe('QorusLogin Utility Class Tests', () => {
 
       expect(loggerMock).toHaveBeenCalled();
     });
+  });
+});
+
+describe('Callback testing', () => {
+  beforeAll(async () => {
+    await QorusAuthenticator.initEndpoint({ url: process.env.ENDPOINT!, id: 'rippyFAllback' });
+  });
+
+  it('Should return user token as a result to the callback after authentication (login)', async () => {
+    let token;
+    await QorusAuthenticator.login(
+      { user: process.env.TESTUSER!, pass: process.env.TESTPASS! },
+      (err?: Error, result?: any) => {
+        if (err) {
+          token = err;
+          return;
+        } else {
+          token = result;
+        }
+      },
+    );
+
+    console.log('should be token', token, QorusAuthenticator.getSelectedEndpoint());
+
+    expect(typeof token).toEqual('string');
+  });
+
+  it('Should return authentication error if the authentication fails and return it to the callback', async () => {
+    let tokenErr;
+    await QorusAuthenticator.login({ user: 'test', pass: 'test' }, (err?: Error) => {
+      if (err) {
+        tokenErr = err;
+        return;
+      }
+    });
+    console.log(tokenErr);
+
+    expect(tokenErr.name).toEqual('Authentication Error');
+  });
+
+  it('Should return general authenticator error if the logout is not successful', async () => {
+    let tokenErr;
+    await QorusAuthenticator.logout((err?: Error) => {
+      if (err) {
+        tokenErr = err;
+        return;
+      }
+    });
+    expect(tokenErr.name).toEqual('General Authenticator Error');
+  });
+
+  it('Should return general authenticator error if id for the endpoint is invalid', async () => {
+    let tokenErr;
+    await QorusAuthenticator.selectEndpoint('rippy5', (err?: Error) => {
+      if (err) {
+        tokenErr = err;
+        return;
+      }
+    });
+    expect(tokenErr.name).toEqual('General Authenticator Error');
+  });
+
+  it('Should return general authenticator error if id and url for the endpoint is invalid', async () => {
+    let tokenErr;
+    await QorusAuthenticator.initEndpoint({ id: '', url: '' }, (err?: Error) => {
+      if (err) {
+        tokenErr = err;
+        return;
+      }
+    });
+    expect(tokenErr.name).toEqual('General Authenticator Error');
+  });
+
+  it('Should return authentication error if the noauth request failed', async () => {
+    let tokenErr;
+    await QorusAuthenticator.checkNoAuth((err?: Error) => {
+      if (err) {
+        tokenErr = err;
+        return;
+      }
+    });
+    expect(tokenErr.name).toEqual('Authentication Error');
   });
 });
