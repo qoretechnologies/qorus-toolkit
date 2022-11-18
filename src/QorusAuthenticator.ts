@@ -148,12 +148,13 @@ export class QorusAuthenticator {
       resp = await QorusRequest.get({ path: `${this.apiPathsAuthenticator.validateNoAuth}` });
       const _noauth = resp.data.noauth;
 
-      if (typeof _noauth === 'boolean') {
+      if (typeof _noauth === 'boolean' && _noauth === true) {
         this.noauth = _noauth;
         console.log('No auth enabled, authentication not required');
         if (callback) callback(undefined, true);
         return true;
       }
+      this.noauth = false;
       return false;
     } catch (error: any) {
       logger.error(`Couldn't check the noauth status: ${error}`);
@@ -250,7 +251,7 @@ export class QorusAuthenticator {
         return undefined;
       }
 
-      if (currentUserToken !== 'invalid' && this.selectedEndpoint) {
+      if (currentUserToken && currentUserToken !== 'invalid' && this.selectedEndpoint) {
         this.selectedEndpoint.authToken = currentUserToken;
         if (callback) callback(undefined, currentUserToken);
         return currentUserToken;
@@ -262,7 +263,6 @@ export class QorusAuthenticator {
       });
       const responseData = resp as AxiosResponse;
       const error = resp as unknown as AxiosError;
-
       if (error?.code) {
         logger.error(`Couldn't sign in user ${error.code} ${error.message}`);
         if (callback)
@@ -295,7 +295,7 @@ export class QorusAuthenticator {
   ): Promise<Endpoint | undefined> => {
     const { id, url, version, user, pass } = endpointConfig;
 
-    if ((!id && id === '') || (!url && url === '')) {
+    if (!id || id === '' || !url || url === '') {
       if (callback)
         callback(
           { name: errorTypes.generalAuthenticatorError, message: 'Id and url is required to initialize an endpoint' },
@@ -304,7 +304,6 @@ export class QorusAuthenticator {
 
       return undefined;
     }
-
     const newEndpoint: Endpoint = {
       ...endpointConfig,
       version: version ?? 'latest',

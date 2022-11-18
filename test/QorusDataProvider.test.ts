@@ -13,10 +13,11 @@ describe('QorusDataProvider Utility Class Tests', () => {
     await QorusAuthenticator.initEndpoint({
       url: process.env.ENDPOINT!,
       id: 'rippy',
+    });
+    await QorusAuthenticator.login({
       user: process.env.TESTUSER,
       pass: process.env.TESTPASS,
     });
-
     const dataProviderBrowse = await QorusDataProvider.getRecord();
     const context = dataProviderBrowse.getContext();
     const providerChildren = dataProviderBrowse.getChildren();

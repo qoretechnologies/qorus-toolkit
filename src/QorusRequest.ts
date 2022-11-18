@@ -41,7 +41,6 @@ export class QorusRequest {
     const { path, data, headers = this.defaultHeaders, params } = props;
     const selectedEndpoint = QorusAuthenticator.getSelectedEndpoint();
     if (headers != this.defaultHeaders) {
-      console.log('this is selected Endpoint', selectedEndpoint);
       Object.assign(headers, { ...this.defaultHeaders, headers });
     }
 

@@ -266,7 +266,7 @@ export class QorusDataProvider {
     const children = this.getChildren();
     const filteredChildren = children?.filter((child) => child.name === childrenName);
 
-    if (!filteredChildren[0]) {
+    if (!filteredChildren || !filteredChildren[0]) {
       logger.error(`Children for the provider "${childrenName}" does not exist, please verify if the provider exist`);
       return;
     }
