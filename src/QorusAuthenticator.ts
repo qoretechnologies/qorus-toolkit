@@ -234,9 +234,8 @@ export class QorusAuthenticator {
     callback?: (err?: Error, result?: Token) => void,
   ): Promise<string | undefined> => {
     if (!this.noauth) {
-      let user, pass;
-      user = loginConfig?.user;
-      pass = loginConfig?.pass;
+      const user = loginConfig?.user;
+      const pass = loginConfig?.pass;
       const { id } = this.selectedEndpoint!;
       const currentUserToken = await this.validateLocalUserToken(id);
 
@@ -272,7 +271,7 @@ export class QorusAuthenticator {
           );
         return undefined;
       }
-      const { token } = responseData?.data;
+      const { token }: { token: string } = responseData?.data;
       if (this.selectedEndpoint) this.selectedEndpoint.authToken = token;
       setKeyValLocal({ key: `auth-token-${id}`, value: token });
       if (callback) callback(undefined, token);
