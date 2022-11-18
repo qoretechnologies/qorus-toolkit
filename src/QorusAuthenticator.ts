@@ -1,5 +1,5 @@
 import { getKeyValLocal, setKeyValLocal } from './managers/LocalStorage';
-import logger from './managers/logger';
+import logger, { errorTypes } from './managers/logger';
 import { ApiPaths, apiPathsInitial, createApiPaths, Version, WithEndpointVersion } from './utils/apiPaths';
 import QorusRequest from './QorusRequest';
 import { AxiosError, AxiosResponse } from 'axios';
@@ -83,7 +83,7 @@ export class QorusAuthenticator {
   logout = async (callback?: (err?: Error, result?: boolean) => void): Promise<boolean> => {
     if (!this.selectedEndpoint || !this.selectedEndpoint.authToken) {
       if (callback)
-        callback({ name: 'General Authenticator Error', message: 'Selected endpoint is not defined' }, false);
+        callback({ name: errorTypes.generalAuthenticatorError, message: 'Selected endpoint is not defined' }, false);
       return true;
     }
 
@@ -98,7 +98,7 @@ export class QorusAuthenticator {
       return true;
     } catch (error: any) {
       logger.error(`Couldn't logout user, ErrorCode: ${error.code}, ErrorMessage: ${error.message}`);
-      if (callback) callback({ name: 'General Authenticator Error', message: error });
+      if (callback) callback({ name: errorTypes.generalAuthenticatorError, message: error });
       return false;
     }
   };
@@ -116,28 +116,28 @@ export class QorusAuthenticator {
     callback?: (err?: Error, result?: Endpoint) => void,
   ): Promise<Endpoint | undefined> => {
     const endpoint = this.getEndpointById(id);
-    if (endpoint && endpoint.url) {
-      if (this.selectedEndpoint?.authToken) {
-        await this.logout();
-      }
 
-      this.selectedEndpoint = endpoint;
-      this.allApiPaths = createApiPaths({ version: endpoint.version });
-      this.apiPathsAuthenticator = this.allApiPaths.authenticator;
-
-      if (callback) callback(undefined, endpoint);
-      return endpoint;
+    if (!endpoint || !endpoint.url) {
+      if (callback)
+        callback(
+          {
+            name: errorTypes.generalAuthenticatorError,
+            message: `Cannot find endpoint with id "${id}", please provide a valid id`,
+          },
+          undefined,
+        );
+      return undefined;
+    }
+    if (this.selectedEndpoint?.authToken) {
+      await this.logout();
     }
 
-    if (callback)
-      callback(
-        {
-          name: 'General Authenticator Error',
-          message: `Cannot find endpoint with id "${id}", please provide a valid id`,
-        },
-        undefined,
-      );
-    return undefined;
+    this.selectedEndpoint = endpoint;
+    this.allApiPaths = createApiPaths({ version: endpoint.version });
+    this.apiPathsAuthenticator = this.allApiPaths.authenticator;
+
+    if (callback) callback(undefined, endpoint);
+    return endpoint;
   };
 
   // Check if the server has noauth enabled
@@ -159,7 +159,10 @@ export class QorusAuthenticator {
       logger.error(`Couldn't check the noauth status: ${error}`);
 
       if (callback)
-        callback({ name: 'Authentication Error', message: `Couldn't check the noauth status: ${error}` }, undefined);
+        callback(
+          { name: errorTypes.authenticationError, message: `Couldn't check the noauth status: ${error}` },
+          undefined,
+        );
       return false;
     }
   };
@@ -186,7 +189,7 @@ export class QorusAuthenticator {
       if (callback)
         callback(
           {
-            name: 'Invalid Authentication Token',
+            name: errorTypes.invalidAuthenticationToken,
             message: 'Auth token for the endpoint does not exist in local storage',
           },
           undefined,
@@ -207,11 +210,14 @@ export class QorusAuthenticator {
         return authToken;
       } else {
         if (callback)
-          callback({ name: 'Invalid Authentication Token', message: 'Authentication token is not valid' }, undefined);
+          callback(
+            { name: errorTypes.invalidAuthenticationToken, message: 'Authentication token is not valid' },
+            undefined,
+          );
         return undefined;
       }
     } catch (error: any) {
-      if (callback) callback({ name: 'Invalid Authentication Token', message: error }, undefined);
+      if (callback) callback({ name: errorTypes.invalidAuthenticationToken, message: error }, undefined);
       return undefined;
     }
   };
@@ -238,39 +244,39 @@ export class QorusAuthenticator {
 
         if (callback)
           callback(
-            { name: 'Authentication Error', message: 'Authentication is required with Username and Password' },
+            { name: errorTypes.authenticationError, message: 'Authentication is required with Username and Password' },
             undefined,
           );
         return undefined;
       }
 
-      if (currentUserToken && currentUserToken !== 'invalid' && this.selectedEndpoint) {
+      if (currentUserToken !== 'invalid' && this.selectedEndpoint) {
         this.selectedEndpoint.authToken = currentUserToken;
         if (callback) callback(undefined, currentUserToken);
         return currentUserToken;
-      } else {
-        const resp = await QorusRequest.post({
-          path: `${this.apiPathsAuthenticator.login}`,
-          data: { user, pass },
-        });
-        const responseData = resp as AxiosResponse;
-        const error = resp as unknown as AxiosError;
-
-        if (error?.code) {
-          logger.error(`Couldn't sign in user ${error.code} ${error.message}`);
-          if (callback)
-            callback(
-              { name: 'Authentication Error', message: `Couldn't sign in user ${error.code} ${error.message}` },
-              undefined,
-            );
-          return undefined;
-        }
-        const { token } = responseData?.data;
-        if (this.selectedEndpoint) this.selectedEndpoint.authToken = token;
-        setKeyValLocal({ key: `auth-token-${id}`, value: token });
-        if (callback) callback(undefined, token);
-        return token;
       }
+
+      const resp = await QorusRequest.post({
+        path: `${this.apiPathsAuthenticator.login}`,
+        data: { user, pass },
+      });
+      const responseData = resp as AxiosResponse;
+      const error = resp as unknown as AxiosError;
+
+      if (error?.code) {
+        logger.error(`Couldn't sign in user ${error.code} ${error.message}`);
+        if (callback)
+          callback(
+            { name: errorTypes.authenticationError, message: `Couldn't sign in user ${error.code} ${error.message}` },
+            undefined,
+          );
+        return undefined;
+      }
+      const { token } = responseData?.data;
+      if (this.selectedEndpoint) this.selectedEndpoint.authToken = token;
+      setKeyValLocal({ key: `auth-token-${id}`, value: token });
+      if (callback) callback(undefined, token);
+      return token;
     }
 
     if (callback) callback(undefined, 'No auth enabled, user authenticated');
@@ -285,14 +291,14 @@ export class QorusAuthenticator {
    */
   initEndpoint = async (
     endpointConfig: InitEndpoint,
-    callback?: (err?: Error, result?: any) => void,
+    callback?: (err?: Error, result?: Endpoint) => void,
   ): Promise<Endpoint | undefined> => {
     const { id, url, version, user, pass } = endpointConfig;
 
     if ((!id && id === '') || (!url && url === '')) {
       if (callback)
         callback(
-          { name: 'General Authenticator Error', message: 'Id and url is required to initialize an endpoint' },
+          { name: errorTypes.generalAuthenticatorError, message: 'Id and url is required to initialize an endpoint' },
           undefined,
         );
 
@@ -328,19 +334,38 @@ export class QorusAuthenticator {
    * @param props {@link LoginParams} optional username and password can be provided
    * Returns token if the authentication is successful, undefined otherwise
    */
-  renewSelectedEndpointToken = async (props: LoginParams): Promise<string | undefined> => {
-    const { user, pass } = props;
-    console.log('values are ', this.selectedEndpoint, user, pass);
-
-    if (!this.selectedEndpoint || !user || !pass) {
+  renewSelectedEndpointToken = async (
+    loginParams: LoginParams,
+    callback?: (err?: Error, result?: any) => void,
+  ): Promise<string | undefined> => {
+    const { user, pass } = loginParams;
+    if (!this.selectedEndpoint || !(user && pass)) {
+      if (callback)
+        callback(
+          {
+            name: errorTypes.authenticationError,
+            message: 'Username and password is required to revalidate the authentication token',
+          },
+          undefined,
+        );
       return undefined;
     }
 
     const token = await this.login({ user, pass });
+    if (typeof token === 'string') {
+      if (callback) callback(undefined, token);
+      return token;
+    }
 
-    console.log('I am here', token);
-    if (typeof token === 'string') return token;
-    else return undefined;
+    if (callback)
+      callback(
+        {
+          name: errorTypes.authenticationError,
+          message: 'Username and password is required to revalidate the authentication token',
+        },
+        undefined,
+      );
+    return undefined;
   };
 
   /**

@@ -12,3 +12,9 @@ const logger = () => {
 };
 
 export default logger();
+
+export const errorTypes = {
+  authenticationError: 'Authentication Error',
+  generalAuthenticatorError: 'General Authenticator Error',
+  invalidAuthenticationToken: 'Invalid Authentication Token',
+};

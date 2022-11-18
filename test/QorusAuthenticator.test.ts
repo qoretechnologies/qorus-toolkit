@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { QorusAuthenticator } from '../src';
-import logger from '../src/managers/logger';
+import logger, { errorTypes } from '../src/managers/logger';
 
 dotenv.config();
 
@@ -115,7 +115,7 @@ describe('QorusLogin Utility Class Tests', () => {
   });
 });
 
-describe('Callback testing', () => {
+describe('Qorus Authenticator Callback tests', () => {
   beforeAll(async () => {
     await QorusAuthenticator.initEndpoint({ url: process.env.ENDPOINT!, id: 'rippyFAllback' });
   });
@@ -149,7 +149,7 @@ describe('Callback testing', () => {
     });
     console.log(tokenErr);
 
-    expect(tokenErr.name).toEqual('Authentication Error');
+    expect(tokenErr.name).toEqual(errorTypes.authenticationError);
   });
 
   it('Should return general authenticator error if the logout is not successful', async () => {
@@ -160,7 +160,7 @@ describe('Callback testing', () => {
         return;
       }
     });
-    expect(tokenErr.name).toEqual('General Authenticator Error');
+    expect(tokenErr.name).toEqual(errorTypes.generalAuthenticatorError);
   });
 
   it('Should return general authenticator error if id for the endpoint is invalid', async () => {
@@ -171,7 +171,7 @@ describe('Callback testing', () => {
         return;
       }
     });
-    expect(tokenErr.name).toEqual('General Authenticator Error');
+    expect(tokenErr.name).toEqual(errorTypes.generalAuthenticatorError);
   });
 
   it('Should return general authenticator error if id and url for the endpoint is invalid', async () => {
@@ -182,7 +182,7 @@ describe('Callback testing', () => {
         return;
       }
     });
-    expect(tokenErr.name).toEqual('General Authenticator Error');
+    expect(tokenErr.name).toEqual(errorTypes.generalAuthenticatorError);
   });
 
   it('Should return authentication error if the noauth request failed', async () => {
@@ -193,6 +193,6 @@ describe('Callback testing', () => {
         return;
       }
     });
-    expect(tokenErr.name).toEqual('Authentication Error');
+    expect(tokenErr.name).toEqual(errorTypes.authenticationError);
   });
 });
