@@ -1,5 +1,7 @@
 import dotenv from 'dotenv';
 import { QorusAuthenticator } from '../src';
+import AuthenticationError from '../src/managers/error/AuthenticationError';
+import Error400 from '../src/managers/error/Error400';
 import logger, { errorTypes } from '../src/managers/logger';
 
 dotenv.config();
@@ -96,100 +98,53 @@ describe('QorusLogin Utility Class Tests', () => {
 
     expect(QorusAuthenticator.selectEndpoint('test')).toMatchSnapshot();
   });
-
-  describe('QorusLogin Utility Error Tests', () => {
-    it('Should throw an error when user tries to authenticate with wrong credentials', async () => {
-      if (process.env.ENDPOINT) await QorusAuthenticator.initEndpoint({ url: process.env.ENDPOINT, id: 'rippy' });
-      await QorusAuthenticator.login({ user: 'bob', pass: 'pass' });
-
-      expect(loggerMock).toHaveBeenCalled();
-    });
-
-    it('Should throw an error if the user does not provide username and password for authentication.', async () => {
-      if (process.env.ENDPOINT) await QorusAuthenticator.initEndpoint({ url: process.env.ENDPOINT, id: 'rippy' });
-      await QorusAuthenticator.login({});
-
-      expect(loggerMock).toHaveBeenCalled();
-    });
-  });
 });
 
-describe('Qorus Authenticator Callback tests', () => {
-  beforeAll(async () => {
-    await QorusAuthenticator.initEndpoint({ url: process.env.ENDPOINT!, id: 'rippyFAllback' });
+describe('QorusLogin Utility Error Tests', () => {
+  it('Should throw an Authentication Error when user tries to authenticate with wrong credentials', async () => {
+    let err;
+    try {
+      if (process.env.ENDPOINT) await QorusAuthenticator.initEndpoint({ url: process.env.ENDPOINT, id: 'rippy2' });
+      await QorusAuthenticator.login({ user: 'bob', pass: 'pass' });
+    } catch (error) {
+      err = error;
+    }
+    expect(err instanceof AuthenticationError).toEqual(true);
   });
 
-  it('Should return user token as a result to the callback after authentication (login)', async () => {
-    let token;
-    await QorusAuthenticator.login(
-      { user: process.env.TESTUSER!, pass: process.env.TESTPASS! },
-      (err?: Error, result?: any) => {
-        if (err) {
-          token = err;
-          return;
-        } else {
-          token = result;
-        }
-      },
-    );
-
-    expect(typeof token).toEqual('string');
+  it('Should throw an error if the user does not provide username and password for authentication.', async () => {
+    let err;
+    try {
+      if (process.env.ENDPOINT) await QorusAuthenticator.initEndpoint({ url: process.env.ENDPOINT, id: 'rippy2' });
+      await QorusAuthenticator.login();
+    } catch (error) {
+      err = error;
+    }
+    expect(err instanceof Error400).toEqual(true);
   });
 
-  it('Should return authentication error if the authentication fails and return it to the callback', async () => {
-    let tokenErr;
-    await QorusAuthenticator.login({ user: 'test', pass: 'test' }, (err?: Error) => {
-      if (err) {
-        tokenErr = err;
-        return;
-      }
-    });
-    console.log(tokenErr);
-
-    expect(tokenErr.name).toEqual(errorTypes.authenticationError);
+  it('Should throw an Error404 if the id and url are not valid to initialize an endpoint', async () => {
+    let err;
+    try {
+      if (process.env.ENDPOINT) await QorusAuthenticator.initEndpoint({ url: '', id: '' });
+    } catch (error) {
+      err = error;
+    }
+    expect(err instanceof Error400).toEqual(true);
   });
 
-  // it('Should return general authenticator error if the logout is not successful', async () => {
-  //   let tokenErr;
-  //   await QorusAuthenticator.logout((err?: Error) => {
-  //     if (err) {
-  //       tokenErr = err;
-  //       return;
-  //     }
-  //   });
-  //   expect(tokenErr.name).toEqual(errorTypes.generalAuthenticatorError);
-  // });
-
-  it('Should return general authenticator error if id for the endpoint is invalid', async () => {
-    let tokenErr;
-    await QorusAuthenticator.selectEndpoint('rippy5', (err?: Error) => {
-      if (err) {
-        tokenErr = err;
-        return;
-      }
-    });
-    expect(tokenErr.name).toEqual(errorTypes.generalAuthenticatorError);
+  it('Should throw an Authentication error if the username and pass is not valid while initializing endpoint', async () => {
+    try {
+      if (process.env.ENDPOINT)
+        await QorusAuthenticator.initEndpoint({
+          url: process.env.ENDPOINT,
+          id: 'rippy2',
+          user: '',
+          pass: '',
+        });
+    } catch (error) {
+      console.error(error);
+    }
+    expect(loggerMock).toHaveBeenCalled();
   });
-
-  it('Should return general authenticator error if id and url for the endpoint is invalid', async () => {
-    let tokenErr;
-    await QorusAuthenticator.initEndpoint({ id: '', url: '' }, (err?: Error) => {
-      if (err) {
-        tokenErr = err;
-        return;
-      }
-    });
-    expect(tokenErr.name).toEqual(errorTypes.generalAuthenticatorError);
-  });
-
-  // it('Should return authentication error if the noauth request failed', async () => {
-  //   let tokenErr;
-  //   await QorusAuthenticator.checkNoAuth((err?: Error) => {
-  //     if (err) {
-  //       tokenErr = err;
-  //       return;
-  //     }
-  //   });
-  //   expect(tokenErr.name).toEqual(errorTypes.authenticationError);
-  // });
 });

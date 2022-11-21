@@ -1,5 +1,4 @@
 import { isArray } from 'lodash';
-import { reduce, size } from 'lodash';
 
 /**
  * Function to trimmed address for a url

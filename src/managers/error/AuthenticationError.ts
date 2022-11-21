@@ -1,0 +1,15 @@
+import BaseError from './Error';
+import { errorCodes } from './httpStatusCode';
+
+class AuthenticationError extends BaseError {
+  constructor(
+    description,
+    isOperational = true,
+    name = errorCodes.AUTHENTICATION.name,
+    statusCode = errorCodes.AUTHENTICATION.code,
+  ) {
+    super(description, isOperational, name, statusCode);
+  }
+}
+
+export default AuthenticationError;
