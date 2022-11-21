@@ -3,7 +3,7 @@ import { errorCodes } from './httpStatusCode';
 
 class Error400 extends BaseError {
   constructor(
-    description,
+    description: string,
     isOperational = true,
     name = errorCodes.BAD_REQUEST.name,
     statusCode = errorCodes.BAD_REQUEST.code,

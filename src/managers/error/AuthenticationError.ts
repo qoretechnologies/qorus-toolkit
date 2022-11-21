@@ -3,7 +3,7 @@ import { errorCodes } from './httpStatusCode';
 
 class AuthenticationError extends BaseError {
   constructor(
-    description,
+    description: string,
     isOperational = true,
     name = errorCodes.AUTHENTICATION.name,
     statusCode = errorCodes.AUTHENTICATION.code,

@@ -7,8 +7,8 @@ export const isValidString = (value?: string | null) => {
 export const isValidStringArray = (value?: any[]) => {
   if (Array.isArray(value)) {
     let result = true;
-    value.forEach((value) => {
-      const valid = isValidString(value);
+    value.forEach((val: string | null | undefined) => {
+      const valid = isValidString(val);
       if (valid === false) {
         result = valid;
       }
