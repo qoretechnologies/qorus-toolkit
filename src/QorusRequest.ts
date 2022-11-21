@@ -1,6 +1,5 @@
 import axios, { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios';
 import Error404 from './managers/error/Error404';
-import logger from './managers/logger';
 import QorusAuthenticator from './QorusAuthenticator';
 
 export const httpsAxios = axios.create();

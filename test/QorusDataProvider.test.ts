@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import { QorusAuthenticator } from '../src';
 import { QorusDataProvider } from '../src/';
 import Error400 from '../src/managers/error/Error400';
+import ErrorAxios from '../src/managers/error/ErrorAxios';
 
 dotenv.config();
 
@@ -161,6 +162,6 @@ describe('QorusDataProvider Utility Class Tests', () => {
       err = error;
     }
 
-    expect(err instanceof Error400).toEqual(true);
+    expect(err instanceof ErrorAxios).toEqual(true);
   });
 });

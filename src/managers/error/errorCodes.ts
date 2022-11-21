@@ -19,6 +19,10 @@ export const errorCodes: ErrorCodes = {
     code: undefined,
     name: 'ERROR',
   },
+  INTERNAL: {
+    code: undefined,
+    name: 'INTERNAL-ERROR',
+  },
 };
 
 export interface ErrorCodes {
