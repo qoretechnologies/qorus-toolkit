@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios';
+import Error404 from './managers/error/Error404';
 import logger from './managers/logger';
 import QorusAuthenticator from './QorusAuthenticator';
 
@@ -61,8 +62,7 @@ export class QorusRequest {
       }
     }
 
-    logger.error('Initialize an endpoint using QorusAuthenticator to use QorusRequest');
-    return;
+    throw new Error404('Initialize an endpoint using QorusAuthenticator to use QorusRequest');
   };
 
   /**

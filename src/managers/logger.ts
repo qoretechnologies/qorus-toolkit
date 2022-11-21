@@ -1,8 +1,8 @@
 const logger = () => {
-  const error = (message: string) => {
+  const error = (message: any) => {
     console.error(message);
   };
-  const log = (message: string) => {
+  const log = (message: any) => {
     console.log(message);
   };
   return {

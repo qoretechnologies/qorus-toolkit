@@ -3,10 +3,6 @@ export const errorCodes: ErrorCodes = {
     code: 401,
     name: 'AUTHENTICATION-ERROR',
   },
-  SUCCESS: {
-    code: 200,
-    name: 'SUCCESS',
-  },
   BAD_REQUEST: {
     code: 400,
     name: 'ERROR-BAD-REQUEST',

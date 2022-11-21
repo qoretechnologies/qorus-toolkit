@@ -1,4 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios';
+import Error400 from './managers/error/Error400';
+import Error404 from './managers/error/Error404';
 import logger from './managers/logger';
 import { QorusOptions } from './QorusOptions';
 import QorusRequest from './QorusRequest';
@@ -52,7 +54,7 @@ const fetchProvider = async (obj: QorusDataProvider, context: Context, select?: 
   const error = result as AxiosError;
 
   if (error.code) {
-    logger.error('Request is not valid, please verify provided data and providerOptions fields.');
+    throw new Error400(`Error fetching provider, please verify provider options ${error}`);
   }
   const providerData = children?.filter((object) => object.name === select);
   const providerResponse = response?.data;
@@ -101,6 +103,7 @@ export class QorusDataProvider {
       logger.error(
         `Failed to browse the data provider with context: ${context}, error: ${JSON.stringify(error.response?.data)}`,
       );
+      throw new Error404(`Failed to browse data provider ${error}`);
     }
 
     const responseData = response?.data;

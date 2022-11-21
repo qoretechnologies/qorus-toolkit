@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import { QorusAuthenticator } from '../src';
 import { QorusDataProvider } from '../src/';
+import Error400 from '../src/managers/error/Error400';
 
 dotenv.config();
 
@@ -148,15 +149,18 @@ describe('QorusDataProvider Utility Class Tests', () => {
       pass: process.env.TESTPASS,
     });
 
-    const dataProviderBrowse = await QorusDataProvider.getType();
+    const dataProviderBrowse = await QorusDataProvider.getRecord();
     const browseChildrenNames = dataProviderBrowse.getChildrenNames();
     const factory = await dataProviderBrowse.get(browseChildrenNames.factory);
     const factoryChildrenNames = factory.getChildrenNames();
 
-    const db = await factory.get(factoryChildrenNames.db);
-    const dbError = db.getData().errorData.desc;
+    let err;
+    try {
+      const db = await factory.get(factoryChildrenNames.db);
+    } catch (error) {
+      err = error;
+    }
 
-    expect(dbError).toContain('datasource');
-    expect(dbError).toContain('DbDataProvider');
+    expect(err instanceof Error400).toEqual(true);
   });
 });

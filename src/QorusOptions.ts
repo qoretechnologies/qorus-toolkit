@@ -1,3 +1,5 @@
+import Error400 from './managers/error/Error400';
+import ErrorGeneral from './managers/error/GeneralError';
 import logger from './managers/logger';
 import QorusValidator from './QorusValidator';
 
@@ -143,7 +145,7 @@ export class QorusOptions {
   getType(propertyName: string) {
     const property = this.constructorOptions.find((property) => property.name === propertyName);
     if (!property?.types) {
-      logger.error(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`);
+      logger.error(new ErrorGeneral(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`));
     }
     return property?.types;
   }
@@ -156,7 +158,7 @@ export class QorusOptions {
   getJsType(propertyName: string) {
     const property = this.constructorOptions.find((property) => property.name === propertyName);
     if (!property?.jsTypes) {
-      logger.error(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`);
+      logger.error(new ErrorGeneral(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`));
     }
     return property?.jsTypes;
   }
@@ -169,7 +171,9 @@ export class QorusOptions {
   get(propertyName: string) {
     const property = this.constructorOptions.find((property) => property.name === propertyName);
     if (!property) {
-      logger.error(`Property ${propertyName} doesn't exist or doesn't contain any value for ${this.name}`);
+      logger.error(
+        new ErrorGeneral(`Property ${propertyName} doesn't exist or doesn't contain any value for ${this.name}`),
+      );
     }
     return property;
   }
@@ -183,7 +187,7 @@ export class QorusOptions {
   set(propertyName: string, value: any) {
     const isValid = this.validateProperty(propertyName, value);
     if (!isValid) {
-      return;
+      throw new Error400(`Value is not valid for the property ${propertyName}`);
     }
 
     let propertyIndex = this.constructorOptions.findIndex((property) => property.name === propertyName);
