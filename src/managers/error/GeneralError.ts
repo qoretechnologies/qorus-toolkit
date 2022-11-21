@@ -1,5 +1,5 @@
 import BaseError from './Error';
-import { errorCodes } from './httpStatusCode';
+import { errorCodes } from './errorCodes';
 
 class ErrorGeneral extends BaseError {
   constructor(
