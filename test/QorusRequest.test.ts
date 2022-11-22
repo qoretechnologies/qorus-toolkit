@@ -5,8 +5,8 @@ import { QorusRequest } from '../src';
 dotenv.config();
 
 describe('QorusRequest Utility Tests', () => {
-  beforeAll(() => {
-    QorusAuthenticator.initEndpoint({ url: process.env.ENDPOINT!, id: 'rippy' });
+  beforeAll(async () => {
+    await QorusAuthenticator.initEndpoint({ url: process.env.ENDPOINT!, id: 'rippyRequest' });
   });
 
   it('Should make a post request and return the result', async () => {

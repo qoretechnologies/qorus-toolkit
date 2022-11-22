@@ -109,7 +109,7 @@ describe('QorusLogin Utility Error Tests', () => {
     } catch (error) {
       err = error;
     }
-    expect(err instanceof ErrorAxios).toEqual(true);
+    expect(err instanceof ErrorInternal).toEqual(true);
   });
 
   it('Should throw an error if the user does not provide username and password for authentication.', async () => {
@@ -146,5 +146,21 @@ describe('QorusLogin Utility Error Tests', () => {
       console.error(error);
     }
     expect(loggerMock).toHaveBeenCalled();
+  });
+
+  it('Should throw an Internal error if the no-auth status cannot be checked', async () => {
+    let err;
+    try {
+      if (process.env.ENDPOINT)
+        await QorusAuthenticator.initEndpoint({
+          url: 'https://sandbox.qoretechnologies.',
+          id: 'rippy2',
+          user: 'some',
+          pass: 'some',
+        });
+    } catch (error) {
+      err = error;
+    }
+    expect(err instanceof ErrorInternal).toEqual(true);
   });
 });
