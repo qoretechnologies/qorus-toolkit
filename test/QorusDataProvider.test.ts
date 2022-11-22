@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import { QorusAuthenticator } from '../src';
 import { QorusDataProvider } from '../src/';
+import ErrorAxios from '../src/managers/error/ErrorAxios';
 
 dotenv.config();
 
@@ -13,10 +14,11 @@ describe('QorusDataProvider Utility Class Tests', () => {
     await QorusAuthenticator.initEndpoint({
       url: process.env.ENDPOINT!,
       id: 'rippy',
+    });
+    await QorusAuthenticator.login({
       user: process.env.TESTUSER,
       pass: process.env.TESTPASS,
     });
-
     const dataProviderBrowse = await QorusDataProvider.getRecord();
     const context = dataProviderBrowse.getContext();
     const providerChildren = dataProviderBrowse.getChildren();
@@ -147,15 +149,18 @@ describe('QorusDataProvider Utility Class Tests', () => {
       pass: process.env.TESTPASS,
     });
 
-    const dataProviderBrowse = await QorusDataProvider.getType();
+    const dataProviderBrowse = await QorusDataProvider.getRecord();
     const browseChildrenNames = dataProviderBrowse.getChildrenNames();
     const factory = await dataProviderBrowse.get(browseChildrenNames.factory);
     const factoryChildrenNames = factory.getChildrenNames();
 
-    const db = await factory.get(factoryChildrenNames.db);
-    const dbError = db.getData().errorData.desc;
+    let err;
+    try {
+      const db = await factory.get(factoryChildrenNames.db);
+    } catch (error) {
+      err = error;
+    }
 
-    expect(dbError).toContain('datasource');
-    expect(dbError).toContain('DbDataProvider');
+    expect(err instanceof ErrorAxios).toEqual(true);
   });
 });

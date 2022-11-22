@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios';
-import logger from './managers/logger';
+import ErrorInternal from './managers/error/ErrorInternal';
 import QorusAuthenticator from './QorusAuthenticator';
 
 export const httpsAxios = axios.create();
@@ -41,7 +41,6 @@ export class QorusRequest {
     const { path, data, headers = this.defaultHeaders, params } = props;
     const selectedEndpoint = QorusAuthenticator.getSelectedEndpoint();
     if (headers != this.defaultHeaders) {
-      console.log('this is selected Endpoint', selectedEndpoint);
       Object.assign(headers, { ...this.defaultHeaders, headers });
     }
 
@@ -62,8 +61,7 @@ export class QorusRequest {
       }
     }
 
-    logger.error('Initialize an endpoint using QorusAuthenticator to use QorusRequest');
-    return;
+    throw new ErrorInternal('Initialize an endpoint using QorusAuthenticator to use QorusRequest');
   };
 
   /**
