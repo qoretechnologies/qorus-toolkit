@@ -1,10 +1,8 @@
-// import logger from 'tracer';
-
 const logger = () => {
-  const error = (message: string) => {
-    console.log(message);
+  const error = (message: any) => {
+    console.error(message);
   };
-  const log = (message: string) => {
+  const log = (message: any) => {
     console.log(message);
   };
   return {
@@ -14,3 +12,9 @@ const logger = () => {
 };
 
 export default logger();
+
+export const errorTypes = {
+  authenticationError: 'Authentication Error',
+  generalAuthenticatorError: 'General Authenticator Error',
+  invalidAuthenticationToken: 'Invalid Authentication Token',
+};

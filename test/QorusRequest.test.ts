@@ -22,13 +22,13 @@ describe('QorusRequest Utility Tests', () => {
   it('Should make a get request and return the result', async () => {
     await QorusAuthenticator.initEndpoint({
       url: process.env.ENDPOINT!,
-      id: 'rippy',
+      id: 'rippyRequest',
       user: process.env.TESTUSER,
       pass: process.env.TESTPASS,
     });
 
     const result = await QorusRequest.get({
-      path: 'api/latest/dataprovider/browse',
+      path: '/api/latest/dataprovider/browse',
       data: { user: process.env.TESTUSER, pass: process.env.TESTPASS },
     });
     const response = result as AxiosResponse;
@@ -39,13 +39,13 @@ describe('QorusRequest Utility Tests', () => {
   it('Should make a put request and return the result', async () => {
     await QorusAuthenticator.initEndpoint({
       url: process.env.ENDPOINT!,
-      id: 'rippy',
+      id: 'rippyRequest',
       user: process.env.TESTUSER,
       pass: process.env.TESTPASS,
     });
 
     const result = await QorusRequest.put({
-      path: 'api/latest/dataprovider/browse',
+      path: '/api/latest/dataprovider/browse',
       params: { context: 'api' },
     });
     const response = result as AxiosResponse;

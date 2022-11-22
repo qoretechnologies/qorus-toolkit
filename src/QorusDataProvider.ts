@@ -1,4 +1,5 @@
 import { AxiosError, AxiosResponse } from 'axios';
+import ErrorAxios from './managers/error/ErrorAxios';
 import logger from './managers/logger';
 import { QorusOptions } from './QorusOptions';
 import QorusRequest from './QorusRequest';
@@ -51,8 +52,8 @@ const fetchProvider = async (obj: QorusDataProvider, context: Context, select?: 
   const response = result as AxiosResponse;
   const error = result as AxiosError;
 
-  if (error.code) {
-    logger.error('Request is not valid, please verify provided data and providerOptions fields.');
+  if (error.response?.status) {
+    throw new ErrorAxios(error);
   }
   const providerData = children?.filter((object) => object.name === select);
   const providerResponse = response?.data;
@@ -97,10 +98,8 @@ export class QorusDataProvider {
     const response = result as AxiosResponse;
     const error = result as unknown as AxiosError;
 
-    if (error.code) {
-      logger.error(
-        `Failed to browse the data provider with context: ${context}, error: ${JSON.stringify(error.response?.data)}`,
-      );
+    if (error.response?.status) {
+      throw new ErrorAxios(error);
     }
 
     const responseData = response?.data;
@@ -210,11 +209,6 @@ export class QorusDataProvider {
     return { responseData: this.responseData, providerData: this.providerData, errorData: this.responseError };
   }
 
-  private setData(responseData: ResponseData, providerData: ProviderData) {
-    this.responseData = responseData;
-    this.providerData = providerData;
-  }
-
   /**
    * A getter to get the context for the current provider
    *
@@ -266,7 +260,7 @@ export class QorusDataProvider {
     const children = this.getChildren();
     const filteredChildren = children?.filter((child) => child.name === childrenName);
 
-    if (!filteredChildren[0]) {
+    if (!filteredChildren || !filteredChildren[0]) {
       logger.error(`Children for the provider "${childrenName}" does not exist, please verify if the provider exist`);
       return;
     }
