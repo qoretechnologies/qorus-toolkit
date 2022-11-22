@@ -92,7 +92,7 @@ export class QorusAuthenticator {
       await QorusRequest.post({ path: `${this.apiPathsAuthenticator.logout}` });
       return true;
     } catch (error: any) {
-      throw new ErrorAxios(error);
+      throw new ErrorAxios(error as AxiosError);
     } finally {
       this.selectedEndpoint.authToken = undefined;
       this.allApiPaths = apiPathsInitial;
@@ -150,7 +150,7 @@ export class QorusAuthenticator {
       this.noauth = false;
       return false;
     } catch (error: any) {
-      console.error(new ErrorAxios(error));
+      console.error(new ErrorAxios(error as AxiosError));
       return false;
     }
   };
