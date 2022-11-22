@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 import { QorusAuthenticator } from '../src';
 import { QorusDataProvider } from '../src/';
-import Error400 from '../src/managers/error/Error400';
 import ErrorAxios from '../src/managers/error/ErrorAxios';
 
 dotenv.config();

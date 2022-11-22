@@ -3,11 +3,9 @@ import logger from './managers/logger';
 import { ApiPaths, apiPathsInitial, createApiPaths, Version, WithEndpointVersion } from './utils/apiPaths';
 import QorusRequest from './QorusRequest';
 import { AxiosError, AxiosResponse } from 'axios';
-import AuthenticationError from './managers/error/AuthenticationError';
-import Error400 from './managers/error/Error400';
 import { isValidString, isValidStringArray } from './utils';
-import Error404 from './managers/error/Error404';
-import Error500 from './managers/error/Error500';
+import ErrorAxios from './managers/error/ErrorAxios';
+import ErrorInternal from './managers/error/ErrorInternal';
 
 export type QorusEndpointId = string;
 export type QorusAuthToken = string;
@@ -94,7 +92,7 @@ export class QorusAuthenticator {
       await QorusRequest.post({ path: `${this.apiPathsAuthenticator.logout}` });
       return true;
     } catch (error: any) {
-      throw new Error400(`Error logging out user ${error}`);
+      throw new ErrorAxios(error);
     } finally {
       this.selectedEndpoint.authToken = undefined;
       this.allApiPaths = apiPathsInitial;
@@ -113,12 +111,12 @@ export class QorusAuthenticator {
    */
   selectEndpoint = async (id: string): Promise<Endpoint | undefined> => {
     if (!isValidString(id)) {
-      throw new Error400('Id is not valid, please provide a valid id or initialize a new endpoint.');
+      throw new ErrorInternal('Id is not valid, please provide a valid id or initialize a new endpoint.');
     }
 
     const endpoint = this.getEndpointById(id);
     if (!endpoint || !isValidString(endpoint.url)) {
-      throw new Error500('Selected endpoint is not valid, please create a new endpoint.');
+      throw new ErrorInternal('Selected endpoint is not valid, please create a new endpoint.');
     }
 
     if (this.selectedEndpoint?.authToken) {
@@ -152,7 +150,7 @@ export class QorusAuthenticator {
       this.noauth = false;
       return false;
     } catch (error: any) {
-      console.error(new Error400(`Can't check noauth status ${error}`));
+      console.error(new ErrorAxios(error));
       return false;
     }
   };
@@ -200,10 +198,12 @@ export class QorusAuthenticator {
    */
   login = async (loginParams?: LoginParams): Promise<string | undefined> => {
     if (!this.selectedEndpoint || !isValidString(this.selectedEndpoint.url)) {
-      throw new Error400('Endpoint must be initialized before authentication.');
+      throw new ErrorInternal('Endpoint must be initialized before authentication.');
     }
-
-    if (this.noauth && !(loginParams?.user && loginParams?.pass)) {
+    if (!this.noauth && !isValidStringArray([loginParams?.user, loginParams?.pass])) {
+      throw new ErrorInternal('Username and password is required for authentication');
+    }
+    if (this.noauth && !isValidStringArray([loginParams?.user, loginParams?.pass])) {
       logger.log('No-auth enabled authentication not required.');
       return undefined;
     }
@@ -219,7 +219,7 @@ export class QorusAuthenticator {
     }
 
     if (!isValidStringArray([user, pass])) {
-      throw new Error400('Username and password is required to authenticate the user for the first time');
+      throw new ErrorInternal('Username and password is required to authenticate the user for the first time');
     }
 
     const resp = await QorusRequest.post({
@@ -229,13 +229,13 @@ export class QorusAuthenticator {
     const responseData = resp as AxiosResponse;
     const error = resp as unknown as AxiosError;
 
-    if (error?.code) {
-      throw new AuthenticationError(`There was an error authenticating user ${error}`);
+    if (error?.response?.status) {
+      throw new ErrorAxios(error);
     }
 
     const { token }: { token: string } = responseData?.data ?? null;
     if (!token) {
-      throw new AuthenticationError('There was an error authenticating user, please try again.');
+      throw new ErrorInternal('There was an error authenticating user, please try again.');
     }
 
     this.selectedEndpoint.authToken = token;
@@ -253,7 +253,7 @@ export class QorusAuthenticator {
     const { id, url, version, user, pass } = endpointConfig;
 
     if (!isValidStringArray([id, url])) {
-      throw new Error400('Id and url is required to initialize an endpoint');
+      throw new ErrorInternal('Id and url is required to initialize an endpoint');
     }
 
     const newEndpoint: Endpoint = {
@@ -274,7 +274,7 @@ export class QorusAuthenticator {
 
     await this.checkNoAuth();
     if (isValidStringArray([user, pass])) await this.login({ user, pass });
-    else console.error(new AuthenticationError('Please provide valid username and password to authenticate the user.'));
+    else console.error(new ErrorInternal('Please provide valid username and password to authenticate the user.'));
 
     return this.selectedEndpoint;
   };
@@ -288,11 +288,11 @@ export class QorusAuthenticator {
   renewSelectedEndpointToken = async (loginParams: LoginParams): Promise<string | undefined> => {
     const { user, pass } = loginParams;
     if (!this.selectedEndpoint || !isValidString(this.selectedEndpoint.url)) {
-      console.error(new Error404('Endpoint is not selected, please initialize an endpoint to renew token'));
+      console.error(new ErrorInternal('Endpoint is not selected, please initialize an endpoint to renew token'));
       return undefined;
     }
     if (!isValidStringArray([user, pass])) {
-      throw new Error400('Username and password is required to revalidate endpoint token.');
+      throw new ErrorInternal('Username and password is required to revalidate endpoint token.');
     }
 
     const token = await this.login({ user, pass });
@@ -301,7 +301,7 @@ export class QorusAuthenticator {
       return token;
     }
 
-    console.error(new AuthenticationError('Username and password are not valid, please try again'));
+    console.error(new ErrorInternal('Username and password are not valid, please try again'));
     return undefined;
   };
 
@@ -365,10 +365,10 @@ export class QorusAuthenticator {
         return version;
       }
 
-      throw new Error404('Endpoint does not exist, please initialize an endpoint and try again.');
+      throw new ErrorInternal('Endpoint does not exist, please initialize an endpoint and try again.');
     }
 
-    throw new Error400('Id and a valid version is required to change the version of a endpoint.');
+    throw new ErrorInternal('Id and a valid version is required to change the version of a endpoint.');
   };
 
   /**
@@ -395,10 +395,10 @@ export class QorusAuthenticator {
         return url;
       }
 
-      throw new Error404('Endpoint does not exist, please initialize an endpoint and try again.');
+      throw new ErrorInternal('Endpoint does not exist, please initialize an endpoint and try again.');
     }
 
-    throw new Error400('Id and url is required to change the version of a endpoint.');
+    throw new ErrorInternal('Id and url is required to change the version of a endpoint.');
   };
 
   /**
