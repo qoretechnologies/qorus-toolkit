@@ -5,8 +5,6 @@ class ErrorAxios extends BaseError {
   constructor(error: AxiosError) {
     const response = error.response;
     const data = response?.data as AxiosErrorResponseData;
-    if (response?.data) data.desc ?? '';
-
     super(data.desc, true, data.err, response?.status);
   }
 }
