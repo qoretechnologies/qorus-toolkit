@@ -131,27 +131,30 @@ export class QorusAuthenticator {
   };
 
   // Check if the server has noauth enabled
-  checkNoAuth = async (): Promise<boolean> => {
+  checkNoAuth = async (endpoint?: Endpoint): Promise<boolean> => {
     let resp;
 
     try {
-      resp = await QorusRequest.get({ path: `${this.apiPathsAuthenticator.validateNoAuth}` });
-      if (!resp || !resp.data || !resp.data.noauth) {
+      resp = await QorusRequest.get({ path: `${this.apiPathsAuthenticator.validateNoAuth}` }, endpoint);
+      if (!resp || !resp.data || typeof resp.data.noauth === 'undefined') {
+        throw new ErrorInternal(`Cannot verify no-auth please check your url "${endpoint?.url}" and try again`);
+      }
+
+      if (typeof resp.data.noauth === 'boolean' && resp.data.noauth === false) {
         this.noauth = false;
+        logger.info('No auth disabled, authentication is required with username and password');
         return false;
       }
-      const _noauth = resp.data.noauth;
 
-      if (typeof _noauth === 'boolean' && _noauth === true) {
-        this.noauth = _noauth;
-        console.log('No auth enabled, authentication not required');
+      if (typeof resp.data.noauth === 'boolean' && resp.data.noauth === true) {
+        this.noauth = resp.data.noauth;
+        logger.info('No auth enabled, authentication not required');
         return true;
       }
       this.noauth = false;
       return false;
     } catch (error: any) {
-      console.error(new ErrorAxios(error as AxiosError));
-      return false;
+      throw new ErrorInternal(`Cannot verify no-auth please check your url "${endpoint?.url}" and try again`);
     }
   };
 
@@ -204,7 +207,7 @@ export class QorusAuthenticator {
       throw new ErrorInternal('Username and password is required for authentication');
     }
     if (this.noauth && !isValidStringArray([loginParams?.user, loginParams?.pass])) {
-      logger.log('No-auth enabled authentication not required.');
+      logger.info('No-auth enabled authentication not required.');
       return undefined;
     }
 
@@ -222,25 +225,26 @@ export class QorusAuthenticator {
       throw new ErrorInternal('Username and password is required to authenticate the user for the first time');
     }
 
-    const resp = await QorusRequest.post({
-      path: `${this.apiPathsAuthenticator.login}`,
-      data: { user, pass },
-    });
-    const responseData = resp as AxiosResponse;
-    const error = resp as unknown as AxiosError;
+    try {
+      const resp = await QorusRequest.post({
+        path: `${this.apiPathsAuthenticator.login}`,
+        data: { user, pass },
+      });
+      const responseData = resp as AxiosResponse;
+      if (typeof responseData.data === 'undefined') {
+        throw new ErrorInternal(`${responseData}`);
+      }
+      const { token } = responseData?.data ?? null;
+      if (!token) {
+        throw new ErrorInternal('There was an error authenticating user, token is invalid, please try again.');
+      }
 
-    if (error?.response?.status) {
-      throw new ErrorAxios(error);
+      this.selectedEndpoint.authToken = token;
+      setKeyValLocal({ key: `auth-token-${id}`, value: token });
+      return token;
+    } catch (error: any) {
+      throw new ErrorInternal(`Error authenticating user ${error.message}`);
     }
-
-    const { token }: { token: string } = responseData?.data ?? null;
-    if (!token) {
-      throw new ErrorInternal('There was an error authenticating user, please try again.');
-    }
-
-    this.selectedEndpoint.authToken = token;
-    setKeyValLocal({ key: `auth-token-${id}`, value: token });
-    return token;
   };
 
   /**
@@ -260,6 +264,8 @@ export class QorusAuthenticator {
       ...endpointConfig,
       version: version ?? 'latest',
     };
+    await this.checkNoAuth(newEndpoint);
+
     const storedEndpoint = this.getEndpointById(id);
 
     if (!storedEndpoint) {
@@ -271,10 +277,7 @@ export class QorusAuthenticator {
     } else {
       this.selectedEndpoint = newEndpoint;
     }
-
-    await this.checkNoAuth();
     if (isValidStringArray([user, pass])) await this.login({ user, pass });
-    else console.error(new ErrorInternal('Please provide valid username and password to authenticate the user.'));
 
     return this.selectedEndpoint;
   };
@@ -361,7 +364,7 @@ export class QorusAuthenticator {
           await this.logout();
         }
 
-        logger.log('Changed endpoint version successfully.');
+        logger.info('Changed endpoint version successfully.');
         return version;
       }
 
@@ -391,7 +394,7 @@ export class QorusAuthenticator {
           await this.logout();
         }
 
-        logger.log('Changed endpoint url successfully.');
+        logger.info('Changed endpoint url successfully.');
         return url;
       }
 

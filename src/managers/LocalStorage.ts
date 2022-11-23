@@ -1,15 +1,4 @@
-/**
- * A helper function to check if the running environment is node or client
- *
- * @returns 'node' or 'browser' based on the current environment
- */
-export const detectEnvironment = (): 'node' | 'browser' | 'unknown' => {
-  if (typeof process !== 'undefined' && process.title === 'node') {
-    return 'node';
-  } else if (typeof window != 'undefined') {
-    return 'browser';
-  } else return 'unknown';
-};
+import { detect } from 'detect-browser';
 
 export interface IKeyValue {
   key: string;
@@ -22,9 +11,9 @@ export interface IKeyValue {
  *
  */
 const setKeyValLocal = (keyValue: IKeyValue) => {
-  const environment = detectEnvironment();
+  const browser = detect();
   const { key, value } = keyValue;
-  if (environment == 'browser') {
+  if (browser?.type !== 'node') {
     window.localStorage.setItem(key, value);
   }
 };
@@ -35,8 +24,8 @@ const setKeyValLocal = (keyValue: IKeyValue) => {
  *
  */
 const getKeyValLocal = (key: string) => {
-  const environment = detectEnvironment();
-  if (environment == 'browser') {
+  const browser = detect();
+  if (browser?.type !== 'node') {
     return window.localStorage.getItem(key);
   }
   return null;

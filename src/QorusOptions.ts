@@ -144,7 +144,11 @@ export class QorusOptions {
   getType(propertyName: string) {
     const property = this.constructorOptions.find((property) => property.name === propertyName);
     if (!property?.types) {
-      logger.error(new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`));
+      logger.error(
+        JSON.stringify(
+          new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`),
+        ),
+      );
     }
     return property?.types;
   }
@@ -157,7 +161,11 @@ export class QorusOptions {
   getJsType(propertyName: string) {
     const property = this.constructorOptions.find((property) => property.name === propertyName);
     if (!property?.jsTypes) {
-      logger.error(new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`));
+      logger.error(
+        JSON.stringify(
+          new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`),
+        ),
+      );
     }
     return property?.jsTypes;
   }
@@ -171,7 +179,9 @@ export class QorusOptions {
     const property = this.constructorOptions.find((property) => property.name === propertyName);
     if (!property) {
       logger.error(
-        new ErrorInternal(`Property ${propertyName} doesn't exist or doesn't contain any value for ${this.name}`),
+        JSON.stringify(
+          new ErrorInternal(`Property ${propertyName} doesn't exist or doesn't contain any value for ${this.name}`),
+        ),
       );
     }
     return property;
