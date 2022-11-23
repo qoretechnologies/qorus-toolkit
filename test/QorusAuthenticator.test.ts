@@ -98,6 +98,17 @@ describe('QorusLogin Utility Class Tests', () => {
 
     expect(QorusAuthenticator.selectEndpoint('test')).toMatchSnapshot();
   });
+
+  it('Should create a new endpoint with port accessible', async () => {
+    let endpoint;
+    if (process.env.ENDPOINT) {
+      endpoint = await QorusAuthenticator.initEndpoint({
+        url: 'https://hq.qoretechnologies.com:8092',
+        id: 'rippyPort',
+      });
+    }
+    expect(endpoint.url).toEqual('https://hq.qoretechnologies.com:8092');
+  });
 });
 
 describe('QorusLogin Utility Error Tests', () => {

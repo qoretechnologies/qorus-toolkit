@@ -255,6 +255,13 @@ export class QorusAuthenticator {
    */
   initEndpoint = async (endpointConfig: InitEndpoint): Promise<Endpoint | undefined> => {
     const { id, url, version, user, pass } = endpointConfig;
+    let checkEndpoint;
+    try {
+      checkEndpoint = await this.selectEndpoint(id);
+    } catch (error) {}
+    if (checkEndpoint?.url) {
+      throw new ErrorInternal(`Endpoint with the id "${id}" already exists, please try again with a different id`);
+    }
 
     if (!isValidStringArray([id, url])) {
       throw new ErrorInternal('Id and url is required to initialize an endpoint');
