@@ -1,8 +1,13 @@
 import axios, { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios';
 import ErrorInternal from './managers/error/ErrorInternal';
-import QorusAuthenticator from './QorusAuthenticator';
+import QorusAuthenticator, { Endpoint } from './QorusAuthenticator';
+import { Agent } from 'https';
 
-export const httpsAxios = axios.create();
+export const httpsAgent = new Agent({
+  rejectUnauthorized: false,
+});
+
+export const httpsAxios = axios.create({ httpsAgent });
 
 export interface QorusRequestParams {
   /**
@@ -37,9 +42,10 @@ export class QorusRequest {
   makeRequest = async (
     type: 'GET' | 'PUT' | 'POST' | 'DELETE',
     props: QorusRequestParams,
+    endpoint?: Endpoint,
   ): Promise<AxiosResponse | AxiosError | undefined> => {
     const { path, data, headers = this.defaultHeaders, params } = props;
-    const selectedEndpoint = QorusAuthenticator.getSelectedEndpoint();
+    const selectedEndpoint = endpoint ?? QorusAuthenticator.getSelectedEndpoint();
     if (headers != this.defaultHeaders) {
       Object.assign(headers, { ...this.defaultHeaders, headers });
     }
@@ -71,8 +77,8 @@ export class QorusRequest {
    *
    * Returns the promise with the result of the get request
    */
-  get = async (props: QorusRequestParams): Promise<AxiosResponse | AxiosError | undefined> => {
-    const result = await this.makeRequest('GET', props);
+  get = async (props: QorusRequestParams, endpoint?: Endpoint): Promise<AxiosResponse | AxiosError | undefined> => {
+    const result = await this.makeRequest('GET', props, endpoint);
     return result;
   };
 
@@ -83,8 +89,8 @@ export class QorusRequest {
    *
    * Returns the promise with the result of the post request
    */
-  post = async (props: QorusRequestParams): Promise<AxiosResponse | AxiosError | undefined> => {
-    const result = await this.makeRequest('POST', props);
+  post = async (props: QorusRequestParams, endpoint?: Endpoint): Promise<AxiosResponse | AxiosError | undefined> => {
+    const result = await this.makeRequest('POST', props, endpoint);
     return result;
   };
 
@@ -95,8 +101,8 @@ export class QorusRequest {
    *
    * Returns the promise with the result of the put request
    */
-  put = async (props: QorusRequestParams): Promise<AxiosResponse | AxiosError | undefined> => {
-    const result = await this.makeRequest('PUT', props);
+  put = async (props: QorusRequestParams, endpoint?: Endpoint): Promise<AxiosResponse | AxiosError | undefined> => {
+    const result = await this.makeRequest('PUT', props, endpoint);
     return result;
   };
 
@@ -107,8 +113,11 @@ export class QorusRequest {
    *
    * Returns the promise with the result of the delete request
    */
-  deleteReq = async (props: QorusRequestParams): Promise<AxiosResponse | AxiosError | undefined> => {
-    const result = await this.makeRequest('DELETE', props);
+  deleteReq = async (
+    props: QorusRequestParams,
+    endpoint?: Endpoint,
+  ): Promise<AxiosResponse | AxiosError | undefined> => {
+    const result = await this.makeRequest('DELETE', props, endpoint);
     return result;
   };
 }
