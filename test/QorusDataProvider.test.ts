@@ -10,15 +10,17 @@ if (!(process.env.ENDPOINT && process.env.TESTUSER && process.env.TESTPASS)) {
 }
 
 describe('QorusDataProvider Utility Class Tests', () => {
-  it('should browse the data providers with context record', async () => {
+  beforeAll(async () => {
     await QorusAuthenticator.initEndpoint({
       url: process.env.ENDPOINT!,
-      id: 'rippy',
+      id: 'rippyDataProvider',
     });
     await QorusAuthenticator.login({
       user: process.env.TESTUSER,
       pass: process.env.TESTPASS,
     });
+  });
+  it('should browse the data providers with context record', async () => {
     const dataProviderBrowse = await QorusDataProvider.getRecord();
     const context = dataProviderBrowse.getContext();
     const providerChildren = dataProviderBrowse.getChildren();
@@ -28,13 +30,6 @@ describe('QorusDataProvider Utility Class Tests', () => {
   });
 
   it('should browse the data providers with context api', async () => {
-    await QorusAuthenticator.initEndpoint({
-      url: process.env.ENDPOINT!,
-      id: 'rippy',
-      user: process.env.TESTUSER,
-      pass: process.env.TESTPASS,
-    });
-
     const dataProviderBrowse = await QorusDataProvider.getApi();
     const context = dataProviderBrowse.getContext();
     const providerChildren = dataProviderBrowse.getChildren();
@@ -44,13 +39,6 @@ describe('QorusDataProvider Utility Class Tests', () => {
   });
 
   it('should browse the data providers with context event', async () => {
-    await QorusAuthenticator.initEndpoint({
-      url: process.env.ENDPOINT!,
-      id: 'rippy',
-      user: process.env.TESTUSER,
-      pass: process.env.TESTPASS,
-    });
-
     const dataProviderBrowse = await QorusDataProvider.getEvent();
     const context = dataProviderBrowse.getContext();
     const providerChildren = dataProviderBrowse.getChildren();
@@ -60,13 +48,6 @@ describe('QorusDataProvider Utility Class Tests', () => {
   });
 
   it('should browse the data providers with context message', async () => {
-    await QorusAuthenticator.initEndpoint({
-      url: process.env.ENDPOINT!,
-      id: 'rippy',
-      user: process.env.TESTUSER,
-      pass: process.env.TESTPASS,
-    });
-
     const dataProviderBrowse = await QorusDataProvider.getMessage();
     const context = dataProviderBrowse.getContext();
     const providerChildren = dataProviderBrowse.getChildren();
@@ -76,13 +57,6 @@ describe('QorusDataProvider Utility Class Tests', () => {
   });
 
   it('should browse the data providers with context type', async () => {
-    await QorusAuthenticator.initEndpoint({
-      url: process.env.ENDPOINT!,
-      id: 'rippy',
-      user: process.env.TESTUSER,
-      pass: process.env.TESTPASS,
-    });
-
     const dataProviderBrowse = await QorusDataProvider.getType();
     const context = dataProviderBrowse.getContext();
     const providerChildren = dataProviderBrowse.getChildren();
@@ -92,13 +66,6 @@ describe('QorusDataProvider Utility Class Tests', () => {
   });
 
   it('should select db factory data providers with context record', async () => {
-    await QorusAuthenticator.initEndpoint({
-      url: process.env.ENDPOINT!,
-      id: 'rippy',
-      user: process.env.TESTUSER,
-      pass: process.env.TESTPASS,
-    });
-
     const dataProviderBrowse = await QorusDataProvider.getType();
     const browseChildrenNames = dataProviderBrowse.getChildrenNames();
     const factory = await dataProviderBrowse.get(browseChildrenNames.factory);
@@ -111,13 +78,6 @@ describe('QorusDataProvider Utility Class Tests', () => {
   });
 
   it('should check if the child is available', async () => {
-    await QorusAuthenticator.initEndpoint({
-      url: process.env.ENDPOINT!,
-      id: 'rippy',
-      user: process.env.TESTUSER,
-      pass: process.env.TESTPASS,
-    });
-
     const dataProviderBrowse = await QorusDataProvider.getRecord();
     const browseChildrenNames = dataProviderBrowse.getChildrenNames();
     const factory = await dataProviderBrowse.get(browseChildrenNames.factory);
@@ -128,13 +88,6 @@ describe('QorusDataProvider Utility Class Tests', () => {
   });
 
   it('should return all the children names for the provider', async () => {
-    await QorusAuthenticator.initEndpoint({
-      url: process.env.ENDPOINT!,
-      id: 'rippy',
-      user: process.env.TESTUSER,
-      pass: process.env.TESTPASS,
-    });
-
     const dataProviderBrowse = await QorusDataProvider.getRecord();
     const browseChildrenNames = dataProviderBrowse.getChildrenNames();
 
@@ -142,13 +95,6 @@ describe('QorusDataProvider Utility Class Tests', () => {
   });
 
   it('should fail to select db factory when provider options are not valid', async () => {
-    await QorusAuthenticator.initEndpoint({
-      url: process.env.ENDPOINT!,
-      id: 'rippy',
-      user: process.env.TESTUSER,
-      pass: process.env.TESTPASS,
-    });
-
     const dataProviderBrowse = await QorusDataProvider.getRecord();
     const browseChildrenNames = dataProviderBrowse.getChildrenNames();
     const factory = await dataProviderBrowse.get(browseChildrenNames.factory);
