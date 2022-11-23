@@ -3,6 +3,7 @@ import { QorusAuthenticator } from '../src';
 import ErrorAxios from '../src/managers/error/ErrorAxios';
 import ErrorInternal from '../src/managers/error/ErrorInternal';
 import logger from '../src/managers/logger';
+import { Endpoint } from '../src/QorusAuthenticator';
 
 dotenv.config();
 
@@ -98,6 +99,19 @@ describe('QorusLogin Utility Class Tests', () => {
 
     expect(QorusAuthenticator.selectEndpoint('test')).toMatchSnapshot();
   });
+
+  it('Should create a new endpoint with port accessible', async () => {
+    let endpoint: Endpoint | undefined;
+    if (process.env.ENDPOINT) {
+      endpoint = await QorusAuthenticator.initEndpoint({
+        url: 'https://hq.qoretechnologies.com:8092',
+        id: 'rippyPort',
+        user: process.env.TESTUSER!,
+        pass: process.env.TESTPASS!,
+      });
+    }
+    expect(typeof endpoint?.authToken).toEqual('string');
+  });
 });
 
 describe('QorusLogin Utility Error Tests', () => {
@@ -109,7 +123,7 @@ describe('QorusLogin Utility Error Tests', () => {
     } catch (error) {
       err = error;
     }
-    expect(err instanceof ErrorAxios).toEqual(true);
+    expect(err instanceof ErrorInternal).toEqual(true);
   });
 
   it('Should throw an error if the user does not provide username and password for authentication.', async () => {
@@ -146,5 +160,63 @@ describe('QorusLogin Utility Error Tests', () => {
       console.error(error);
     }
     expect(loggerMock).toHaveBeenCalled();
+  });
+
+  it('Should throw an Internal error if the no-auth status cannot be checked', async () => {
+    let err;
+    try {
+      if (process.env.ENDPOINT)
+        await QorusAuthenticator.initEndpoint({
+          url: 'https://sandbox.qoretechnologies.',
+          id: 'rippy2',
+          user: 'some',
+          pass: 'some',
+        });
+    } catch (error) {
+      err = error;
+    }
+    expect(err instanceof ErrorInternal).toEqual(true);
+  });
+
+  it('Should throw an Internal error if url is not valid for initializing endpoint', async () => {
+    let err;
+    try {
+      if (process.env.ENDPOINT)
+        await QorusAuthenticator.initEndpoint({
+          url: '',
+          id: 'rippy2',
+        });
+    } catch (error) {
+      err = error;
+    }
+    expect(err instanceof ErrorInternal).toEqual(true);
+  });
+
+  it('Should throw an Internal error if id is not valid for initializing endpoint', async () => {
+    let err;
+    try {
+      if (process.env.ENDPOINT)
+        await QorusAuthenticator.initEndpoint({
+          url: 'https://sandbox.qoretechnologies.com',
+          id: '',
+        });
+    } catch (error) {
+      err = error;
+    }
+    expect(err instanceof ErrorInternal).toEqual(true);
+  });
+
+  it('Should throw an Internal error if id and url is not valid for initializing endpoint', async () => {
+    let err;
+    try {
+      if (process.env.ENDPOINT)
+        await QorusAuthenticator.initEndpoint({
+          url: '',
+          id: '',
+        });
+    } catch (error) {
+      err = error;
+    }
+    expect(err instanceof ErrorInternal).toEqual(true);
   });
 });
