@@ -1,11 +1,13 @@
 import { Roarr as logger } from 'roarr';
 import { detect } from 'detect-browser';
-import { addUncaughtListener, startUncaughtListener } from '../CatchUncaughtErrors';
+import { addUncaughtListener, startUncaughtListener } from '../utils/catchUncaughtErrors';
+import { ROARR } from 'roarr';
+
 const browser = detect();
 
-if (browser) {
-  logger.prototype.write = (message) => {
-    console.log(JSON.stringify(message));
+if (browser?.type !== 'node') {
+  ROARR.write = (message) => {
+    logger.info(JSON.stringify(message));
   };
 }
 

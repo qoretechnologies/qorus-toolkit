@@ -142,13 +142,13 @@ export class QorusAuthenticator {
 
       if (typeof resp.data.noauth === 'boolean' && resp.data.noauth === false) {
         this.noauth = false;
-        console.log('No auth disabled, authentication is required with username and password');
+        logger.info('No auth disabled, authentication is required with username and password');
         return false;
       }
 
       if (typeof resp.data.noauth === 'boolean' && resp.data.noauth === true) {
         this.noauth = resp.data.noauth;
-        console.log('No auth enabled, authentication not required');
+        logger.info('No auth enabled, authentication not required');
         return true;
       }
       this.noauth = false;

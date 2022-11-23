@@ -13,7 +13,7 @@ export interface IKeyValue {
 const setKeyValLocal = (keyValue: IKeyValue) => {
   const browser = detect();
   const { key, value } = keyValue;
-  if (browser) {
+  if (browser?.type !== 'node') {
     window.localStorage.setItem(key, value);
   }
 };
@@ -25,7 +25,7 @@ const setKeyValLocal = (keyValue: IKeyValue) => {
  */
 const getKeyValLocal = (key: string) => {
   const browser = detect();
-  if (browser) {
+  if (browser?.type !== 'node') {
     return window.localStorage.getItem(key);
   }
   return null;

@@ -67,7 +67,7 @@ export function startUncaughtListener() {
   }
 
   if (!handlersAreRegistered) {
-    if (isBrowser) {
+    if (isBrowser?.type !== 'node') {
       // Listen to uncaught errors
       window.addEventListener('error', browserErrorHandler);
       // Listen to uncaught promises rejections
@@ -91,7 +91,7 @@ export function stopUncaughtListener() {
     return;
   }
 
-  if (isBrowser) {
+  if (isBrowser?.type !== 'node') {
     window.removeEventListener('error', browserErrorHandler);
     window.removeEventListener('unhandledrejection', browserRejectionHandler);
 
