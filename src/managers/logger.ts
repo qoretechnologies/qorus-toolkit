@@ -5,7 +5,7 @@ const browser = detect();
 
 if (browser) {
   logger.prototype.write = (message) => {
-    console.log(JSON.parse(message));
+    console.log(JSON.stringify(message));
   };
 }
 

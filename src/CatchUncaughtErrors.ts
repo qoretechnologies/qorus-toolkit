@@ -10,6 +10,55 @@ let handlersAreTurnedOn = false;
 type Listener = (error, event) => void;
 
 /**
+ * Send error data to all listeners
+ * @param {Object} error
+ * @param {Object} event
+ */
+function callListeners(error, event) {
+  listeners.forEach(function (listener) {
+    listener(error, event);
+  });
+}
+
+/**
+ * Handler for browser uncaught errors
+ * @param {Object} event
+ */
+function browserErrorHandler(event) {
+  const error = event ? event.error : undefined;
+  callListeners(error, event);
+}
+
+/**
+ * Handler for browser uncaught promises rejections
+ * @param {Object} event
+ */
+function browserRejectionHandler(event) {
+  const error = event ? event.reason : undefined;
+  callListeners(error, event);
+}
+
+/**
+ * Handler for Node.js uncaught errors
+ * @param {Object} error
+ */
+function nodeErrorHandler(error) {
+  if (handlersAreTurnedOn) {
+    callListeners(error, null);
+  }
+}
+
+/**
+ * Handler for Node.js uncaught promises rejections
+ * @param {Object} reason
+ */
+function nodeRejectionHandler(reason) {
+  if (handlersAreTurnedOn) {
+    callListeners(reason, null);
+  }
+}
+
+/**
  * Starts handling for uncaught errors and promises rejections
  */
 export function startUncaughtListener() {
@@ -87,53 +136,4 @@ export function removeAllListeners() {
 export function flush() {
   removeAllListeners();
   stop();
-}
-
-/**
- * Handler for browser uncaught errors
- * @param {Object} event
- */
-function browserErrorHandler(event) {
-  const error = event ? event.error : undefined;
-  callListeners(error, event);
-}
-
-/**
- * Handler for browser uncaught promises rejections
- * @param {Object} event
- */
-function browserRejectionHandler(event) {
-  const error = event ? event.reason : undefined;
-  callListeners(error, event);
-}
-
-/**
- * Handler for Node.js uncaught errors
- * @param {Object} error
- */
-function nodeErrorHandler(error) {
-  if (handlersAreTurnedOn) {
-    callListeners(error, null);
-  }
-}
-
-/**
- * Handler for Node.js uncaught promises rejections
- * @param {Object} reason
- */
-function nodeRejectionHandler(reason) {
-  if (handlersAreTurnedOn) {
-    callListeners(reason, null);
-  }
-}
-
-/**
- * Send error data to all listeners
- * @param {Object} error
- * @param {Object} event
- */
-function callListeners(error, event) {
-  listeners.forEach(function (listener) {
-    listener(error, event);
-  });
 }
