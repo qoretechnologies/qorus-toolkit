@@ -163,4 +163,46 @@ describe('QorusLogin Utility Error Tests', () => {
     }
     expect(err instanceof ErrorInternal).toEqual(true);
   });
+
+  it('Should throw an Internal error if url is not valid for initializing endpoint', async () => {
+    let err;
+    try {
+      if (process.env.ENDPOINT)
+        await QorusAuthenticator.initEndpoint({
+          url: '',
+          id: 'rippy2',
+        });
+    } catch (error) {
+      err = error;
+    }
+    expect(err instanceof ErrorInternal).toEqual(true);
+  });
+
+  it('Should throw an Internal error if id is not valid for initializing endpoint', async () => {
+    let err;
+    try {
+      if (process.env.ENDPOINT)
+        await QorusAuthenticator.initEndpoint({
+          url: 'https://sandbox.qoretechnologies.com',
+          id: '',
+        });
+    } catch (error) {
+      err = error;
+    }
+    expect(err instanceof ErrorInternal).toEqual(true);
+  });
+
+  it('Should throw an Internal error if id and url is not valid for initializing endpoint', async () => {
+    let err;
+    try {
+      if (process.env.ENDPOINT)
+        await QorusAuthenticator.initEndpoint({
+          url: '',
+          id: '',
+        });
+    } catch (error) {
+      err = error;
+    }
+    expect(err instanceof ErrorInternal).toEqual(true);
+  });
 });
