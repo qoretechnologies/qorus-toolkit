@@ -6,7 +6,7 @@ import logger from '../src/managers/logger';
 
 dotenv.config();
 
-const loggerMock = jest.spyOn(logger, 'log');
+const loggerMock = jest.spyOn(logger, 'info');
 
 if (!(process.env.ENDPOINT && process.env.TESTUSER && process.env.TESTPASS)) {
   throw new Error('Missing required environment variables');

@@ -207,7 +207,7 @@ export class QorusAuthenticator {
       throw new ErrorInternal('Username and password is required for authentication');
     }
     if (this.noauth && !isValidStringArray([loginParams?.user, loginParams?.pass])) {
-      logger.log('No-auth enabled authentication not required.');
+      logger.info('No-auth enabled authentication not required.');
       return undefined;
     }
 
@@ -364,7 +364,7 @@ export class QorusAuthenticator {
           await this.logout();
         }
 
-        logger.log('Changed endpoint version successfully.');
+        logger.info('Changed endpoint version successfully.');
         return version;
       }
 
@@ -394,7 +394,7 @@ export class QorusAuthenticator {
           await this.logout();
         }
 
-        logger.log('Changed endpoint url successfully.');
+        logger.info('Changed endpoint url successfully.');
         return url;
       }
 
