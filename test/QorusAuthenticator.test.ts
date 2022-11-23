@@ -3,6 +3,7 @@ import { QorusAuthenticator } from '../src';
 import ErrorAxios from '../src/managers/error/ErrorAxios';
 import ErrorInternal from '../src/managers/error/ErrorInternal';
 import logger from '../src/managers/logger';
+import { Endpoint } from '../src/QorusAuthenticator';
 
 dotenv.config();
 
@@ -100,14 +101,16 @@ describe('QorusLogin Utility Class Tests', () => {
   });
 
   it('Should create a new endpoint with port accessible', async () => {
-    let endpoint;
+    let endpoint: Endpoint | undefined;
     if (process.env.ENDPOINT) {
       endpoint = await QorusAuthenticator.initEndpoint({
         url: 'https://hq.qoretechnologies.com:8092',
         id: 'rippyPort',
+        user: process.env.TESTUSER!,
+        pass: process.env.TESTPASS!,
       });
     }
-    expect(endpoint.url).toEqual('https://hq.qoretechnologies.com:8092');
+    expect(typeof endpoint?.authToken).toEqual('string');
   });
 });
 
