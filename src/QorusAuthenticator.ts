@@ -298,30 +298,46 @@ export class QorusAuthenticator {
    * Returns the newly created endpoint
    */
   initEndpoint = async (endpointConfig: InitEndpoint): Promise<Endpoint | undefined> => {
-    const { id, url, version, user, pass } = endpointConfig;
-    let storedEndpoint = this.getEndpointById(id);
-    if (storedEndpoint?.url) {
+    const { id, user, pass, url } = endpointConfig;
+    const newEndpoint: Endpoint = this.#fixEndpointData(endpointConfig);
+
+    /* Checking if the endpoint already exists. */
+    if (this.getEndpointById(id)) {
       throw new ErrorInternal(`Endpoint with the id "${id}" already exists, please try again with a different id`);
     }
 
+    /* Checking if the id and url are valid strings. */
     if (!isValidStringArray([id, url])) {
       throw new ErrorInternal('Id and url is required to initialize an endpoint');
     }
 
+<<<<<<< HEAD
     const newEndpoint: Endpoint = {
       ...endpointConfig,
       version: version ?? 'latest',
     };
     await this.checkNoAuth(newEndpoint);
 
+=======
+    /* Checking if the user is authenticated. */
+    await this.checkNoAuth(newEndpoint);
+
+    /* Adding a new endpoint to the endpoints array. */
+>>>>>>> df72db019fbd99cab29e73f1486567e6b76ff64a
     this.endpoints.push(newEndpoint);
 
+    /* Checking if the selectedEndpoint is already selected. If it is, it will select the new endpoint.
+    If it is not, it will set the selectedEndpoint to the new endpoint. */
     if (this.selectedEndpoint) {
       await this.selectEndpoint(id);
     } else {
       this.selectedEndpoint = newEndpoint;
     }
-    if (isValidStringArray([user, pass])) await this.login({ user, pass });
+
+    /* Checking if the user and pass are valid strings. */
+    if (isValidStringArray([user, pass])) {
+      await this.login({ user, pass });
+    }
 
     return this.selectedEndpoint;
   };
