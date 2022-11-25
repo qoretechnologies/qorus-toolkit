@@ -1,10 +1,12 @@
-await Qorus.QorusAuthenticator.initEndpoint({
+Qorus.QorusAuthenticator.addEndpoint({
   url: 'https://sandbox.qoretechnologies.com',
   id: 'rippy',
+  version: 'latest',
+});
+await Qorus.QorusAuthenticator.login({
   user: 'sandbox',
   pass: 'sandbox',
 });
-
 // Browse data providers with context event
 const dataProviderBrowse = await Qorus.QorusDataProvider.getEvent();
 // Select factory provider
