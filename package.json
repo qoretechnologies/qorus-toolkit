@@ -26,7 +26,7 @@
     "updatePullRequestVersion"
   ],
   "scripts": {
-    "test": "./node_modules/.bin/jest --json --outputFile=tests.json -u",
+    "test": "./node_modules/.bin/jest --json --outputFile=tests.json",
     "test:coverage": "npm test -- --coverage",
     "test:badges": "npm run test:coverage  && jest-coverage-badges",
     "build": "npx tsc --p ./tsconfig.prod.json",
