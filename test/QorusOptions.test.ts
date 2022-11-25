@@ -14,6 +14,8 @@ describe('QorusDataProvider Utility Class Tests', () => {
     await QorusAuth.initEndpoint({
       url: process.env.ENDPOINT!,
       id: 'rippy1',
+    });
+    await QorusAuth.login({
       user: process.env.TESTUSER,
       pass: process.env.TESTPASS,
     });

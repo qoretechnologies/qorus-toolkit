@@ -3,7 +3,7 @@
 exports[`QorusLogin Utility Class Tests Should change the selected endpoint url and logout the user 1`] = `"https://testme.com"`;
 
 exports[`QorusLogin Utility Class Tests Should initialize the endpoint and assign it to the selected endpoint 1`] = `
-Object {
+{
   "id": "rippy",
   "url": "https://sandbox.qoretechnologies.com",
   "version": "latest",
@@ -13,14 +13,14 @@ Object {
 exports[`QorusLogin Utility Class Tests Should return all the endpoints 1`] = `1`;
 
 exports[`QorusLogin Utility Class Tests Should return api paths for the selected endpoint 1`] = `
-Object {
-  "authenticator": Object {
+{
+  "authenticator": {
     "login": "/api/latest/public/login",
     "logout": "/api/latest/logout",
     "validateNoAuth": "/api/latest/public/info",
     "validateToken": "/api/latest/system?action=validateWsToken",
   },
-  "dataProviders": Object {
+  "dataProviders": {
     "browse": "/api/latest/dataprovider/browse",
   },
 }

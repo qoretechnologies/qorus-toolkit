@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 import { QorusAuthenticator } from '../src';
 import { QorusDataProvider } from '../src/';
-import ErrorAxios from '../src/managers/error/ErrorAxios';
 
 dotenv.config();
 
@@ -10,6 +9,7 @@ if (!(process.env.ENDPOINT && process.env.TESTUSER && process.env.TESTPASS)) {
 }
 
 describe('QorusDataProvider Utility Class Tests', () => {
+  jest.setTimeout(30000);
   beforeAll(async () => {
     await QorusAuthenticator.initEndpoint({
       url: process.env.ENDPOINT!,
@@ -100,13 +100,15 @@ describe('QorusDataProvider Utility Class Tests', () => {
     const factory = await dataProviderBrowse.get(browseChildrenNames.factory);
     const factoryChildrenNames = factory.getChildrenNames();
 
-    let err;
+    let err, result;
     try {
-      const db = await factory.get(factoryChildrenNames.db);
+      result = await factory.get(factoryChildrenNames.db);
     } catch (error) {
       err = error;
     }
 
-    expect(err instanceof ErrorAxios).toEqual(true);
+    console.log(typeof err);
+    console.log('result is ', result);
+    expect(err instanceof Error).toEqual(true);
   });
 });

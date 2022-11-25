@@ -1,13 +1,15 @@
-import axios, { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios';
+import { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios';
+import fetch from 'node-fetch';
+import ErrorAxios from './managers/error/ErrorAxios';
 import ErrorInternal from './managers/error/ErrorInternal';
 import QorusAuthenticator, { Endpoint } from './QorusAuthenticator';
-import { Agent } from 'https';
+import { isValidStringArray } from './utils';
 
-export const httpsAgent = new Agent({
-  rejectUnauthorized: false,
-});
+// export const httpsAgent = new Agent({
+//   rejectUnauthorized: false,
+// });
 
-export const httpsAxios = axios.create({ httpsAgent });
+// export const httpsAxios = axios.create({ httpsAgent });
 
 export interface QorusRequestParams {
   /**
@@ -37,34 +39,39 @@ export class QorusRequest {
   /**
    * Default headers for the QorusRequest
    */
-  defaultHeaders: AxiosRequestHeaders = { 'Content-Type': 'application/json', Accept: 'application/json' };
+  defaultHeaders = { 'Content-Type': 'application/json', Accept: 'application/json' };
 
   makeRequest = async (
     type: 'GET' | 'PUT' | 'POST' | 'DELETE',
     props: QorusRequestParams,
     endpoint?: Endpoint,
-  ): Promise<AxiosResponse | AxiosError | undefined> => {
-    const { path, data, headers = this.defaultHeaders, params } = props;
-    const selectedEndpoint = endpoint ?? QorusAuthenticator.getSelectedEndpoint();
+  ): Promise<any> => {
+    const { path, data, headers = this.defaultHeaders } = props;
+    let selectedEndpoint;
+    if (isValidStringArray([endpoint?.url, endpoint?.id])) selectedEndpoint = endpoint;
+    else selectedEndpoint = QorusAuthenticator.getSelectedEndpoint();
+
     if (headers != this.defaultHeaders) {
       Object.assign(headers, { ...this.defaultHeaders, headers });
     }
 
     if (selectedEndpoint?.url) {
       Object.assign(headers, { ...headers, 'Qorus-Token': selectedEndpoint?.authToken ?? '' });
+      let promise;
+      promise = await fetch(selectedEndpoint?.url + path, {
+        method: type,
+        headers: this.defaultHeaders,
+        body: data ? JSON.stringify(data) : undefined,
+      });
 
-      try {
-        const promise = await httpsAxios({
-          method: type,
-          url: selectedEndpoint?.url + path,
-          data: data,
-          headers: headers,
-          params: params,
-        });
-        return promise;
-      } catch (error: any) {
-        return error;
+      if (!promise.ok) {
+        let text = await promise.text();
+        text = JSON.parse(text);
+        throw new ErrorAxios(text);
       }
+
+      const json = await promise.json();
+      return { data: json };
     }
 
     throw new ErrorInternal('Initialize an endpoint using QorusAuthenticator to use QorusRequest');
