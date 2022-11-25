@@ -1,4 +1,4 @@
-await Qorus.QorusAuthenticator.initEndpoint({
+Qorus.QorusAuthenticator.addEndpoint({
   id: 'rippy',
   url: 'https://sandbox.qoretechnologies.com',
   version: 'latest',

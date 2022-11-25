@@ -43,7 +43,7 @@ export interface LoginParams {
   pass?: string;
 }
 
-export interface InitEndpoint extends WithQorusURL, WithEndpointVersion, WithQorusEndpointId {}
+export interface AddEndpoint extends WithQorusURL, WithEndpointVersion, WithQorusEndpointId {}
 
 export interface Endpoint extends WithQorusURL, WithEndpointVersion, WithQorusAuthToken, WithQorusEndpointId {}
 
@@ -170,9 +170,9 @@ export class QorusAuthenticator {
 
   /**
    * Fixed the endpoint data
-   * param data {@link InitEndpoint} to be fixed
+   * param data {@link AddEndpoint} to be fixed
    */
-  #fixEndpointData(data: InitEndpoint): InitEndpoint & LoginParams {
+  #fixEndpointData(data: AddEndpoint): AddEndpoint & LoginParams {
     const newData = { ...data };
 
     if (!newData.version) {
@@ -184,10 +184,10 @@ export class QorusAuthenticator {
 
   /**
    * Checks the validity of the selected endpoint, if the endpoint data ar valid returns true, false otherwise.
-   * @param data {@link InitEndpoint} to be checked
+   * @param data {@link AddEndpoint} to be checked
    * @param withCredentials boolean to check if the endpoint has credentials
    */
-  validateEndpointData = (data: InitEndpoint & LoginParams, withCredentials?: boolean): boolean => {
+  validateEndpointData = (data: AddEndpoint & LoginParams, withCredentials?: boolean): boolean => {
     let valid = true;
     const fixedData = this.#fixEndpointData(data);
 
@@ -285,12 +285,12 @@ export class QorusAuthenticator {
   };
 
   /**
-   * -initEndpoint-function Allows the user to add/initialize a new endpoint
-   * @param props {@link InitEndpoint} requires url and accepts optional user and pass parameters to initialize the endpoint and then authenticate the user
+   * -addEndpoint-function Allows the user to add/initialize a new endpoint
+   * @param props {@link AddEndpoint} requires url and accepts optional user and pass parameters to initialize the endpoint and then authenticate the user
    *
    * Returns the newly created endpoint
    */
-  initEndpoint = (endpointConfig: InitEndpoint): Endpoint | undefined => {
+  addEndpoint = (endpointConfig: AddEndpoint): Endpoint | undefined => {
     const { id, url } = endpointConfig;
     const newEndpoint: Endpoint = this.#fixEndpointData(endpointConfig);
 

@@ -11,7 +11,7 @@ if (!(process.env.ENDPOINT && process.env.TESTUSER && process.env.TESTPASS)) {
 describe('QorusDataProvider Utility Class Tests', () => {
   jest.setTimeout(30000);
   beforeAll(async () => {
-    await QorusAuthenticator.initEndpoint({
+    await QorusAuthenticator.addEndpoint({
       url: process.env.ENDPOINT!,
       id: 'rippyDataProvider',
     });

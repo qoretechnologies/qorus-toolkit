@@ -11,7 +11,7 @@ if (!(process.env.ENDPOINT && process.env.TESTUSER && process.env.TESTPASS)) {
 
 describe('QorusDataProvider Utility Class Tests', () => {
   beforeAll(async () => {
-    await QorusAuth.initEndpoint({
+    await QorusAuth.addEndpoint({
       url: process.env.ENDPOINT!,
       id: 'rippy1',
     });

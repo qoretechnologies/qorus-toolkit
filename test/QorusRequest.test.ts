@@ -5,7 +5,7 @@ dotenv.config();
 
 describe('QorusRequest Utility Tests', () => {
   beforeAll(async () => {
-    QorusAuthenticator.initEndpoint({
+    QorusAuthenticator.addEndpoint({
       url: process.env.ENDPOINT!,
       id: 'rippyRequest',
     });
