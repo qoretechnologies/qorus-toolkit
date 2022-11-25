@@ -188,7 +188,7 @@ export class QorusAuthenticator {
    * @param withCredentials boolean to check if the endpoint has credentials
    */
   validateEndpointData = (data: InitEndpoint & LoginParams, withCredentials?: boolean): boolean => {
-    let valid: boolean = true;
+    let valid = true;
     const fixedData = this.#fixEndpointData(data);
 
     if (

@@ -1,6 +1,6 @@
 import { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios';
 import fetch from 'node-fetch';
-import ErrorAxios from './managers/error/ErrorAxios';
+import ErrorAxios, { ErrorAxiosParams } from './managers/error/ErrorAxios';
 import ErrorInternal from './managers/error/ErrorInternal';
 import QorusAuthenticator, { Endpoint } from './QorusAuthenticator';
 import { isValidStringArray } from './utils';
@@ -57,17 +57,17 @@ export class QorusRequest {
 
     if (selectedEndpoint?.url) {
       Object.assign(headers, { ...headers, 'Qorus-Token': selectedEndpoint?.authToken ?? '' });
-      let promise;
-      promise = await fetch(selectedEndpoint?.url + path, {
+
+      const promise = await fetch(`${selectedEndpoint?.url}${path}`, {
         method: type,
         headers: this.defaultHeaders,
         body: data ? JSON.stringify(data) : undefined,
       });
 
       if (!promise.ok) {
-        let text = await promise.text();
-        text = JSON.parse(text);
-        throw new ErrorAxios(text);
+        const text = await promise.text();
+        const parsedText = JSON.parse(text);
+        throw new ErrorAxios(parsedText as ErrorAxiosParams);
       }
 
       const json = await promise.json();
