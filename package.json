@@ -93,7 +93,7 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "@qoretechnologies/reqore": "^0.25.7",
+    "@qoretechnologies/reqore": "^0.25.8",
     "@storybook/react": "^6.5.13",
     "@typescript-eslint/parser": "^5.42.1",
     "async": "^3.2.4",
