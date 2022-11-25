@@ -1,5 +1,5 @@
-import { AxiosError, AxiosResponse } from 'axios';
-import ErrorAxios from './managers/error/ErrorAxios';
+import { AxiosResponse } from 'axios';
+import ErrorAxios, { ErrorAxiosParams } from './managers/error/ErrorAxios';
 import logger from './managers/logger';
 import { QorusOptions } from './QorusOptions';
 import QorusRequest from './QorusRequest';
@@ -50,14 +50,14 @@ const fetchProvider = async (obj: QorusDataProvider, context: Context, select?: 
   });
 
   const response = result as AxiosResponse;
-  const error = result as AxiosError;
+  const error = result as unknown as ErrorAxiosParams;
 
-  if (error.response?.status) {
+  if (error.status) {
     throw new ErrorAxios(error);
   }
   const providerData = children?.filter((object) => object.name === select);
   const providerResponse = response?.data;
-  const responseError = error.response?.data;
+  const responseError = error.desc;
 
   return new QorusDataProvider({ path: _path!, responseData: providerResponse, context, providerData, responseError });
 };
@@ -96,14 +96,14 @@ export class QorusDataProvider {
     });
 
     const response = result as AxiosResponse;
-    const error = result as unknown as AxiosError;
+    const error = result as unknown as ErrorAxiosParams;
 
-    if (error.response?.status) {
+    if (error.status) {
       throw new ErrorAxios(error);
     }
 
     const responseData = response?.data;
-    const responseError = error.response?.data;
+    const responseError = error.desc;
 
     return new QorusDataProvider({
       path: [apiPathsInitial.dataProviders.browse],
