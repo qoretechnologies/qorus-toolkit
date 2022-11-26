@@ -8,18 +8,19 @@ import {
   ReqorePanel,
 } from '@qoretechnologies/reqore';
 import { useState } from 'react';
-import QorusAuthenticator, { InitEndpoint } from '../../QorusAuthenticator';
+import QorusAuthenticator, { AddEndpoint, LoginParams } from '../../QorusAuthenticator';
 import { versions } from '../../QorusValidator';
 import { Version } from '../../utils/apiPaths';
 
 export const QorusAuthenticatorDemo = () => {
-  const [url, setUrl] = useState<InitEndpoint['url']>('');
-  const [id, setID] = useState<InitEndpoint['id']>('');
-  const [version, setVersion] = useState<InitEndpoint['version']>('latest');
-  const [user, setUser] = useState<InitEndpoint['user']>('');
-  const [pass, setPass] = useState<InitEndpoint['pass']>('');
+  const [url, setUrl] = useState<AddEndpoint['url']>('');
+  const [id, setID] = useState<AddEndpoint['id']>('');
+  const [version, setVersion] = useState<AddEndpoint['version']>('latest');
+  const [user, setUser] = useState<LoginParams['user']>('');
+  const [pass, setPass] = useState<LoginParams['pass']>('');
 
   const [result, setResult] = useState<string | undefined>(undefined);
+  const [error, setError] = useState<string | undefined>(undefined);
 
   const validateLogin = () => {
     return QorusAuthenticator.validateEndpointData({ url, id, version, user, pass }, true);
@@ -28,11 +29,14 @@ export const QorusAuthenticatorDemo = () => {
   const handleLogin = async () => {
     if (validateLogin()) {
       try {
-        const result = await QorusAuthenticator.initEndpoint({ url, id, version, user, pass });
-        setResult(result.authToken);
+        QorusAuthenticator.addEndpoint({ url, id, version });
+        const token = await QorusAuthenticator.login({ user, pass });
+
+        setResult(token || 'noauth');
+        setError(undefined);
       } catch (e: any) {
-        console.log(e);
-        setResult(e.message);
+        setResult(undefined);
+        setError(e.message);
       }
     }
   };
@@ -77,15 +81,19 @@ export const QorusAuthenticatorDemo = () => {
                 placeholder="Endpoint Pass"
                 value={pass}
                 onChange={(e: any) => setPass(e.target.value)}
+                // @ts-ignore
                 type="password"
               />
             </ReqoreControlGroup>
           </ReqorePanel>
         </ReqoreColumn>
         <ReqoreColumn flex="0 0 auto">
-          {result ? (
-            <ReqoreMessage intent="info" title="Authentication token">
-              {result}
+          {result || error ? (
+            <ReqoreMessage
+              intent={result ? 'info' : 'danger'}
+              title={result ? 'Authentication token' : 'Authentication failure'}
+            >
+              {result || error}
             </ReqoreMessage>
           ) : (
             <ReqoreMessage title="Authentication token" flat>
