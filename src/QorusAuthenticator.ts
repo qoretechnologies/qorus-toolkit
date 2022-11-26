@@ -132,9 +132,19 @@ export class QorusAuthenticator {
 
   // Check if the server has noauth enabled
   checkNoAuth = async (endpoint?: Endpoint): Promise<boolean> => {
-    let resp;
+    const actualEndpoint = endpoint ?? this.selectedEndpoint;
+
+    /* Throwing an error if the actualEndpoint is not defined. */
+    if (!actualEndpoint) {
+      throw new ErrorInternal('No endpoint selected, please select an endpoint.');
+    }
+
+    /* Trying to connect to the endpoint and check if the endpoint is using noauth. */
     try {
-      resp = await QorusRequest.get({ path: `${this.apiPathsAuthenticator.validateNoAuth}` }, endpoint);
+      const resp = await QorusRequest.get<{ data: { noauth: boolean } }>(
+        { path: `${this.apiPathsAuthenticator.validateNoAuth}` },
+        endpoint,
+      );
       if (!resp?.data) {
         throw new ErrorInternal(
           `Cannot verify no-auth please check your url "${endpoint?.url ?? this.selectedEndpoint?.url}" and try again`,
@@ -152,10 +162,16 @@ export class QorusAuthenticator {
         console.log('No auth enabled, authentication not required');
         return true;
       }
+
       this.noauth = false;
+
       return false;
     } catch (error: any) {
-      throw new ErrorInternal(`Cannot verify no-auth, ${JSON.stringify(error)})`);
+      throw new ErrorInternal(
+        `Unable to connect to ${actualEndpoint.url}, please check the url / connection and try again. ${
+          error ? JSON.stringify(error) : ''
+        }`,
+      );
     }
   };
 
