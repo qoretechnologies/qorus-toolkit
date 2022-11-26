@@ -1,4 +1,4 @@
-import { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios';
+import { AxiosRequestHeaders } from 'axios';
 import fetch from 'node-fetch';
 import ErrorAxios, { ErrorAxiosParams } from './managers/error/ErrorAxios';
 import ErrorInternal from './managers/error/ErrorInternal';
@@ -48,8 +48,12 @@ export class QorusRequest {
   ): Promise<any> => {
     const { path, data, headers = this.defaultHeaders } = props;
     let selectedEndpoint;
-    if (isValidStringArray([endpoint?.url, endpoint?.id])) selectedEndpoint = endpoint;
-    else selectedEndpoint = QorusAuthenticator.getSelectedEndpoint();
+
+    if (isValidStringArray([endpoint?.url, endpoint?.id])) {
+      selectedEndpoint = endpoint;
+    } else {
+      selectedEndpoint = QorusAuthenticator.getSelectedEndpoint();
+    }
 
     if (headers != this.defaultHeaders) {
       Object.assign(headers, { ...this.defaultHeaders, headers });
@@ -84,7 +88,7 @@ export class QorusRequest {
    *
    * Returns the promise with the result of the get request
    */
-  get = async (props: QorusRequestParams, endpoint?: Endpoint): Promise<AxiosResponse | AxiosError | undefined> => {
+  get = async <T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> => {
     const result = await this.makeRequest('GET', props, endpoint);
     return result;
   };
@@ -96,7 +100,7 @@ export class QorusRequest {
    *
    * Returns the promise with the result of the post request
    */
-  post = async (props: QorusRequestParams, endpoint?: Endpoint): Promise<AxiosResponse | AxiosError | undefined> => {
+  post = async <T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> => {
     const result = await this.makeRequest('POST', props, endpoint);
     return result;
   };
@@ -108,7 +112,7 @@ export class QorusRequest {
    *
    * Returns the promise with the result of the put request
    */
-  put = async (props: QorusRequestParams, endpoint?: Endpoint): Promise<AxiosResponse | AxiosError | undefined> => {
+  put = async <T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> => {
     const result = await this.makeRequest('PUT', props, endpoint);
     return result;
   };
@@ -120,10 +124,7 @@ export class QorusRequest {
    *
    * Returns the promise with the result of the delete request
    */
-  deleteReq = async (
-    props: QorusRequestParams,
-    endpoint?: Endpoint,
-  ): Promise<AxiosResponse | AxiosError | undefined> => {
+  deleteReq = async <T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> => {
     const result = await this.makeRequest('DELETE', props, endpoint);
     return result;
   };
