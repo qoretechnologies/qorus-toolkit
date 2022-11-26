@@ -8,7 +8,8 @@ class BaseError extends Error {
     this.name = name;
     this.statusCode = statusCode;
     this.isOperational = isOperational;
-    Error.captureStackTrace(this);
+    // This only works in a Node.js environment or via the V8 engine
+    Error.captureStackTrace?.(this);
   }
 }
 
