@@ -290,7 +290,7 @@ export class QorusAuthenticator {
    *
    * Returns the newly created endpoint
    */
-  addEndpoint = (endpointConfig: AddEndpoint): Endpoint | undefined => {
+  addEndpoint = (endpointConfig: AddEndpoint): Endpoint => {
     const { id, url } = endpointConfig;
     const newEndpoint: Endpoint = this.#fixEndpointData(endpointConfig);
 
