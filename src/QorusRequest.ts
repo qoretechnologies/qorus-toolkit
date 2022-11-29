@@ -30,7 +30,7 @@ export interface QorusRequestParams {
   /**
    * URL Parameters for the request
    */
-  params?: any;
+  params?: Record<string, string>;
 }
 
 export class QorusRequest {
@@ -61,10 +61,10 @@ export class QorusRequest {
       Object.assign(headers, { ...headers, 'Qorus-Token': selectedEndpoint?.authToken ?? '' });
 
       const requestParams = new URLSearchParams(params).toString();
-      let fetchUrl;
+      let fetchUrl: string;
       if (requestParams.length) {
-        fetchUrl = selectedEndpoint.url + path + '?' + requestParams;
-      } else fetchUrl = selectedEndpoint.url + path;
+        fetchUrl = `${selectedEndpoint.url}${path}?${requestParams}`;
+      } else fetchUrl = `${selectedEndpoint.url}${path}`;
 
       const promise = await fetch(fetchUrl, {
         method: type,
