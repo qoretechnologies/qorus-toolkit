@@ -30,9 +30,7 @@ export interface QorusRequestParams {
   /**
    * URL Parameters for the request
    */
-  params?: {
-    [x: string]: string | number | boolean;
-  };
+  params?: any;
 }
 
 export class QorusRequest {
@@ -46,7 +44,7 @@ export class QorusRequest {
     props: QorusRequestParams,
     endpoint?: Endpoint,
   ): Promise<any> => {
-    const { path, data, headers = this.defaultHeaders } = props;
+    const { path, data, headers = this.defaultHeaders, params } = props;
     let selectedEndpoint;
 
     if (isValidStringArray([endpoint?.url, endpoint?.id])) {
@@ -62,7 +60,13 @@ export class QorusRequest {
     if (selectedEndpoint?.url) {
       Object.assign(headers, { ...headers, 'Qorus-Token': selectedEndpoint?.authToken ?? '' });
 
-      const promise = await fetch(`${selectedEndpoint?.url}${path}`, {
+      const requestParams = new URLSearchParams(params).toString();
+      let fetchUrl;
+      if (requestParams.length) {
+        fetchUrl = selectedEndpoint.url + path + '?' + requestParams;
+      } else fetchUrl = selectedEndpoint.url + path;
+
+      const promise = await fetch(fetchUrl, {
         method: type,
         headers: this.defaultHeaders,
         body: data ? JSON.stringify(data) : undefined,
