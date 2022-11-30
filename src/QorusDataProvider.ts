@@ -115,7 +115,7 @@ export class QorusDataProvider {
   };
 
   /**
-   * -getRecord-function Get record of Data Providers with context 'record' from /dataprovider/browse endpoint
+   * Get record of Data Providers with context 'record' from /dataprovider/browse endpoint
    *
    * Returns array of records
    */
@@ -124,7 +124,7 @@ export class QorusDataProvider {
   };
 
   /**
-   * -getApi-function Get record of Data Providers with context 'api'  from /dataprovider/browse endpoint
+   * Get record of Data Providers with context 'api'  from /dataprovider/browse endpoint
    *
    * Returns array of records
    */
@@ -134,7 +134,7 @@ export class QorusDataProvider {
   };
 
   /**
-   * -getEvent-function Get record of Data Providers with context 'Event'  from /dataprovider/browse endpoint
+   * Get record of Data Providers with context 'Event'  from /dataprovider/browse endpoint
    *
    * Returns array of records
    */
@@ -143,7 +143,7 @@ export class QorusDataProvider {
   };
 
   /**
-   * -getEvent-function Get record of Data Providers with context 'message'  from /dataprovider/browse endpoint
+   * Get record of Data Providers with context 'message'  from /dataprovider/browse endpoint
    *
    * Returns array of records
    */
@@ -152,7 +152,7 @@ export class QorusDataProvider {
   };
 
   /**
-   * -getEvent-function Get record of Data Providers with context 'type'  from /dataprovider/browse endpoint
+   * Get record of Data Providers with context 'type'  from /dataprovider/browse endpoint
    *
    * Returns array of records
    */
@@ -161,7 +161,7 @@ export class QorusDataProvider {
   };
 
   /**
-   * -has-function Checks if the children exist on the provider
+   * Checks if the children exist on the provider
    * @param name Name of the children you want to find
    * @returns true if the children exist, false otherwise
    */
@@ -243,7 +243,7 @@ export class QorusDataProvider {
   }
 
   /**
-   * -getChildrenNames-function A getter to get children names for the current provider
+   * A getter to get children names for the current provider
    *
    * Returns list of children names
    */
@@ -287,7 +287,7 @@ export class QorusDataProvider {
   }
 
   /**
-   * -getProvider-function Method to select the next children from the current provider for further operations
+   * Method to select the next children from the current provider for further operations
    * @param select next children to be selected
    * @param QorusDataProvider constructor options for the next children
    *

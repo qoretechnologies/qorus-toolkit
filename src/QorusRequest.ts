@@ -5,12 +5,6 @@ import ErrorInternal from './managers/error/ErrorInternal';
 import QorusAuthenticator, { Endpoint } from './QorusAuthenticator';
 import { isValidStringArray } from './utils';
 
-// export const httpsAgent = new Agent({
-//   rejectUnauthorized: false,
-// });
-
-// export const httpsAxios = axios.create({ httpsAgent });
-
 export interface QorusRequestParams {
   /**
    * Headers for the request
@@ -86,7 +80,7 @@ export class QorusRequest {
   };
 
   /**
-   * -get-function Get request creator for the QorusToolkit
+   * Get request creator for the QorusToolkit
    *
    * @param props {@link QorusRequestParams} endpoint url is mandatory to make a get request
    *
@@ -98,7 +92,7 @@ export class QorusRequest {
   };
 
   /**
-   * -post-function Post request creator for the QorusToolkit
+   * Post request creator for the QorusToolkit
    *
    * @param props {@link QorusRequestParams} endpoint url is mandatory to make a post request
    *
@@ -110,7 +104,7 @@ export class QorusRequest {
   };
 
   /**
-   * -put-function Put request creator for the QorusToolkit
+   * Put request creator for the QorusToolkit
    *
    * @param props {@link QorusRequestParams} endpoint url is mandatory to make a put request
    *
@@ -122,7 +116,7 @@ export class QorusRequest {
   };
 
   /**
-   * -deleteReq-function Delete request creator for the QorusToolkit
+   * Delete request creator for the QorusToolkit
    *
    * @param props {@link QorusRequestParams} endpoint url is mandatory to make a delete request
    *
