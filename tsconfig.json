@@ -24,5 +24,5 @@
   },
   "extends": "@tsconfig/node16/tsconfig.json",
   "exclude": ["node_modules"],
-  "include": ["./src/**/*.ts", "./src/**/*.tsx", ".storybook/**/*.tsx"]
+  "include": ["./src/**/*", ".storybook/**/*.tsx"]
 }
