@@ -1,8 +1,7 @@
 import { ReqorePanel } from '@qoretechnologies/reqore';
-import React from 'react';
 import ReactRunkit from 'react-runkit';
-import codeExamples from '../../codeExamples';
-import { version } from '../../package.json';
+import codeExamples from '../../../codeExamples';
+import { version } from '../../../package.json';
 
 export interface IDocumentationExampleProps {
   label: string;

@@ -1,4 +1,5 @@
 import { ReqoreSpacer } from '@qoretechnologies/reqore';
+import React from 'react';
 import { DocumentationExample } from '../components/example';
 import { DocumentationItem } from '../components/item';
 import { DocumentationType } from '../components/type';

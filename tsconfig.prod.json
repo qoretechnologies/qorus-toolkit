@@ -23,6 +23,6 @@
     "jsx": "react-jsx"
   },
   "extends": "@tsconfig/node16/tsconfig.json",
-  "exclude": ["./node_modules", "./stories/**/*"],
+  "exclude": ["./node_modules", "./src/stories/**/*"],
   "include": ["./src/**/*"]
 }
