@@ -8,9 +8,9 @@ import {
   ReqorePanel,
 } from '@qoretechnologies/reqore';
 import { useState } from 'react';
-import QorusAuthenticator, { AddEndpoint, LoginParams } from '../../QorusAuthenticator';
-import { versions } from '../../QorusValidator';
-import { Version } from '../../utils/apiPaths';
+import QorusAuthenticator, { AddEndpoint, LoginParams } from '../../src/QorusAuthenticator';
+import { versions } from '../../src/QorusValidator';
+import { Version } from '../../src/utils/apiPaths';
 
 export const QorusAuthenticatorDemo = () => {
   const [url, setUrl] = useState<AddEndpoint['url']>('');
