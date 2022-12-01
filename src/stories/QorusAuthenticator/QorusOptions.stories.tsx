@@ -56,38 +56,66 @@ getType.args = {
   ),
 };
 
-export const put = Template.bind({});
-put.storyName = 'put';
-put.args = {
-  label: 'put( qorusRequestParams, endpoint )',
+export const getJsType = Template.bind({});
+getJsType.storyName = 'getJsType';
+getJsType.args = {
+  label: 'getJsType( propertyName )',
   params: {
-    qorusRequestParams: { label: 'QorusRequestParams', link: 'QorusRequestParams' },
-    endpoint: { label: 'Endpoint' },
+    propertyName: { label: 'string' },
   },
-  returns: [{ label: 'Promise<T | undefined>' }, { label: 'undefined' }],
+  returns: [{ label: '[ TypeString ] : string [ ]' }],
   content: (
     <>
-      Put request creator,Returns the response of a put request from the server as json. If the operation fails it
-      throws an error or returns undefined. If the optional endpoint parameter is provided, QorusRequest will make
-      request to that connection instead of the one currently selected.
+      A getter to get js types for a property.
+      <br /> Returns array of js types accepted by the property
     </>
   ),
 };
 
-export const deleteReq = Template.bind({});
-deleteReq.storyName = 'deleteReq';
-deleteReq.args = {
-  label: 'deleteReq( qorusRequestParams, endpoint )',
+export const get = Template.bind({});
+get.storyName = 'get';
+get.args = {
+  label: 'get( propertyName )',
   params: {
-    qorusRequestParams: { label: 'QorusRequestParams', link: 'QorusRequestParams' },
-    endpoint: { label: 'Endpoint' },
+    propertyName: { label: 'string' },
   },
-  returns: [{ label: 'Promise<T | undefined>' }, { label: 'undefined' }],
+  returns: [{ label: '[ TypeString ] : string [ ]' }],
   content: (
     <>
-      Delete request creator, returns the response of a deleteReq request from the server as json. If the operation
-      fails it throws an error or returns undefined. If the optional endpoint parameter is provided, QorusRequest will
-      make request to that connection instead of the one currently selected.
+      A getter to get property object.
+      <br /> Returns property object
+    </>
+  ),
+};
+
+export const set = Template.bind({});
+set.storyName = 'set';
+set.args = {
+  label: 'set( propertyName )',
+  params: {
+    propertyName: { label: 'string' },
+  },
+  returns: [{ label: '[ TypeString ] : string [ ]' }],
+  content: (
+    <>
+      A setter to set property value
+      <br /> Returns the property object
+    </>
+  ),
+};
+
+export const validateProperty = Template.bind({});
+validateProperty.storyName = 'validateProperty';
+validateProperty.args = {
+  label: 'validateProperty( propertyName )',
+  params: {
+    propertyName: { label: 'string' },
+  },
+  returns: [{ label: '[ TypeString ] : string [ ]' }],
+  content: (
+    <>
+      A method to validate if the provided value can be used by the property
+      <br /> Returns true if value can be used false otherwise
     </>
   ),
 };
