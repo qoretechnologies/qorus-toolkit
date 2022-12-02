@@ -19,7 +19,7 @@ export const DocumentationWrapper = ({ title, description, code, children }: IDo
           {code}
         </SyntaxHighlighter>
         <ReqoreSpacer height={20} />
-        <ReqoreMessage size="big" customTheme={{ main: '#143240' }} icon="InformationLine" flat>
+        <ReqoreMessage size="normal" customTheme={{ main: '#143240' }} icon="InformationLine" flat>
           {description}
         </ReqoreMessage>
         <ReqoreSpacer height={30} />

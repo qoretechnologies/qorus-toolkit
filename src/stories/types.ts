@@ -16,7 +16,10 @@ export interface IDocumentationReturns {
 }
 
 export type TDocumentationParams = Record<string, IDocumentationParam>;
-export type TDocumentationReturns = IDocumentationReturns[];
+export type TDocumentationReturns = {
+  description: string;
+  types: IDocumentationReturns[];
+};
 export type TDocumentationLabel =
   | string
   | React.ReactElement<any, string | React.JSXElementConstructor<any>>

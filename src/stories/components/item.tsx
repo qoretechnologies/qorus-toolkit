@@ -1,14 +1,13 @@
 import { ReqoreCollection, ReqorePanel, ReqoreSpacer, ReqoreTagGroup } from '@qoretechnologies/reqore';
 import { IReqoreCollectionItemProps } from '@qoretechnologies/reqore/dist/components/Collection/item';
 import { IReqorePanelProps } from '@qoretechnologies/reqore/dist/components/Panel';
-import { IReqoreTagProps } from '@qoretechnologies/reqore/dist/components/Tag';
+import ReqoreTag, { IReqoreTagProps } from '@qoretechnologies/reqore/dist/components/Tag';
 import { map } from 'lodash';
 import { IDocumentationParam, TDocumentationParams, TDocumentationReturns } from '../types';
-import { DocumentationType } from './type';
 
 export interface IDocumentationItemsProps extends IReqorePanelProps {
   params?: TDocumentationParams;
-  returns?: TDocumentationReturns;
+  returns: TDocumentationReturns;
 }
 
 export const DocumentationItem = ({ children, params, returns, ...rest }: IDocumentationItemsProps) => {
@@ -34,32 +33,49 @@ export const DocumentationItem = ({ children, params, returns, ...rest }: IDocum
     <>
       <ReqorePanel flat headerSize={3} collapsible {...rest}>
         {children}
+
+        {params || returns || true ? (
+          <>
+            <ReqoreSpacer height={10} />
+            <ReqoreCollection
+              size="small"
+              label="Params"
+              //@ts-ignore
+              minimal
+              headerSize={4}
+              sortable
+              filterable
+              items={map(
+                params,
+                (param, key: string): IReqoreCollectionItemProps => ({
+                  label: param.label,
+                  content: param.description,
+                  headerSize: 4,
+                  tags: buildTags(param),
+                  customTheme: { main: '#444444' },
+                }),
+              )}
+            />
+            <ReqorePanel label="Returns" minimal headerSize={4} flat opacity={0}>
+              {returns.description}
+              <ReqoreSpacer height={10} />
+              <ReqoreTagGroup size="small">
+                {returns.types.map((type) => (
+                  <ReqoreTag
+                    {...{
+                      labelKey: 'Type',
+                      icon: 'CodeLine',
+                      label: type.label || 'string',
+                      intent: type.link ? 'info' : type.intent,
+                      rightIcon: type.link ? 'Link' : undefined,
+                    }}
+                  />
+                ))}
+              </ReqoreTagGroup>
+            </ReqorePanel>
+          </>
+        ) : null}
       </ReqorePanel>
-      {params || returns || true ? (
-        <>
-          <ReqoreSpacer height={20} />
-          <ReqoreCollection
-            size="small"
-            label="Params"
-            items={map(
-              params,
-              (param, key: string): IReqoreCollectionItemProps => ({
-                label: param.label,
-                content: param.description,
-                headerSize: 4,
-                tags: buildTags(param),
-              }),
-            )}
-          />
-          <ReqorePanel minimal label="Returns" flat opacity={0} headerSize={2}>
-            <ReqoreTagGroup size="normal">
-              {map(returns, (returnType, key: string) => (
-                <DocumentationType size="normal" {...returnType} key={key} />
-              ))}
-            </ReqoreTagGroup>
-          </ReqorePanel>
-        </>
-      ) : null}
       <ReqoreSpacer height={20} />
     </>
   );

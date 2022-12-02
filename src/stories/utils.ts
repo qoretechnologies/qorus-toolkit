@@ -78,7 +78,10 @@ export const prepareStory = (template: DocumentationStory, name: string) => {
       },
     },
     // The return value of the method / property / field
-    returns: [{ label: 'Endpoint', link: 'Endpoint' }, { label: 'undefined' }],
+    returns: {
+      description: 'This is a description for the return value',
+      types: [{ label: 'Endpoint', link: 'Endpoint' }, { label: 'undefined' }],
+    },
     // The description of the method / property / field
     content: 'Adds a new endpoint to the list of available endpoints.',
   };
