@@ -2,7 +2,12 @@ import { TReqoreIntent } from '@qoretechnologies/reqore/dist/constants/theme';
 import { Meta, Story } from '@storybook/react';
 
 export interface IDocumentationParam {
-  [key: string]: { label: string; link?: string };
+  // TODO: Type is now optional but needs to be REQUIRED in the future
+  label: string;
+  link?: string;
+  description?: string;
+  optional?: boolean;
+  type?: string;
 }
 export interface IDocumentationReturns {
   label: string;
@@ -10,7 +15,7 @@ export interface IDocumentationReturns {
   intent?: TReqoreIntent;
 }
 
-export type TDocumentationParams = IDocumentationParam;
+export type TDocumentationParams = Record<string, IDocumentationParam>;
 export type TDocumentationReturns = IDocumentationReturns[];
 export type TDocumentationLabel =
   | string
@@ -26,3 +31,5 @@ export interface IDocumentationProps {
 
 export interface DocumentationMeta extends Meta<IDocumentationProps> {}
 export interface DocumentationStory extends Story<IDocumentationProps> {}
+
+export interface DocumentationData {}

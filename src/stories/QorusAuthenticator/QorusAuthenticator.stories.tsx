@@ -3,7 +3,7 @@ import { DocumentationExample } from '../components/example';
 import { DocumentationItem } from '../components/item';
 import { DocumentationWrapper } from '../components/wrapper';
 import { DocumentationMeta, DocumentationStory } from '../types';
-import { argsData } from '../utils';
+import { argsData, prepareStory } from '../utils';
 import { QorusAuthenticatorDemo } from './demo';
 
 export default {
@@ -28,20 +28,7 @@ const Template: DocumentationStory = ({ content, ...rest }, context) => {
   );
 };
 
-export const addEndpoint = Template.bind({});
-addEndpoint.storyName = 'addEndpoint';
-addEndpoint.args = {
-  label: 'addEndpoint( addEndpointConfig )',
-  params: { addEndpointConfig: { label: 'AddEndpoint' } },
-  returns: [{ label: 'Endpoint', link: 'Endpoint' }, { label: 'undefined' }],
-  content: (
-    <>
-      Allows the user to add/initialize a new endpoint
-      <br />
-      Returns the newly created endpoint and it as selected endpoint
-    </>
-  ),
-};
+export const addEndpoint = prepareStory(Template, 'addEndpoint');
 
 export const login = Template.bind({});
 login.storyName = 'login';

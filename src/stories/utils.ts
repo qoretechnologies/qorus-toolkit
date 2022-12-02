@@ -1,4 +1,4 @@
-import { IDocumentationProps } from './types';
+import { DocumentationStory, IDocumentationProps } from './types';
 
 export interface IArgData {
   description?: string;
@@ -50,4 +50,41 @@ const documentationArgs = argManager<IDocumentationProps>();
 
 export const argsData = {
   ...documentationArgs.disableArgs(['label', 'params', 'returns', 'content']),
+};
+
+export const prepareStory = (template: DocumentationStory, name: string) => {
+  const story = template.bind({});
+
+  // Here we get the documentation data
+  // The function needs to be created
+  // const docData: DocumentationData = getDocumentationData(name);
+  // Hardcoded data for testing
+  const fakeHardcodedData = {
+    // The name of the method / property / field
+    label: 'addEndpoint( addEndpointConfig )',
+    // The parameters of the method / property / field
+    params: {
+      param1: {
+        label: 'ParamOne',
+        type: 'string',
+        description: 'This is a description for an optional parameter',
+        optional: true,
+      },
+      paramTwo: {
+        label: 'ParamTwo',
+        type: 'ICustomType',
+        link: 'somelink',
+        description: 'This is a description for a parameter',
+      },
+    },
+    // The return value of the method / property / field
+    returns: [{ label: 'Endpoint', link: 'Endpoint' }, { label: 'undefined' }],
+    // The description of the method / property / field
+    content: 'Adds a new endpoint to the list of available endpoints.',
+  };
+
+  story.storyName = name;
+  story.args = fakeHardcodedData;
+
+  return story;
 };
