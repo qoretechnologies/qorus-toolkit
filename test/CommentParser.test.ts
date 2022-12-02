@@ -67,7 +67,7 @@ describe('something', () => {
   // });
 
   it.only('parses code', () => {
-    var filePath = './assets/simple-input.ts';
+    var filePath = './src/parsingTest.ts';
     const buffer = fs.readFileSync(filePath).toString();
 
     var comments = extract(buffer, {}, () => undefined);
