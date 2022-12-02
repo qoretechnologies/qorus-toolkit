@@ -1,0 +1,29 @@
+{
+  "parameters": [
+    { "name": "data", "content": "{@link AddEndpoint} to be checked\n" },
+    { "name": "withCredentials", "content": "boolean to check if the endpoint has credentials\n" }
+  ],
+  "summary": "*\nChecks the validity of the selected endpoint, if the endpoint data ar valid returns true, false otherwise.\n",
+  "returns": " boolean true if the endpoint data is valid, false otherwise\n",
+  "signature": "const validateEndpointData = (data: AddEndpoint & LoginParams, withCredentials?: boolean): boolean",
+  "typeData": {
+    "functions": [
+      {
+        "isArrow": true,
+        "isExport": false,
+        "isAsync": false,
+        "name": "validateEndpointData",
+        "params": [
+          { "name": "data", "type": "AddEndpoint & LoginParams", "mandatory": true },
+          { "name": "withCredentials", "type": "boolean", "mandatory": false }
+        ]
+      }
+    ],
+    "classes": [],
+    "aliases": [],
+    "enumDeclarations": [],
+    "imports": {},
+    "_imports": [],
+    "name": "./assets/simple-input.ts"
+  }
+}
