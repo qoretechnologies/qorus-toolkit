@@ -5,7 +5,7 @@ import { DocExcerpt, DocNode } from '@microsoft/tsdoc';
  */
 export class Formatter {
   public static renderDocNode(docNode: DocNode): string {
-    let result: string = '';
+    let result = '';
     if (docNode) {
       if (docNode instanceof DocExcerpt) {
         result += docNode.content.toString();
@@ -18,7 +18,7 @@ export class Formatter {
   }
 
   public static renderDocNodes(docNodes: ReadonlyArray<DocNode>): string {
-    let result: string = '';
+    let result = '';
     for (const docNode of docNodes) {
       result += Formatter.renderDocNode(docNode);
     }
