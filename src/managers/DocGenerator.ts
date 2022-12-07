@@ -1,5 +1,5 @@
 import { ClassMethodParser, ClassParser, ProjectParser } from 'typedoc-json-parser';
-import docData from '../../docs/final.json';
+import docData from '../docs/documentation.json';
 
 interface MethodDocs {
   async: boolean;
