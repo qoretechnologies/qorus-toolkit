@@ -1,6 +1,5 @@
 {
   "name": "Qorus Toolkit",
-  "out": "docs",
-  "entryPoints": ["./src/index.ts"],
-  "customCss": "./src/typedoc/index.css"
+  "json": "docs/final.json",
+  "entryPoints": ["./src/index.ts"]
 }

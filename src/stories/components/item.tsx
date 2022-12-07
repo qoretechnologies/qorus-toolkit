@@ -7,7 +7,7 @@ import { IDocumentationParam, TDocumentationParams, TDocumentationReturns } from
 
 export interface IDocumentationItemsProps extends IReqorePanelProps {
   params?: TDocumentationParams;
-  returns: TDocumentationReturns;
+  returns?: TDocumentationReturns;
 }
 
 export const DocumentationItem = ({ children, params, returns, ...rest }: IDocumentationItemsProps) => {
@@ -47,7 +47,7 @@ export const DocumentationItem = ({ children, params, returns, ...rest }: IDocum
               filterable
               items={map(
                 params,
-                (param, key: string): IReqoreCollectionItemProps => ({
+                (param): IReqoreCollectionItemProps => ({
                   label: param.label,
                   content: param.description,
                   headerSize: 4,
@@ -57,10 +57,10 @@ export const DocumentationItem = ({ children, params, returns, ...rest }: IDocum
               )}
             />
             <ReqorePanel label="Returns" minimal headerSize={4} flat opacity={0}>
-              {returns.description}
+              {returns?.description}
               <ReqoreSpacer height={10} />
               <ReqoreTagGroup size="small">
-                {returns.types.map((type) => (
+                {returns?.types.map((type) => (
                   <ReqoreTag
                     {...{
                       labelKey: 'Type',

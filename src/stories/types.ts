@@ -35,4 +35,4 @@ export interface IDocumentationProps {
 export interface DocumentationMeta extends Meta<IDocumentationProps> {}
 export interface DocumentationStory extends Story<IDocumentationProps> {}
 
-export interface DocumentationData {}
+// export interface DocumentationData {}

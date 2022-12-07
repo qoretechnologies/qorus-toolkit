@@ -26,6 +26,7 @@
     "updatePullRequestVersion"
   ],
   "scripts": {
+    "typedoc": "typedoc",
     "test": "./node_modules/.bin/jest --json --outputFile=tests.json",
     "test:coverage": "npm test -- --coverage",
     "test:badges": "npm run test:coverage  && jest-coverage-badges",
@@ -122,6 +123,7 @@
     "tracer": "^1.1.6",
     "ts-file-parser": "^0.0.21",
     "ts-morph": "^17.0.1",
+    "typedoc-json-parser": "^7.0.2",
     "typescript-parser": "^2.6.1"
   }
 }
