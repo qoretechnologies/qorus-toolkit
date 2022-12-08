@@ -37,6 +37,7 @@ class DocGenerator {
     });
     this.allClasses = classObj;
   }
+
   getProject() {
     return this.project;
   }
@@ -47,6 +48,46 @@ class DocGenerator {
 
   getAllClasses(): ClassParser[] | undefined {
     return this.allClasses;
+  }
+
+  getClassDocs(classObj: string | ClassParser) {
+    let classObject;
+    if (typeof classObj === 'string') {
+      classObject = this.allClasses.find((obj) => obj.name === classObj);
+    } else classObject = classObj;
+
+    if (!classObject.name) {
+      return undefined;
+    }
+
+    const name = classObject.name;
+    const comment = {
+      description: classObject.comment.description,
+      blockTags: classObject.comment.blockTags,
+    };
+    const properties = classObject.properties.map((property) => {
+      const obj = {
+        name: property.name,
+        comment: {
+          description: property.comment.description,
+          blockTags: property.comment.blockTags,
+        },
+        type: {
+          kind: property.type.kind,
+          name: property.type.name ?? property.type.type,
+        },
+      };
+
+      return obj;
+    });
+
+    const docs = {
+      name,
+      comment,
+      properties,
+    };
+
+    return docs;
   }
 
   getMethodDocs(methodName: string, classObject?: string | ClassParser | undefined): MethodDocs {
