@@ -17,7 +17,7 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
   return (
     <DocumentationWrapper
       title="Qorus Options"
-      description="Helper for authentication"
+      description="A helper class to make it easier to handle Qorus api DataProviders"
       code="import { QorusOptions } from '@qoretechnologies/qorus-toolkit'"
     >
       <DocumentationItem {...rest}>{comments.summary}</DocumentationItem>

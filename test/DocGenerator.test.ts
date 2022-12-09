@@ -4,7 +4,8 @@ describe('Generate Docs class tests', () => {
   it('Check if documentation object exist', async () => {
     // await TypeDocGenerator();
     // await convertProject();
-    expect(DocGenerator.getAllClasses()).not.toEqual(undefined);
+    console.log(JSON.stringify(DocGenerator.getMethodDocs('login', 'QorusAuthenticator')));
+    expect(DocGenerator.getMethodDocs('login', 'QorusAuthenticator')).not.toEqual(undefined);
   });
   it('Generate docs for Classes', async () => {
     const classDocs = DocGenerator.getClassDocs('QorusOptions');
@@ -19,9 +20,5 @@ describe('Generate Docs class tests', () => {
     expect(methodDocs?.hasOwnProperty('async')).toEqual(true);
     expect(methodDocs?.hasOwnProperty('comments')).toEqual(true);
     expect(methodDocs?.hasOwnProperty('returnTypes')).toEqual(true);
-  });
-  it('Generate interface docs', () => {
-    const project = DocGenerator.getProject();
-    console.log(project.namespaces[0].interfaces);
   });
 });

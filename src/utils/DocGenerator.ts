@@ -126,7 +126,7 @@ class DocGenerator {
 
   private GetClassObj = (classObject?: string | any) => {
     let classObj;
-    if (typeof classObj === 'string') {
+    if (typeof classObject === 'string') {
       classObj = this.getClass(classObject as string);
     } else classObj = classObject;
     if (!classObj) return undefined;
@@ -163,7 +163,7 @@ class DocGenerator {
 
   getMethod(methodName: string, classObj: any | undefined): any | undefined {
     if (!classObj) return undefined;
-    return classObj.methods.find((method) => method.name === methodName);
+    return classObj.methods?.find((method) => method.name === methodName);
   }
 
   private createTypeObject(label: string) {

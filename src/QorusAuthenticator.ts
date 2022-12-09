@@ -421,7 +421,7 @@ export class QorusAuthenticator {
    * A setter to set the url of the selected Endpoint
    * @param url Base url for the endpoint
    * @param id Optional id parameter to change the url of a particular endpoint
-   * @returns url of the endpoint if the operation is successful, undefined otherwise
+   * @returns Url of the endpoint if the operation is successful, undefined otherwise
    */
   setEndpointUrl = async (url: string, id?: string): Promise<string | undefined> => {
     if (!isValidString(id)) id = this.selectedEndpoint?.id;

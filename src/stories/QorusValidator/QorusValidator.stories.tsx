@@ -7,7 +7,7 @@ import { DocumentationMeta, DocumentationStory } from '../types';
 import { argsData, prepareStory } from '../utils';
 
 export default {
-  title: 'API/QorusRequest',
+  title: 'API/QorusValidator',
   argTypes: {
     ...argsData,
   },
@@ -17,7 +17,7 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
   return (
     <DocumentationWrapper
       title="Qorus Validator"
-      description="Helper for authentication"
+      description="Validates the DataProvider properties"
       code="import { QorusValidator } from '@qoretechnologies/qorus-toolkit'"
     >
       <DocumentationItem {...rest}>{comments.summary}</DocumentationItem>
