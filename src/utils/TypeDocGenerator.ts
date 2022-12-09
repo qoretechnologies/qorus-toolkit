@@ -22,10 +22,10 @@ export default async function TypeDocGenerate() {
   }
 }
 
-export const convertProject = async () => {
+export const convertProject = () => {
   const raw = fs.readFileSync(typedocDocs, { encoding: 'utf-8' });
   const parsedData = JSON.parse(raw);
-  let projectData: ProjectParser | undefined = new ProjectParser({ data: parsedData });
+  const projectData: ProjectParser | undefined = new ProjectParser({ data: parsedData });
   fs.writeFileSync(parsedProjectDocs, JSON.stringify(projectData.toJSON()));
   return projectData;
 };

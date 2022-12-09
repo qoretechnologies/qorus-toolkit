@@ -58,7 +58,6 @@ export const prepareStory = (template: DocumentationStory, methodName: string, c
   const story = template.bind({});
   const classObj = DocGenerator.getClass(className);
   const docData: MethodDocs = DocGenerator.getMethodDocs(methodName, classObj);
-  console.log(JSON.stringify(docData));
 
   story.storyName = methodName;
   story.args = docData;

@@ -77,7 +77,7 @@ class DocGenerator {
     if (classObject) {
       const methods = classObject.methods;
       const methodsDocs = methods.map((method) => {
-        return this.getMethodDocs(method.name, classObject);
+        return this.getMethodDocs(method.name as string, classObject);
       });
       return methodsDocs;
     }
@@ -127,13 +127,13 @@ class DocGenerator {
   private GetClassObj = (classObject?: string | any) => {
     let classObj;
     if (typeof classObj === 'string') {
-      classObj = this.getClass(classObject);
+      classObj = this.getClass(classObject as string);
     } else classObj = classObject;
     if (!classObj) return undefined;
     else return classObj;
   };
 
-  getMethodDocs(methodName: string, classObject?: string | any | undefined): MethodDocs | undefined {
+  getMethodDocs(methodName: string, classObject?: any | string | undefined): MethodDocs | undefined {
     const classObj = this.GetClassObj(classObject);
     if (!classObj) return undefined;
     const method = this.getMethod(methodName, classObj);
@@ -236,7 +236,7 @@ class DocGenerator {
     let parameterString = '';
     parameterString += parameters?.map((parameter) => {
       let parameterDefinition = '';
-      parameterDefinition += ' ' + parameter.name;
+      parameterDefinition += `' '${parameter.name}`;
       const json: Json = parameter.type;
       const parameterType = json.name ? json.name : json.type ? json.type : json.kind;
       parameterDefinition += ': ' + parameterType;
