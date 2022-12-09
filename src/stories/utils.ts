@@ -1,3 +1,5 @@
+import DocGenerator from '../../dist/utils/DocGenerator';
+import { MethodDocs } from '../utils/DocGenerator';
 import { DocumentationStory, IDocumentationProps } from './types';
 
 export interface IArgData {
@@ -54,6 +56,9 @@ export const argsData = {
 
 export const prepareStory = (template: DocumentationStory, name: string) => {
   const story = template.bind({});
+  const classObj = DocGenerator.getClass('QorusAuthenticator');
+  const docData: MethodDocs = DocGenerator.getMethodDocs(name, classObj);
+  console.log(JSON.stringify(docData));
 
   // Here we get the documentation data
   // The function needs to be created

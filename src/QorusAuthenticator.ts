@@ -13,21 +13,21 @@ export type QorusEndpointURL = string;
 
 export interface WithQorusEndpointId {
   /**
-   * Id for the {@link Endpoint} provided by the user, unique for every endpoint
+   * Id for the endpoint provided by the user, unique for every endpoint
    */
   id: QorusEndpointId;
 }
 
 export interface WithQorusAuthToken {
   /**
-   * Auth token for the user provided {@link Endpoint}
+   * Auth token for the user provided endpoint
    */
   authToken?: QorusAuthToken;
 }
 
 export interface WithQorusURL {
   /**
-   * URL to your server for the provided {@link Endpoint}
+   * URL to your server for the provided endpoint
    */
   url: QorusEndpointURL;
 }

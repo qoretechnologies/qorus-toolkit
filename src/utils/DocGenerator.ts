@@ -1,7 +1,6 @@
-import { ClassMethodParser, ClassParser, ProjectParser } from 'typedoc-json-parser';
-import docData from '../docs/documentation.json';
+import docData from '../docs/parsedProjectDocumentation.json';
 
-interface MethodDocs {
+export interface MethodDocs {
   async: boolean;
   name: string | undefined;
   label: string | undefined;
@@ -13,44 +12,58 @@ interface MethodDocs {
   returnTypes: MethodReturnType[] | undefined;
 }
 
-interface MethodParamTypes {
+export interface MethodParamTypes {
   label?: string | undefined;
   type?: string | null | undefined;
   description?: string | null | undefined;
 }
 
-interface MethodReturnType {
+export interface MethodReturnType {
   label: string;
 }
 
 class DocGenerator {
-  project: ProjectParser;
+  project: any;
   allClasses;
+  allInterfaces;
 
   constructor() {
-    const data = JSON.parse(JSON.stringify(docData));
-    this.project = new ProjectParser({ data });
-    let classObj: ClassParser[] = [];
+    this.project = JSON.parse(JSON.stringify(docData));
+    let classObj: any[] = [];
 
-    this.project.namespaces.forEach((namespace) => {
+    this.project.namespaces?.forEach((namespace) => {
       classObj = [...classObj, ...namespace.classes];
     });
     this.allClasses = classObj;
+
+    // let interfaceObject;
+    // this.project.namespaces.forEach((namespace) => {
+    //   interfaceObject = [...interfaceObject, ...namespace.interfaces];
+    // });
+    // this.allInterfaces = interfaceObject;
   }
 
   getProject() {
     return this.project;
   }
 
-  getClass(className: string): ClassParser | undefined {
+  getClass(className: string): any | undefined {
     return this.allClasses.find((classObj) => classObj.name === className);
   }
 
-  getAllClasses(): ClassParser[] | undefined {
+  //   getInterface(interfaceName: string): any | undefined {
+  //     return;
+  //   }
+
+  getAllInterfaces(): any[] | undefined {
+    return this.allInterfaces;
+  }
+
+  getAllClasses(): any[] | undefined {
     return this.allClasses;
   }
 
-  getClassDocs(classObj: string | ClassParser) {
+  getClassDocs(classObj: string | any) {
     let classObject;
     if (typeof classObj === 'string') {
       classObject = this.allClasses.find((obj) => obj.name === classObj);
@@ -90,8 +103,8 @@ class DocGenerator {
     return docs;
   }
 
-  getMethodDocs(methodName: string, classObject?: string | ClassParser | undefined): MethodDocs {
-    const classObj = (classObject as ClassParser) ?? this.getClass((classObject as string) ?? '') ?? undefined;
+  getMethodDocs(methodName: string, classObject?: string | any | undefined): MethodDocs {
+    const classObj = (classObject as any) ?? this.getClass((classObject as string) ?? '') ?? undefined;
     const method = this.getMethod(methodName, classObj);
     const label = this.createMethodDefinition(method);
     const name = method?.name;
@@ -110,14 +123,14 @@ class DocGenerator {
     return docs;
   }
 
-  isAsyncMethod(method: ClassMethodParser | undefined): boolean {
-    const json: Json | undefined = method?.signatures[0].returnType?.toJSON();
+  isAsyncMethod(method: any | undefined): boolean {
+    const json: Json | undefined = method?.signatures[0].returnType;
 
     if (json?.name === 'Promise') return true;
     else return false;
   }
 
-  getMethod(methodName: string, classObj: ClassParser | undefined): ClassMethodParser | undefined {
+  getMethod(methodName: string, classObj: any | undefined): any | undefined {
     if (!classObj) return undefined;
     return classObj.methods.find((method) => method.name === methodName);
   }
@@ -128,8 +141,8 @@ class DocGenerator {
     };
   }
 
-  createReturnTypes(method: ClassMethodParser | undefined): MethodReturnType[] | undefined {
-    const returnType: Json | undefined = method?.signatures[0].returnType.toJSON();
+  createReturnTypes(method: any | undefined): MethodReturnType[] | undefined {
+    const returnType: Json | undefined = method?.signatures[0].returnType;
     if (returnType?.kind === 'union') {
       const types = returnType.types?.map((type) => {
         const obj = this.createTypeObject(type.name ?? type.type ?? type.kind);
@@ -152,7 +165,7 @@ class DocGenerator {
     return [types];
   }
 
-  private createCommentDocs(method: ClassMethodParser | undefined) {
+  private createCommentDocs(method: any | undefined) {
     const comments = method?.signatures[0].comment;
     const summary = comments?.description;
     const returnSummary = comments?.blockTags.find((tag) => tag.name === 'returns')?.text;
@@ -164,17 +177,17 @@ class DocGenerator {
     return commentDocs;
   }
 
-  private createParameterDefinition(method: ClassMethodParser | undefined): MethodParamTypes[] {
+  private createParameterDefinition(method: any | undefined): MethodParamTypes[] {
     const parameters = method?.signatures[0].parameters;
     /*eslint-disable */
     let parsedParameters: { label?: string; type?: string | null; description?: string | null }[] = []; // eslint-disable-line no-use-before-define
     /*eslint-enable */
     parameters?.forEach((parameter) => {
-      const json: Json | undefined = parameter?.type.toJSON();
+      const json: Json | undefined = parameter?.type;
 
       const obj = {
         label: parameter.name,
-        type: json.name ?? json.type ?? json.kind,
+        type: json?.name ?? json?.type ?? json?.kind,
         description: parameter.comment.description,
       };
       parsedParameters.push(obj);
@@ -182,7 +195,7 @@ class DocGenerator {
     return parsedParameters;
   }
 
-  private createMethodDefinition(method: ClassMethodParser | undefined) {
+  private createMethodDefinition(method: any | undefined) {
     let methodDefinition = '';
     const methodSignature = method?.signatures[0];
     const parameters = method?.signatures[0].parameters;
@@ -193,7 +206,7 @@ class DocGenerator {
     parameterString += parameters?.map((parameter) => {
       let parameterDefinition = '';
       parameterDefinition += ' ' + parameter.name;
-      const json: Json = parameter.type.toJSON();
+      const json: Json = parameter.type;
       const parameterType = json.name ? json.name : json.type ? json.type : json.kind;
       parameterDefinition += ': ' + parameterType;
       return parameterDefinition;
@@ -201,7 +214,7 @@ class DocGenerator {
     methodDefinition += parameterString + ' )';
 
     let returnString = ': ';
-    const json: Json | undefined = returnType?.toJSON();
+    const json: Json | undefined = returnType;
 
     if (json?.name === 'Promise') {
       returnString += 'Promise< ';

@@ -1,5 +1,5 @@
 {
   "name": "Qorus Toolkit",
-  "json": "docs/final.json",
+  "json": "/src/docs/documentation.json",
   "entryPoints": ["./src/index.ts"]
 }

@@ -1,8 +1,11 @@
-import DocGenerator from '../src/managers/DocGenerator';
-import TypeDocGenerator from '../src/utils/TypeDocGenerator';
+import DocGenerator from '../src/utils/DocGenerator';
 describe('Generate Docs class tests', () => {
-  beforeAll(async () => {
-    await TypeDocGenerator();
+  jest.setTimeout(50000);
+  it('Check if documentation object exist', async () => {
+    // await TypeDocGenerator();
+    // await convertProject();
+
+    expect(DocGenerator.getAllClasses()).not.toEqual(undefined);
   });
   it('Generate docs for Classes', async () => {
     const classDocs = DocGenerator.getClassDocs('QorusOptions');
@@ -17,6 +20,9 @@ describe('Generate Docs class tests', () => {
     expect(methodDocs.hasOwnProperty('async')).toEqual(true);
     expect(methodDocs.hasOwnProperty('comments')).toEqual(true);
     expect(methodDocs.hasOwnProperty('returnTypes')).toEqual(true);
-    console.log(methodDocs);
+  });
+  it('Generate interface docs', () => {
+    const project = DocGenerator.getProject();
+    console.log(project.namespaces[0].interfaces);
   });
 });
