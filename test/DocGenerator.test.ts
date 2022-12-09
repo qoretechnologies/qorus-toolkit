@@ -4,8 +4,7 @@ describe('Generate Docs class tests', () => {
   it('Check if documentation object exist', async () => {
     // await TypeDocGenerator();
     // await convertProject();
-    console.log(JSON.stringify(DocGenerator.getMethodDocs('login', 'QorusAuthenticator')));
-    expect(DocGenerator.getMethodDocs('login', 'QorusAuthenticator')).not.toEqual(undefined);
+    expect(DocGenerator.getAllClasses()).not.toEqual(undefined);
   });
   it('Generate docs for Classes', async () => {
     const classDocs = DocGenerator.getClassDocs('QorusOptions');
