@@ -127,7 +127,7 @@ class DocGenerator {
   private GetClassObj = (classObject?: string | any) => {
     let classObj;
     if (typeof classObject === 'string') {
-      classObj = this.getClass(classObject as string);
+      classObj = this.getClass(classObject);
     } else classObj = classObject;
     if (!classObj) return undefined;
     else return classObj;
