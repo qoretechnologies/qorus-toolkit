@@ -57,7 +57,7 @@ export const argsData = {
 export const prepareStory = (template: DocumentationStory, methodName: string, className: string) => {
   const story = template.bind({});
   const classObj = DocGenerator.getClass(className);
-  const docData: MethodDocs = DocGenerator.getMethodDocs(methodName, classObj);
+  const docData: MethodDocs | undefined = DocGenerator.getMethodDocs(methodName, classObj);
 
   story.storyName = methodName;
   story.args = docData;
