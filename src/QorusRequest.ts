@@ -81,10 +81,8 @@ export class QorusRequest {
 
   /**
    * Get request creator for the QorusToolkit
-   *
-   * @param props {@link QorusRequestParams} endpoint url is mandatory to make a get request
-   *
-   * Returns the promise with the result of the get request
+   * @param props QorusRequestParams endpoint url is mandatory to make a get request
+   * @returns Result of the get request
    */
   get = async <T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> => {
     const result = await this.makeRequest('GET', props, endpoint);
@@ -93,10 +91,8 @@ export class QorusRequest {
 
   /**
    * Post request creator for the QorusToolkit
-   *
-   * @param props {@link QorusRequestParams} endpoint url is mandatory to make a post request
-   *
-   * Returns the promise with the result of the post request
+   * @param props QorusRequestParams endpoint url is mandatory to make a post request
+   * @returns Promise with the result of the post request
    */
   post = async <T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> => {
     const result = await this.makeRequest('POST', props, endpoint);
@@ -105,10 +101,8 @@ export class QorusRequest {
 
   /**
    * Put request creator for the QorusToolkit
-   *
-   * @param props {@link QorusRequestParams} endpoint url is mandatory to make a put request
-   *
-   * Returns the promise with the result of the put request
+   * @param props QorusRequestParams endpoint url is mandatory to make a put request
+   * @returns the promise with the result of the put request
    */
   put = async <T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> => {
     const result = await this.makeRequest('PUT', props, endpoint);
@@ -117,10 +111,8 @@ export class QorusRequest {
 
   /**
    * Delete request creator for the QorusToolkit
-   *
-   * @param props {@link QorusRequestParams} endpoint url is mandatory to make a delete request
-   *
-   * Returns the promise with the result of the delete request
+   * @param props QorusRequestParams endpoint url is mandatory to make a delete request
+   * @returns Promise with the result of the delete request
    */
   deleteReq = async <T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> => {
     const result = await this.makeRequest('DELETE', props, endpoint);

@@ -3,28 +3,39 @@ import { IReqoreCollectionItemProps } from '@qoretechnologies/reqore/dist/compon
 import { IReqorePanelProps } from '@qoretechnologies/reqore/dist/components/Panel';
 import ReqoreTag, { IReqoreTagProps } from '@qoretechnologies/reqore/dist/components/Tag';
 import { map } from 'lodash';
-import { IDocumentationParam, TDocumentationParams, TDocumentationReturns } from '../types';
+import { MethodComment, MethodParamTypes, MethodReturnType } from '../../utils/DocGenerator';
 
 export interface IDocumentationItemsProps extends IReqorePanelProps {
-  params?: TDocumentationParams;
-  returns?: TDocumentationReturns;
+  params?: MethodParamTypes[];
+  returnTypes?: MethodReturnType[];
+  async?: boolean;
+  name?: string;
+  label?: string;
+  comment?: MethodComment;
 }
 
-export const DocumentationItem = ({ children, params, returns, ...rest }: IDocumentationItemsProps) => {
-  const buildTags = (param: IDocumentationParam): IReqoreTagProps[] => {
+export const DocumentationItem = ({
+  children,
+  params,
+  returnTypes,
+  comment,
+  label,
+  ...rest
+}: IDocumentationItemsProps) => {
+  const buildTags = (param: MethodParamTypes): IReqoreTagProps[] => {
     const tags: IReqoreTagProps[] = [
       {
         labelKey: 'Type',
         icon: 'CodeLine',
         label: param.type || 'string',
-        intent: param.link ? 'info' : undefined,
-        rightIcon: param.link ? 'Link' : undefined,
+        // intent: param.link ? 'info' : undefined,
+        // rightIcon: param.link ? 'Link' : undefined,
       },
     ];
 
-    if (param.optional) {
-      tags.push({ icon: 'QuestionMark', labelKey: 'Optional', label: 'Yes', rightIcon: 'CheckFill' });
-    }
+    // if (param.optional) {
+    //   tags.push({ icon: 'QuestionMark', labelKey: 'Optional', label: 'Yes', rightIcon: 'CheckFill' });
+    // }
 
     return tags;
   };
@@ -34,7 +45,7 @@ export const DocumentationItem = ({ children, params, returns, ...rest }: IDocum
       <ReqorePanel flat headerSize={3} collapsible {...rest}>
         {children}
 
-        {params || returns || true ? (
+        {params || returnTypes || true ? (
           <>
             <ReqoreSpacer height={10} />
             <ReqoreCollection
@@ -57,17 +68,17 @@ export const DocumentationItem = ({ children, params, returns, ...rest }: IDocum
               )}
             />
             <ReqorePanel label="Returns" minimal headerSize={4} flat opacity={0}>
-              {returns?.description}
+              {comment?.returnSummary}
               <ReqoreSpacer height={10} />
               <ReqoreTagGroup size="small">
-                {returns?.types.map((type) => (
+                {returnTypes?.map((type) => (
                   <ReqoreTag
                     {...{
                       labelKey: 'Type',
                       icon: 'CodeLine',
                       label: type.label || 'string',
-                      intent: type.link ? 'info' : type.intent,
-                      rightIcon: type.link ? 'Link' : undefined,
+                      // intent: type.link ? 'info' : type.intent,
+                      // rightIcon: type.link ? 'Link' : undefined,
                     }}
                   />
                 ))}

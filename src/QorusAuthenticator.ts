@@ -69,19 +69,17 @@ export class QorusAuthenticator {
   noauth = false;
 
   /**
-   * -getEndpointById-function A getter to return the endpoint if it exist in the endpoints array
-   *
+   * A getter to get the endpoint if it exist in the Endpoints array
    * @param id ID of the endpoint ex: "rippy"
-   *
-   * Returns the endpoint {@link Endpoint} if the endpoint with the supplied id exist in the endpoints array, undefined otherwise.
+   * @returns Endpoint if the endpoint with the provided id exist in the endpoints array, undefined otherwise.
    */
   getEndpointById = (id: string): Endpoint | undefined => {
     return this.endpoints.find((endpoint) => endpoint.id === id);
   };
 
   /**
-   * -logout-function Logs out the current user from the selected endpoint
-   *
+   * Logs out the current user from the selected endpoint
+   * @returns True if the operation is successful, False otherwise
    */
   logout = async (): Promise<boolean> => {
     if (!this.selectedEndpoint || !isValidString(this.selectedEndpoint.authToken)) {
@@ -102,12 +100,10 @@ export class QorusAuthenticator {
   };
 
   /**
-   * -selectEndpoint-function Allows the user to select a endpoint from the endpoints array, logout the user from the current
+   * Select an endpoint from the available Endpoints array
    * selected endpoint
-   *
    * @param id Id of the endpoint
-   *
-   * Returns endpoint if the operation is successful false otherwise.
+   * @returns Endpoint if the operation is successful, false otherwise.
    */
   selectEndpoint = async (id: string): Promise<Endpoint | undefined> => {
     if (!isValidString(id)) {
@@ -130,7 +126,11 @@ export class QorusAuthenticator {
     return endpoint;
   };
 
-  // Check if the server has noauth enabled
+  /**
+   * Checks if the Qorus endpoint supports no-auth
+   * @param endpoint Endpoint config to add the data
+   * @returns True if the no-auth is enabled for the user, False otherwise
+   */
   checkNoAuth = async (endpoint?: Endpoint): Promise<boolean> => {
     const actualEndpoint = endpoint ?? this.selectedEndpoint;
 
@@ -176,9 +176,8 @@ export class QorusAuthenticator {
   };
 
   /**
-   * -getSelectedEndpoint-function A getter to return selected {@link Endpoint}
-   *
-   * Returns the selected endpoint if it's created or returns undefined
+   * A getter to get selected Endpoint
+   * @returns Selected Endpoint if the endpoint exists, undefined otherwise
    */
   getSelectedEndpoint = (): Endpoint | undefined => {
     return this.selectedEndpoint;
@@ -186,7 +185,8 @@ export class QorusAuthenticator {
 
   /**
    * Fixed the endpoint data
-   * param data {@link AddEndpoint} to be fixed
+   * @param data AddEndpoint, data to be fixed
+   * @returns Fixed Endpoint config
    */
   #fixEndpointData(data: AddEndpoint): AddEndpoint & LoginParams {
     const newData = { ...data };
@@ -199,9 +199,10 @@ export class QorusAuthenticator {
   }
 
   /**
-   * Checks the validity of the selected endpoint, if the endpoint data ar valid returns true, false otherwise.
+   * Checks the validity of the selected endpoint
    * @param data {@link AddEndpoint} to be checked
    * @param withCredentials boolean to check if the endpoint has credentials
+   * @returns True if the the Endpoint data is valid, False otherwise
    */
   validateEndpointData = (data: AddEndpoint & LoginParams, withCredentials?: boolean): boolean => {
     let valid = true;
@@ -228,7 +229,9 @@ export class QorusAuthenticator {
   };
 
   /**
-   * Validates the local stored authentication token for the endpoint
+   * Validates the local stored authentication token for the Endpoint
+   * @param endpointId Id of the endpoint
+   * @returns Authentication token, if the authentication is successful, null otherwise
    */
   validateLocalUserToken = async (endpointId: string): Promise<string | null> => {
     const authToken = getKeyValLocal(`auth-token-${endpointId}`);
@@ -254,10 +257,10 @@ export class QorusAuthenticator {
   };
 
   /**
-   * -login-function Takes optional username and password parameters to authenticate the user.
-   If the username and password is not provided it tries to authenticate using the locally stored token from the selected {@link Endpoint}
-
-   * token if the authentication is successful else returns undefined
+   * Authenticate user to interact with the Qorus api.
+   * If the username and password is not provided it tries to authenticate using the locally stored token from the selected Endpoint
+   * @param loginParams LoginParams, user and pass is required to authenticate the user.
+   * @returns Authentication token if the authentication is successful, undefined otherwise.
    */
   login = async (loginParams?: LoginParams): Promise<string | undefined> => {
     await this.checkNoAuth();
@@ -301,10 +304,9 @@ export class QorusAuthenticator {
   };
 
   /**
-   * -addEndpoint-function Allows the user to add/initialize a new endpoint
-   * @param props {@link AddEndpoint} requires url and accepts optional user and pass parameters to initialize the endpoint and then authenticate the user
-   *
-   * Returns the newly created endpoint
+   * Add a new Qorus Endpoint to interact with the qorus api.
+   * @param endpointConfig AddEndpoint requires url and accepts optional user and pass parameters to initialize the endpoint and then authenticate the user
+   * @returns Endpoint
    */
   addEndpoint = (endpointConfig: AddEndpoint): Endpoint => {
     const { id, url } = endpointConfig;
@@ -328,10 +330,9 @@ export class QorusAuthenticator {
   };
 
   /**
-   * -renewSelectedEndpointToken-function Allows the user to renew the selected endpoint authentication token
-   *
-   * @param props {@link LoginParams} optional username and password can be provided
-   * Returns token if the authentication is successful, undefined otherwise
+   * Allows the user to renew the selected endpoint authentication token
+   * @param loginParams LoginParams optional username and password can be provided
+   * @returns Token if the authentication is successful, undefined otherwise
    */
   renewSelectedEndpointToken = async (loginParams: LoginParams): Promise<string | undefined> => {
     const { user, pass } = loginParams;
@@ -354,25 +355,22 @@ export class QorusAuthenticator {
   };
 
   /**
-   * -getAuthToken-function A getter to return the auth token of the selected {@link Endpoint}
-   *
-   * Returns token if the the selected endpoint exists and the user is authenticated, otherwise returns undefined
+   * A getter to return the auth token of the selected Endpoint
+   * @returns token if the the selected endpoint exists and the user is authenticated, otherwise returns undefined
    */
   getAuthToken = (): string | undefined => {
     return this.selectedEndpoint?.authToken;
   };
 
   /**
-   * -getEndpointVersion-function A getter to get the api {@link Version} of a {@link Endpoint}
-   *
-   * @param id Optional id parameter to get the version of a particular endpoint
-   *
-   * Returns version of the selected endpoint or version of the the endpoint found by id,
+   * A getter to get the api {@link Version} of a {@link Endpoint}
+   * @param endpointId Optional id parameter to get the version of a particular endpoint
+   * @returns Version of the selected endpoint or version of the the endpoint found by id,
    * if the endpoint doesn't exists it returns undefined
    */
-  getEndpointVersion = (id?: string): Version | undefined => {
-    if (isValidString(id)) {
-      return this.getEndpointById(id!)?.version;
+  getEndpointVersion = (endpointId?: string): Version | undefined => {
+    if (isValidString(endpointId)) {
+      return this.getEndpointById(endpointId!)?.version;
     } else {
       if (this.selectedEndpoint) {
         return this.selectedEndpoint.version;
@@ -387,17 +385,17 @@ export class QorusAuthenticator {
     return versions.includes(version);
   };
 
-  /** -setEndpointVersion-function A setter to edit the {@link Version} of the {@link Endpoint}
+  /**
+   * A setter to set the Version of the Endpoint
    * @param version Version of the qorus api
-   * @param id Optional id parameter to change the url of a particular endpoint from the endpoints array
-   *
-   * Returns version of the endpoint if the operation is successful, undefined otherwise
+   * @param endpointId Optional id parameter to change the url of a particular endpoint from the endpoints array
+   * @returns Version of the endpoint if the operation is successful, undefined otherwise
    *
    */
-  setEndpointVersion = async (version: Version, id?: string): Promise<Version | undefined> => {
-    if (!id) id = this.selectedEndpoint?.id;
-    if (isValidString(id) && this.validateVersion(version)) {
-      const endpoint = this.getEndpointById(id!);
+  setEndpointVersion = async (version: Version, endpointId?: string): Promise<Version | undefined> => {
+    if (!endpointId) endpointId = this.selectedEndpoint?.id;
+    if (isValidString(endpointId) && this.validateVersion(version)) {
+      const endpoint = this.getEndpointById(endpointId!);
       await this.logout();
 
       if (endpoint && isValidString(endpoint.url)) {
@@ -420,11 +418,10 @@ export class QorusAuthenticator {
   };
 
   /**
-   * -setEndpointUrl-function A setter to set the url of the selected {@link Endpoint}
+   * A setter to set the url of the selected Endpoint
    * @param url Base url for the endpoint
    * @param id Optional id parameter to change the url of a particular endpoint
-   *
-   * Returns url of the endpoint if the operation is successful, undefined otherwise
+   * @returns url of the endpoint if the operation is successful, undefined otherwise
    */
   setEndpointUrl = async (url: string, id?: string): Promise<string | undefined> => {
     if (!isValidString(id)) id = this.selectedEndpoint?.id;
@@ -450,18 +447,16 @@ export class QorusAuthenticator {
   };
 
   /**
-   * -getApiPaths-function A getter to return the api paths for the selected {@link Endpoint}
-   *
-   * Returns ApiPaths for the selected endpoint if exists, otherwise returns default api paths
+   * A getter to return the api paths for the selected Endpoint
+   * @returns ApiPaths for the selected endpoint if exists, otherwise returns default api paths
    */
   getApiPaths = (): ApiPaths => {
     return this.allApiPaths;
   };
 
   /**
-   * -getAllEndpoints-function A getter to get all the available {@link Endpoint}
-   *
-   * Returns endpoints array with all the available endpoints
+   * A getter to get all the available Endpoints
+   * @returns Endpoints array with all the available endpoints
    */
   getAllEndpoints = (): Endpoint[] => {
     return this.endpoints;

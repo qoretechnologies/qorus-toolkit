@@ -1,11 +1,12 @@
 import DocGenerator from '../src/utils/DocGenerator';
 describe('Generate Docs class tests', () => {
   jest.setTimeout(50000);
-  it('Check if documentation object exist', async () => {
+  it.only('Check if documentation object exist', async () => {
     // await TypeDocGenerator();
     // await convertProject();
+    console.log(JSON.stringify(DocGenerator.getAllMethodsDocs('QorusValidator')));
 
-    expect(DocGenerator.getAllClasses()).not.toEqual(undefined);
+    // expect(DocGenerator.getAllClasses()).not.toEqual(undefined);
   });
   it('Generate docs for Classes', async () => {
     const classDocs = DocGenerator.getClassDocs('QorusOptions');
@@ -17,9 +18,9 @@ describe('Generate Docs class tests', () => {
     const classObj = DocGenerator.getClass('QorusAuthenticator');
     const methodDocs = DocGenerator.getMethodDocs('addEndpoint', classObj);
 
-    expect(methodDocs.hasOwnProperty('async')).toEqual(true);
-    expect(methodDocs.hasOwnProperty('comments')).toEqual(true);
-    expect(methodDocs.hasOwnProperty('returnTypes')).toEqual(true);
+    expect(methodDocs?.hasOwnProperty('async')).toEqual(true);
+    expect(methodDocs?.hasOwnProperty('comments')).toEqual(true);
+    expect(methodDocs?.hasOwnProperty('returnTypes')).toEqual(true);
   });
   it('Generate interface docs', () => {
     const project = DocGenerator.getProject();

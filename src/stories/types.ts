@@ -1,5 +1,6 @@
 import { TReqoreIntent } from '@qoretechnologies/reqore/dist/constants/theme';
 import { Meta, Story } from '@storybook/react';
+import { MethodDocs } from '../utils/DocGenerator';
 
 export interface IDocumentationParam {
   // TODO: Type is now optional but needs to be REQUIRED in the future
@@ -25,12 +26,7 @@ export type TDocumentationLabel =
   | React.ReactElement<any, string | React.JSXElementConstructor<any>>
   | undefined;
 
-export interface IDocumentationProps {
-  label: TDocumentationLabel;
-  params?: TDocumentationParams;
-  returns?: TDocumentationReturns;
-  content: string | React.ReactElement<any, string | React.JSXElementConstructor<any>>;
-}
+export interface IDocumentationProps extends MethodDocs {}
 
 export interface DocumentationMeta extends Meta<IDocumentationProps> {}
 export interface DocumentationStory extends Story<IDocumentationProps> {}

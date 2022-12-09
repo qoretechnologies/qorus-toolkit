@@ -12,6 +12,11 @@ export interface MethodDocs {
   returnTypes: MethodReturnType[] | undefined;
 }
 
+export interface MethodComment {
+  summary: string;
+  returnSummary: string;
+}
+
 export interface MethodParamTypes {
   label?: string | undefined;
   type?: string | null | undefined;
@@ -63,6 +68,22 @@ class DocGenerator {
     return this.allClasses;
   }
 
+  getAllMethodsDocs(classObj: string | any): any[] | undefined {
+    let classObject;
+    if (typeof classObj === 'string') {
+      classObject = this.getClass(classObj);
+    } else classObject = classObj;
+
+    if (classObject) {
+      const methods = classObject.methods;
+      const methodsDocs = methods.map((method) => {
+        return this.getMethodDocs(method.name, classObject);
+      });
+      return methodsDocs;
+    }
+    return undefined;
+  }
+
   getClassDocs(classObj: string | any) {
     let classObject;
     if (typeof classObj === 'string') {
@@ -103,8 +124,18 @@ class DocGenerator {
     return docs;
   }
 
-  getMethodDocs(methodName: string, classObject?: string | any | undefined): MethodDocs {
-    const classObj = (classObject as any) ?? this.getClass((classObject as string) ?? '') ?? undefined;
+  private GetClassObj = (classObject?: string | any) => {
+    let classObj;
+    if (typeof classObj === 'string') {
+      classObj = this.getClass(classObject);
+    } else classObj = classObject;
+    if (!classObj) return undefined;
+    else return classObj;
+  };
+
+  getMethodDocs(methodName: string, classObject?: string | any | undefined): MethodDocs | undefined {
+    const classObj = this.GetClassObj(classObject);
+    if (!classObj) return undefined;
     const method = this.getMethod(methodName, classObj);
     const label = this.createMethodDefinition(method);
     const name = method?.name;
@@ -264,6 +295,7 @@ interface Json {
     type?: string;
   }[];
 }
+
 enum Kind {
   Array = 'array',
   Conditional = 'conditional',
