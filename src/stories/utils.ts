@@ -1,5 +1,4 @@
-import DocGenerator from '../../dist/utils/DocGenerator';
-import { MethodDocs } from '../utils/DocGenerator';
+import DocGenerator, { MethodDocs } from '../utils/DocGenerator';
 import { DocumentationStory, IDocumentationProps } from './types';
 
 export interface IArgData {

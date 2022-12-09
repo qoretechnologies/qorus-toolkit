@@ -154,6 +154,11 @@ class DocGenerator {
     return docs;
   }
 
+  /**
+   * If the method's return type is a Promise, then it's an async method
+   * @param {any | undefined} method - any | undefined
+   * @returns A boolean value.
+   */
   isAsyncMethod(method: any | undefined): boolean {
     const json: Json | undefined = method?.signatures[0].returnType;
 
@@ -161,17 +166,34 @@ class DocGenerator {
     else return false;
   }
 
+  /**
+   * If the classObj is not undefined, return the method with the given name from the classObj's
+   * methods array, or undefined if no such method exists.
+   * @param {string} methodName - The name of the method you want to find.
+   * @param {any | undefined} classObj - The class object that you want to search for the method in.
+   * @returns The method object with the name that matches the methodName parameter.
+   */
   getMethod(methodName: string, classObj: any | undefined): any | undefined {
     if (!classObj) return undefined;
     return classObj.methods?.find((method) => method.name === methodName);
   }
 
+  /**
+   * It takes a string and returns an object with a label property that has the same value as the string
+   * @param {string} label - The label of the type.
+   * @returns An object with a label property.
+   */
   private createTypeObject(label: string) {
     return {
       label: label,
     };
   }
 
+  /**
+   * It takes a method object and returns an array of MethodReturnType objects
+   * @param {any | undefined} method - any | undefined
+   * @returns An array of MethodReturnType objects.
+   */
   createReturnTypes(method: any | undefined): MethodReturnType[] | undefined {
     const returnType: Json | undefined = method?.signatures[0].returnType;
     if (returnType?.kind === 'union') {
@@ -196,6 +218,11 @@ class DocGenerator {
     return [types];
   }
 
+  /**
+   * It takes a method and returns an object with the method's summary and return summary
+   * @param {any | undefined} method - any | undefined
+   * @returns An object with the summary and returnSummary properties.
+   */
   private createCommentDocs(method: any | undefined) {
     const comments = method?.signatures[0].comment;
     const summary = comments?.description;
@@ -208,11 +235,22 @@ class DocGenerator {
     return commentDocs;
   }
 
+  /**
+   * It takes a method from the parsed documentation and returns an array of objects that contain the
+   * name, type, and description of each parameter
+   * @param {any | undefined} method - any | undefined
+   * @returns An array of objects with the following properties:
+   * - label
+   * - type
+   * - description
+   */
   private createParameterDefinition(method: any | undefined): MethodParamTypes[] {
     const parameters = method?.signatures[0].parameters;
     /*eslint-disable */
     let parsedParameters: { label?: string; type?: string | null; description?: string | null }[] = []; // eslint-disable-line no-use-before-define
     /*eslint-enable */
+
+    /* It's iterating over the parameters array and creating an object for each parameter. */
     parameters?.forEach((parameter) => {
       const json: Json | undefined = parameter?.type;
 
@@ -226,6 +264,11 @@ class DocGenerator {
     return parsedParameters;
   }
 
+  /**
+   * It takes a method object and returns a string that represents the method's signature
+   * @param {any | undefined} method - any | undefined
+   * @returns A string that is a method definition.
+   */
   private createMethodDefinition(method: any | undefined) {
     let methodDefinition = '';
     const methodSignature = method?.signatures[0];
