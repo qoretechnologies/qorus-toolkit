@@ -43,6 +43,9 @@ jobs:
       - name: Build test
         id: build_test
         run: yarn run build:test
+      - name: Build documentation JSON
+        id: build_docs_json
+        run: yarn docs
       - name: Publish to Chromatic
         id: chromatic_publish
         uses: chromaui/action@v1

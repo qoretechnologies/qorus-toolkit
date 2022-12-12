@@ -39,7 +39,7 @@
     "prepublishOnly": "npm test && npm run lint",
     "updatePullRequestVersion": "chmod +x prePush.sh && ./prePush.sh",
     "storybook": "start-storybook -p 6006 --no-dll",
-    "build-storybook": "yarn docs && build-storybook",
+    "build-storybook": "build-storybook",
     "prepare": "npm run build",
     "chromatic": "npx chromatic --project-token=59cd7005d0f1"
   },
