@@ -1,4 +1,4 @@
-import DocGenerator from '../DocGeneratorTesting';
+import DocGenerator from '../DocGenerator';
 describe('Generate Docs class tests', () => {
   jest.setTimeout(50000);
   it('Check if documentation object exist', async () => {

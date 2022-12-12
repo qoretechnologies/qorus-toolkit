@@ -34,7 +34,7 @@
     "build:test": "npx tsc --noEmit",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint . --ext .ts",
-    "docs": "typedoc && node ./docs/DocGenerator.js",
+    "docs": "typedoc && ts-node ./DocGenerator.ts",
     "docs:watch": "npm run css & typedoc --watch",
     "updateDocs": "chmod +x updateDocs.sh && ./updateDocs.sh",
     "css": "./node_modules/.bin/sass src/typedoc/index.scss src/typedoc/index.css",
@@ -120,6 +120,7 @@
     "node-fetch": "2",
     "ssl-root-cas": "^1.3.1",
     "supertest": "^6.2.4",
-    "tracer": "^1.1.6"
+    "tracer": "^1.1.6",
+    "ts-node": "^10.9.1"
   }
 }
