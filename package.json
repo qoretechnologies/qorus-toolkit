@@ -34,7 +34,7 @@
     "build:test": "npx tsc --noEmit",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint . --ext .ts",
-    "docs": "typedoc",
+    "docs": "typedoc && node ./docs/DocGenerator.js",
     "docs:watch": "npm run css & typedoc --watch",
     "updateDocs": "chmod +x updateDocs.sh && ./updateDocs.sh",
     "css": "./node_modules/.bin/sass src/typedoc/index.scss src/typedoc/index.css",

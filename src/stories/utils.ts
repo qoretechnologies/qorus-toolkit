@@ -1,6 +1,5 @@
 import docsJson from '../../docs/parsedProjectDocumentation.json';
-import { MethodDocs } from '../../docs/types';
-import { DocumentationStory, IDocumentationProps } from './types';
+import { DocumentationStory, IDocumentationProps, MethodDocs } from './types';
 
 export interface IArgData {
   description?: string;

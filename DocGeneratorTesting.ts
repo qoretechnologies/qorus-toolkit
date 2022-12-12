@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { ClassMethodParser, ClassParser, InterfaceParser, ProjectParser } from 'typedoc-json-parser';
-import { Json, MethodDocs, MethodParamTypes, MethodReturnType } from './types';
+import { Json, MethodDocs, MethodParamTypes, MethodReturnType } from './src/stories/types';
 
 export const parsedProjectDocs = './docs/parsedProjectDocumentation.json';
 export const typedocDocs = './docs/documentation.json';
