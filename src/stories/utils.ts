@@ -75,10 +75,6 @@ export const getMethodData = (methodName: string, className: string) => {
   return selectedMethod;
 };
 
-export const newStory = (template: DocumentationStory, className: string) => (methodName: string) => {
-  return prepareStory(template, methodName, className);
-};
-
 export const prepareStory = (template: DocumentationStory, methodName: string, className: string) => {
   const selectedMethod = getMethodData(methodName, className);
 
@@ -89,4 +85,8 @@ export const prepareStory = (template: DocumentationStory, methodName: string, c
   story.args = docData;
 
   return story;
+};
+
+export const newStory = (template: DocumentationStory, className: string) => (methodName: string) => {
+  return prepareStory(template, methodName, className);
 };
