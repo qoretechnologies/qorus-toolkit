@@ -54,10 +54,15 @@ export interface MethodReturnType {
   label: string;
 }
 
+export interface ParamType {
+  kind: string;
+  type: string;
+}
+
 export interface Json {
   kind: Kind;
   name?: string;
-  type?: string;
+  type?: ParamType | string;
   types?: {
     kind: string;
     type?: string;

@@ -2,7 +2,7 @@ import DocGenerator from '../DocGenerator';
 describe('Generate Docs class tests', () => {
   jest.setTimeout(50000);
   it('Check if documentation object exist', async () => {
-    expect(DocGenerator.getAllClasses()).not.toEqual(undefined);
+    expect(DocGenerator.createAllDocsJson()).not.toEqual(undefined);
   });
   it('Generate docs for Classes', async () => {
     const classDocs = DocGenerator.getClassDocs('QorusOptions');

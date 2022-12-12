@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { ClassMethodParser, ClassParser, InterfaceParser, ProjectParser } from 'typedoc-json-parser';
-import { Json, MethodDocs, MethodParamTypes, MethodReturnType } from './src/stories/types';
+import { Json, MethodDocs, MethodParamTypes, MethodReturnType, ParamType } from './src/stories/types';
 
 export const parsedProjectDocs = './docs/parsedProjectDocumentation.json';
 export const typedocDocs = './docs/documentation.json';
@@ -213,7 +213,7 @@ class DocGenerator {
    * @param {any | undefined} method - any | undefined
    * @returns An array of MethodReturnType objects.
    */
-  createReturnTypes(method: any | undefined): MethodReturnType[] | undefined {
+  createReturnTypes(method: ClassMethodParser | undefined): MethodReturnType[] | undefined {
     const returnType: Json | undefined = method?.signatures[0].returnType;
     if (returnType?.kind === 'union') {
       const types = returnType.types?.map((type) => {
@@ -242,7 +242,7 @@ class DocGenerator {
    * @param {any | undefined} method - any | undefined
    * @returns An object with the summary and returnSummary properties.
    */
-  private createCommentDocs(method: any | undefined) {
+  private createCommentDocs(method: ClassMethodParser | undefined) {
     const comments = method?.signatures[0].comment;
     const summary = comments?.description;
     const returnSummary = comments?.blockTags.find((tag) => tag.name === 'returns')?.text;
@@ -263,7 +263,7 @@ class DocGenerator {
    * - type
    * - description
    */
-  private createParameterDefinition(method: any | undefined): MethodParamTypes[] {
+  private createParameterDefinition(method: ClassMethodParser | undefined): MethodParamTypes[] {
     const parameters = method?.signatures[0].parameters;
     /*eslint-disable */
     let parsedParameters: { label?: string; type?: string | undefined; description?: string | null }[] = []; // eslint-disable-line no-use-before-define
@@ -271,11 +271,19 @@ class DocGenerator {
 
     /* It's iterating over the parameters array and creating an object for each parameter. */
     parameters?.forEach((parameter) => {
-      const json: Json | undefined = parameter?.type;
+      const json: Json | undefined = parameter?.type.toJSON();
+      let type;
+      if (json.name) {
+        type = json.name;
+      } else if (json.type) {
+        type = (json.type as ParamType).type ?? json.type;
+      } else {
+        type = json.kind;
+      }
 
       const obj = {
         label: parameter.name,
-        type: json?.name ?? json?.type ?? json?.kind,
+        type: type,
         description: parameter.comment.description,
       };
       parsedParameters.push(obj);
