@@ -33,4 +33,4 @@ const className = 'QorusRequest';
 export const get = prepareStory(Template, 'get', className);
 export const post = prepareStory(Template, 'post', className);
 export const put = prepareStory(Template, 'put', className);
-export const delReq = prepareStory(Template, 'delReq', className);
+export const delReq = prepareStory(Template, 'deleteReq', className);

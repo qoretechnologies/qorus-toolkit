@@ -60,7 +60,7 @@ export interface MethodComment {
 }
 
 export interface MethodParamTypes {
-  label?: string | undefined;
+  label: string;
   type?: string | undefined | any;
   description?: string | undefined | null;
 }

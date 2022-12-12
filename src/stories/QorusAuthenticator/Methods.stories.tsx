@@ -1,8 +1,4 @@
-import { ReqoreSpacer } from '@qoretechnologies/reqore';
-import { DocumentationExample } from '../components/example';
-import { DocumentationItem } from '../components/item';
-import { DocumentationTip } from '../components/tip';
-import { DocumentationWrapper } from '../components/wrapper';
+import { Documentation } from '../components/documentation';
 import { DocumentationMeta, DocumentationStory } from '../types';
 import { argsData, getClassData, newStory } from '../utils';
 import { QorusAuthenticatorDemo } from './demo';
@@ -21,20 +17,20 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
   } = getClassData('QorusAuthenticator');
 
   return (
-    <DocumentationWrapper
-      title={name}
+    <Documentation
+      {...rest}
+      itemName={rest.name}
+      name={name}
       description={description || undefined}
-      code="import { QorusAuthenticator } from '@qoretechnologies/qorus-toolkit'"
+      summary={comments.summary}
+      story={context.story}
+      tip={'This is a tip'}
     >
-      <DocumentationItem {...rest}>{comments.summary}</DocumentationItem>
-      <DocumentationTip>Note: there is no check whether the provided endpoint is valid or not</DocumentationTip>
-      <ReqoreSpacer height={20} />
-      <DocumentationExample label={context.story} />
-      <ReqoreSpacer height={20} />
       <QorusAuthenticatorDemo />
-    </DocumentationWrapper>
+    </Documentation>
   );
 };
+
 const prepareStory = newStory(Template, 'QorusAuthenticator');
 
 export const addEndpoint = prepareStory('addEndpoint');

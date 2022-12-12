@@ -29,7 +29,7 @@ export const DocumentationWrapper = ({ title, description, code, children }: IDo
             {code}
           </SyntaxHighlighter>
           <ReqoreSpacer height={20} />
-          <ReqoreMessage size="normal" intent="info" icon="InformationLine" flat>
+          <ReqoreMessage size="normal" inverted effect={{ color: '#ffffff' }} intent="info" icon="InformationLine">
             {description}
           </ReqoreMessage>
         </ReqorePanel>

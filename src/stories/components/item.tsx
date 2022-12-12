@@ -1,9 +1,9 @@
 import { ReqoreCollection, ReqoreMessage, ReqorePanel, ReqoreSpacer, ReqoreTagGroup } from '@qoretechnologies/reqore';
 import { IReqoreCollectionItemProps } from '@qoretechnologies/reqore/dist/components/Collection/item';
 import { IReqorePanelProps } from '@qoretechnologies/reqore/dist/components/Panel';
-import ReqoreTag, { IReqoreTagProps } from '@qoretechnologies/reqore/dist/components/Tag';
 import { map, size } from 'lodash';
 import { MethodComment, MethodParamTypes, MethodReturnType } from '../types';
+import { DocumentationType } from './type';
 
 export interface IDocumentationItemsProps extends IReqorePanelProps {
   params?: MethodParamTypes[];
@@ -22,33 +22,6 @@ export const DocumentationItem = ({
   comment,
   ...rest
 }: IDocumentationItemsProps) => {
-  const buildTags = (param: MethodParamTypes): IReqoreTagProps[] => {
-    const tags: IReqoreTagProps[] = [
-      {
-        icon: 'CodeLine',
-        label: param.type || 'string',
-        size: 'normal',
-        effect: {
-          gradient: {
-            direction: 'to right bottom',
-            colors: {
-              100: '#191919',
-              0: '#3b3b3b',
-            },
-          },
-        },
-        // intent: param.link ? 'info' : undefined,
-        // rightIcon: param.link ? 'Link' : undefined,
-      },
-    ];
-
-    // if (param.optional) {
-    //   tags.push({ icon: 'QuestionMark', labelKey: 'Optional', label: 'Yes', rightIcon: 'CheckFill' });
-    // }
-
-    return tags;
-  };
-
   return (
     <>
       <ReqorePanel flat opacity={0} headerSize={1} {...rest} label={name}>
@@ -77,9 +50,23 @@ export const DocumentationItem = ({
                 params,
                 (param): IReqoreCollectionItemProps => ({
                   label: param.label,
-                  content: param.description,
+                  content: (
+                    <>
+                      {param.description}
+                      <ReqoreSpacer height={20} />
+                      <ReqoreTagGroup>
+                        <DocumentationType
+                          {...param}
+                          {...{
+                            icon: 'CodeLine',
+                            label: param.type || 'string',
+                            size: 'normal',
+                          }}
+                        />
+                      </ReqoreTagGroup>
+                    </>
+                  ),
                   headerSize: 4,
-                  tags: buildTags(param),
                   flat: false,
                   contentEffect: {
                     gradient: {
@@ -101,12 +88,10 @@ export const DocumentationItem = ({
             <ReqoreSpacer height={10} />
             <ReqoreTagGroup>
               {returnTypes?.map((type) => (
-                <ReqoreTag
+                <DocumentationType
                   {...{
                     icon: 'CodeLine',
                     label: type.label || 'string',
-                    // intent: type.link ? 'info' : type.intent,
-                    // rightIcon: type.link ? 'Link' : undefined,
                   }}
                 />
               ))}

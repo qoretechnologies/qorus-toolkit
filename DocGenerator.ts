@@ -274,7 +274,7 @@ class DocGenerator {
   private createParameterDefinition(method: any | undefined): MethodParamTypes[] {
     const parameters = method?.signatures[0].parameters;
     /*eslint-disable */
-    let parsedParameters: { label?: string; type?: string | undefined; description?: string | null }[] = []; // eslint-disable-line no-use-before-define
+    let parsedParameters: { label: string; type?: string | undefined; description?: string | null }[] = []; // eslint-disable-line no-use-before-define
     /*eslint-enable */
 
     /* It's iterating over the parameters array and creating an object for each parameter. */

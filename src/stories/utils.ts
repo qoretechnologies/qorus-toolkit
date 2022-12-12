@@ -60,8 +60,10 @@ export const getClassData = (className: string): DocumentationClass => {
 export const getMethodData = (methodName: string, className: string) => {
   let selectedMethod;
 
-  docs.methodDocs.map((method) =>
-    method.map((meth) => {
+  console.log(docs.methodDocs);
+
+  docs.methodDocs.forEach((method) =>
+    method.forEach((meth) => {
       if (meth.className && meth.data.name) {
         if (meth.className === className && meth.data.name === methodName) {
           selectedMethod = meth;
