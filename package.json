@@ -31,7 +31,7 @@
     "test:coverage": "npm test -- --coverage",
     "test:badges": "npm run test:coverage  && jest-coverage-badges",
     "build": "npx tsc --p ./tsconfig.prod.json",
-    "build:test": "npx tsc tsc --p ./tsconfig.prod.json --noEmit",
+    "build:test": "npx tsc --p ./tsconfig.prod.json --noEmit",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint . --ext .ts",
     "docs": "typedoc && ts-node ./DocGenerator.ts",
