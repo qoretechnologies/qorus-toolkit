@@ -1,9 +1,8 @@
-import DocGenerator from '../src/utils/DocGenerator';
+import DocGenerator from '../docs/DocGenerator';
 describe('Generate Docs class tests', () => {
   jest.setTimeout(50000);
   it('Check if documentation object exist', async () => {
-    // await TypeDocGenerator();
-    // await convertProject();
+    // DocGenerator.createAllDocsJson();
     expect(DocGenerator.getAllClasses()).not.toEqual(undefined);
   });
   it('Generate docs for Classes', async () => {

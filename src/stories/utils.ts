@@ -1,4 +1,5 @@
-import DocGenerator, { MethodDocs } from '../utils/DocGenerator';
+import docsJson from '../../docs/parsedProjectDocumentation.json';
+import { MethodDocs } from '../../docs/types';
 import { DocumentationStory, IDocumentationProps } from './types';
 
 export interface IArgData {
@@ -50,18 +51,35 @@ export const argManager = <Target>() => {
 const documentationArgs = argManager<IDocumentationProps>();
 
 export const argsData = {
-  ...documentationArgs.disableArgs(['label', 'params', 'returnTypes', 'comments']),
+  ...documentationArgs.disableArgs(['label', 'params', 'returnTypes', 'comments'] as never as any),
 };
 
 export const prepareStory = (template: DocumentationStory, methodName: string, className: string) => {
+  let selectedMethod = getMethodData(methodName, className);
+
   const story = template.bind({});
-  const classObj = DocGenerator.getClass(className);
-  const docData: MethodDocs | undefined = DocGenerator.getMethodDocs(methodName, classObj);
+  const docData: MethodDocs | undefined = selectedMethod?.data;
 
   story.storyName = methodName;
   story.args = docData;
 
   return story;
+};
+
+export const getMethodData = (methodName: string, className: string) => {
+  let selectedMethod;
+  docsJson.methodDocs.map((method) =>
+    method.map((meth) => {
+      if (meth.className && meth.data.name) {
+        if (meth.className === className && meth.data.name === methodName) selectedMethod = meth;
+      }
+    }),
+  );
+  if (!selectedMethod) console.log('cant find for', className, methodName);
+  else console.log('found', className, methodName);
+
+  selectedMethod.data.returnTypes.reverse();
+  return selectedMethod;
 };
 
 // Here we get the documentation data

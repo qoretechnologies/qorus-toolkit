@@ -1,6 +1,5 @@
 node_modules
 dist
 logs
-./docs
 notes.md
 tests.json

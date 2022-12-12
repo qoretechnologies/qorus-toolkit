@@ -3,7 +3,7 @@ import { IReqoreCollectionItemProps } from '@qoretechnologies/reqore/dist/compon
 import { IReqorePanelProps } from '@qoretechnologies/reqore/dist/components/Panel';
 import ReqoreTag, { IReqoreTagProps } from '@qoretechnologies/reqore/dist/components/Tag';
 import { map } from 'lodash';
-import { MethodComment, MethodParamTypes, MethodReturnType } from '../../utils/DocGenerator';
+import { MethodComment, MethodParamTypes, MethodReturnType } from '../../../docs/types';
 
 export interface IDocumentationItemsProps extends IReqorePanelProps {
   params?: MethodParamTypes[];

@@ -17,7 +17,7 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
   return (
     <DocumentationWrapper
       title="Qorus Options"
-      description="A helper class to make it easier to handle Qorus api DataProviders"
+      description="Constructor options manager for QorusDataProvider"
       code="import { QorusOptions } from '@qoretechnologies/qorus-toolkit'"
     >
       <DocumentationItem {...rest}>{comments.summary}</DocumentationItem>
@@ -31,6 +31,9 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
 const className = 'QorusOptions';
 
 export const get = prepareStory(Template, 'get', className);
-export const post = prepareStory(Template, 'post', className);
-export const put = prepareStory(Template, 'put', className);
-export const deleteReq = prepareStory(Template, 'deleteReq', className);
+export const set = prepareStory(Template, 'set', className);
+export const validate = prepareStory(Template, 'validate', className);
+export const validateProperty = prepareStory(Template, 'validateProperty', className);
+export const getAll = prepareStory(Template, 'getAll', className);
+export const parseChildren = prepareStory(Template, 'parseChildren', className);
+export const convertToJsType = prepareStory(Template, 'convertToJsType', className);

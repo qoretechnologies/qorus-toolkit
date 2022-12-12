@@ -2,20 +2,17 @@ import {
   ReqoreColumn,
   ReqoreColumns,
   ReqoreControlGroup,
-  ReqoreDropdown,
   ReqoreInput,
   ReqoreMessage,
   ReqorePanel,
 } from '@qoretechnologies/reqore';
 import { useState } from 'react';
 import QorusAuthenticator, { AddEndpoint, LoginParams } from '../../QorusAuthenticator';
-import { versions } from '../../QorusValidator';
-import { Version } from '../../utils/apiPaths';
 
 export const QorusAuthenticatorDemo = () => {
   const [url, setUrl] = useState<AddEndpoint['url']>('');
   const [id, setID] = useState<AddEndpoint['id']>('');
-  const [version, setVersion] = useState<AddEndpoint['version']>('latest');
+  const [version] = useState<AddEndpoint['version']>('latest');
   const [user, setUser] = useState<LoginParams['user']>('');
   const [pass, setPass] = useState<LoginParams['pass']>('');
 
@@ -62,7 +59,7 @@ export const QorusAuthenticatorDemo = () => {
             <ReqoreControlGroup fluid vertical stack>
               <ReqoreInput fluid placeholder="Endpoint ID" value={id} onChange={(e: any) => setID(e.target.value)} />
               <ReqoreInput placeholder="Endpoint URL" value={url} onChange={(e: any) => setUrl(e.target.value)} />
-              <ReqoreDropdown
+              {/* <ReqoreDropdown
                 items={versions.map((v: string | number | Version) => ({
                   label: v,
                   id: v.toString(),
@@ -75,7 +72,7 @@ export const QorusAuthenticatorDemo = () => {
                 }}
                 component={ReqoreInput}
                 label={version}
-              />
+              /> */}
               <ReqoreInput placeholder="Endpoint User" value={user} onChange={(e: any) => setUser(e.target.value)} />
               <ReqoreInput
                 placeholder="Endpoint Pass"

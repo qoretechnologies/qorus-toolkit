@@ -1,6 +1,6 @@
 import { TReqoreIntent } from '@qoretechnologies/reqore/dist/constants/theme';
 import { Meta, Story } from '@storybook/react';
-import { MethodDocs } from '../utils/DocGenerator';
+import { MethodDocs } from '../../docs/types';
 
 export interface IDocumentationParam {
   // TODO: Type is now optional but needs to be REQUIRED in the future
