@@ -51,19 +51,7 @@ export const argManager = <Target>() => {
 const documentationArgs = argManager<IDocumentationProps>();
 
 export const argsData = {
-  ...documentationArgs.disableArgs(['label', 'params', 'returnTypes', 'comments'] as never as any),
-};
-
-export const prepareStory = (template: DocumentationStory, methodName: string, className: string) => {
-  let selectedMethod = getMethodData(methodName, className);
-
-  const story = template.bind({});
-  const docData: MethodDocs | undefined = selectedMethod?.data;
-
-  story.storyName = methodName;
-  story.args = docData;
-
-  return story;
+  ...documentationArgs.disableArgs(['label', 'params', 'returnTypes', 'comments']),
 };
 
 export const getMethodData = (methodName: string, className: string) => {
@@ -80,6 +68,18 @@ export const getMethodData = (methodName: string, className: string) => {
 
   selectedMethod.data.returnTypes.reverse();
   return selectedMethod;
+};
+
+export const prepareStory = (template: DocumentationStory, methodName: string, className: string) => {
+  const selectedMethod = getMethodData(methodName, className);
+
+  const story = template.bind({});
+  const docData: MethodDocs | undefined = selectedMethod?.data;
+
+  story.storyName = methodName;
+  story.args = docData;
+
+  return story;
 };
 
 // Here we get the documentation data
