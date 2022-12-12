@@ -3,15 +3,11 @@ import { withTests } from '@storybook/addon-jest';
 import results from '../tests.json';
 
 export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
   layout: 'fullscreen',
   options: {
     panelPosition: 'right',
     // Hide the panel that shows the addon configurations
     showPanel: false,
-    sidebar: {
-      showRoots: true,
-    },
   },
   controls: {
     matchers: {
@@ -22,15 +18,15 @@ export const parameters = {
     expanded: false,
   },
   chromatic: {
-    delay: 500,
+    pauseAnimationAtEnd: true,
   },
 };
 
 export const argTypes = {};
 
 export const decorators = [
-  (Story, context) => (
-    <ReqoreUIProvider theme={{ main: context.args.mainTheme }}>
+  (Story) => (
+    <ReqoreUIProvider theme={{ main: '#111111', intents: { info: '#7f4098' } }}>
       <ReqoreLayoutContent>
         <ReqoreContent style={{ padding: '20px' }}>
           <Story />

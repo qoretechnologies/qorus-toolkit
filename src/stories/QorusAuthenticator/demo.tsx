@@ -39,7 +39,7 @@ export const QorusAuthenticatorDemo = () => {
   };
 
   return (
-    <ReqorePanel flat label="Demo" collapsible>
+    <ReqorePanel flat label="Demo" collapsible isCollapsed>
       <ReqoreColumns columnsGap="15px">
         <ReqoreColumn>
           <ReqorePanel

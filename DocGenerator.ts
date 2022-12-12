@@ -113,6 +113,8 @@ class DocGenerator {
       return undefined;
     }
 
+    console.log(classObject);
+
     const name = classObject.name;
     const comment = {
       description: classObject.comment.description,

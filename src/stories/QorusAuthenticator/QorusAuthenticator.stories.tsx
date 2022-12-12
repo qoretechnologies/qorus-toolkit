@@ -1,47 +1,55 @@
 import { ReqoreSpacer } from '@qoretechnologies/reqore';
 import { DocumentationExample } from '../components/example';
 import { DocumentationItem } from '../components/item';
+import { DocumentationTip } from '../components/tip';
 import { DocumentationWrapper } from '../components/wrapper';
 import { DocumentationMeta, DocumentationStory } from '../types';
-import { argsData, prepareStory } from '../utils';
+import { argsData, getClassData, newStory } from '../utils';
 import { QorusAuthenticatorDemo } from './demo';
 
 export default {
-  title: 'API/Authenticator',
+  title: 'API/QorusAuthenticator/Methods',
   argTypes: {
     ...argsData,
   },
 } as DocumentationMeta;
 
 const Template: DocumentationStory = ({ comments, ...rest }, context) => {
+  const {
+    name,
+    comment: { description },
+  } = getClassData('QorusAuthenticator');
+
   return (
     <DocumentationWrapper
-      title="Authenticator"
-      description="Helper for authentication"
+      title={name}
+      description={description || undefined}
       code="import { QorusAuthenticator } from '@qoretechnologies/qorus-toolkit'"
     >
       <DocumentationItem {...rest}>{comments.summary}</DocumentationItem>
+      <DocumentationTip>Note: there is no check whether the provided endpoint is valid or not</DocumentationTip>
+      <ReqoreSpacer height={20} />
       <DocumentationExample label={context.story} />
       <ReqoreSpacer height={20} />
       <QorusAuthenticatorDemo />
     </DocumentationWrapper>
   );
 };
-const className = 'QorusAuthenticator';
+const prepareStory = newStory(Template, 'QorusAuthenticator');
 
-export const addEndpoint = prepareStory(Template, 'addEndpoint', className);
-export const login = prepareStory(Template, 'login', className);
-export const validateVersion = prepareStory(Template, 'validateVersion', className);
-export const validateLocalUserToken = prepareStory(Template, 'validateLocalUserToken', className);
-export const validateEndpointData = prepareStory(Template, 'validateEndpointData', className);
-export const setEndpointVersion = prepareStory(Template, 'setEndpointVersion', className);
-export const setEndpointUrl = prepareStory(Template, 'setEndpointUrl', className);
-export const selectEndpoint = prepareStory(Template, 'selectEndpoint', className);
-export const renewSelectedEndpointToken = prepareStory(Template, 'renewSelectedEndpointToken', className);
-export const logout = prepareStory(Template, 'logout', className);
-export const getSelectedEndpoint = prepareStory(Template, 'getSelectedEndpoint', className);
-export const getEndpointVersion = prepareStory(Template, 'getEndpointVersion', className);
-export const getEndpointById = prepareStory(Template, 'getEndpointById', className);
-export const getAuthToken = prepareStory(Template, 'getAuthToken', className);
-export const getApiPaths = prepareStory(Template, 'getApiPaths', className);
-export const checkNoAuth = prepareStory(Template, 'checkNoAuth', className);
+export const addEndpoint = prepareStory('addEndpoint');
+export const login = prepareStory('login');
+export const validateVersion = prepareStory('validateVersion');
+export const validateLocalUserToken = prepareStory('validateLocalUserToken');
+export const validateEndpointData = prepareStory('validateEndpointData');
+export const setEndpointVersion = prepareStory('setEndpointVersion');
+export const setEndpointUrl = prepareStory('setEndpointUrl');
+export const selectEndpoint = prepareStory('selectEndpoint');
+export const renewSelectedEndpointToken = prepareStory('renewSelectedEndpointToken');
+export const logout = prepareStory('logout');
+export const getSelectedEndpoint = prepareStory('getSelectedEndpoint');
+export const getEndpointVersion = prepareStory('getEndpointVersion');
+export const getEndpointById = prepareStory('getEndpointById');
+export const getAuthToken = prepareStory('getAuthToken');
+export const getApiPaths = prepareStory('getApiPaths');
+export const checkNoAuth = prepareStory('checkNoAuth');

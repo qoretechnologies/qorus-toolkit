@@ -1814,10 +1814,10 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.6.tgz#cee20bd55e68a1720bdab363ecf0c821ded4cd45"
   integrity sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==
 
-"@qoretechnologies/reqore@^0.25.10":
-  version "0.25.10"
-  resolved "https://registry.yarnpkg.com/@qoretechnologies/reqore/-/reqore-0.25.10.tgz#a3cf8bf98fb52d0df22537a0dc529a014acb9704"
-  integrity sha512-sDKBRD//thbe4TyefTpmQURy9CLAo8nMJ720TMSYs3w0D6UlNTqX3JJlR9QvKKIajq/jzXnOedV+lkA9SisMkA==
+"@qoretechnologies/reqore@^0.26.0":
+  version "0.26.0"
+  resolved "https://registry.yarnpkg.com/@qoretechnologies/reqore/-/reqore-0.26.0.tgz#2d6fdae35ad3c6a6ccac9fd2a6296021ca31ce44"
+  integrity sha512-i1rEBxuUev3eiWH7iYmRtTYojNpdkXr0J7vNte2JB0qZ1U5aS6GlEMAF+7f3hmROrj8aoLksTzd7MDjym2NNPA==
   dependencies:
     "@popperjs/core" "^2.10.2"
     "@react-spring/web" "^9.2.4"
@@ -5356,10 +5356,10 @@ chownr@^2.0.0:
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-2.0.0.tgz#15bfbe53d2eab4cf70f18a8cd68ebe5b3cb1dece"
   integrity sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==
 
-chromatic@^6.11.4:
-  version "6.11.4"
-  resolved "https://registry.yarnpkg.com/chromatic/-/chromatic-6.11.4.tgz#1bb72bceb8f4455694e9e27db86c585e8b7cb7cd"
-  integrity sha512-f1TcuIXKjGUuOjPuwFF44kzbuEcESFcDxHzrzWPLmHuC90dV8HLxbufqYaTOBYMO/rJ32Zftb7S9pXuF/Rhfog==
+chromatic@^6.12.0:
+  version "6.12.0"
+  resolved "https://registry.yarnpkg.com/chromatic/-/chromatic-6.12.0.tgz#017aa9919e621c7e900ecd926d5362733bbb2f8c"
+  integrity sha512-Xm+GeBzaRFeTeqZb07Tx9FjkP63PTbVmX1FA8HPJq1dpthgUKATX7g53cw6ZET6+gCogGKuvsfIcB+naAqTQDQ==
   dependencies:
     "@discoveryjs/json-ext" "^0.5.7"
     "@types/webpack-env" "^1.17.0"

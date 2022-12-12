@@ -43,12 +43,16 @@ jobs:
       - name: Build test
         id: build_test
         run: yarn run build:test
+      - name: Publish to Chromatic
+        id: chromatic_publish
+        uses: chromaui/action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          exitZeroOnChanges: true
       - name: Change npm version
         id: change_npm_version
         run: npm version ${{ steps.save_release_version.outputs.version }} --no-git-tag-version --force
-      - name: Clean code
-        id: clean_code
-        run: ./cleanCode.sh
       - name: Publish to NPM
         id: npm_publish
         uses: JS-DevTools/npm-publish@v1

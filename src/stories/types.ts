@@ -30,6 +30,21 @@ export interface IDocumentationProps extends MethodDocs {}
 export interface DocumentationMeta extends Meta<IDocumentationProps> {}
 export interface DocumentationStory extends Story<IDocumentationProps> {}
 
+export interface DocumentationProperty {
+  name: string;
+}
+
+export interface DocumentationClass {
+  name: string;
+  properties: DocumentationProperty[];
+  comment: {
+    description?: string | null;
+    blockTags?: {
+      name: string | null;
+      text: string | null;
+    }[];
+  };
+}
 export interface MethodDocs {
   async: boolean;
   name: string | undefined;
