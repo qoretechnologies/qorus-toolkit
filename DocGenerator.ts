@@ -2,7 +2,7 @@ import fs from 'fs';
 import { ClassMethodParser, ClassParser, InterfaceParser, ProjectParser } from 'typedoc-json-parser';
 import { Json, MethodDocs, MethodParamTypes, MethodReturnType } from './src/stories/types';
 
-export const parsedProjectDocs = './docs/parsedProjectDocumentation.json';
+export const parsedProjectDocs = './src/stories/docs.ts';
 export const typedocDocs = './docs/documentation.json';
 
 class DocGenerator {
@@ -54,8 +54,16 @@ class DocGenerator {
   createAllDocsJson() {
     const classesDocs = this.createAllClassesJson();
     const methodDocs = this.createAllMethodsJson();
+
+    // Create a typescript file that exports an object containing classesDocs and methodDocs
+    fs.writeFileSync(
+      parsedProjectDocs,
+      `export default { classesDocs: ${JSON.stringify(classesDocs)}, methodDocs: ${JSON.stringify(methodDocs)} }`,
+    );
+
     // Writing parsed project data to file
-    fs.writeFileSync(parsedProjectDocs, JSON.stringify({ classesDocs, methodDocs }));
+    //fs.writeFileSync(parsedProjectDocs, { classesDocs, methodDocs });
+
     return {
       classesDocs,
       methodDocs,
@@ -112,8 +120,6 @@ class DocGenerator {
     if (!classObject.name) {
       return undefined;
     }
-
-    console.log(classObject);
 
     const name = classObject.name;
     const comment = {

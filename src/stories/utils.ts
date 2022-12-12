@@ -1,4 +1,4 @@
-import docsJson from '../../docs/parsedProjectDocumentation.json';
+import docs from './docs';
 import { DocumentationClass, DocumentationStory, IDocumentationProps, MethodDocs } from './types';
 
 export interface IArgData {
@@ -54,15 +54,13 @@ export const argsData = {
 };
 
 export const getClassData = (className: string): DocumentationClass => {
-  return docsJson.classesDocs.find((classDoc) => classDoc.name === className)!;
+  return docs.classesDocs.find((classDoc) => classDoc.name === className)!;
 };
 
 export const getMethodData = (methodName: string, className: string) => {
   let selectedMethod;
 
-  console.log(docsJson);
-
-  docsJson.methodDocs.map((method) =>
+  docs.methodDocs.map((method) =>
     method.map((meth) => {
       if (meth.className && meth.data.name) {
         if (meth.className === className && meth.data.name === methodName) {
