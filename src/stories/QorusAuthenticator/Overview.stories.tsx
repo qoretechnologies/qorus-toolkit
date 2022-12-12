@@ -9,7 +9,7 @@ export default {
   },
 } as DocumentationMeta;
 
-export const Overview: DocumentationStory = ({ comments, ...rest }, context) => {
+export const Overview: DocumentationStory = ({ comments }, context) => {
   const {
     name,
     comment: { description },
