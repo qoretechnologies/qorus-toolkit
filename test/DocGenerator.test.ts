@@ -3,7 +3,6 @@ describe('Generate Docs class tests', () => {
   jest.setTimeout(50000);
   it.only('Check if documentation object exist', async () => {
     const classObj = DocGenerator.getClass('QorusAuthenticator');
-    console.log(JSON.stringify(DocGenerator.getMethodDocs('checkNoAuth', classObj)));
     expect(DocGenerator.getMethodDocs('getRecord', classObj)).not.toEqual(undefined);
   });
   it('Generate docs for Classes', async () => {
