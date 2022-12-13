@@ -1,5 +1,11 @@
 import fs from 'fs';
-import { ClassMethodParser, ClassParser, InterfaceParser, ProjectParser } from 'typedoc-json-parser';
+import {
+  ClassMethodParser,
+  ClassParser,
+  InterfaceParser,
+  InterfacePropertyParser,
+  ProjectParser,
+} from 'typedoc-json-parser';
 import { InterfaceDocs, Json, MethodDocs, MethodParamTypes, MethodReturnType, ParamType } from './src/stories/types';
 
 export const parsedProjectDocs = './src/stories/docs.ts';
@@ -50,7 +56,7 @@ class DocGenerator {
   createInterfaceDocs(interfaceObject?: InterfaceParser | string) {
     let interfaceObj: InterfaceParser | undefined;
     if (typeof interfaceObject === 'string') {
-      interfaceObject = this.getInterface(interfaceObject);
+      interfaceObj = this.getInterface(interfaceObject);
     } else {
       interfaceObj = interfaceObject;
     }
@@ -63,7 +69,7 @@ class DocGenerator {
       const propertyDocs = {
         name: property.name,
         comment: property.comment.description,
-        type: this.getAdjustedType(property.type),
+        type: this.getInterfacePropertyType(property),
       };
       return propertyDocs;
     });
@@ -75,6 +81,26 @@ class DocGenerator {
     };
 
     return docs;
+  }
+
+  getInterfacePropertyType(property: InterfacePropertyParser) {
+    const adjustedType = this.getAdjustedType(property.type);
+    const prop = property as any;
+    let propertyType;
+    if (adjustedType === 'union') {
+      propertyType = prop.type.types.map((propertyNew) => {
+        if (propertyNew.name) {
+          const propDocs = {
+            name: propertyNew.name,
+            type: this.getAdjustedType(propertyNew.type),
+          };
+          return propDocs;
+        } else return undefined;
+      });
+    } else {
+      propertyType = [{ name: property.name, type: adjustedType }];
+    }
+    return propertyType;
   }
 
   createAllInterfacesJson() {
@@ -262,17 +288,6 @@ class DocGenerator {
     };
   }
 
-  // getParameterType(parameter) {
-  //   if (parameter.type === 'union') {
-  //     const types = parameter.types?.map((type) => {
-  //       const adjustedType = this.getAdjustedType(type);
-  //       const obj = this.createTypeObject(adjustedType);
-  //       return obj;
-  //     });
-  //     return types;
-  //   }
-  // }
-
   /**
    * It takes a method object and returns an array of MethodReturnType objects
    * @param {any | undefined} method - any | undefined
@@ -421,5 +436,5 @@ class DocGenerator {
 }
 export default new DocGenerator();
 
-const docs = new DocGenerator();
-docs.createAllDocsJson();
+// const docs = new DocGenerator();
+// docs.createAllDocsJson();

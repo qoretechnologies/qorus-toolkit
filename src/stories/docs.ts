@@ -941,54 +941,102 @@ export default {
       name: 'AddEndpoint',
       comment: null,
       properties: [
-        { name: 'id', comment: 'Id for the endpoint provided by the user, unique for every endpoint', type: 'string' },
-        { name: 'url', comment: 'URL to your server for the provided endpoint', type: 'string' },
-        { name: 'version', comment: 'Version for the server api', type: 'Version' },
+        {
+          name: 'id',
+          comment: 'Id for the endpoint provided by the user, unique for every endpoint',
+          type: [{ name: 'id', type: 'string' }],
+        },
+        {
+          name: 'url',
+          comment: 'URL to your server for the provided endpoint',
+          type: [{ name: 'url', type: 'string' }],
+        },
+        { name: 'version', comment: 'Version for the server api', type: [{ name: 'version', type: 'Version' }] },
       ],
     },
     {
       name: 'Endpoint',
       comment: null,
       properties: [
-        { name: 'authToken', comment: 'Auth token for the user provided endpoint', type: 'string' },
-        { name: 'id', comment: 'Id for the endpoint provided by the user, unique for every endpoint', type: 'string' },
-        { name: 'url', comment: 'URL to your server for the provided endpoint', type: 'string' },
-        { name: 'version', comment: 'Version for the server api', type: 'Version' },
+        {
+          name: 'authToken',
+          comment: 'Auth token for the user provided endpoint',
+          type: [{ name: 'authToken', type: 'string' }],
+        },
+        {
+          name: 'id',
+          comment: 'Id for the endpoint provided by the user, unique for every endpoint',
+          type: [{ name: 'id', type: 'string' }],
+        },
+        {
+          name: 'url',
+          comment: 'URL to your server for the provided endpoint',
+          type: [{ name: 'url', type: 'string' }],
+        },
+        { name: 'version', comment: 'Version for the server api', type: [{ name: 'version', type: 'Version' }] },
       ],
     },
     {
       name: 'LoginParams',
       comment: null,
       properties: [
-        { name: 'pass', comment: 'Password for the authentication to your server', type: 'string' },
-        { name: 'user', comment: 'Username for the authentication to your server', type: 'string' },
+        {
+          name: 'pass',
+          comment: 'Password for the authentication to your server',
+          type: [{ name: 'pass', type: 'string' }],
+        },
+        {
+          name: 'user',
+          comment: 'Username for the authentication to your server',
+          type: [{ name: 'user', type: 'string' }],
+        },
       ],
     },
     {
       name: 'WithQorusAuthToken',
       comment: null,
-      properties: [{ name: 'authToken', comment: 'Auth token for the user provided endpoint', type: 'string' }],
+      properties: [
+        {
+          name: 'authToken',
+          comment: 'Auth token for the user provided endpoint',
+          type: [{ name: 'authToken', type: 'string' }],
+        },
+      ],
     },
     {
       name: 'WithQorusEndpointId',
       comment: null,
       properties: [
-        { name: 'id', comment: 'Id for the endpoint provided by the user, unique for every endpoint', type: 'string' },
+        {
+          name: 'id',
+          comment: 'Id for the endpoint provided by the user, unique for every endpoint',
+          type: [{ name: 'id', type: 'string' }],
+        },
       ],
     },
     {
       name: 'WithQorusURL',
       comment: null,
-      properties: [{ name: 'url', comment: 'URL to your server for the provided endpoint', type: 'string' }],
+      properties: [
+        {
+          name: 'url',
+          comment: 'URL to your server for the provided endpoint',
+          type: [{ name: 'url', type: 'string' }],
+        },
+      ],
     },
     {
       name: 'QorusRequestParams',
       comment: null,
       properties: [
-        { name: 'data', comment: 'Data for the request', type: 'any' },
-        { name: 'headers', comment: 'Headers for the request', type: 'AxiosRequestHeaders' },
-        { name: 'params', comment: 'URL Parameters for the request', type: 'Record' },
-        { name: 'path', comment: 'Complete endpoint url for the request', type: 'string' },
+        { name: 'data', comment: 'Data for the request', type: [{ name: 'data', type: 'any' }] },
+        {
+          name: 'headers',
+          comment: 'Headers for the request',
+          type: [{ name: 'headers', type: 'AxiosRequestHeaders' }],
+        },
+        { name: 'params', comment: 'URL Parameters for the request', type: [{ name: 'params', type: 'Record' }] },
+        { name: 'path', comment: 'Complete endpoint url for the request', type: [{ name: 'path', type: 'string' }] },
       ],
     },
     {
@@ -998,20 +1046,25 @@ export default {
         {
           name: 'constructorOptions',
           comment: null,
-          type: { kind: 'reference', id: 201, name: 'Properties', packageName: null, typeArguments: [] },
+          type: [
+            {
+              name: 'constructorOptions',
+              type: { kind: 'reference', id: 201, name: 'Properties', packageName: null, typeArguments: [] },
+            },
+          ],
         },
-        { name: 'name', comment: null, type: 'string' },
+        { name: 'name', comment: null, type: [{ name: 'name', type: 'string' }] },
       ],
     },
     {
       name: 'Properties',
       comment: null,
       properties: [
-        { name: 'jsTypes', comment: null, type: 'string' },
-        { name: 'name', comment: null, type: 'string' },
-        { name: 'required', comment: null, type: 'boolean' },
-        { name: 'types', comment: null, type: 'string' },
-        { name: 'value', comment: null, type: 'union' },
+        { name: 'jsTypes', comment: null, type: [{ name: 'jsTypes', type: 'string' }] },
+        { name: 'name', comment: null, type: [{ name: 'name', type: 'string' }] },
+        { name: 'required', comment: null, type: [{ name: 'required', type: 'boolean' }] },
+        { name: 'types', comment: null, type: [{ name: 'types', type: 'string' }] },
+        { name: 'value', comment: null, type: [null, null] },
       ],
     },
   ],
