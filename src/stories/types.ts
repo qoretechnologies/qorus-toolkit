@@ -54,6 +54,18 @@ export interface MethodDocs {
   returnTypes: MethodReturnType[] | undefined;
 }
 
+export interface InterfaceDocsProperties {
+  name: string;
+  comment?: string | null;
+  type?: string;
+}
+
+export interface InterfaceDocs {
+  name: string;
+  comment?: string | null;
+  properties?: InterfaceDocsProperties[];
+}
+
 export interface MethodComment {
   summary: string | undefined | null;
   returnSummary?: string | undefined;

@@ -2,6 +2,12 @@ import DocGenerator from '../DocGenerator';
 describe('Generate Docs class tests', () => {
   jest.setTimeout(50000);
   it.only('Check if documentation object exist', async () => {
+    // const interfaceObj = DocGenerator.getInterface('AddEndpoint');
+    const docs = DocGenerator.createAllDocsJson();
+    console.log(JSON.stringify(docs));
+    // expect(DocGenerator.getMethodDocs('getRecord', 'Qorus')).not.toEqual(undefined);
+  });
+  it('Check if documentation object exist', async () => {
     const classObj = DocGenerator.getClass('QorusAuthenticator');
     expect(DocGenerator.getMethodDocs('getRecord', classObj)).not.toEqual(undefined);
   });

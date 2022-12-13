@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { Json, MethodDocs, MethodParamTypes, MethodReturnType, ParamType } from './src/stories/types';
+import { InterfaceDocs, Json, MethodDocs, MethodParamTypes, MethodReturnType, ParamType } from './src/stories/types';
 import { ClassMethodParser, ClassParser, InterfaceParser, ProjectParser } from './typedocParser';
 
 export const parsedProjectDocs = './src/stories/docs.ts';
@@ -24,11 +24,11 @@ class DocGenerator {
     });
     this.allClasses = classObj;
 
-    // let interfaceObject;
-    // this.project.namespaces.forEach((namespace) => {
-    //   interfaceObject = [...interfaceObject, ...namespace.interfaces];
-    // });
-    // this.allInterfaces = interfaceObject;
+    let interfaceObject: InterfaceParser[] = [];
+    this.project.namespaces.forEach((namespace) => {
+      interfaceObject = [...interfaceObject, ...namespace.interfaces];
+    });
+    this.allInterfaces = interfaceObject;
   }
 
   getProject() {
@@ -47,6 +47,44 @@ class DocGenerator {
     return this.allInterfaces;
   }
 
+  createInterfaceDocs(interfaceObject?: InterfaceParser | string) {
+    let interfaceObj: InterfaceParser | undefined;
+    if (typeof interfaceObject === 'string') {
+      interfaceObject = this.getInterface(interfaceObject);
+    } else {
+      interfaceObj = interfaceObject;
+    }
+
+    if (!interfaceObj) {
+      return undefined;
+    }
+
+    const properties = interfaceObj.properties.map((property) => {
+      const propertyDocs = {
+        name: property.name,
+        comment: property.comment.description,
+        type: this.getAdjustedType(property.type),
+      };
+      return propertyDocs;
+    });
+
+    const docs: InterfaceDocs = {
+      name: interfaceObj.name,
+      comment: interfaceObj.comment.description,
+      properties: properties,
+    };
+
+    return docs;
+  }
+
+  createAllInterfacesJson() {
+    const docs = this.allInterfaces.map((obj) => {
+      const objDocs = this.createInterfaceDocs(obj);
+      return objDocs;
+    });
+    return docs;
+  }
+
   getAllClasses(): ClassParser[] | undefined {
     return this.allClasses;
   }
@@ -54,6 +92,7 @@ class DocGenerator {
   createAllDocsJson() {
     const classesDocs = this.createAllClassesJson();
     const methodDocs = this.createAllMethodsJson();
+    const interfaceDocs = this.createAllInterfacesJson();
 
     // Create a typescript file that exports an object containing classesDocs and methodDocs
     fs.writeFileSync(
@@ -67,6 +106,7 @@ class DocGenerator {
     return {
       classesDocs,
       methodDocs,
+      interfaceDocs,
     };
   }
 
