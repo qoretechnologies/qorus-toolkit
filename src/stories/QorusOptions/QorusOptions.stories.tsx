@@ -35,5 +35,5 @@ export const set = prepareStory(Template, 'set', className);
 export const validate = prepareStory(Template, 'validate', className);
 export const validateProperty = prepareStory(Template, 'validateProperty', className);
 export const getAll = prepareStory(Template, 'getAll', className);
-export const parseChildren = prepareStory(Template, 'parseChildren', className);
-export const convertToJsType = prepareStory(Template, 'convertToJsType', className);
+export const getJsType = prepareStory(Template, 'getJsType', className);
+export const getType = prepareStory(Template, 'getType', className);
