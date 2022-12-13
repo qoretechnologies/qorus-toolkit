@@ -436,5 +436,5 @@ class DocGenerator {
 }
 export default new DocGenerator();
 
-// const docs = new DocGenerator();
-// docs.createAllDocsJson();
+const docs = new DocGenerator();
+docs.createAllDocsJson();
