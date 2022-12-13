@@ -1,1 +1,0 @@
-{"version":3,"file":"parse-docs.d.ts","sourceRoot":"","sources":["../../../src/bin/commands/parse-docs.ts"],"names":[],"mappings":"AAMA,OAAO,KAAK,EAAE,OAAO,EAAE,MAAM,sBAAsB,CAAC;AACpD,OAAO,KAAK,EAAE,cAAc,EAAE,MAAM,6BAA6B,CAAC;AAElE,wBAAsB,SAAS,CAAC,OAAO,EAAE,cAAc,CAAC,OAAO,EAAE,SAAS,CAAC,iBAuB1E"}

@@ -3,7 +3,7 @@ describe('Generate Docs class tests', () => {
   jest.setTimeout(50000);
   it.only('Check if documentation object exist', async () => {
     // const interfaceObj = DocGenerator.getInterface('AddEndpoint');
-    const docs = DocGenerator.createAllDocsJson();
+    const docs = DocGenerator.getInterface('Properties');
     console.log(JSON.stringify(docs));
     // expect(DocGenerator.getMethodDocs('getRecord', 'Qorus')).not.toEqual(undefined);
   });

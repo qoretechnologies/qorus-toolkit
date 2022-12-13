@@ -1,6 +1,6 @@
 import fs from 'fs';
+import { ClassMethodParser, ClassParser, InterfaceParser, ProjectParser } from 'typedoc-json-parser';
 import { InterfaceDocs, Json, MethodDocs, MethodParamTypes, MethodReturnType, ParamType } from './src/stories/types';
-import { ClassMethodParser, ClassParser, InterfaceParser, ProjectParser } from './typedocParser';
 
 export const parsedProjectDocs = './src/stories/docs.ts';
 export const typedocDocs = './docs/documentation.json';
@@ -343,7 +343,6 @@ class DocGenerator {
         label: parameter.name,
         type: type,
         description: parameter.comment.description,
-        isOptional: parameter.flags.isOptional,
       };
       parsedParameters.push(obj);
     });
