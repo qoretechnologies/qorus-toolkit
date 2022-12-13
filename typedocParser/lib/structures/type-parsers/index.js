@@ -1,0 +1,25 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+tslib_1.__exportStar(require("./ArrayTypeParser"), exports);
+tslib_1.__exportStar(require("./ConditionalTypeParser"), exports);
+tslib_1.__exportStar(require("./IndexedAccessTypeParser"), exports);
+tslib_1.__exportStar(require("./InferredTypeParser"), exports);
+tslib_1.__exportStar(require("./IntersectionTypeParser"), exports);
+tslib_1.__exportStar(require("./IntrinsicTypeParser"), exports);
+tslib_1.__exportStar(require("./LiteralTypeParser"), exports);
+tslib_1.__exportStar(require("./MappedTypeParser"), exports);
+tslib_1.__exportStar(require("./NamedTupleMemberTypeParser"), exports);
+tslib_1.__exportStar(require("./OptionalTypeParser"), exports);
+tslib_1.__exportStar(require("./PredicateTypeParser"), exports);
+tslib_1.__exportStar(require("./QueryTypeParser"), exports);
+tslib_1.__exportStar(require("./ReferenceTypeParser"), exports);
+tslib_1.__exportStar(require("./ReflectionTypeParser"), exports);
+tslib_1.__exportStar(require("./RestTypeParser"), exports);
+tslib_1.__exportStar(require("./TemplateLiteralTypeParser"), exports);
+tslib_1.__exportStar(require("./TupleTypeParser"), exports);
+tslib_1.__exportStar(require("./TypeOperatorTypeParser"), exports);
+tslib_1.__exportStar(require("./TypeParser"), exports);
+tslib_1.__exportStar(require("./UnionTypeParser"), exports);
+tslib_1.__exportStar(require("./UnknownTypeParser"), exports);
+//# sourceMappingURL=index.js.map
