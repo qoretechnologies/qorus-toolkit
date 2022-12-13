@@ -18,7 +18,7 @@ class DocGenerator {
     const projectData: ProjectParser | undefined = new ProjectParser({ data: parsedData });
     this.project = projectData;
 
-    let classObj: any[] = [];
+    let classObj: ClassParser[] = [];
     this.project.namespaces?.forEach((namespace) => {
       classObj = [...classObj, ...namespace.classes];
     });
@@ -97,7 +97,9 @@ class DocGenerator {
     // Create a typescript file that exports an object containing classesDocs and methodDocs
     fs.writeFileSync(
       parsedProjectDocs,
-      `export default { classesDocs: ${JSON.stringify(classesDocs)}, methodDocs: ${JSON.stringify(methodDocs)} }`,
+      `export default { classesDocs: ${JSON.stringify(classesDocs)}, methodDocs: ${JSON.stringify(
+        methodDocs,
+      )},interfaceDocs: ${JSON.stringify(interfaceDocs)}, }`,
     );
 
     // Writing parsed project data to file
@@ -259,6 +261,17 @@ class DocGenerator {
       label: label,
     };
   }
+
+  // getParameterType(parameter) {
+  //   if (parameter.type === 'union') {
+  //     const types = parameter.types?.map((type) => {
+  //       const adjustedType = this.getAdjustedType(type);
+  //       const obj = this.createTypeObject(adjustedType);
+  //       return obj;
+  //     });
+  //     return types;
+  //   }
+  // }
 
   /**
    * It takes a method object and returns an array of MethodReturnType objects
