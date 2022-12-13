@@ -4,10 +4,14 @@ import codeExamples from '../../../codeExamples';
 import { version } from '../../../package.json';
 
 export interface IDocumentationExampleProps {
-  label: string;
+  label?: string;
 }
 
 export const DocumentationExample = ({ label }: IDocumentationExampleProps) => {
+  if (!label || !codeExamples[label]) {
+    return null;
+  }
+
   return (
     <ReqorePanel label="Example" flat headerSize={3} collapsible isCollapsed contentStyle={{ padding: '25px' }}>
       <ReactRunkit

@@ -1,5 +1,5 @@
-import docsJson from '../../docs/parsedProjectDocumentation.json';
-import { DocumentationStory, IDocumentationProps, MethodDocs } from './types';
+import docs from './docs';
+import { DocumentationClass, DocumentationStory, IDocumentationProps, MethodDocs } from './types';
 
 export interface IArgData {
   description?: string;
@@ -53,19 +53,27 @@ export const argsData = {
   ...documentationArgs.disableArgs(['label', 'params', 'returnTypes', 'comments']),
 };
 
+export const getClassData = (className: string): DocumentationClass => {
+  return docs.classesDocs.find((classDoc) => classDoc.name === className)!;
+};
+
 export const getMethodData = (methodName: string, className: string) => {
   let selectedMethod;
-  docsJson.methodDocs.map((method) =>
-    method.map((meth) => {
+
+  console.log(docs.methodDocs);
+
+  docs.methodDocs.forEach((method) =>
+    method.forEach((meth) => {
       if (meth.className && meth.data.name) {
-        if (meth.className === className && meth.data.name === methodName) selectedMethod = meth;
+        if (meth.className === className && meth.data.name === methodName) {
+          selectedMethod = meth;
+        }
       }
     }),
   );
-  if (!selectedMethod) console.log('cant find for', className, methodName);
-  else console.log('found', className, methodName);
 
   selectedMethod.data.returnTypes.reverse();
+
   return selectedMethod;
 };
 
@@ -81,33 +89,6 @@ export const prepareStory = (template: DocumentationStory, methodName: string, c
   return story;
 };
 
-// Here we get the documentation data
-// The function needs to be created
-// const docData: DocumentationData = getDocumentationData(name);
-// Hardcoded data for testing
-// const fakeHardcodedData = {
-//   // The name of the method / property / field
-//   label: 'addEndpoint( addEndpointConfig )',
-//   // The parameters of the method / property / field
-//   params: {
-//     param1: {
-//       label: 'ParamOne',
-//       type: 'string',
-//       description: 'This is a description for an optional parameter',
-//       optional: true,
-//     },
-//     paramTwo: {
-//       label: 'ParamTwo',
-//       type: 'ICustomType',
-//       link: 'somelink',
-//       description: 'This is a description for a parameter',
-//     },
-//   },
-//   // The return value of the method / property / field
-//   returns: {
-//     description: 'This is a description for the return value',
-//     types: [{ label: 'Endpoint', link: 'Endpoint' }, { label: 'undefined' }],
-//   },
-//   // The description of the method / property / field
-//   content: 'Adds a new endpoint to the list of available endpoints.',
-// };
+export const newStory = (template: DocumentationStory, className: string) => (methodName: string) => {
+  return prepareStory(template, methodName, className);
+};
