@@ -83,23 +83,55 @@ class DocGenerator {
     return docs;
   }
 
+  getReflectionString(reflection) {
+    if (!reflection.children) {
+      return '';
+    }
+    const children: { [x: string]: any }[] = reflection.children;
+    let typeString = '{ ';
+    children.map((child, i) => {
+      if (child.name) {
+        typeString += `${child.name}: `;
+        const type = this.getAdjustedType(child.type);
+        typeString += ` ${type}`;
+        if (i + 1 !== children.length) {
+          typeString += ', ';
+        }
+      }
+    });
+    typeString += ' }';
+
+    return typeString;
+  }
+
   getInterfacePropertyType(property: InterfacePropertyParser) {
     const adjustedType = this.getAdjustedType(property.type);
     const prop = property as any;
     let propertyType;
     if (adjustedType === 'union') {
       propertyType = prop.type.types.map((propertyNew) => {
-        if (propertyNew.name) {
-          const propDocs = {
-            name: propertyNew.name,
-            type: this.getAdjustedType(propertyNew.type),
-          };
-          return propDocs;
-        } else return undefined;
+        if (propertyNew.value) {
+          return `${propertyNew.value}`;
+        } else if (propertyNew?.type && propertyNew?.type.reflection) {
+          const reflectionString = this.getReflectionString(propertyNew.type.reflection);
+          if (propertyNew.kind === 'array') {
+            const typeProp = `${reflectionString}[ ]`;
+            return typeProp;
+          }
+          return reflectionString;
+        } else return '';
       });
     } else {
-      propertyType = [{ name: property.name, type: adjustedType }];
+      propertyType = adjustedType;
     }
+    if (Array.isArray(propertyType)) {
+      const filteredProperties = propertyType.filter((props) => props !== '');
+      if (filteredProperties.length < 2) {
+        return filteredProperties[0];
+      }
+      return filteredProperties.reverse();
+    }
+    console.log(propertyType);
     return propertyType;
   }
 
@@ -340,8 +372,12 @@ class DocGenerator {
   getAdjustedType(json: any): string {
     if (json?.name) {
       return json.name;
+    } else if (json?.type && json?.kind === 'array') {
+      return `${json.type.name ?? json.type.type}[ ]`;
+    } else if (typeof json?.type === 'string') {
+      return json?.type;
     } else if (json?.type) {
-      return (json.type as ParamType).type ?? json.type;
+      return (json.type as ParamType).type ?? json.type.kind;
     } else {
       return json?.kind;
     }
