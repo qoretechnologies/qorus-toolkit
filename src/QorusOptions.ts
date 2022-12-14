@@ -75,7 +75,7 @@ export class QorusOptions {
   }
 
   /**
-   * -validate-function A validator to verify if all the required values are provided
+   * A validator to verify if all the required values are provided
    * @returns true if all the value exist, false otherwise
    */
   validate() {
@@ -92,7 +92,7 @@ export class QorusOptions {
   }
 
   /**
-   * -getAll-function Get all values required for the provider
+   * Get all values required for the provider
    * @returns all values if required values exist, undefined otherwise
    */
   getAll() {
@@ -137,7 +137,7 @@ export class QorusOptions {
   }
 
   /**
-   * -getTypeOptions-function A getter to get property type
+   * A getter to get property type
    * @param propertyName name of the property
    * @return types accepted by the property
    */
@@ -150,7 +150,7 @@ export class QorusOptions {
   }
 
   /**
-   * -getJsType-function A getter to get js types for a property
+   * A getter to get js types for a property
    * @param propertyName name of the property
    * @returns js types accepted by the property
    */
@@ -163,7 +163,7 @@ export class QorusOptions {
   }
 
   /**
-   * -getProperty-function A getter to get property object
+   * A getter to get property object
    * @param propertyName name of the property
    * @returns property object
    */
@@ -178,7 +178,7 @@ export class QorusOptions {
   }
 
   /**
-   * -setOptions-function A setter to set property value
+   * A setter to set property value
    * @param propertyName name of the property
    * @param propertyValue value for the property
    * @returns property object
@@ -202,7 +202,7 @@ export class QorusOptions {
   }
 
   /**
-   * -validateProperty-function A method to validate if the provided value can be used by the property
+   * A method to validate if the provided value can be used by the property
    * @param propertyName name of the property
    * @param propertyValue value for the property
    * @returns true if value can be used false otherwise
