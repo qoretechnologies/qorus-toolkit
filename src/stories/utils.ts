@@ -72,8 +72,6 @@ export const getMethodData = (methodName: string, className: string) => {
     }),
   );
 
-  selectedMethod.data.returnTypes.reverse();
-
   return selectedMethod;
 };
 

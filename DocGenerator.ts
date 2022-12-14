@@ -131,7 +131,6 @@ class DocGenerator {
       }
       return filteredProperties.reverse();
     }
-    console.log(propertyType);
     return propertyType;
   }
 
@@ -338,10 +337,13 @@ class DocGenerator {
     const typeArguments = returnType?.typeArguments?.[0];
 
     if (typeArguments?.kind === 'union') {
-      const reversedTypes = typeArguments.types?.reverse();
-      const types = reversedTypes?.map((type) => {
+      const newTypes = typeArguments.types;
+      const types = newTypes?.map((type) => {
         const adjustedType = this.getAdjustedType(type);
         const obj = this.createTypeObject(adjustedType);
+        if (type.kind === 'array') {
+          obj.label = `${obj}[ ]`;
+        }
         return obj;
       });
       return types;
@@ -378,6 +380,8 @@ class DocGenerator {
       return json?.type;
     } else if (json?.type) {
       return (json.type as ParamType).type ?? json.type.kind;
+    } else if (json?.value) {
+      return json.value;
     } else {
       return json?.kind;
     }
