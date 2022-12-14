@@ -20,7 +20,8 @@ export const QorusAuthenticatorDemo = () => {
   const [error, setError] = useState<string | undefined>(undefined);
 
   const validateLogin = () => {
-    return QorusAuthenticator.validateEndpointData({ url, id, version, user, pass }, true);
+    return true;
+    // return QorusAuthenticator.validateEndpointData({ url, id, version, user, pass }, true);
   };
 
   const handleLogin = async () => {

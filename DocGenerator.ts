@@ -373,7 +373,7 @@ class DocGenerator {
 
   getAdjustedType(json: any): string {
     if (json?.name) {
-      return json.name;
+      return json?.name;
     } else if (json?.type && json?.kind === 'array') {
       return `${json.type.name ?? json.type.type}[ ]`;
     } else if (typeof json?.type === 'string') {
@@ -399,20 +399,40 @@ class DocGenerator {
   private createParameterDefinition(method: ClassMethodParser | undefined): MethodParamTypes[] {
     const parameters = method?.signatures[0].parameters;
     /*eslint-disable */
-    let parsedParameters: { label: string; type?: string | undefined; description?: string | null }[] = []; // eslint-disable-line no-use-before-define
+    let parsedParameters: { label: string; type?: string | string[] | undefined; description?: string | null }[] = []; // eslint-disable-line no-use-before-define
     /*eslint-enable */
-
+    let returnType = '';
     /* It's iterating over the parameters array and creating an object for each parameter. */
     parameters?.forEach((parameter) => {
       const json: Json | undefined = parameter?.type.toJSON();
+      if (json.kind === 'intersection' || json.kind === 'union') {
+        json.types?.reverse().map((param, i) => {
+          let adjustedType = this.getAdjustedType(param);
+          if (param.kind === 'array') {
+            adjustedType += '[ ]';
+          }
+          if (json.kind === 'intersection' && i + 1 !== json.types?.length) {
+            adjustedType += ' & ';
+          }
+          if (json.kind === 'union' && i + 1 !== json.types?.length) {
+            adjustedType += ' | ';
+          }
+          returnType += adjustedType;
+        });
+      }
+
       const type = this.getAdjustedType(json);
+      if (!returnType) {
+        returnType = type;
+      }
 
       const obj = {
         label: parameter.name,
-        type: type,
+        type: returnType,
         description: parameter.comment.description,
       };
       parsedParameters.push(obj);
+      returnType = '';
     });
     return parsedParameters;
   }
