@@ -55,15 +55,15 @@ export interface MethodDocs {
 }
 
 export interface InterfaceDocsProperties {
-  name: string;
-  comment?: string | null;
+  label: string;
+  description?: string | null;
   type?: string;
 }
 
 export interface InterfaceDocs {
   name: string;
-  comment?: string | null;
-  properties?: InterfaceDocsProperties[];
+  comments?: { summary: string | null };
+  params?: InterfaceDocsProperties[];
 }
 
 export interface MethodComment {

@@ -13,7 +13,9 @@ export const typedocDocs = './docs/documentation.json';
 
 class DocGenerator {
   project: ProjectParser;
+
   allClasses: ClassParser[] = [];
+
   allInterfaces: InterfaceParser[] = [];
 
   constructor() {
@@ -67,8 +69,8 @@ class DocGenerator {
 
     const properties = interfaceObj.properties.map((property) => {
       const propertyDocs = {
-        name: property.name,
-        comment: property.comment.description,
+        label: property.name,
+        description: property.comment.description ?? '',
         type: this.getInterfacePropertyType(property),
       };
       return propertyDocs;
@@ -76,8 +78,8 @@ class DocGenerator {
 
     const docs: InterfaceDocs = {
       name: interfaceObj.name,
-      comment: interfaceObj.comment.description,
-      properties: properties,
+      comments: { summary: interfaceObj.comment.description },
+      params: properties,
     };
 
     return docs;

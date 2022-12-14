@@ -1,5 +1,5 @@
 import docs from './docs';
-import { DocumentationClass, DocumentationStory, IDocumentationProps, MethodDocs } from './types';
+import { DocumentationClass, DocumentationStory, IDocumentationProps, InterfaceDocs, MethodDocs } from './types';
 
 export interface IArgData {
   description?: string;
@@ -59,9 +59,6 @@ export const getClassData = (className: string): DocumentationClass => {
 
 export const getMethodData = (methodName: string, className: string) => {
   let selectedMethod;
-
-  console.log(docs.methodDocs);
-
   docs.methodDocs.forEach((method) =>
     method.forEach((meth) => {
       if (meth.className && meth.data.name) {
@@ -75,6 +72,19 @@ export const getMethodData = (methodName: string, className: string) => {
   return selectedMethod;
 };
 
+export const getInterfaceData = (interfaceName: string): InterfaceDocs | undefined => {
+  let selectedInterface: InterfaceDocs = {
+    name: '',
+  };
+  docs.interfaceDocs.forEach((interfaceDoc) => {
+    if (interfaceDoc.name === interfaceName) {
+      selectedInterface = interfaceDoc;
+    }
+  });
+
+  return selectedInterface;
+};
+
 export const prepareStory = (template: DocumentationStory, methodName: string, className: string) => {
   const selectedMethod = getMethodData(methodName, className);
 
@@ -82,6 +92,18 @@ export const prepareStory = (template: DocumentationStory, methodName: string, c
   const docData: MethodDocs | undefined = selectedMethod?.data;
 
   story.storyName = methodName;
+  story.args = docData;
+
+  return story;
+};
+
+export const prepareInterfaceStory = (template: DocumentationStory, interfaceName: string) => {
+  const selectedInterface = getInterfaceData(interfaceName);
+
+  const story = template.bind({});
+  const docData: InterfaceDocs | undefined = selectedInterface;
+
+  story.storyName = interfaceName;
   story.args = docData;
 
   return story;
