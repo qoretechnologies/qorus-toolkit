@@ -57,13 +57,19 @@ export interface MethodDocs {
 export interface InterfaceDocsProperties {
   label: string;
   description?: string | null;
-  type?: string;
+  type?: string | string[];
 }
 
 export interface InterfaceDocs {
   name: string;
   comments?: { summary: string | null };
   params?: InterfaceDocsProperties[];
+}
+
+export interface TypeAliasDocs {
+  name: string;
+  comments?: { summary: string | null };
+  type?: string | string[];
 }
 
 export interface MethodComment {

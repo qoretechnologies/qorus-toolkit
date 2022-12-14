@@ -38,7 +38,7 @@ export class QorusValidator {
    * @param type type of value for the property
    * @param value value for the property
    * @param canBeNull if the value can be null
-   * @returns true if the value can be accepted for the type
+   * @returns True if the value can be accepted for the type, False otherwise
    */
   validate: (type: string | IQorusType, value?: any, canBeNull?: boolean) => boolean = (type, value, canBeNull) => {
     if (!type) {
@@ -400,7 +400,7 @@ export class QorusValidator {
 
   /**
    * Get QorusType from the value
-   * @param value any accepted type value
+   * @param value Any accepted type value
    * @returns QorusType string
    */
   getTypeFromValue = (value: any) => {

@@ -41,7 +41,7 @@ export class QorusRequest {
     const { path, data, headers = this.defaultHeaders, params } = props;
     let selectedEndpoint;
 
-    if (isValidStringArray([endpoint?.url, endpoint?.id])) {
+    if (isValidStringArray([endpoint?.url, endpoint?.endpointId])) {
       selectedEndpoint = endpoint;
     } else {
       selectedEndpoint = QorusAuthenticator.getSelectedEndpoint();
@@ -92,7 +92,7 @@ export class QorusRequest {
   /**
    * Post request creator for the QorusToolkit
    * @param props QorusRequestParams endpoint url is mandatory to make a post request
-   * @returns Promise with the result of the post request
+   * @returns Result of the post request
    */
   post = async <T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> => {
     const result = await this.makeRequest('POST', props, endpoint);
@@ -102,7 +102,7 @@ export class QorusRequest {
   /**
    * Put request creator for the QorusToolkit
    * @param props QorusRequestParams endpoint url is mandatory to make a put request
-   * @returns the promise with the result of the put request
+   * @returns Result of the put request
    */
   put = async <T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> => {
     const result = await this.makeRequest('PUT', props, endpoint);
@@ -112,7 +112,7 @@ export class QorusRequest {
   /**
    * Delete request creator for the QorusToolkit
    * @param props QorusRequestParams endpoint url is mandatory to make a delete request
-   * @returns Promise with the result of the delete request
+   * @returns Result of the delete request
    */
   deleteReq = async <T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> => {
     const result = await this.makeRequest('DELETE', props, endpoint);

@@ -10,9 +10,9 @@ export interface Properties {
   value?: { type: string; value: any } | null;
 }
 
-export interface ConstructorOption {
+export interface ProviderOption {
   name: string;
-  constructorOptions: Properties[];
+  providerOptions: Properties[];
 }
 
 const qorusDataTypesToJsTypesMapper = {
@@ -40,9 +40,9 @@ export class QorusOptions {
   /**
    * A parser function to modify options object
    * @param children children for which options will be created
-   * @returns object with constructor options {@link ConstructorOption}
+   * @returns Object with constructor options
    */
-  private parseChildren(children: ProviderChildren): ConstructorOption | undefined {
+  private parseChildren(children: ProviderChildren): ProviderOption | undefined {
     /*eslint-disable*/
     if (!children) {
       logger.error(`Children does not exist`);
@@ -63,9 +63,9 @@ export class QorusOptions {
       allProperties.push(property);
     }
 
-    const option: ConstructorOption = {
+    const option: ProviderOption = {
       name,
-      constructorOptions: allProperties,
+      providerOptions: allProperties,
     };
 
     this.name = name;
@@ -76,7 +76,7 @@ export class QorusOptions {
 
   /**
    * A validator to verify if all the required values are provided
-   * @returns true if all the value exist, false otherwise
+   * @returns True if all the value exist, False otherwise
    */
   validate() {
     let result = true;
@@ -93,7 +93,7 @@ export class QorusOptions {
 
   /**
    * Get all values required for the provider
-   * @returns all values if required values exist, undefined otherwise
+   * @returns Array of values for the constructor options if required values exist, undefined otherwise
    */
   getAll() {
     const isValid = this.validate();
@@ -112,8 +112,8 @@ export class QorusOptions {
 
   /**
    * A parser function to modify options object
-   * @param children children for which options will be created
-   * @returns object with constructor options {@link ConstructorOption}
+   * @param children Children for which options will be created
+   * @returns Object with constructor options
    */
   private createJsTypes(types: string[]) {
     if (!types) return [];
@@ -127,8 +127,8 @@ export class QorusOptions {
 
   /**
    * A private function to convert types to js types
-   * @param type type to be converted
-   * @returns converted type
+   * @param type Type to be converted
+   * @returns Converted type
    */
   private convertToJsType(type: string) {
     if (qorusDataTypesToJsTypesMapper[type]) {
@@ -138,8 +138,8 @@ export class QorusOptions {
 
   /**
    * A getter to get property type
-   * @param propertyName name of the property
-   * @return types accepted by the property
+   * @param propertyName Name of the property
+   * @return Types accepted by the property
    */
   getType(propertyName: string) {
     const property = this.constructorOptions.find((property) => property.name === propertyName);
@@ -163,9 +163,9 @@ export class QorusOptions {
   }
 
   /**
-   * A getter to get property object
-   * @param propertyName name of the property
-   * @returns property object
+   * A getter to get constructor options property object
+   * @param propertyName Name of the property
+   * @returns Property object with name and value
    */
   get(propertyName: string) {
     const property = this.constructorOptions.find((property) => property.name === propertyName);
@@ -178,10 +178,10 @@ export class QorusOptions {
   }
 
   /**
-   * A setter to set property value
-   * @param propertyName name of the property
-   * @param propertyValue value for the property
-   * @returns property object
+   * A setter to set constructor options property value
+   * @param propertyName Name of the property
+   * @param propertyValue Value for the property
+   * @returns Property object
    */
   set(propertyName: string, value: any) {
     const isValid = this.validateProperty(propertyName, value);
@@ -203,9 +203,9 @@ export class QorusOptions {
 
   /**
    * A method to validate if the provided value can be used by the property
-   * @param propertyName name of the property
-   * @param propertyValue value for the property
-   * @returns true if value can be used false otherwise
+   * @param propertyName Name of the property
+   * @param propertyValue Value for the property
+   * @returns True if value can be used, False otherwise
    */
   validateProperty(propertyName: string, value: any) {
     const types = this.get(propertyName)?.types;

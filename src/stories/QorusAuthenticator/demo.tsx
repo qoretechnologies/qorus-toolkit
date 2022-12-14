@@ -11,7 +11,7 @@ import QorusAuthenticator, { AddEndpoint, LoginParams } from '../../QorusAuthent
 
 export const QorusAuthenticatorDemo = () => {
   const [url, setUrl] = useState<AddEndpoint['url']>('');
-  const [id, setID] = useState<AddEndpoint['id']>('');
+  const [id, setID] = useState<AddEndpoint['endpointId']>('');
   const [version] = useState<AddEndpoint['version']>('latest');
   const [user, setUser] = useState<LoginParams['user']>('');
   const [pass, setPass] = useState<LoginParams['pass']>('');
@@ -27,7 +27,7 @@ export const QorusAuthenticatorDemo = () => {
   const handleLogin = async () => {
     if (validateLogin()) {
       try {
-        QorusAuthenticator.addEndpoint({ url, id, version });
+        QorusAuthenticator.addEndpoint({ url, endpointId: id, version });
         const token = await QorusAuthenticator.login({ user, pass });
 
         setResult(token || 'noauth');

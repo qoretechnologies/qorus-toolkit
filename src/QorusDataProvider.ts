@@ -19,48 +19,6 @@ export type ConstructorOptions = any;
 export type ResponseData = any;
 export type ResponseError = any;
 export type ProviderData = any;
-/*eslint-disable */
-/**
- * fetchProvider creates a put request to the QorusServer with context and also adds the
- * functionality to select the next children from dataprovider response list
- *
- * @param obj previous parent object
- * @param context context parameter for the request
- * @param select next provider to be selected, chosen from the parent's children list
- * @param QorusDataProvider constructor options for the dataprovider to be selected next
- *
- * Returns ProviderWithOptions object
- */
-const fetchProvider = async (obj: QorusDataProvider, context: Context, select?: string, providerOptions?: any) => {
-  const children = obj.getChildren();
-  let _path = obj.getPath();
-
-  if (select && _path) {
-    if (_path[_path.length - 1] !== select) {
-      _path.push(select);
-    }
-  }
-
-  const requestPath = getRequestPath(_path!);
-  const requestData = { context: context, provider_options: providerOptions ?? {} };
-  // Making a put request
-  const result = await QorusRequest.put({
-    path: requestPath,
-    data: requestData,
-  });
-
-  const response = result as AxiosResponse;
-  const error = result as unknown as ErrorAxiosParams;
-
-  if (error.status) {
-    throw new ErrorAxios(error);
-  }
-  const providerData = children?.filter((object) => object.name === select);
-  const providerResponse = response?.data;
-  const responseError = error.desc;
-
-  return new QorusDataProvider({ path: _path!, responseData: providerResponse, context, providerData, responseError });
-};
 
 export class QorusDataProvider {
   path?: string[] = [];
@@ -96,7 +54,7 @@ export class QorusDataProvider {
     });
 
     const response = result as AxiosResponse;
-    const error = result as unknown as ErrorAxiosParams;
+    const error = result as ErrorAxiosParams;
 
     if (error.status) {
       throw new ErrorAxios(error);
@@ -116,8 +74,7 @@ export class QorusDataProvider {
 
   /**
    * Get record of Data Providers with context 'record' from /dataprovider/browse endpoint
-   *
-   * Returns array of records
+   * @returns Array of DataProviders records
    */
   getRecord = async (): Promise<QorusDataProvider> => {
     return this.fetchWithContext('record');
@@ -125,8 +82,7 @@ export class QorusDataProvider {
 
   /**
    * Get record of Data Providers with context 'api'  from /dataprovider/browse endpoint
-   *
-   * Returns array of records
+   * @returns array of DataProviders records
    */
 
   getApi = async (): Promise<QorusDataProvider> => {
@@ -135,8 +91,7 @@ export class QorusDataProvider {
 
   /**
    * Get record of Data Providers with context 'Event'  from /dataprovider/browse endpoint
-   *
-   * Returns array of records
+   * @returns Array of DataProviders records
    */
   getEvent = async (): Promise<QorusDataProvider> => {
     return this.fetchWithContext('event');
@@ -144,8 +99,7 @@ export class QorusDataProvider {
 
   /**
    * Get record of Data Providers with context 'message'  from /dataprovider/browse endpoint
-   *
-   * Returns array of records
+   * @returns Array of DataProviders records
    */
   getMessage = async (): Promise<QorusDataProvider> => {
     return this.fetchWithContext('message');
@@ -153,8 +107,7 @@ export class QorusDataProvider {
 
   /**
    * Get record of Data Providers with context 'type'  from /dataprovider/browse endpoint
-   *
-   * Returns array of records
+   * @returns Array of DataProviders records
    */
   getType = async (): Promise<QorusDataProvider> => {
     return this.fetchWithContext('type');
@@ -163,7 +116,7 @@ export class QorusDataProvider {
   /**
    * Checks if the children exist on the provider
    * @param name Name of the children you want to find
-   * @returns true if the children exist, false otherwise
+   * @returns True if the children exist, False otherwise
    */
   has(name: string) {
     const children = this.responseData?.children.find((child) => child.name === name);
@@ -173,8 +126,7 @@ export class QorusDataProvider {
 
   /**
    * A getter to the the stored path array for the current provider
-   *
-   * Returns path array
+   * @returns Array of path strings
    */
   getPath() {
     return this.path;
@@ -182,10 +134,8 @@ export class QorusDataProvider {
 
   /**
    * A getter to get request path for the current provider
-   *
    * @param path Optional path array to generate request path
-   *
-   * Returns request path string
+   * @returns Request path string
    */
   getFinalPath(path?: string[]) {
     return getRequestPath(path ? path : this.path!);
@@ -193,7 +143,7 @@ export class QorusDataProvider {
 
   /**
    * Setter to set path for the current provider
-   * @param path array of path strings to replace for path of the current provider
+   * @param path Array of path strings to replace for path of the current provider
    *
    */
   setPath(path: string[]) {
@@ -202,8 +152,7 @@ export class QorusDataProvider {
 
   /**
    * A getter to get available data for the current provider
-   *
-   * Returns responseData, providerData and errorData for the current provider
+   * @returns responseData, providerData and errorData for the current provider
    */
   getData() {
     return { responseData: this.responseData, providerData: this.providerData, errorData: this.responseError };
@@ -216,8 +165,7 @@ export class QorusDataProvider {
 
   /**
    * A getter to get the context for the current provider
-   *
-   * Returns context string
+   * @returns context string
    */
   getContext() {
     return this.context;
@@ -225,8 +173,7 @@ export class QorusDataProvider {
 
   /**
    * Method to verify if the current provider has children
-   *
-   * Returns true if the children exist, false otherwise
+   * @returns true if the children exist, false otherwise
    */
   hasData() {
     if (this.responseData.matches_context) return true;
@@ -235,8 +182,7 @@ export class QorusDataProvider {
 
   /**
    * A getter to get available children for the current provider
-   *
-   * Returns a list of children
+   * @returns A list of DataProvider children
    */
   getChildren() {
     return this.responseData?.children;
@@ -244,8 +190,7 @@ export class QorusDataProvider {
 
   /**
    * A getter to get children names for the current provider
-   *
-   * Returns list of children names
+   * @returns list of children names
    */
   getChildrenNames() {
     /*eslint-disable */
@@ -259,7 +204,7 @@ export class QorusDataProvider {
   /**
    * A getter to get options by name for a children provider
    * @param childrenName name of the children provider
-   * Returns QorusOptions object
+   * @returns QorusOptions object for the data provider children
    */
   getOptions(childrenName: string): QorusOptions | undefined {
     const children = this.getChildren();
@@ -274,7 +219,7 @@ export class QorusDataProvider {
 
   /**
    * A getter to get options by name for a children provider
-   * Returns QorusOptions object array
+   * @returns QorusOptions object array
    */
   getAllOptions(): QorusOptions[] {
     const children = this.getChildren();
@@ -290,8 +235,7 @@ export class QorusDataProvider {
    * Method to select the next children from the current provider for further operations
    * @param select next children to be selected
    * @param QorusDataProvider constructor options for the next children
-   *
-   * Returns {@link QorusDataProvider} new object
+   * @returns {@link QorusDataProvider} new object
    */
   async get(select?: string, providerOptions?: ProviderData) {
     if (!select) return this;
@@ -300,5 +244,45 @@ export class QorusDataProvider {
     return childData;
   }
 }
+
+/**
+ * fetchProvider creates a put request to the QorusServer with context and also adds the
+ * functionality to select the next children from dataprovider response list
+ * @param obj previous parent object
+ * @param context context parameter for the request
+ * @param select next provider to be selected, chosen from the parent's children list
+ * @param QorusDataProvider constructor options for the dataprovider to be selected next
+ * @returns ProviderWithOptions object
+ */
+const fetchProvider = async (obj: QorusDataProvider, context: Context, select?: string, providerOptions?: any) => {
+  const children = obj.getChildren();
+  const _path = obj.getPath();
+
+  if (select && _path) {
+    if (_path[_path.length - 1] !== select) {
+      _path.push(select);
+    }
+  }
+
+  const requestPath = getRequestPath(_path!);
+  const requestData = { context: context, provider_options: providerOptions ?? {} };
+  // Making a put request
+  const result = await QorusRequest.put({
+    path: requestPath,
+    data: requestData,
+  });
+
+  const response = result as AxiosResponse;
+  const error = result as ErrorAxiosParams;
+
+  if (error.status) {
+    throw new ErrorAxios(error);
+  }
+  const providerData = children?.filter((object) => object.name === select);
+  const providerResponse = response?.data;
+  const responseError = error.desc;
+
+  return new QorusDataProvider({ path: _path!, responseData: providerResponse, context, providerData, responseError });
+};
 
 export default new QorusDataProvider();

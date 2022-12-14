@@ -1,5 +1,12 @@
 import docs from './docs';
-import { DocumentationClass, DocumentationStory, IDocumentationProps, InterfaceDocs, MethodDocs } from './types';
+import {
+  DocumentationClass,
+  DocumentationStory,
+  IDocumentationProps,
+  InterfaceDocs,
+  MethodDocs,
+  TypeAliasDocs,
+} from './types';
 
 export interface IArgData {
   description?: string;
@@ -85,6 +92,19 @@ export const getInterfaceData = (interfaceName: string): InterfaceDocs | undefin
   return selectedInterface;
 };
 
+export const getTypeAliasData = (typeAliasName: string): TypeAliasDocs | undefined => {
+  let selectedTypeAlias: TypeAliasDocs = {
+    name: '',
+  };
+  docs.typeAliasDocs.forEach((typeAliasDocs) => {
+    if (typeAliasDocs.name === typeAliasName) {
+      selectedTypeAlias = typeAliasDocs;
+    }
+  });
+
+  return selectedTypeAlias;
+};
+
 export const prepareStory = (template: DocumentationStory, methodName: string, className: string) => {
   const selectedMethod = getMethodData(methodName, className);
 
@@ -104,6 +124,18 @@ export const prepareInterfaceStory = (template: DocumentationStory, interfaceNam
   const docData: InterfaceDocs | undefined = selectedInterface;
 
   story.storyName = interfaceName;
+  story.args = docData;
+
+  return story;
+};
+
+export const prepareTypeStory = (template: DocumentationStory, typeAliasName: string) => {
+  const selectedTypeAlias = getTypeAliasData(typeAliasName);
+
+  const story = template.bind({});
+  const docData: InterfaceDocs | undefined = selectedTypeAlias;
+
+  story.storyName = typeAliasName;
   story.args = docData;
 
   return story;

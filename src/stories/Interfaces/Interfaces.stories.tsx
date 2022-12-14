@@ -36,4 +36,4 @@ export const WithQorusAuthToken = prepareInterfaceStory(Template, 'WithQorusAuth
 export const WithQorusEndpointId = prepareInterfaceStory(Template, 'WithQorusEndpointId');
 export const WithQorusURL = prepareInterfaceStory(Template, 'WithQorusURL');
 export const QorusRequestParams = prepareInterfaceStory(Template, 'QorusRequestParams');
-export const ConstructorOption = prepareInterfaceStory(Template, 'ConstructorOption');
+export const ProviderOption = prepareInterfaceStory(Template, 'ProviderOption');
