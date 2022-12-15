@@ -13,7 +13,7 @@ describe('QorusDataProvider Utility Class Tests', () => {
   beforeAll(async () => {
     await QorusAuthenticator.addEndpoint({
       url: process.env.ENDPOINT!,
-      id: 'rippyDataProvider',
+      endpointId: 'rippyDataProvider',
     });
     await QorusAuthenticator.login({
       user: process.env.TESTUSER,

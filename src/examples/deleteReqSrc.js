@@ -1,6 +1,6 @@
 // First we initialize an Endpoint and provider user and pass to authenticate the user along with it
 Qorus.QorusAuthenticator.addEndpoint({
-  id: 'rippy',
+  endpointId: 'rippy',
   url: 'https://sandbox.qoretechnologies.com',
   version: 'latest',
 });

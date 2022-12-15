@@ -7,7 +7,7 @@ describe('QorusRequest Utility Tests', () => {
   beforeAll(async () => {
     QorusAuthenticator.addEndpoint({
       url: process.env.ENDPOINT!,
-      id: 'rippyRequest',
+      endpointId: 'rippyRequest',
     });
     await QorusAuthenticator.login({
       user: process.env.TESTUSER,

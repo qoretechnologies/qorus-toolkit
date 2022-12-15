@@ -1,5 +1,5 @@
 Qorus.QorusAuthenticator.addEndpoint({
-  id: 'rippy',
+  endpointId: 'rippy',
   url: 'https://sandbox.qoretechnologies.com',
   version: 'latest',
 });

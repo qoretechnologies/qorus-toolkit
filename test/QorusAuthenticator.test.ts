@@ -15,7 +15,7 @@ if (!(process.env.ENDPOINT && process.env.TESTUSER && process.env.TESTPASS)) {
 describe('QorusLogin Utility Class Tests', () => {
   jest.setTimeout(30000);
   it('Should initialize the endpoint and assign it to the selected endpoint', () => {
-    QorusAuthenticator.addEndpoint({ url: process.env.ENDPOINT!, id: 'rippy' });
+    QorusAuthenticator.addEndpoint({ url: process.env.ENDPOINT!, endpointId: 'rippy' });
 
     const endpoint = QorusAuthenticator.getSelectedEndpoint();
     expect(endpoint).toMatchSnapshot();
@@ -37,7 +37,7 @@ describe('QorusLogin Utility Class Tests', () => {
   it('Should return the enpoint from the endpoints array', () => {
     const endpoint = QorusAuthenticator.getEndpointById('rippy');
 
-    expect(endpoint?.id).toEqual('rippy');
+    expect(endpoint?.endpointId).toEqual('rippy');
   });
 
   it('Should return all the available endpoints ', () => {
@@ -77,7 +77,7 @@ describe('QorusLogin Utility Class Tests', () => {
   it('Should return the current endpoint', () => {
     const config = QorusAuthenticator.getSelectedEndpoint();
 
-    expect(config!.id).toMatchSnapshot();
+    expect(config!.endpointId).toMatchSnapshot();
   });
 
   it('Should return all the endpoints', () => {
@@ -94,7 +94,7 @@ describe('QorusLogin Utility Class Tests', () => {
   });
 
   it('Should select the endpoint by the provided id', async () => {
-    if (process.env.ENDPOINT) QorusAuthenticator.addEndpoint({ url: process.env.ENDPOINT, id: 'test' });
+    if (process.env.ENDPOINT) QorusAuthenticator.addEndpoint({ url: process.env.ENDPOINT, endpointId: 'test' });
 
     expect(QorusAuthenticator.selectEndpoint('test')).toMatchSnapshot();
   });
@@ -116,7 +116,7 @@ describe('QorusLogin Utility Error Tests', () => {
   it('Should throw an Authentication Error when user tries to authenticate with wrong credentials', async () => {
     let err;
     try {
-      if (process.env.ENDPOINT) QorusAuthenticator.addEndpoint({ url: process.env.ENDPOINT, id: 'rippy2' });
+      if (process.env.ENDPOINT) QorusAuthenticator.addEndpoint({ url: process.env.ENDPOINT, endpointId: 'rippy2' });
       await QorusAuthenticator.login({ user: 'bob', pass: 'pass' });
     } catch (error) {
       err = error;
@@ -128,7 +128,7 @@ describe('QorusLogin Utility Error Tests', () => {
   it('Should throw an error if the user does not provide username and password for authentication.', async () => {
     let err;
     try {
-      if (process.env.ENDPOINT) QorusAuthenticator.addEndpoint({ url: process.env.ENDPOINT, id: 'rippy2' });
+      if (process.env.ENDPOINT) QorusAuthenticator.addEndpoint({ url: process.env.ENDPOINT, endpointId: 'rippy2' });
       await QorusAuthenticator.login();
     } catch (error) {
       err = error;
@@ -139,7 +139,7 @@ describe('QorusLogin Utility Error Tests', () => {
   it('Should throw an Internal Error if the id and url are not valid to initialize an endpoint', async () => {
     let err;
     try {
-      if (process.env.ENDPOINT) QorusAuthenticator.addEndpoint({ url: '', id: '' });
+      if (process.env.ENDPOINT) QorusAuthenticator.addEndpoint({ url: '', endpointId: '' });
     } catch (error) {
       err = error;
     }
@@ -151,7 +151,7 @@ describe('QorusLogin Utility Error Tests', () => {
       if (process.env.ENDPOINT)
         QorusAuthenticator.addEndpoint({
           url: process.env.ENDPOINT,
-          id: 'rippy2',
+          endpointId: 'rippy2',
         });
       await QorusAuthenticator.login({
         user: '',
@@ -169,7 +169,7 @@ describe('QorusLogin Utility Error Tests', () => {
       if (process.env.ENDPOINT)
         QorusAuthenticator.addEndpoint({
           url: 'https://sandbox.qoretechnologies.',
-          id: 'rippy2',
+          endpointId: 'rippy2',
         });
       await QorusAuthenticator.login({
         user: 'some',
@@ -187,7 +187,7 @@ describe('QorusLogin Utility Error Tests', () => {
       if (process.env.ENDPOINT)
         QorusAuthenticator.addEndpoint({
           url: '',
-          id: 'rippy2',
+          endpointId: 'rippy2',
         });
     } catch (error) {
       err = error;
@@ -201,7 +201,7 @@ describe('QorusLogin Utility Error Tests', () => {
       if (process.env.ENDPOINT)
         QorusAuthenticator.addEndpoint({
           url: 'https://sandbox.qoretechnologies.com',
-          id: '',
+          endpointId: '',
         });
     } catch (error) {
       err = error;
@@ -215,7 +215,7 @@ describe('QorusLogin Utility Error Tests', () => {
       if (process.env.ENDPOINT)
         QorusAuthenticator.addEndpoint({
           url: '',
-          id: '',
+          endpointId: '',
         });
     } catch (error) {
       err = error;
