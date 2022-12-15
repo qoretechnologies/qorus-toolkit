@@ -12,15 +12,10 @@ export default {
 export const Overview: DocumentationStory = ({ comments }, context) => {
   const {
     name,
-    comment: { description },
+    comments: { summary },
   } = getClassData('QorusAuthenticator');
 
   return (
-    <Documentation
-      name={name}
-      description={description || undefined}
-      summary={comments?.summary}
-      story={context.story}
-    />
+    <Documentation name={name} description={summary || undefined} summary={comments?.summary} story={context.story} />
   );
 };

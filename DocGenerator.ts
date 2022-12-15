@@ -1,12 +1,5 @@
 import fs from 'fs';
-import {
-  ClassMethodParser,
-  ClassParser,
-  InterfaceParser,
-  InterfacePropertyParser,
-  ProjectParser,
-  TypeAliasParser,
-} from 'typedoc-json-parser';
+import { ClassMethodParser, ClassParser, InterfaceParser, ProjectParser, TypeAliasParser } from 'typedoc-json-parser';
 import {
   InterfaceDocs,
   Json,
@@ -145,9 +138,9 @@ class DocGenerator {
     return typeString;
   }
 
-  getInterfacePropertyType(property: InterfacePropertyParser) {
+  getPropertyType(property: any) {
     const adjustedType = this.getAdjustedType(property.type);
-    const prop = property as any;
+    const prop = property;
     let propertyType;
     if (adjustedType === 'union') {
       propertyType = prop.type.types.map((propertyNew) => {
@@ -160,6 +153,11 @@ class DocGenerator {
             return typeProp;
           }
           return reflectionString;
+        } else if (propertyNew?.name) {
+          if (propertyNew?.kind === 'array') {
+            return `${propertyNew.name}[ ]`;
+          }
+          return `${propertyNew.name}`;
         } else return '';
       });
     } else {
@@ -191,7 +189,7 @@ class DocGenerator {
       const propertyDocs = {
         label: property.name,
         description: property.comment.description ?? '',
-        type: this.getInterfacePropertyType(property),
+        type: this.getPropertyType(property),
       };
       return propertyDocs;
     });
@@ -243,23 +241,19 @@ class DocGenerator {
     }
 
     const name = classObject.name;
-    const comment = {
-      description: classObject.comment.description,
-      blockTags: classObject.comment.blockTags,
+    const comments = {
+      summary: classObject.comment.description,
+      returnSummary: this.getReturnSummary(classObject.comment.blockTags),
     };
     const properties = classObject.properties.map((property) => {
       const prop = property as any;
       const obj = {
         name: property.name,
-        comment: {
-          description: property.comment.description,
-          blockTags: property.comment.blockTags,
+        comments: {
+          summary: property.comment.description,
+          returnSummary: this.getReturnSummary(property.comment.blockTags),
         },
-        type: {
-          kind: property.type.kind,
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          name: prop.type.name ?? prop.type.type,
-        },
+        type: this.getPropertyType(prop),
       };
 
       return obj;
@@ -267,11 +261,15 @@ class DocGenerator {
 
     const docs = {
       name,
-      comment,
+      comments,
       properties,
     };
 
     return docs;
+  }
+
+  getReturnSummary(blockTags: any[]) {
+    return blockTags.find((tag) => tag.name === 'returns')?.text;
   }
 
   createMethodDocs(methodName: string, classObject?: ClassParser | string | undefined): MethodDocs | undefined {

@@ -5,7 +5,14 @@ import logger from './managers/logger';
 import QorusRequest from './QorusRequest';
 import QorusValidator from './QorusValidator';
 import { isValidString, isValidStringArray } from './utils';
-import { ApiPaths, apiPathsInitial, createApiPaths, Version, WithEndpointVersion } from './utils/apiPaths';
+import {
+  ApiPaths,
+  ApiPathsAuthenticator,
+  apiPathsInitial,
+  createApiPaths,
+  Version,
+  WithEndpointVersion,
+} from './utils/apiPaths';
 
 export type QorusEndpointId = string;
 export type QorusAuthToken = string;
@@ -63,7 +70,7 @@ export class QorusAuthenticator {
   allApiPaths: ApiPaths = apiPathsInitial;
 
   /** Api paths for the QorusAuthenticator */
-  apiPathsAuthenticator: ApiPaths['authenticator'] = apiPathsInitial.authenticator;
+  apiPathsAuthenticator: ApiPathsAuthenticator = apiPathsInitial.authenticator;
 
   /** Selected endpoint from the endpoints array */
   selectedEndpoint: Endpoint | undefined;

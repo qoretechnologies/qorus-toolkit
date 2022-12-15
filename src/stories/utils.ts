@@ -105,6 +105,12 @@ export const getTypeAliasData = (typeAliasName: string): TypeAliasDocs | undefin
   return selectedTypeAlias;
 };
 
+export const getClassPropertyData = (propertyName: string, className: string): TypeAliasDocs | undefined => {
+  const classObj = docs.classesDocs.find((classD) => classD.name === className);
+  const property = classObj?.properties.find((prop) => prop.name === propertyName);
+  return property;
+};
+
 export const prepareStory = (template: DocumentationStory, methodName: string, className: string) => {
   const selectedMethod = getMethodData(methodName, className);
 
@@ -136,6 +142,18 @@ export const prepareTypeStory = (template: DocumentationStory, typeAliasName: st
   const docData: InterfaceDocs | undefined = selectedTypeAlias;
 
   story.storyName = typeAliasName;
+  story.args = docData;
+
+  return story;
+};
+
+export const prepareClassPropertyStory = (template: DocumentationStory, propertyName: string, className: string) => {
+  const propertyDocs = getClassPropertyData(propertyName, className);
+
+  const story = template.bind({});
+  const docData: InterfaceDocs | undefined = propertyDocs;
+
+  story.storyName = propertyName;
   story.args = docData;
 
   return story;

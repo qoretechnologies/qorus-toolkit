@@ -32,17 +32,16 @@ export interface DocumentationStory extends Story<IDocumentationProps> {}
 
 export interface DocumentationProperty {
   name: string;
+  comments?: Comments;
+  type: string;
 }
 
 export interface DocumentationClass {
   name: string;
   properties: DocumentationProperty[];
-  comment: {
-    description?: string | null;
-    blockTags?: {
-      name: string | null;
-      text: string | null;
-    }[];
+  comments: {
+    summary: string;
+    returnSummary?: string;
   };
 }
 export interface MethodDocs {
@@ -50,7 +49,7 @@ export interface MethodDocs {
   name: string | undefined;
   label: string | undefined;
   params: MethodParamTypes[];
-  comments: MethodComment;
+  comments: Comments;
   returnTypes: MethodReturnType[] | undefined;
 }
 
@@ -72,7 +71,7 @@ export interface TypeAliasDocs {
   type?: string | string[];
 }
 
-export interface MethodComment {
+export interface Comments {
   summary: string | undefined | null;
   returnSummary?: string | undefined;
 }

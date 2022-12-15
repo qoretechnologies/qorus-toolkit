@@ -1,18 +1,17 @@
-export interface ApiPaths extends ApiPathsAuthenticator, ApiPathsDataProvider {}
+export interface ApiPaths {
+  authenticator: ApiPathsAuthenticator;
+  dataProviders: ApiPathsDataProvider;
+}
 
 export interface ApiPathsDataProvider {
-  dataProviders: {
-    browse: string;
-  };
+  browse: string;
 }
 
 export interface ApiPathsAuthenticator {
-  authenticator: {
-    login: string;
-    logout: string;
-    validateToken: string;
-    validateNoAuth: string;
-  };
+  login: string;
+  logout: string;
+  validateToken: string;
+  validateNoAuth: string;
 }
 
 export type Version = 1 | 2 | 3 | 4 | 5 | 6 | 'latest';
