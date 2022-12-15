@@ -13,7 +13,7 @@ export default {
 const Template: DocumentationStory = ({ comments, ...rest }, context) => {
   const {
     name,
-    comment: { description },
+    comments: { summary },
   } = getClassData('QorusAuthenticator');
 
   return (
@@ -21,7 +21,7 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
       {...rest}
       itemName={rest.name}
       name={name}
-      description={description || undefined}
+      description={summary || undefined}
       summary={comments.summary}
       story={context.story}
       tip={'This is a tip'}
