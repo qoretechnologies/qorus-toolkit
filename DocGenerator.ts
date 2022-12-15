@@ -19,6 +19,7 @@ class DocGenerator {
   allClasses: ClassParser[] = [];
 
   allInterfaces: InterfaceParser[] = [];
+
   allTypeAliases: TypeAliasParser[] = [];
 
   constructor() {
@@ -89,6 +90,7 @@ class DocGenerator {
   getInterface(interfaceName: string): InterfaceParser | undefined {
     return this.allInterfaces.find((obj) => obj.name === interfaceName);
   }
+
   getTypeAlias(typeAliasName: string): TypeAliasParser | undefined {
     return this.allTypeAliases.find((obj) => obj.name === typeAliasName);
   }
@@ -511,7 +513,7 @@ class DocGenerator {
     let parameterString = '';
     parameterString += parameters?.map((parameter) => {
       let parameterDefinition = '';
-      parameterDefinition += `' '${parameter.name}`;
+      parameterDefinition += ` ${parameter.name}`;
       const json: Json = parameter.type;
       const parameterType = json.name ? json.name : json.type ? json.type : json.kind;
       parameterDefinition += `: ${parameterType}`;
