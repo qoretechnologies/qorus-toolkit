@@ -1,10 +1,10 @@
 import { Documentation } from '../components/documentation';
+import { QorusAuthenticatorDemo } from '../QorusAuthenticator/demo';
 import { DocumentationMeta, DocumentationStory } from '../types';
-import { argsData, getClassData, newClassPropertyStory } from '../utils';
-import { QorusAuthenticatorDemo } from './demo';
+import { argsData, getClassData, newMethodStory } from '../utils';
 
 export default {
-  title: 'API/QorusAuthenticator/Properties',
+  title: 'API/QorusRequest/Methods',
   argTypes: {
     ...argsData,
   },
@@ -14,7 +14,7 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
   const {
     name,
     comments: { summary },
-  } = getClassData('QorusAuthenticator');
+  } = getClassData('QorusRequest');
 
   return (
     <Documentation
@@ -30,9 +30,10 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
     </Documentation>
   );
 };
-const prepareStory = newClassPropertyStory(Template, 'QorusAuthenticator');
 
-export const allApiPaths = prepareStory('allApiPaths');
-export const apiPathsAuthenticator = prepareStory('apiPathsAuthenticator');
-export const endpoints = prepareStory('endpoints');
-export const selectedEndpoint = prepareStory('selectedEndpoint');
+const prepareStory = newMethodStory(Template, 'QorusRequest');
+
+export const get = prepareStory('get');
+export const post = prepareStory('post');
+export const put = prepareStory('put');
+export const delReq = prepareStory('deleteReq');

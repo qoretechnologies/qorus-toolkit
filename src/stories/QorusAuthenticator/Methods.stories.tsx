@@ -1,6 +1,6 @@
 import { Documentation } from '../components/documentation';
 import { DocumentationMeta, DocumentationStory } from '../types';
-import { argsData, getClassData, newStory } from '../utils';
+import { argsData, getClassData, newMethodStory } from '../utils';
 import { QorusAuthenticatorDemo } from './demo';
 
 export default {
@@ -31,7 +31,7 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
   );
 };
 
-const prepareStory = newStory(Template, 'QorusAuthenticator');
+const prepareStory = newMethodStory(Template, 'QorusAuthenticator');
 
 export const addEndpoint = prepareStory('addEndpoint');
 export const login = prepareStory('login');

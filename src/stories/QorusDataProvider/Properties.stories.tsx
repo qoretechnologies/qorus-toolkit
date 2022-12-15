@@ -1,10 +1,10 @@
 import { Documentation } from '../components/documentation';
+import { QorusAuthenticatorDemo } from '../QorusAuthenticator/demo';
 import { DocumentationMeta, DocumentationStory } from '../types';
 import { argsData, getClassData, newClassPropertyStory } from '../utils';
-import { QorusAuthenticatorDemo } from './demo';
 
 export default {
-  title: 'API/QorusAuthenticator/Properties',
+  title: 'API/QorusDataProvider/Properties',
   argTypes: {
     ...argsData,
   },
@@ -30,9 +30,10 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
     </Documentation>
   );
 };
-const prepareStory = newClassPropertyStory(Template, 'QorusAuthenticator');
+const prepareStory = newClassPropertyStory(Template, 'QorusDataProvider');
 
-export const allApiPaths = prepareStory('allApiPaths');
-export const apiPathsAuthenticator = prepareStory('apiPathsAuthenticator');
-export const endpoints = prepareStory('endpoints');
-export const selectedEndpoint = prepareStory('selectedEndpoint');
+export const path = prepareStory('path');
+export const responseData = prepareStory('responseData');
+export const context = prepareStory('context');
+export const providerData = prepareStory('providerData');
+export const responseError = prepareStory('responseError');

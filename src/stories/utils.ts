@@ -111,7 +111,7 @@ export const getClassPropertyData = (propertyName: string, className: string): T
   return property;
 };
 
-export const prepareStory = (template: DocumentationStory, methodName: string, className: string) => {
+export const prepareMethodStory = (template: DocumentationStory, methodName: string, className: string) => {
   const selectedMethod = getMethodData(methodName, className);
 
   const story = template.bind({});
@@ -159,6 +159,17 @@ export const prepareClassPropertyStory = (template: DocumentationStory, property
   return story;
 };
 
-export const newStory = (template: DocumentationStory, className: string) => (methodName: string) => {
-  return prepareStory(template, methodName, className);
+export const newMethodStory = (template: DocumentationStory, className: string) => (methodName: string) => {
+  return prepareMethodStory(template, methodName, className);
+};
+
+export const newClassPropertyStory = (template: DocumentationStory, className: string) => (propertyName: string) => {
+  return prepareClassPropertyStory(template, propertyName, className);
+};
+
+export const newTypeAliasStory = (template: DocumentationStory) => (typeAliasName: string) => {
+  return prepareTypeStory(template, typeAliasName);
+};
+export const newInterfaceStory = (template: DocumentationStory) => (interfaceName: string) => {
+  return prepareInterfaceStory(template, interfaceName);
 };
