@@ -3,15 +3,27 @@ import logger from './managers/logger';
 import QorusValidator from './QorusValidator';
 
 export interface Properties {
+  /** Name of the property */
   name: string;
+
+  /** If the property is required by the DataProvider */
   required: boolean;
+
+  /** Allowed types for the property */
   types: string[];
+
+  /** Converted js types for the property */
   jsTypes: string[];
+
+  /** Value of the property*/
   value?: { type: string; value: any } | null;
 }
 
 export interface ProviderOption {
+  /** Name of the DataProvider */
   name: string;
+
+  /** DataProvider properties array */
   providerOptions: Properties[];
 }
 
@@ -24,6 +36,7 @@ const qorusDataTypesToJsTypesMapper = {
   'softlist<string>': 'array',
 };
 
+/** Children for the provider */
 export type ProviderChildren = any;
 
 export class QorusOptions {
