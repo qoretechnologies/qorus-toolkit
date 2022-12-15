@@ -39,10 +39,7 @@ export interface DocumentationProperty {
 export interface DocumentationClass {
   name: string;
   properties: DocumentationProperty[];
-  comments: {
-    summary: string;
-    returnSummary?: string;
-  };
+  comments: Comments;
 }
 export interface MethodDocs {
   async: boolean;

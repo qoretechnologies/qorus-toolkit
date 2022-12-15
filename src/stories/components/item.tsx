@@ -2,7 +2,7 @@ import { ReqoreCollection, ReqoreMessage, ReqorePanel, ReqoreSpacer, ReqoreTagGr
 import { IReqoreCollectionItemProps } from '@qoretechnologies/reqore/dist/components/Collection/item';
 import { IReqorePanelProps } from '@qoretechnologies/reqore/dist/components/Panel';
 import { map, size } from 'lodash';
-import { MethodComment, MethodParamTypes, MethodReturnType } from '../types';
+import { Comments, MethodParamTypes, MethodReturnType } from '../types';
 import { DocumentationType } from './type';
 
 export interface IDocumentationItemsProps extends IReqorePanelProps {
@@ -11,7 +11,7 @@ export interface IDocumentationItemsProps extends IReqorePanelProps {
   async?: boolean;
   name?: string;
   label?: string;
-  comment?: MethodComment;
+  comment?: Comments;
 }
 
 export const DocumentationItem = ({
