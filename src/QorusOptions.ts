@@ -27,11 +27,11 @@ const qorusDataTypesToJsTypesMapper = {
 export type ProviderChildren = any;
 
 export class QorusOptions {
-  // Name of the provider options
+  /** Name of the provider option  */
   name = '';
 
-  // Properties for provider
-  constructorOptions: Properties[] = [];
+  // Array of all ProviderOptions for the data provider
+  providerOptions: Properties[] = [];
 
   constructor(children: ProviderChildren) {
     this.parseChildren(children);
@@ -40,7 +40,7 @@ export class QorusOptions {
   /**
    * A parser function to modify options object
    * @param children children for which options will be created
-   * @returns Object with constructor options
+   * @returns Object with provider options
    */
   private parseChildren(children: ProviderChildren): ProviderOption | undefined {
     /*eslint-disable*/
@@ -69,7 +69,7 @@ export class QorusOptions {
     };
 
     this.name = name;
-    this.constructorOptions = allProperties;
+    this.providerOptions = allProperties;
 
     return option;
   }
@@ -80,7 +80,7 @@ export class QorusOptions {
    */
   validate() {
     let result = true;
-    this.constructorOptions.forEach((option): void | boolean => {
+    this.providerOptions.forEach((option): void | boolean => {
       if (option.required) {
         if (!option.value) {
           result = false;
@@ -101,7 +101,7 @@ export class QorusOptions {
 
     let values = {};
 
-    this.constructorOptions.forEach((option) => {
+    this.providerOptions.forEach((option) => {
       if (option.value?.value) {
         values[`${option.name}`] = option.value?.value;
       }
@@ -142,7 +142,7 @@ export class QorusOptions {
    * @return Types accepted by the property
    */
   getType(propertyName: string) {
-    const property = this.constructorOptions.find((property) => property.name === propertyName);
+    const property = this.providerOptions.find((property) => property.name === propertyName);
     if (!property?.types) {
       logger.error(new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`));
     }
@@ -155,7 +155,7 @@ export class QorusOptions {
    * @returns js types accepted by the property
    */
   getJsType(propertyName: string) {
-    const property = this.constructorOptions.find((property) => property.name === propertyName);
+    const property = this.providerOptions.find((property) => property.name === propertyName);
     if (!property?.jsTypes) {
       logger.error(new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`));
     }
@@ -168,7 +168,7 @@ export class QorusOptions {
    * @returns Property object with name and value
    */
   get(propertyName: string) {
-    const property = this.constructorOptions.find((property) => property.name === propertyName);
+    const property = this.providerOptions.find((property) => property.name === propertyName);
     if (!property) {
       logger.error(
         new ErrorInternal(`Property ${propertyName} doesn't exist or doesn't contain any value for ${this.name}`),
@@ -189,14 +189,14 @@ export class QorusOptions {
       throw new ErrorInternal(`Value is not valid for the property ${propertyName}`);
     }
 
-    let propertyIndex = this.constructorOptions.findIndex((property) => property.name === propertyName);
+    let propertyIndex = this.providerOptions.findIndex((property) => property.name === propertyName);
     const jsTypes = this.get(propertyName)?.jsTypes;
     const valueType = typeof value;
     const filteredType = jsTypes?.find((type) => type === valueType);
 
     if (filteredType) {
-      this.constructorOptions[propertyIndex].value = { type: filteredType, value: value };
-      return this.constructorOptions[propertyIndex];
+      this.providerOptions[propertyIndex].value = { type: filteredType, value: value };
+      return this.providerOptions[propertyIndex];
     }
     return undefined;
   }

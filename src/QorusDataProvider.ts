@@ -21,10 +21,19 @@ export type ResponseError = any;
 export type ProviderData = any;
 
 export class QorusDataProvider {
+  /** Array of path strings, linking to the current provider path extension */
   path?: string[] = [];
+
+  /** Get Request response data for a data provider  */
   responseData: ResponseData;
+
+  /** Current context for the data provider */
   context: Context;
+
+  /** Data provider data with children object */
   providerData?: ProviderData;
+
+  /** Get Request error data if error received */
   responseError?: ResponseError;
 
   constructor(options?: {

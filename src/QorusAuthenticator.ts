@@ -75,6 +75,7 @@ export class QorusAuthenticator {
   /** Selected endpoint from the endpoints array */
   selectedEndpoint: Endpoint | undefined;
 
+  /** No auth identifier to identify if the no-auth is enabled for the user */
   noauth = false;
 
   /**
