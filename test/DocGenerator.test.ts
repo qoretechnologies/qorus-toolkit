@@ -8,7 +8,7 @@ describe('Generate Docs class tests', () => {
   it('Generate docs for Classes', async () => {
     const classDocs = DocGenerator.createClassDocs('QorusOptions');
     expect(classDocs?.hasOwnProperty('name')).toEqual(true);
-    expect(classDocs?.hasOwnProperty('comment')).toEqual(true);
+    expect(classDocs?.hasOwnProperty('comments')).toEqual(true);
     expect(classDocs?.hasOwnProperty('properties')).toEqual(true);
   });
   it('Generate docs for Methods', () => {
