@@ -12,6 +12,7 @@ export interface IDocumentationItemsProps extends IReqorePanelProps {
   name?: string;
   label?: string;
   comment?: Comments;
+  returnSummary?: string | null;
 }
 
 export const DocumentationItem = ({
@@ -20,8 +21,10 @@ export const DocumentationItem = ({
   returnTypes,
   name,
   comment,
+  returnSummary,
   ...rest
 }: IDocumentationItemsProps) => {
+  console.log(comment, rest);
   return (
     <>
       <ReqorePanel flat opacity={0} headerSize={1} {...rest} label={name}>
@@ -36,10 +39,28 @@ export const DocumentationItem = ({
             {children}
           </ReqoreMessage>
         )}
-
+        <ReqoreSpacer height={30} />
+        {rest.label && (
+          <ReqorePanel minimal opacity={0} headerSize={4} label="Signature">
+            <ReqoreMessage
+              icon="CodeLine"
+              effect={{
+                gradient: {
+                  direction: 'to right bottom',
+                  colors: {
+                    100: '#2e2e2e',
+                    0: 'transparent',
+                  },
+                },
+                color: '#ffffff',
+              }}
+            >
+              <pre>{rest.label}</pre>
+            </ReqoreMessage>
+          </ReqorePanel>
+        )}
         {size(params) ? (
           <>
-            <ReqoreSpacer height={30} />
             <ReqoreCollection
               size="small"
               label={`Params (${size(params)})`}
@@ -84,8 +105,29 @@ export const DocumentationItem = ({
         ) : null}
         {size(returnTypes) ? (
           <ReqorePanel label="Returns" minimal headerSize={4} flat opacity={0} padded={false}>
-            {comment?.returnSummary}
-            <ReqoreSpacer height={10} />
+            {rest.async && (
+              <ReqoreMessage
+                customTheme={{ main: '#ff9600' }}
+                icon="ClockwiseLine"
+                inverted
+                size="small"
+                effect={{
+                  gradient: {
+                    direction: 'to right bottom',
+                    colors: {
+                      0: '#ff95007c',
+                      100: 'transparent',
+                    },
+                  },
+                  color: '#ffffff',
+                }}
+              >
+                This method is asynchronous and returns a Promise
+              </ReqoreMessage>
+            )}
+            <ReqoreSpacer height={15} />
+            {returnSummary}
+            <ReqoreSpacer height={15} />
             <ReqoreTagGroup>
               {returnTypes?.map((type) => (
                 <DocumentationType

@@ -24,7 +24,6 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
       description={summary || undefined}
       summary={comments.summary}
       story={context.story}
-      tip={'This is a tip'}
     >
       <QorusAuthenticatorDemo />
     </Documentation>

@@ -8,6 +8,7 @@ export interface IDocumentationProps {
   name: string;
   description?: string;
   summary?: string | null;
+  returnSummary?: string | null;
   story?: string;
   children?: any;
   itemName?: string;
@@ -24,6 +25,8 @@ export const Documentation = ({
   tip,
   ...rest
 }: IDocumentationProps) => {
+  console.log(rest);
+
   return (
     <DocumentationWrapper
       title={name}

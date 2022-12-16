@@ -41,7 +41,8 @@
     "storybook": "start-storybook -p 6006 --no-dll",
     "build-storybook": "build-storybook",
     "prepare": "npm run build",
-    "chromatic": "npx chromatic --project-token=59cd7005d0f1"
+    "chromatic": "npx chromatic --project-token=59cd7005d0f1",
+    "update-reqore": "yarn add -D @qoretechnologies/reqore@beta"
   },
   "repository": {
     "type": "git",
@@ -55,7 +56,7 @@
   "homepage": "https://github.com/qoretechnologies/qorus-toolkit#readme",
   "devDependencies": {
     "@babel/core": "^7.20.2",
-    "@qoretechnologies/reqore": "^0.26.0",
+    "@qoretechnologies/reqore": "^0.27.0",
     "@storybook/addon-actions": "^6.5.13",
     "@storybook/addon-essentials": "^6.5.13",
     "@storybook/addon-interactions": "^6.5.13",
@@ -99,12 +100,12 @@
     "storybook-dark-mode": "^1.1.2",
     "ts-file-parser": "^0.0.21",
     "ts-jest": "^28.0.8",
+    "ts-node": "^10.9.1",
     "tty-browserify": "^0.0.1",
     "typedoc": "^0.23.10",
-    "typescript": "^4.7.4",
-    "typescript-parser": "^2.6.1",
     "typedoc-json-parser": "^7.0.2",
-    "ts-node": "^10.9.1"
+    "typescript": "^4.7.4",
+    "typescript-parser": "^2.6.1"
   },
   "dependencies": {
     "async": "^3.2.4",

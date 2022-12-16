@@ -1,5 +1,5 @@
-import { Documentation } from '../components/documentation';
 import { QorusAuthenticatorDemo } from '../QorusAuthenticator/demo';
+import { Documentation } from '../components/documentation';
 import { DocumentationMeta, DocumentationStory } from '../types';
 import { argsData, getClassData, newMethodStory } from '../utils';
 
@@ -24,7 +24,6 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
       description={summary || undefined}
       summary={comments.summary}
       story={context.story}
-      tip={'This is a tip'}
     >
       <QorusAuthenticatorDemo />
     </Documentation>

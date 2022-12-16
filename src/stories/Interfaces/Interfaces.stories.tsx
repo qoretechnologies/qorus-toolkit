@@ -1,13 +1,13 @@
 import { ReqoreSpacer } from '@qoretechnologies/reqore';
+import { QorusAuthenticatorDemo } from '../QorusAuthenticator/demo';
 import { DocumentationExample } from '../components/example';
 import { DocumentationItem } from '../components/item';
 import { DocumentationWrapper } from '../components/wrapper';
-import { QorusAuthenticatorDemo } from '../QorusAuthenticator/demo';
 import { DocumentationMeta, DocumentationStory } from '../types';
 import { argsData, prepareInterfaceStory } from '../utils';
 
 export default {
-  title: 'API/Interfaces',
+  title: 'Typings/Interfaces',
   argTypes: {
     ...argsData,
   },
