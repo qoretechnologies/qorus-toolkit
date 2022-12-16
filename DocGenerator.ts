@@ -549,7 +549,7 @@ class DocGenerator {
       parsedParameters.push(obj);
       returnType = '';
     });
-    return parsedParameters;
+    return parsedParameters.reverse();
   }
 
   /**
