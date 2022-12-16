@@ -41,6 +41,7 @@ export interface DocumentationClass {
   properties: DocumentationProperty[];
   comments: Comments;
 }
+
 export interface MethodDocs {
   async: boolean;
   name: string | undefined;
@@ -48,6 +49,11 @@ export interface MethodDocs {
   params: MethodParamTypes[];
   comments: Comments;
   returnTypes: MethodReturnType[] | undefined;
+}
+
+export interface MethodJson {
+  className: string;
+  data: MethodDocs[] | undefined;
 }
 
 export interface InterfaceDocsProperties {

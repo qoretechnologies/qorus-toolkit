@@ -45,11 +45,14 @@ class DocGenerator {
     this.allTypeAliases = projectData.typeAliases;
   }
 
+  /** Creates documentation for Classes, Interfaces, Methods, and types
+   * @returns Object with all the parsed docs and saves them to the file
+   */
   createAllDocsJson() {
     const classesDocs = this.createAllClassesJson();
     const methodDocs = this.createAllMethodsJson();
-    const interfaceDocs = this.createAllInterfacesJson();
-    const typeAliasDocs = this.createAllTypeAliasJson();
+    const interfaceDocs: (InterfaceDocs | undefined)[] = this.createAllInterfacesJson();
+    const typeAliasDocs: (TypeAliasDocs | undefined)[] = this.createAllTypeAliasJson();
 
     // Create a typescript file that exports an object containing classesDocs and methodDocs
     fs.writeFileSync(
@@ -67,10 +70,19 @@ class DocGenerator {
     };
   }
 
-  getProject() {
+  /**
+   * A getter to get the parsed project documentation json
+   * @returns Parsed project as a json
+   */
+  getProject(): ProjectParser {
     return this.project;
   }
 
+  /**
+   * A getter to get the parsed json documentation for a class
+   * @param className Name of the the class to parse
+   * @returns Parsed class json if the class exist, undefined otherwise
+   */
   getClass(className: string): ClassParser | undefined {
     return this.allClasses.find((classObj) => classObj.name === className);
   }
@@ -78,35 +90,62 @@ class DocGenerator {
   /**
    * If the classObj is not undefined, return the method with the given name from the classObj's
    * methods array, or undefined if no such method exists.
-   * @param {string} methodName - The name of the method you want to find.
-   * @param {any | undefined} classObj - The class object that you want to search for the method in.
-   * @returns The method object with the name that matches the methodName parameter.
+   * @param methodName Name of the method you want to find.
+   * @param classObj Class object that you want to search for the method in.
+   * @returns Method object with the name that matches the methodName parameter.
    */
   getMethod(methodName: string, classObj: ClassParser | undefined): ClassMethodParser | undefined {
     if (!classObj) return undefined;
     return classObj.methods?.find((method) => method.name === methodName);
   }
 
+  /**
+   * A getter to get the parsed json documentation for an interface
+   * @param interfaceName Name of the interface to parse
+   * @returns
+   */
   getInterface(interfaceName: string): InterfaceParser | undefined {
     return this.allInterfaces.find((obj) => obj.name === interfaceName);
   }
 
+  /**
+   * A getter to get the parsed json documentation for an type
+   * @param typeAliasName Name of the type to parse
+   * @returns Parsed type documentation as json if the type exist, undefined otherwise
+   */
   getTypeAlias(typeAliasName: string): TypeAliasParser | undefined {
     return this.allTypeAliases.find((obj) => obj.name === typeAliasName);
   }
 
+  /**
+   * A getter to get the parsed json documentation for all the classes
+   * @returns Parsed Array of all classes documentation as json if the classes exists, undefined otherwise
+   */
   getAllClasses(): ClassParser[] | undefined {
     return this.allClasses;
   }
 
+  /**
+   * A getter to get the parsed json documentation for all the interfaces
+   * @returns Parsed Array of all interfaces documentation as json if the classes exists, undefined otherwise
+   */
   getAllInterfaces(): InterfaceParser[] | undefined {
     return this.allInterfaces;
   }
 
+  /**
+   * A getter to get the parsed json documentation for all the types
+   * @returns Parsed Array of all types documentation as json if the types exists, undefined otherwise
+   */
   getAllTypeAlias(): TypeAliasParser[] | undefined {
     return this.allTypeAliases;
   }
 
+  /**
+   * A getter to get type of an type alias documentation
+   * @param typeJson Json object of type alias properties
+   * @returns Type of the type alias
+   */
   getTypeAliasType(typeJson: any) {
     const adjustedType = this.getAdjustedType(typeJson);
     let typeAliasTypes;
@@ -119,6 +158,11 @@ class DocGenerator {
     return typeAliasTypes;
   }
 
+  /**
+   * A getter to get the documentation for a reflection
+   * @param reflection Object with reflection properties
+   * @returns
+   */
   getReflectionString(reflection) {
     if (!reflection.children) {
       return '';
@@ -140,7 +184,12 @@ class DocGenerator {
     return typeString;
   }
 
-  getPropertyType(property: any) {
+  /**
+   * A getter to get type of a class property
+   * @param property Json for the property
+   * @returns Type of the class property if exists, undefined otherwise
+   */
+  getPropertyType(property: any): string | string[] {
     const adjustedType = this.getAdjustedType(property.type);
     const prop = property;
     let propertyType;
@@ -175,6 +224,11 @@ class DocGenerator {
     return propertyType;
   }
 
+  /**
+   * A getter to get the interface documentation
+   * @param interfaceObject Json interface object from the parsed project
+   * @returns Parsed docs object for the interface if it exists, undefined otherwise
+   */
   getInterfaceDocs(interfaceObject?: InterfaceParser | string): InterfaceDocs | undefined {
     let interfaceObj: InterfaceParser | undefined;
     if (typeof interfaceObject === 'string') {
@@ -375,7 +429,7 @@ class DocGenerator {
 
   /**
    * If the method's return type is a Promise, then it's an async method
-   * @param {any | undefined} method - any | undefined
+   * @param method - any | undefined
    * @returns A boolean value.
    */
   isAsyncMethod(method: ClassMethodParser | undefined): boolean {
@@ -387,7 +441,7 @@ class DocGenerator {
 
   /**
    * It takes a string and returns an object with a label property that has the same value as the string
-   * @param {string} label - The label of the type.
+   * @param label - The label of the type.
    * @returns An object with a label property.
    */
   private createTypeObject(label: string) {
@@ -451,7 +505,7 @@ class DocGenerator {
   /**
    * It takes a method from the parsed documentation and returns an array of objects that contain the
    * name, type, and description of each parameter
-   * @param {any | undefined} method - any | undefined
+   * @param method - any | undefined
    * @returns An array of objects with the following properties:
    * - label
    * - type
@@ -500,7 +554,7 @@ class DocGenerator {
 
   /**
    * It takes a method object and returns a string that represents the method's signature
-   * @param {any | undefined} method - any | undefined
+   * @param method - any | undefined
    * @returns A string that is a method definition.
    */
   private createMethodDefinition(method: any | undefined) {
