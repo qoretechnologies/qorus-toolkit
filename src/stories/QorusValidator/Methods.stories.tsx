@@ -1,5 +1,5 @@
-import { QorusAuthenticatorDemo } from '../QorusAuthenticator/demo';
 import { Documentation } from '../components/documentation';
+import { QorusAuthenticatorDemo } from '../QorusAuthenticator/demo';
 import { DocumentationMeta, DocumentationStory } from '../types';
 import { argsData, getClassData, newMethodStory } from '../utils';
 
@@ -33,3 +33,4 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
 const prepareStory = newMethodStory(Template, 'QorusValidator');
 
 export const getTypeFromValue = prepareStory('getTypeFromValue');
+getTypeFromValue.storyName = 'getTypeFromValue';

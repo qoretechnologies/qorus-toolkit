@@ -27,11 +27,15 @@ export interface QorusRequestParams {
   params?: Record<string, string>;
 }
 
+export interface DefaultHeaders {
+  [x: string]: string;
+}
+
 export class QorusRequest {
   /**
    * Default headers for the QorusRequest
    */
-  defaultHeaders = { 'Content-Type': 'application/json', Accept: 'application/json' };
+  defaultHeaders: DefaultHeaders = { 'Content-Type': 'application/json', Accept: 'application/json' };
 
   makeRequest = async (
     type: 'GET' | 'PUT' | 'POST' | 'DELETE',

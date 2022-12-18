@@ -196,47 +196,6 @@ class DocGenerator {
     return typeString;
   }
 
-  /**
-   * A getter to get type of a class property
-   * @param property Json for the property
-   * @returns Type of the class property if exists, undefined otherwise
-   */
-  getPropertyType(property: any): string | string[] {
-    const adjustedType = this.getAdjustedType(property.type);
-    const prop = property;
-    let propertyType;
-    if (adjustedType === 'union') {
-      propertyType = prop.type.types.map((propertyNew) => {
-        if (propertyNew.value) {
-          return `${propertyNew.value}`;
-        } else if (propertyNew?.type && propertyNew?.type.reflection) {
-          const reflectionString = this.getReflectionString(propertyNew.type.reflection);
-          if (propertyNew.kind === 'array') {
-            const typeProp = `${reflectionString}[ ]`;
-            return typeProp;
-          }
-          return reflectionString;
-        } else if (this.getAdjustedType(propertyNew)) {
-          const type = this.getAdjustedType(propertyNew);
-          if (type === 'array') {
-            return `${type}[ ]`;
-          }
-          return `${type}`;
-        } else return '';
-      });
-    } else {
-      propertyType = adjustedType;
-    }
-    if (Array.isArray(propertyType)) {
-      const filteredProperties = propertyType.filter((props) => props !== '');
-      if (filteredProperties.length < 2) {
-        return filteredProperties[0];
-      }
-      return filteredProperties.reverse();
-    }
-    return propertyType;
-  }
-
   reflectionTypeParser(typeJson: ReflectionTypeParser) {
     const children = typeJson.reflection?.children;
     if (!typeJson.reflection?.children) {
@@ -422,7 +381,7 @@ class DocGenerator {
           summary: property.comment.description,
           returnSummary: this.getReturnSummary(property.comment.blockTags),
         },
-        type: this.getPropertyType(prop),
+        type: this.typeParser(prop.type),
       };
 
       return obj;
@@ -630,40 +589,16 @@ class DocGenerator {
     /*eslint-disable */
     let parsedParameters: { label: string; type?: string | string[] | undefined; description?: string | null }[] = []; // eslint-disable-line no-use-before-define
     /*eslint-enable */
-    let returnType = '';
     /* It's iterating over the parameters array and creating an object for each parameter. */
     parameters?.forEach((parameter) => {
-      const json: Json | undefined = parameter?.type.toJSON();
-      if (json.kind === 'intersection' || json.kind === 'union') {
-        json.types?.reverse().map((param, i) => {
-          let adjustedType = this.getAdjustedType(param);
-          if (param.kind === 'array') {
-            adjustedType += '[ ]';
-          }
-          if (json.kind === 'intersection' && i + 1 !== json.types?.length) {
-            adjustedType += ' & ';
-          }
-          if (json.kind === 'union' && i + 1 !== json.types?.length) {
-            adjustedType += ' | ';
-          }
-          returnType += adjustedType;
-        });
-      }
-
-      const type = this.getAdjustedType(json);
-      if (!returnType) {
-        returnType = type;
-      }
-
       const obj = {
         label: parameter.name,
-        type: returnType,
+        type: this.typeParser(parameter.type),
         description: parameter.comment.description,
       };
       parsedParameters.push(obj);
-      returnType = '';
     });
-    return parsedParameters.reverse();
+    return parsedParameters;
   }
 
   /**

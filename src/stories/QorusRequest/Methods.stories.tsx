@@ -1,5 +1,5 @@
-import { QorusAuthenticatorDemo } from '../QorusAuthenticator/demo';
 import { Documentation } from '../components/documentation';
+import { QorusAuthenticatorDemo } from '../QorusAuthenticator/demo';
 import { DocumentationMeta, DocumentationStory } from '../types';
 import { argsData, getClassData, newMethodStory } from '../utils';
 
@@ -33,6 +33,13 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
 const prepareStory = newMethodStory(Template, 'QorusRequest');
 
 export const get = prepareStory('get');
+get.storyName = 'get';
+
 export const post = prepareStory('post');
+post.storyName = 'post';
+
 export const put = prepareStory('put');
-export const delReq = prepareStory('deleteReq');
+put.storyName = 'put';
+
+export const deleteReq = prepareStory('deleteReq');
+deleteReq.storyName = 'deleteReq';

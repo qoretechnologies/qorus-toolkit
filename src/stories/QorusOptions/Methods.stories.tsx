@@ -33,9 +33,21 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
 const prepareStory = newMethodStory(Template, 'QorusOptions');
 
 export const get = prepareStory('get');
+
 export const set = prepareStory('set');
+set.storyName = 'set';
+
 export const validate = prepareStory('validate');
+validate.storyName = 'validate';
+
 export const validateProperty = prepareStory('validateProperty');
+validateProperty.storyName = 'validateProperty';
+
 export const getAll = prepareStory('getAll');
+getAll.storyName = 'getAll';
+
 export const getJsType = prepareStory('getJsType');
+getJsType.storyName = 'getJsType';
+
 export const getType = prepareStory('getType');
+getType.storyName = 'getType';
