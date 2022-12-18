@@ -59,7 +59,7 @@ export class QorusDataProvider {
     }
   }
 
-  private fetchWithContext = async (context: Context) => {
+  private async fetchWithContext(context: Context) {
     // Making a put request
     const requestPath = getRequestPath([apiPathsInitial.dataProviders.browse]);
     const requestData = { context: context };
@@ -86,48 +86,48 @@ export class QorusDataProvider {
       providerData: responseData,
       responseError,
     });
-  };
+  }
 
   /**
    * Get record of Data Providers with context 'record' from /dataprovider/browse endpoint
    * @returns Array of DataProviders records
    */
-  getRecord = async (): Promise<QorusDataProvider> => {
+  async getRecord(): Promise<QorusDataProvider> {
     return this.fetchWithContext('record');
-  };
+  }
 
   /**
    * Get record of Data Providers with context 'api'  from /dataprovider/browse endpoint
    * @returns array of DataProviders records
    */
 
-  getApi = async (): Promise<QorusDataProvider> => {
+  async getApi(): Promise<QorusDataProvider> {
     return this.fetchWithContext('api');
-  };
+  }
 
   /**
    * Get record of Data Providers with context 'Event'  from /dataprovider/browse endpoint
    * @returns Array of DataProviders records
    */
-  getEvent = async (): Promise<QorusDataProvider> => {
+  async getEvent(): Promise<QorusDataProvider> {
     return this.fetchWithContext('event');
-  };
+  }
 
   /**
    * Get record of Data Providers with context 'message'  from /dataprovider/browse endpoint
    * @returns Array of DataProviders records
    */
-  getMessage = async (): Promise<QorusDataProvider> => {
+  async getMessage(): Promise<QorusDataProvider> {
     return this.fetchWithContext('message');
-  };
+  }
 
   /**
    * Get record of Data Providers with context 'type'  from /dataprovider/browse endpoint
    * @returns Array of DataProviders records
    */
-  getType = async (): Promise<QorusDataProvider> => {
+  async getType(): Promise<QorusDataProvider> {
     return this.fetchWithContext('type');
-  };
+  }
 
   /**
    * Checks if the children exist on the provider

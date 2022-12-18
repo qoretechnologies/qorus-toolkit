@@ -88,40 +88,40 @@ export class QorusRequest {
    * @param props QorusRequestParams endpoint url is mandatory to make a get request
    * @returns Result of the get request
    */
-  get = async <T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> => {
+  async get<T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> {
     const result = await this.makeRequest('GET', props, endpoint);
     return result;
-  };
+  }
 
   /**
    * Post request creator for the QorusToolkit
    * @param props QorusRequestParams endpoint url is mandatory to make a post request
    * @returns Result of the post request
    */
-  post = async <T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> => {
+  async post<T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> {
     const result = await this.makeRequest('POST', props, endpoint);
     return result;
-  };
+  }
 
   /**
    * Put request creator for the QorusToolkit
    * @param props QorusRequestParams endpoint url is mandatory to make a put request
    * @returns Result of the put request
    */
-  put = async <T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> => {
+  async put<T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> {
     const result = await this.makeRequest('PUT', props, endpoint);
     return result;
-  };
+  }
 
   /**
    * Delete request creator for the QorusToolkit
    * @param props QorusRequestParams endpoint url is mandatory to make a delete request
    * @returns Result of the delete request
    */
-  deleteReq = async <T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> => {
+  async deleteReq<T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> {
     const result = await this.makeRequest('DELETE', props, endpoint);
     return result;
-  };
+  }
 }
 
 export default new QorusRequest();
