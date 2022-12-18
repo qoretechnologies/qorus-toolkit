@@ -32,6 +32,13 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
 const prepareStory = newClassPropertyStory(Template, 'QorusAuthenticator');
 
 export const allApiPaths = prepareStory('allApiPaths');
+allApiPaths.storyName = 'allApiPaths';
+
 export const apiPathsAuthenticator = prepareStory('apiPathsAuthenticator');
+apiPathsAuthenticator.storyName = 'apiPathsAuthenticator';
+
 export const endpoints = prepareStory('endpoints');
+endpoints.storyName = 'endpoints';
+
 export const selectedEndpoint = prepareStory('selectedEndpoint');
+selectedEndpoint.storyName = 'selectedEndpoint';

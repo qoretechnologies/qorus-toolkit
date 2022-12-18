@@ -32,3 +32,4 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
 const prepareStory = newClassPropertyStory(Template, 'QorusRequest');
 
 export const defaultHeaders = prepareStory('defaultHeaders');
+defaultHeaders.storyName = 'defaultHeaders';
