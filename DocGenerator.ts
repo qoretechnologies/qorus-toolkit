@@ -663,7 +663,7 @@ docs.createAllDocsJson();
 
 // Convert examples to json
 const exampleDirectory = './src/examples/';
-const exampleJsonFile = './codeExamples.ts';
+const exampleJsonFile = './codeExamples.json';
 
 export function convertExamplesToJson(dirname: string) {
   fs.readdir(dirname, function (err, filenames) {
@@ -678,7 +678,7 @@ export function convertExamplesToJson(dirname: string) {
       const newFileName = filename.split('.')[0];
       data[newFileName] = content;
     });
-    fs.writeFileSync(exampleJsonFile, `export default ${JSON.stringify(data)};`);
+    fs.writeFileSync(exampleJsonFile, JSON.stringify(data));
   });
 }
 

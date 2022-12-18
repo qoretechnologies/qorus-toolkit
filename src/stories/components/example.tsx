@@ -1,6 +1,6 @@
 import { ReqorePanel } from '@qoretechnologies/reqore';
 import ReactRunkit from 'react-runkit';
-import codeExamples from '../../../codeExamples';
+import codeExamples from '../../../codeExamples.json';
 import { version } from '../../../package.json';
 
 export interface IDocumentationExampleProps {
