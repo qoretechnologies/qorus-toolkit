@@ -10,5 +10,5 @@ await Qorus.QorusAuthenticator.login({
 const dataProviderBrowse = await Qorus.QorusDataProvider.getApi();
 // Select factory provider
 const browseChildrenNames = dataProviderBrowse.getChildrenNames();
-const factory = await dataProviderBrowse.get(browseChildrenNames.factory);
+const factory = await dataProviderBrowse.getApi(browseChildrenNames.factory);
 // => ProviderWithOptions { path: ..., responseData: {...}, providerData: {...}, responseError: {...}, context: ...}

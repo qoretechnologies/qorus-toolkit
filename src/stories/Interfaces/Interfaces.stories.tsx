@@ -21,7 +21,7 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
       // code="import { QorusValidator } from '@qoretechnologies/qorus-toolkit'"
     >
       <DocumentationItem {...rest}>{comments.summary ?? ''}</DocumentationItem>
-      <DocumentationExample label={context.story} />
+      <DocumentationExample label={context.storyName} />
       <ReqoreSpacer height={20} />
       <QorusAuthenticatorDemo />
     </DocumentationWrapper>

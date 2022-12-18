@@ -11,6 +11,6 @@ await Qorus.QorusAuthenticator.login({
 });
 
 // Next we initialize a delete request against our defined Qorus server
-const result = await Qorus.QorusRequest.delete({
+const result = await Qorus.QorusRequest.deleteReq({
   path: '/api/latest/classes/1',
 });
