@@ -34,7 +34,7 @@
     "build:test": "npx tsc --p ./tsconfig.prod.json --noEmit",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint . --ext .ts",
-    "docs": "typedoc && ts-node ./DocGenerator.ts",
+    "docs": "typedoc && ts-node ./DocGenerator.ts && eslint ./codeExamples.ts --fix",
     "docs:watch": "npm run css & typedoc --watch",
     "prepublishOnly": "npm test && npm run lint",
     "updatePullRequestVersion": "chmod +x prePush.sh && ./prePush.sh",
