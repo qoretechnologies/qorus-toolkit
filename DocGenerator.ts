@@ -1,5 +1,17 @@
 import fs from 'fs';
-import { ClassMethodParser, ClassParser, InterfaceParser, ProjectParser, TypeAliasParser } from 'typedoc-json-parser';
+import {
+  ArrayTypeParser,
+  ClassMethodParser,
+  ClassParser,
+  InterfaceParser,
+  IntersectionTypeParser,
+  IntrinsicTypeParser,
+  LiteralTypeParser,
+  ProjectParser,
+  ReferenceTypeParser,
+  ReflectionTypeParser,
+  TypeAliasParser,
+} from 'typedoc-json-parser';
 import {
   InterfaceDocs,
   Json,
@@ -204,11 +216,12 @@ class DocGenerator {
             return typeProp;
           }
           return reflectionString;
-        } else if (propertyNew?.name) {
-          if (propertyNew?.kind === 'array') {
-            return `${propertyNew.name}[ ]`;
+        } else if (this.getAdjustedType(propertyNew)) {
+          const type = this.getAdjustedType(propertyNew);
+          if (type === 'array') {
+            return `${type}[ ]`;
           }
-          return `${propertyNew.name}`;
+          return `${type}`;
         } else return '';
       });
     } else {
@@ -224,12 +237,106 @@ class DocGenerator {
     return propertyType;
   }
 
+  reflectionTypeParser(typeJson: ReflectionTypeParser) {
+    const children = typeJson.reflection?.children;
+    if (!typeJson.reflection?.children) {
+      return '';
+    }
+    let typeString = '{ ';
+    children?.map((child, i) => {
+      if (child.name) {
+        typeString += `${child.name}: `;
+        const type = this.getAdjustedType(child.type);
+        typeString += ` ${type}`;
+        if (i + 1 !== children.length) {
+          typeString += ', ';
+        }
+      }
+    });
+    typeString += ' }';
+
+    return typeString;
+  }
+
+  getSeparatorSymbol(typeKind) {
+    return typeKind === 'union' ? ' | ' : typeKind === 'intersection' ? ' & ' : '';
+  }
+
+  getTypeString(
+    typeObj: ReflectionTypeParser | LiteralTypeParser | ArrayTypeParser | ReferenceTypeParser | any,
+    prevTypeString?: string,
+  ): string {
+    let finalTypeString = prevTypeString ?? '';
+    console.log(typeObj);
+    if (typeObj instanceof ArrayTypeParser) {
+      const arrType = typeObj.type;
+      let typeString = this.getTypeString(arrType, finalTypeString);
+      typeString += '[ ]';
+      finalTypeString += typeString;
+    } else if (typeObj instanceof ReflectionTypeParser) {
+      finalTypeString += this.reflectionTypeParser(typeObj);
+    } else if (typeObj instanceof LiteralTypeParser) {
+      finalTypeString += typeObj.value;
+      console.log('I am here');
+    } else if (typeObj instanceof IntrinsicTypeParser) {
+      finalTypeString += this.getAdjustedType(typeObj);
+    } else if (typeObj instanceof IntersectionTypeParser) {
+      const intersectionTypes = typeObj.types;
+      let typeString = '';
+      intersectionTypes?.map((typeNew, index) => {
+        typeString += this.getTypeString(typeNew);
+        if (index + 1 !== intersectionTypes.length) {
+          typeString += this.getSeparatorSymbol(typeObj.kind);
+        }
+      });
+      finalTypeString += typeString;
+    } else if (typeObj instanceof ReferenceTypeParser) {
+      finalTypeString += typeObj.name;
+    }
+
+    return finalTypeString;
+  }
+
+  typeParser(typeJson) {
+    const typeKind = typeJson.kind;
+    let types, typeArguments;
+
+    if (typeJson.hasOwnProperty('types')) {
+      types = typeJson.types ?? undefined;
+    }
+
+    if (typeJson.hasOwnProperty('typeArguments')) {
+      typeArguments = typeJson.typeArguments ?? undefined;
+    }
+
+    const isUnion = typeKind === 'union';
+    const selectedTypeArray = isUnion ? (types ? types : typeArguments) : undefined;
+    let returnType = '';
+
+    if (selectedTypeArray?.length > 0 && (typeKind === 'union' || typeKind === 'intersection')) {
+      selectedTypeArray.reverse().map((parameter, index: number) => {
+        let typeString = this.getTypeString(parameter);
+        if (index + 1 !== selectedTypeArray.length) {
+          typeString += this.getSeparatorSymbol(typeKind);
+        }
+        returnType += typeString;
+      });
+    }
+
+    const type = this.getAdjustedType(typeJson);
+    if (!returnType) {
+      returnType = type;
+    }
+
+    return returnType;
+  }
+
   /**
    * A getter to get the interface documentation
    * @param interfaceObject Json interface object from the parsed project
    * @returns Parsed docs object for the interface if it exists, undefined otherwise
    */
-  getInterfaceDocs(interfaceObject?: InterfaceParser | string): InterfaceDocs | undefined {
+  createInterfaceDocs(interfaceObject?: InterfaceParser | string): InterfaceDocs | undefined {
     let interfaceObj: InterfaceParser | undefined;
     if (typeof interfaceObject === 'string') {
       interfaceObj = this.getInterface(interfaceObject);
@@ -245,7 +352,7 @@ class DocGenerator {
       const propertyDocs = {
         label: property.name,
         description: property.comment.description ?? '',
-        type: this.getPropertyType(property),
+        type: this.typeParser(property.type),
       };
       return propertyDocs;
     });
@@ -261,6 +368,9 @@ class DocGenerator {
 
   getAdjustedType(json: any): string {
     if (json?.name) {
+      if (json?.kind === 'array') {
+        return `${json?.name}[ ]`;
+      }
       return json?.name;
     } else if (json?.type && json?.kind === 'array') {
       return `${json.type.name ?? json.type.type}[ ]`;
@@ -269,6 +379,9 @@ class DocGenerator {
     } else if (json?.type) {
       return (json.type as ParamType).type ?? json.type.kind;
     } else if (json?.value) {
+      if (json?.kind === 'array') {
+        return `${json?.value}[ ]`;
+      }
       return json.value;
     } else {
       return json?.kind;
@@ -380,7 +493,7 @@ class DocGenerator {
 
   createAllInterfacesJson() {
     const docs = this.allInterfaces.map((obj) => {
-      const objDocs = this.getInterfaceDocs(obj);
+      const objDocs = this.createInterfaceDocs(obj);
       return objDocs;
     });
     return docs;
@@ -472,15 +585,16 @@ class DocGenerator {
       const types = newTypes?.map((type) => {
         const adjustedType = this.getAdjustedType(type);
         const obj = this.createTypeObject(adjustedType);
-        if (type.kind === 'array') {
-          obj.label = `${obj}[ ]`;
-        }
         return obj;
       });
       return types;
     }
 
-    const adjustedType = this.getAdjustedType(typeArguments?.type);
+    let adjustedType = this.getAdjustedType(typeArguments ?? returnType);
+    if ((typeArguments?.kind === 'array' || returnType?.kind === 'array') && adjustedType) {
+      adjustedType = `${adjustedType}[ ]`;
+    }
+
     const types = this.createTypeObject(adjustedType);
     return [types];
   }
@@ -583,14 +697,14 @@ class DocGenerator {
       if (json.typeArguments?.[0].kind === 'union') {
         const reversedTypes = json.typeArguments?.[0].types?.reverse();
         reversedTypes?.map((type, index) => {
-          returnString += type.name ? type.name : type.type;
+          returnString += this.getAdjustedType(type);
           if (index + 1 !== json.typeArguments?.[0].types?.length) returnString += ' | ';
           if (index + 1 === json.typeArguments?.[0].types?.length) returnString += ' >';
         });
       } else {
         const reversedTypes = json.typeArguments?.reverse();
         reversedTypes?.map((type) => {
-          returnString += type.type;
+          returnString += this.getAdjustedType(type);
           returnString += ' >';
         });
       }

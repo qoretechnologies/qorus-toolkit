@@ -61,7 +61,8 @@ export const argsData = {
 };
 
 export const getClassData = (className: string): DocumentationClass => {
-  return docs.classesDocs.find((classDoc) => classDoc.name === className)!;
+  const classDocs = docs.classesDocs.find((classDoc) => classDoc.name === className)!;
+  return classDocs;
 };
 
 export const getMethodData = (methodName: string, className: string) => {

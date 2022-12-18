@@ -33,7 +33,7 @@ export interface DocumentationStory extends Story<IDocumentationProps> {}
 export interface DocumentationProperty {
   name: string;
   comments?: Comments;
-  type: string;
+  type: string | string[];
 }
 
 export interface DocumentationClass {

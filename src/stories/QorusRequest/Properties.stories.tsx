@@ -1,5 +1,5 @@
-import { QorusAuthenticatorDemo } from '../QorusAuthenticator/demo';
 import { Documentation } from '../components/documentation';
+import { QorusAuthenticatorDemo } from '../QorusAuthenticator/demo';
 import { DocumentationMeta, DocumentationStory } from '../types';
 import { argsData, getClassData, newClassPropertyStory } from '../utils';
 
