@@ -226,7 +226,6 @@ class DocGenerator {
     prevTypeString?: string,
   ): string {
     let finalTypeString = prevTypeString ?? '';
-    console.log(typeObj);
     if (typeObj instanceof ArrayTypeParser) {
       const arrType = typeObj.type;
       let typeString = this.getTypeString(arrType, finalTypeString);
@@ -236,7 +235,6 @@ class DocGenerator {
       finalTypeString += this.reflectionTypeParser(typeObj);
     } else if (typeObj instanceof LiteralTypeParser) {
       finalTypeString += typeObj.value;
-      console.log('I am here');
     } else if (typeObj instanceof IntrinsicTypeParser) {
       finalTypeString += this.getAdjustedType(typeObj);
     } else if (typeObj instanceof IntersectionTypeParser) {
@@ -677,7 +675,6 @@ export function convertExamplesToJson(dirname: string) {
     }
     filenames.forEach(function (filename) {
       const content = fs.readFileSync(dirname + filename, 'utf-8');
-      console.log(content);
       const newFileName = filename.split('.')[0];
       data[newFileName] = content;
     });
