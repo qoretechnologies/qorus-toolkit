@@ -654,7 +654,7 @@ const exampleJsonFile = './codeExamples.json';
 
 export function convertExamplesToJson(dirname: string) {
   fs.readdir(dirname, function (err, filenames) {
-    const data: { [x: string]: string } = {};
+    const data: any[] = [];
 
     if (err) {
       console.log(err);
@@ -662,8 +662,16 @@ export function convertExamplesToJson(dirname: string) {
     }
     filenames.forEach(function (filename) {
       const content = fs.readFileSync(dirname + filename, 'utf-8');
-      const newFileName = filename.split('.')[0];
-      data[newFileName] = content;
+      const className = filename.split('-')[0];
+      let methodName = filename.split('-')[1];
+      if (methodName && methodName !== '.js') {
+        methodName = methodName.split('.')[0];
+
+        const obj = {
+          [`${className}.${methodName}`]: content,
+        };
+        data.push(obj);
+      }
     });
     fs.writeFileSync(exampleJsonFile, JSON.stringify(data));
   });
