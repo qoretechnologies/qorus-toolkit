@@ -28,4 +28,5 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
   );
 };
 
-export const getTypeFromValue = prepareTypeStory(Template, 'Version');
+export const Version = prepareTypeStory(Template, 'Version');
+Version.storyName = 'Version';
