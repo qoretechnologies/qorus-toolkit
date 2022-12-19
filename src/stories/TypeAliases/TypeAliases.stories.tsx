@@ -7,7 +7,7 @@ import { DocumentationMeta, DocumentationStory } from '../types';
 import { argsData, prepareTypeStory } from '../utils';
 
 export default {
-  title: 'API/TypeAliases',
+  title: 'Typings/TypeAliases',
   argTypes: {
     ...argsData,
   },
