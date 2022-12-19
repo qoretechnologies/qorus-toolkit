@@ -403,7 +403,7 @@ export class QorusValidator {
    * @param value Any accepted type value
    * @returns QorusType string
    */
-  getTypeFromValue(value: any) {
+  getTypeFromValue(value: any): 'string' | 'int' | 'list' | 'bool' | 'float' | 'hash' | 'date' | 'null' | 'none' {
     if (value === null) {
       return 'null';
     }

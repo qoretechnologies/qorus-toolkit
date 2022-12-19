@@ -11,6 +11,7 @@ import {
   ReferenceTypeParser,
   ReflectionTypeParser,
   TypeAliasParser,
+  UnionTypeParser,
 } from 'typedoc-json-parser';
 import {
   InterfaceDocs,
@@ -226,10 +227,21 @@ class DocGenerator {
     prevTypeString?: string,
   ): string {
     let finalTypeString = prevTypeString ?? '';
-    if (typeObj instanceof ArrayTypeParser) {
-      const arrType = typeObj.type;
-      let typeString = this.getTypeString(arrType, finalTypeString);
+    if (typeObj instanceof ReferenceTypeParser) {
+      if (typeObj.name === 'Promise') {
+        const typeObjects = typeObj.typeArguments;
+        typeObjects.reverse().map((type) => {
+          finalTypeString += this.typeParser(type);
+        });
+      } else {
+        finalTypeString += typeObj.name;
+      }
+    } else if (typeObj instanceof ArrayTypeParser) {
+      // const arrType = typeObj.type;
+      let typeString = (typeObj.type as any).name ?? (typeObj.type as any).type;
+
       typeString += '[ ]';
+
       finalTypeString += typeString;
     } else if (typeObj instanceof ReflectionTypeParser) {
       finalTypeString += this.reflectionTypeParser(typeObj);
@@ -237,18 +249,16 @@ class DocGenerator {
       finalTypeString += typeObj.value;
     } else if (typeObj instanceof IntrinsicTypeParser) {
       finalTypeString += this.getAdjustedType(typeObj);
-    } else if (typeObj instanceof IntersectionTypeParser) {
+    } else if (typeObj instanceof IntersectionTypeParser || typeObj instanceof UnionTypeParser) {
       const intersectionTypes = typeObj.types;
       let typeString = '';
-      intersectionTypes?.map((typeNew, index) => {
+      intersectionTypes.reverse()?.map((typeNew, index) => {
         typeString += this.getTypeString(typeNew);
         if (index + 1 !== intersectionTypes.length) {
           typeString += this.getSeparatorSymbol(typeObj.kind);
         }
       });
       finalTypeString += typeString;
-    } else if (typeObj instanceof ReferenceTypeParser) {
-      finalTypeString += typeObj.name;
     }
 
     return finalTypeString;
@@ -280,7 +290,7 @@ class DocGenerator {
       });
     }
 
-    const type = this.getAdjustedType(typeJson);
+    const type = this.getTypeString(typeJson);
     if (!returnType) {
       returnType = type;
     }
@@ -526,33 +536,32 @@ class DocGenerator {
    * @returns An array of MethodReturnType objects.
    */
   createReturnTypes(method: ClassMethodParser | undefined): MethodReturnType[] | undefined {
-    const returnType: Json | undefined = method?.signatures[0].returnType.toJSON();
-    if (returnType?.kind === 'union') {
-      const types = returnType.types?.map((type) => {
-        const adjustedType = this.getAdjustedType(type);
-        const obj = this.createTypeObject(adjustedType);
-        return obj;
-      });
-      return types;
-    }
-    const typeArguments = returnType?.typeArguments?.[0];
-
-    if (typeArguments?.kind === 'union') {
-      const newTypes = typeArguments.types;
-      const types = newTypes?.map((type) => {
-        const adjustedType = this.getAdjustedType(type);
-        const obj = this.createTypeObject(adjustedType);
-        return obj;
-      });
-      return types;
-    }
-
-    let adjustedType = this.getAdjustedType(typeArguments ?? returnType);
-    if ((typeArguments?.kind === 'array' || returnType?.kind === 'array') && adjustedType) {
-      adjustedType = `${adjustedType}[ ]`;
+    const returnType: Json | undefined = method?.signatures[0].returnType;
+    let typesArr;
+    if (returnType?.hasOwnProperty('typeArguments') || returnType?.hasOwnProperty('types')) {
+      const typeStringArr: any[] = [];
+      typesArr = returnType?.types ?? returnType.typeArguments;
+      if (typesArr) {
+        typesArr.reverse().map((type) => {
+          if (type.types) {
+            type.types.reverse().map((newType) => {
+              typeStringArr.push(this.getTypeString(newType));
+            });
+          } else {
+            typeStringArr.push(this.getTypeString(type));
+          }
+        });
+      }
+      if (typeStringArr.length > 0) {
+        const types = typeStringArr.map((typeString) => {
+          return this.createTypeObject(typeString as string);
+        });
+        return types;
+      }
     }
 
-    const types = this.createTypeObject(adjustedType);
+    const returnString = this.typeParser(returnType);
+    const types = this.createTypeObject(returnString);
     return [types];
   }
 
@@ -615,42 +624,20 @@ class DocGenerator {
     parameterString += parameters?.map((parameter) => {
       let parameterDefinition = '';
       parameterDefinition += ` ${parameter.name}`;
-      const json: Json = parameter.type;
-      const parameterType = json.name ? json.name : json.type ? json.type : json.kind;
+      // const json: Json = parameter.type;
+      const parameterType = this.typeParser(parameter.type);
       parameterDefinition += `: ${parameterType}`;
       return parameterDefinition;
     });
     methodDefinition += parameterString + ' )';
 
     let returnString = ': ';
-    const json: Json | undefined = returnType;
-
-    if (json?.name === 'Promise') {
+    if (returnType?.name === 'Promise') {
       returnString += 'Promise< ';
-      if (json.typeArguments?.[0].kind === 'union') {
-        const reversedTypes = json.typeArguments?.[0].types?.reverse();
-        reversedTypes?.map((type, index) => {
-          returnString += this.getAdjustedType(type);
-          if (index + 1 !== json.typeArguments?.[0].types?.length) returnString += ' | ';
-          if (index + 1 === json.typeArguments?.[0].types?.length) returnString += ' >';
-        });
-      } else {
-        const reversedTypes = json.typeArguments?.reverse();
-        reversedTypes?.map((type) => {
-          returnString += this.getAdjustedType(type);
-          returnString += ' >';
-        });
-      }
-    }
-    if (json?.kind === 'union') {
-      const reversedTypes = json.types?.reverse();
-      reversedTypes?.map((type, index) => {
-        returnString += type.name ? type.name : type.type;
-        if (index + 1 !== json.types?.length) returnString += ' | ';
-      });
-    }
-    if (json?.kind === 'reference' && json?.name !== 'Promise') {
-      returnString += json.name;
+      returnString += this.typeParser(returnType);
+      returnString += ' >';
+    } else {
+      returnString += this.typeParser(returnType);
     }
     if (returnString !== ': ') methodDefinition += returnString;
     return methodDefinition;

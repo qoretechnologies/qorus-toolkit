@@ -134,7 +134,7 @@ export class QorusDataProvider {
    * @param name Name of the children you want to find
    * @returns True if the children exist, False otherwise
    */
-  has(name: string) {
+  has(name: string): boolean {
     const children = this.responseData?.children.find((child) => child.name === name);
     if (typeof children === 'undefined' || !children.name) return false;
     else return true;
@@ -144,7 +144,7 @@ export class QorusDataProvider {
    * A getter to the the stored path array for the current provider
    * @returns Array of path strings
    */
-  getPath() {
+  getPath(): string[] | undefined {
     return this.path;
   }
 
@@ -153,7 +153,7 @@ export class QorusDataProvider {
    * @param path Optional path array to generate request path
    * @returns Request path string
    */
-  getFinalPath(path?: string[]) {
+  getFinalPath(path?: string[]): string {
     return getRequestPath(path ? path : this.path!);
   }
 
@@ -191,7 +191,7 @@ export class QorusDataProvider {
    * Method to verify if the current provider has children
    * @returns true if the children exist, false otherwise
    */
-  hasData() {
+  hasData(): boolean {
     if (this.responseData.matches_context) return true;
     else return false;
   }

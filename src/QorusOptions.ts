@@ -1,3 +1,4 @@
+import { ObjectWithStringKey } from '.';
 import ErrorInternal from './managers/error/ErrorInternal';
 import logger from './managers/logger';
 import QorusValidator from './QorusValidator';
@@ -91,7 +92,7 @@ export class QorusOptions {
    * A validator to verify if all the required values are provided
    * @returns True if all the value exist, False otherwise
    */
-  validate() {
+  validate(): boolean {
     let result = true;
     this.providerOptions.forEach((option): void | boolean => {
       if (option.required) {
@@ -108,7 +109,7 @@ export class QorusOptions {
    * Get all values required for the provider
    * @returns Array of values for the constructor options if required values exist, undefined otherwise
    */
-  getAll() {
+  getAll(): ObjectWithStringKey | undefined {
     const isValid = this.validate();
     if (!isValid) return;
 
@@ -154,7 +155,7 @@ export class QorusOptions {
    * @param propertyName Name of the property
    * @return Types accepted by the property
    */
-  getType(propertyName: string) {
+  getType(propertyName: string): string[] | undefined {
     const property = this.providerOptions.find((property) => property.name === propertyName);
     if (!property?.types) {
       logger.error(new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`));
@@ -167,7 +168,7 @@ export class QorusOptions {
    * @param propertyName name of the property
    * @returns js types accepted by the property
    */
-  getJsType(propertyName: string) {
+  getJsType(propertyName: string): string[] | undefined {
     const property = this.providerOptions.find((property) => property.name === propertyName);
     if (!property?.jsTypes) {
       logger.error(new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`));
@@ -180,7 +181,7 @@ export class QorusOptions {
    * @param propertyName Name of the property
    * @returns Property object with name and value
    */
-  get(propertyName: string) {
+  get(propertyName: string): Properties | undefined {
     const property = this.providerOptions.find((property) => property.name === propertyName);
     if (!property) {
       logger.error(
@@ -196,7 +197,7 @@ export class QorusOptions {
    * @param propertyValue Value for the property
    * @returns Property object
    */
-  set(propertyName: string, value: any) {
+  set(propertyName: string, value: any): Properties | undefined {
     const isValid = this.validateProperty(propertyName, value);
     if (!isValid) {
       throw new ErrorInternal(`Value is not valid for the property ${propertyName}`);
@@ -220,7 +221,7 @@ export class QorusOptions {
    * @param propertyValue Value for the property
    * @returns True if value can be used, False otherwise
    */
-  validateProperty(propertyName: string, value: any) {
+  validateProperty(propertyName: string, value: any): boolean {
     const types = this.get(propertyName)?.types;
     if (types) {
       let result = false;
