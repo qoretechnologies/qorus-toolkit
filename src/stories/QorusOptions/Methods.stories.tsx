@@ -33,6 +33,7 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
 const prepareStory = newMethodStory(Template, 'QorusOptions');
 
 export const get = prepareStory('get');
+get.storyName = 'get';
 
 export const set = prepareStory('set');
 set.storyName = 'set';
