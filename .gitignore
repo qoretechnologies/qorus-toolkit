@@ -3,7 +3,5 @@ dist
 logs
 notes.md
 tests.json
-docs
 build-storybook.log
 storybook-static
-
