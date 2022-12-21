@@ -8,7 +8,6 @@ export interface IDocumentationExampleProps {
 }
 
 export const DocumentationExample = ({ label }: IDocumentationExampleProps) => {
-  console.log(label);
   if (!label || !codeExamples[label]) {
     return null;
   }

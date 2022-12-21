@@ -115,8 +115,6 @@ export const getClassPropertyData = (propertyName: string, className: string): T
 export const prepareMethodStory = (template: DocumentationStory, methodName: string, className: string) => {
   const selectedMethod = getMethodData(methodName, className);
 
-  console.log(selectedMethod);
-
   const story = template.bind({});
   const docData: MethodDocs | undefined = selectedMethod?.data;
 

@@ -9,9 +9,7 @@ export interface IDocumentationType extends Omit<IReqoreTagProps, 'label'> {
 }
 
 export const DocumentationType = ({ link, label, ...rest }: IDocumentationType) => {
-  const transformedLabel: string = isObject(label) ? (label.type as string) : (label as string);
-
-  console.log(label);
+  const transformedLabel: string = isObject(label) ? label.type : label;
 
   return (
     <ReqoreTag

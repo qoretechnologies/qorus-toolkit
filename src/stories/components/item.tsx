@@ -24,7 +24,6 @@ export const DocumentationItem = ({
   returnSummary,
   ...rest
 }: IDocumentationItemsProps) => {
-  console.log(comment, rest);
   return (
     <>
       <ReqorePanel flat opacity={0} headerSize={1} {...rest} label={name}>
