@@ -23,6 +23,9 @@ exports[`QorusLogin Utility Class Tests Should return api paths for the selected
   "dataProviders": {
     "browse": "/api/latest/dataprovider/browse",
   },
+  "jobs": {
+    "browse": "/api/latest/jobs",
+  },
 }
 `;
 
