@@ -1,6 +1,11 @@
 export interface ApiPaths {
   authenticator: ApiPathsAuthenticator;
   dataProviders: ApiPathsDataProvider;
+  jobs: ApiPathsJobs;
+}
+
+export interface ApiPathsJobs {
+  browse: string;
 }
 
 export interface ApiPathsDataProvider {
@@ -33,6 +38,9 @@ export const apiPathsInitial: ApiPaths = {
   dataProviders: {
     browse: '/api/latest/dataprovider/browse',
   },
+  jobs: {
+    browse: '/api/latest/jobs',
+  },
 };
 
 /**
@@ -54,6 +62,9 @@ export const createApiPaths = (props: WithEndpointVersion): ApiPaths => {
     },
     dataProviders: {
       browse: `/api/${V}/dataprovider/browse`,
+    },
+    jobs: {
+      browse: `/api/${V}/dataprovider/jobs`,
     },
   };
 };
