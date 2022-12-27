@@ -14,8 +14,19 @@ import {
   WithEndpointVersion,
 } from './utils/apiPaths';
 
+/**
+ * Endpoint id for a Qorus Endpoint
+ */
 export type QorusEndpointId = string;
+
+/**
+ * Authentication token for a Qorus Endpoint
+ */
 export type QorusAuthToken = string;
+
+/**
+ * Url for a Qorus Endpoint
+ */
 export type QorusEndpointURL = string;
 
 export interface WithQorusEndpointId {
@@ -27,25 +38,25 @@ export interface WithQorusEndpointId {
 
 export interface WithQorusAuthToken {
   /**
-   * Auth token for the user provided endpoint
+   * Authentication token for the user provided endpoint
    */
   authToken?: QorusAuthToken;
 }
 
 export interface WithQorusURL {
   /**
-   * URL to your server for the provided endpoint
+   * URL to Qorus server for the provided endpoint
    */
   url: QorusEndpointURL;
 }
 
 export interface LoginParams {
   /**
-   * Username for the authentication to your server
+   * Username for the authentication to Qorus server
    */
   user?: string;
   /**
-   * Password for the authentication to your server
+   * Password for the authentication to Qorus server
    */
   pass?: string;
 }
@@ -54,6 +65,9 @@ export interface AddEndpoint extends WithQorusURL, WithEndpointVersion, WithQoru
 
 export interface Endpoint extends WithQorusURL, WithEndpointVersion, WithQorusAuthToken, WithQorusEndpointId {}
 
+/**
+ * Authentication token for a Qorus Endpoint
+ */
 export type Token = string;
 
 /**
@@ -466,17 +480,17 @@ export class QorusAuthenticator {
    * A getter to return the api paths for the selected Endpoint
    * @returns ApiPaths for the selected endpoint if exists, otherwise returns default api paths
    */
-  getApiPaths = (): ApiPaths => {
+  getApiPaths(): ApiPaths {
     return this.allApiPaths;
-  };
+  }
 
   /**
    * A getter to get all the available Endpoints
    * @returns Endpoints array with all the available endpoints
    */
-  getAllEndpoints = (): Endpoint[] => {
+  getAllEndpoints(): Endpoint[] {
     return this.endpoints;
-  };
+  }
 }
 
 export default new QorusAuthenticator();

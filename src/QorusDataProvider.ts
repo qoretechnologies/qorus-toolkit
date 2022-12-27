@@ -13,6 +13,9 @@ const getRequestPath = (path: string[]) => {
   return requestPath;
 };
 
+/**
+ * Context for the Qorus api ex: 'record'
+ */
 export type Context = 'record' | 'api' | 'event' | 'message' | 'type';
 
 /** Constructor Options for the data provider */
