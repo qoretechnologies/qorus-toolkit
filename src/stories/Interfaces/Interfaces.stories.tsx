@@ -1,13 +1,14 @@
 import { ReqoreSpacer } from '@qoretechnologies/reqore';
+import { QorusAuthenticatorDemo } from '../QorusAuthenticator/demo';
 import { DocumentationExample } from '../components/example';
 import { DocumentationItem } from '../components/item';
 import { DocumentationWrapper } from '../components/wrapper';
-import { QorusAuthenticatorDemo } from '../QorusAuthenticator/demo';
 import { DocumentationMeta, DocumentationStory } from '../types';
 import { argsData, prepareInterfaceStory } from '../utils';
 
 export default {
   title: 'Typings/Interfaces',
+  id: 'interfaces',
   argTypes: {
     ...argsData,
   },
@@ -15,11 +16,7 @@ export default {
 
 const Template: DocumentationStory = ({ comments, ...rest }, context) => {
   return (
-    <DocumentationWrapper
-      title="Qorus Interfaces"
-      description="Validates the DataProvider properties"
-      // code="import { QorusValidator } from '@qoretechnologies/qorus-toolkit'"
-    >
+    <DocumentationWrapper title="Qorus Interfaces" description="Validates the DataProvider properties">
       <DocumentationItem {...rest}>{comments.summary ?? ''}</DocumentationItem>
       <DocumentationExample label={context.storyName} />
       <ReqoreSpacer height={20} />
@@ -35,7 +32,7 @@ export const AddEndpoint = prepareInterfaceStory(Template, 'AddEndpoint');
 AddEndpoint.storyName = 'AddEndpoint';
 
 export const Endpoint = prepareInterfaceStory(Template, 'Endpoint');
-Endpoint.storyName = 'Endpoint';
+//Endpoint.storyName = 'Endpoint';
 
 export const LoginParams = prepareInterfaceStory(Template, 'LoginParams');
 LoginParams.storyName = 'LoginParams';
