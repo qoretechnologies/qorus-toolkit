@@ -79,7 +79,7 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
                       effect: prop.async ? asyncEffect : undefined,
                     } as IReqoreTagProps
                   }
-                  onClick={linkTo(`${name}.methods`, toCapitalCase(prop.name))}
+                  onClick={linkTo(`${name}.methods`, toCapitalCase(prop.name as string))}
                 >
                   {prop.name}
                 </ReqoreButton>
