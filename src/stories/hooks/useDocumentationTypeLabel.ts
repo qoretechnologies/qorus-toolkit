@@ -8,6 +8,7 @@ export interface ITypeLabel {
   isLinkable: boolean;
   info?: any;
 }
+/*eslint-disable */
 
 export const transformTypeLabel = (label: TTypeLabel): string =>
   isUndefined(label)

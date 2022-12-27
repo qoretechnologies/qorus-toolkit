@@ -3,4 +3,3 @@ dist
 test
 typedocParser
 src/stories/docs.ts
-src/stories/hooks
