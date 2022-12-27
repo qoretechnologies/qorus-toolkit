@@ -215,5 +215,5 @@ export const isCapitalized = (str: string) => {
 
 // Turn string to Capital case with spaces
 export const toCapitalCase = (str?: string) => {
-  return str?.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase());
+  return str?.replace(/([A-Z])/g, ' $1').replace(/^./, (strNew) => strNew.toUpperCase());
 };

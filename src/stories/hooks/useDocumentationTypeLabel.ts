@@ -17,8 +17,7 @@ export const transformTypeLabel = (label: TTypeLabel): string =>
       ? (label as MethodReturnType[]).reduce((newType, l) => `${newType ? `${newType} | ` : ''}${l.label}`, '')
       : label.join(' | ')
     : isObject(label)
-    ? // @ts-ignore
-      label.type || label.label
+    ? label.type || label.label
     : label;
 
 export default function (label: TTypeLabel) {
