@@ -13,7 +13,7 @@ const getRequestPath = (path: string[]) => {
   return requestPath;
 };
 
-export type Context = 'record' | 'api' | 'event' | 'message' | 'type' | undefined;
+export type Context = 'record' | 'api' | 'event' | 'message' | 'type';
 
 /** Constructor Options for the data provider */
 export type ConstructorOptions = any;
@@ -35,7 +35,7 @@ export class QorusDataProvider {
   responseData: ResponseData;
 
   /** Current context for the data provider */
-  context: Context;
+  context: Context = 'api';
 
   /** Data provider data with children object */
   providerData?: ProviderData;

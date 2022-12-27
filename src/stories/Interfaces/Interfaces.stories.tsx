@@ -1,8 +1,8 @@
 import { ReqoreSpacer } from '@qoretechnologies/reqore';
-import { QorusAuthenticatorDemo } from '../QorusAuthenticator/demo';
 import { DocumentationExample } from '../components/example';
 import { DocumentationItem } from '../components/item';
 import { DocumentationWrapper } from '../components/wrapper';
+import { QorusAuthenticatorDemo } from '../QorusAuthenticator/demo';
 import { DocumentationMeta, DocumentationStory } from '../types';
 import { argsData, prepareInterfaceStory } from '../utils';
 
@@ -51,3 +51,12 @@ QorusRequestParams.storyName = 'QorusRequestParams';
 
 export const ProviderOption = prepareInterfaceStory(Template, 'ProviderOption');
 ProviderOption.storyName = 'ProviderOption';
+
+export const ApiPaths = prepareInterfaceStory(Template, 'ApiPaths');
+ApiPaths.storyName = 'ApiPaths';
+
+export const ApiPathsAuthenticator = prepareInterfaceStory(Template, 'ApiPathsAuthenticator');
+ApiPathsAuthenticator.storyName = 'ApiPathsAuthenticator';
+
+export const ApiPathsDataProvider = prepareInterfaceStory(Template, 'ApiPathsDataProvider');
+ApiPathsDataProvider.storyName = 'ApiPathsDataProvider';

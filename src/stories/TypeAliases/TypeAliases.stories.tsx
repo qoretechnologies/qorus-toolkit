@@ -31,3 +31,30 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
 
 export const Version = prepareTypeStory(Template, 'Version');
 Version.storyName = 'Version';
+
+export const Context = prepareTypeStory(Template, 'Context');
+Context.storyName = 'Context';
+
+export const QorusEndpointId = prepareTypeStory(Template, 'QorusEndpointId');
+QorusEndpointId.storyName = 'QorusEndpointId';
+
+export const QorusEndpointURL = prepareTypeStory(Template, 'QorusEndpointURL');
+QorusEndpointURL.storyName = 'QorusEndpointURL';
+
+export const Token = prepareTypeStory(Template, 'Token');
+Token.storyName = 'Token';
+
+export const ConstructorOptions = prepareTypeStory(Template, 'ConstructorOptions');
+ConstructorOptions.storyName = 'ConstructorOptions';
+
+export const ProviderData = prepareTypeStory(Template, 'ProviderData');
+ProviderData.storyName = 'ProviderData';
+
+export const ResponseData = prepareTypeStory(Template, 'ResponseData');
+ResponseData.storyName = 'ResponseData';
+
+export const ResponseError = prepareTypeStory(Template, 'ResponseError');
+ResponseError.storyName = 'ResponseError';
+
+export const ProviderChildren = prepareTypeStory(Template, 'ProviderChildren');
+ProviderChildren.storyName = 'ProviderChildren';

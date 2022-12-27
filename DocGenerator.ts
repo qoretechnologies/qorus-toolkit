@@ -49,14 +49,23 @@ class DocGenerator {
     });
     this.allClasses = classObj;
 
-    let interfaceObject: InterfaceParser[] = [];
+    let interfaceArray: InterfaceParser[] = [];
     this.project.namespaces.forEach((namespace) => {
-      interfaceObject = [...interfaceObject, ...namespace.interfaces];
+      interfaceArray = [...interfaceArray, ...namespace.interfaces];
     });
-    this.allInterfaces = interfaceObject;
+    interfaceArray = [...interfaceArray, ...this.project.interfaces];
+    this.allInterfaces = interfaceArray;
 
-    this.allTypeAliases = projectData.typeAliases;
+    this.allTypeAliases = this.project.typeAliases;
+    this.project.namespaces.forEach((namespace) => {
+      this.allTypeAliases = [...this.allTypeAliases, ...namespace.typeAliases];
+    });
+    // console.log(this.allTypeAliases.map((alias) => alias.name));
   }
+
+  // printProjectInterfaces() {
+  //   console.log(this.project.interfaces);
+  // }
 
   /** Creates documentation for Classes, Interfaces, Methods, and types
    * @returns Object with all the parsed docs and saves them to the file
@@ -167,6 +176,8 @@ class DocGenerator {
       typeAliasTypes = typeJsonTypes.map((obj) => {
         return obj.value;
       });
+    } else {
+      typeAliasTypes = adjustedType;
     }
     return typeAliasTypes;
   }

@@ -1,19 +1,43 @@
 export interface ApiPaths {
+  /**
+   * Api paths for the QorusAuthenticator
+   */
   authenticator: ApiPathsAuthenticator;
+  /**
+   * Api paths for the QorusDataProvider
+   */
   dataProviders: ApiPathsDataProvider;
 }
 
 export interface ApiPathsDataProvider {
+  /**
+   * DataProvider browse path "/api/latest/dataprovider/browse"
+   */
   browse: string;
 }
 
 export interface ApiPathsAuthenticator {
+  /**
+   * Route to login the user
+   */
   login: string;
+  /**
+   * Route to logout the user
+   */
   logout: string;
+  /**
+   * Route to validate user authentication token
+   */
   validateToken: string;
+  /**
+   * Route to check if the no-auth is enabled for the user
+   */
   validateNoAuth: string;
 }
 
+/**
+ * Type of allowed versions for the Qorus api
+ */
 export type Version = 1 | 2 | 3 | 4 | 5 | 6 | 'latest';
 export interface WithEndpointVersion {
   /**

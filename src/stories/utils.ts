@@ -60,14 +60,6 @@ export const argsData = {
   ...documentationArgs.disableArgs(['label', 'params', 'returnTypes', 'comments']),
 };
 
-export const getClassData = (className: string): DocumentationClass => {
-  const classDocs: DocumentationClass = docs.classesDocs.find((classDoc) => classDoc.name === className)!;
-
-  classDocs.methods = getAllMethodsFromClass(className);
-
-  return classDocs;
-};
-
 export const getAllMethodsFromClass = (className: string) => {
   const methods: MethodDocs[] = [];
 
@@ -80,6 +72,14 @@ export const getAllMethodsFromClass = (className: string) => {
   );
 
   return methods;
+};
+
+export const getClassData = (className: string): DocumentationClass => {
+  const classDocs: DocumentationClass = docs.classesDocs.find((classDoc) => classDoc.name === className)!;
+
+  classDocs.methods = getAllMethodsFromClass(className);
+
+  return classDocs;
 };
 
 export const getMethodData = (methodName: string, className: string) => {

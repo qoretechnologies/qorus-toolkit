@@ -1,4 +1,3 @@
-export { Version } from './utils/apiPaths';
 export * as Authenticator from './QorusAuthenticator';
 export * as HttpRequest from './QorusRequest';
 export * as DataProvider from './QorusDataProvider';
@@ -10,6 +9,8 @@ export { default as QorusRequest } from './QorusRequest';
 export { default as QorusDataProvider } from './QorusDataProvider';
 export { default as QorusValidator } from './QorusValidator';
 
+export { Version, ApiPaths, ApiPathsAuthenticator, ApiPathsDataProvider } from './utils/apiPaths';
+export { Context } from './QorusDataProvider';
 export interface ObjectWithStringKey {
   [x: string]: string;
 }
