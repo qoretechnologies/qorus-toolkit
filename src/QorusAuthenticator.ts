@@ -391,6 +391,11 @@ export class QorusAuthenticator {
     return undefined;
   }
 
+  /**
+   * Validates if the provided version is an accepted api version
+   * @param version Version of the endpoint
+   * @returns True if the version is valid, False otherwise
+   */
   private validateVersion(version: number | string) {
     const versions = [1, 2, 3, 4, 5, 6, 'latest'];
     return versions.includes(version);

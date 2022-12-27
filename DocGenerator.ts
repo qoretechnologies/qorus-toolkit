@@ -163,7 +163,7 @@ class DocGenerator {
     const adjustedType = this.getAdjustedType(typeJson);
     let typeAliasTypes;
     if (adjustedType === 'union') {
-      const typeJsonTypes = typeJson.types;
+      const typeJsonTypes = typeJson?.types;
       typeAliasTypes = typeJsonTypes.map((obj) => {
         return obj.value;
       });
@@ -265,7 +265,7 @@ class DocGenerator {
   }
 
   typeParser(typeJson) {
-    const typeKind = typeJson.kind;
+    const typeKind = typeJson?.kind ?? '';
     let types, typeArguments;
 
     if (typeJson.hasOwnProperty('types')) {
@@ -491,7 +491,7 @@ class DocGenerator {
     return allCalssesDocs;
   }
 
-  createAllMethodsDocs(classObj: string | ClassParser): (MethodDocs | undefined)[] | undefined {
+  createAllMethodsDocs(classObj: string | ClassParser | undefined): (MethodDocs | undefined)[] | undefined {
     let classObject: ClassParser | undefined;
     if (typeof classObj === 'string') {
       classObject = this.getClass(classObj);

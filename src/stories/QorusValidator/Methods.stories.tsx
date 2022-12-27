@@ -34,3 +34,6 @@ const prepareStory = newMethodStory(Template, 'QorusValidator');
 
 export const getTypeFromValue = prepareStory('getTypeFromValue');
 getTypeFromValue.storyName = 'getTypeFromValue';
+
+export const validate = prepareStory('validate');
+validate.storyName = 'validate';

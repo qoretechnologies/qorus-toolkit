@@ -37,7 +37,7 @@ export class QorusRequest {
    */
   defaultHeaders: DefaultHeaders = { 'Content-Type': 'application/json', Accept: 'application/json' };
 
-  makeRequest = async (
+  private makeRequest = async (
     type: 'GET' | 'PUT' | 'POST' | 'DELETE',
     props: QorusRequestParams,
     endpoint?: Endpoint,

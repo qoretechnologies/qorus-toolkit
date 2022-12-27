@@ -25,6 +25,11 @@ export const versions = [1, 2, 3, 4, 5, 6, 'latest'];
  * Utility class to validate provider_options properties
  */
 export class QorusValidator {
+  /**
+   * Verifies if the type can be null or not
+   * @param type Type of the object
+   * @returns True if the the type can be null, False otherwise
+   */
   private nullType(type: string) {
     if (type.startsWith('*')) {
       type = type.substring(1);
@@ -40,7 +45,7 @@ export class QorusValidator {
    * @param canBeNull if the value can be null
    * @returns True if the value can be accepted for the type, False otherwise
    */
-  validate: (type: string | IQorusType, value?: any, canBeNull?: boolean) => boolean = (type, value, canBeNull) => {
+  validate(type: string | IQorusType, value?: any, canBeNull?: boolean): boolean {
     if (!type) {
       return false;
     }
@@ -396,7 +401,7 @@ export class QorusValidator {
       default:
         return true;
     }
-  };
+  }
 
   /**
    * Get QorusType from the value

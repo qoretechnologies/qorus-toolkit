@@ -174,16 +174,11 @@ export class QorusDataProvider {
     return { responseData: this.responseData, providerData: this.providerData, errorData: this.responseError };
   }
 
-  setData(responseData: ResponseData, providerData: ProviderData) {
-    this.responseData = responseData;
-    this.providerData = providerData;
-  }
-
   /**
    * A getter to get the context for the current provider
-   * @returns context string
+   * @returns Context for the api ex: "record";
    */
-  getContext() {
+  getContext(): Context {
     return this.context;
   }
 
