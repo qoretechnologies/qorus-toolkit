@@ -5,6 +5,7 @@ import { argsData, getClassData, newMethodStory } from '../utils';
 
 export default {
   title: 'API/QorusDataProvider/Methods',
+  id: 'QorusDataProvider.methods',
   argTypes: {
     ...argsData,
   },

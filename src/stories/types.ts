@@ -39,6 +39,7 @@ export interface DocumentationProperty {
 export interface DocumentationClass {
   name: string;
   properties: DocumentationProperty[];
+  methods?: MethodDocs[];
   comments: Comments;
 }
 

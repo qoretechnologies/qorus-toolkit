@@ -40,7 +40,7 @@ export class QorusValidator {
    * @param canBeNull if the value can be null
    * @returns True if the value can be accepted for the type, False otherwise
    */
-  validate: (type: string | IQorusType, value?: any, canBeNull?: boolean) => boolean = (type, value, canBeNull) => {
+  validate(type: string | IQorusType, value?: any, canBeNull?: boolean): boolean {
     if (!type) {
       return false;
     }
@@ -396,7 +396,7 @@ export class QorusValidator {
       default:
         return true;
     }
-  };
+  }
 
   /**
    * Get QorusType from the value

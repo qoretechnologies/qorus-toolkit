@@ -5,6 +5,7 @@ import { argsData, getClassData, newClassPropertyStory } from '../utils';
 
 export default {
   title: 'API/QorusDataProvider/Properties',
+  id: 'QorusDataProvider.properties',
   argTypes: {
     ...argsData,
   },

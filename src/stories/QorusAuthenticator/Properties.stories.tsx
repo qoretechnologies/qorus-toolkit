@@ -5,6 +5,7 @@ import { QorusAuthenticatorDemo } from './demo';
 
 export default {
   title: 'API/QorusAuthenticator/Properties',
+  id: 'QorusAuthenticator.properties',
   argTypes: {
     ...argsData,
   },

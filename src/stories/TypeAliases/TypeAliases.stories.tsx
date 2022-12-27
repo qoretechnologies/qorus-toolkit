@@ -8,6 +8,7 @@ import { argsData, prepareTypeStory } from '../utils';
 
 export default {
   title: 'Typings/TypeAliases',
+  id: 'types',
   argTypes: {
     ...argsData,
   },
