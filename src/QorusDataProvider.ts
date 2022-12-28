@@ -30,6 +30,12 @@ export type ResponseError = any;
 /** Qorus DataProvider data object */
 export type ProviderData = any;
 
+/**
+ * QorusDataProvider api manager class provides methods to interact with Qorus DataProviders. Class enables CRUD operations for DataProvider
+ * and their properties
+ * @returns QorusDataProvider class object
+ * @Category QorusDataProvider
+ */
 export class QorusDataProvider {
   /** Array of path strings, linking to the current provider path extension */
   path?: string[] = [];
@@ -93,7 +99,7 @@ export class QorusDataProvider {
 
   /**
    * Get record of Data Providers with context 'record' from /dataprovider/browse endpoint
-   * @returns Array of DataProviders records
+   * @returns A new DataProvider object with response from browse api as context record
    */
   async getRecord(): Promise<QorusDataProvider> {
     return this.fetchWithContext('record');
@@ -101,7 +107,7 @@ export class QorusDataProvider {
 
   /**
    * Get record of Data Providers with context 'api'  from /dataprovider/browse endpoint
-   * @returns array of DataProviders records
+   * @returns A new DataProvider object with response from browse api as context api
    */
 
   async getApi(): Promise<QorusDataProvider> {
@@ -110,7 +116,7 @@ export class QorusDataProvider {
 
   /**
    * Get record of Data Providers with context 'Event'  from /dataprovider/browse endpoint
-   * @returns Array of DataProviders records
+   * @returns A new DataProvider object with response from browse api as context event
    */
   async getEvent(): Promise<QorusDataProvider> {
     return this.fetchWithContext('event');
@@ -118,7 +124,7 @@ export class QorusDataProvider {
 
   /**
    * Get record of Data Providers with context 'message'  from /dataprovider/browse endpoint
-   * @returns Array of DataProviders records
+   * @returns A new DataProvider object with response from browse api as context message
    */
   async getMessage(): Promise<QorusDataProvider> {
     return this.fetchWithContext('message');
@@ -126,7 +132,7 @@ export class QorusDataProvider {
 
   /**
    * Get record of Data Providers with context 'type'  from /dataprovider/browse endpoint
-   * @returns Array of DataProviders records
+   * @returns A new DataProvider object with response from browse api as context type
    */
   async getType(): Promise<QorusDataProvider> {
     return this.fetchWithContext('type');

@@ -22,7 +22,9 @@ import cron from 'cron-validator';
 export const versions = [1, 2, 3, 4, 5, 6, 'latest'];
 
 /**
- * Utility class to validate provider_options properties
+ * QorusValidator is a helper class to verify the validity for Qorus types and their values
+ * @returns QorusRequest class object
+ * @Category QorusRequest
  */
 export class QorusValidator {
   /**

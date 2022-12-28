@@ -7,7 +7,7 @@ export interface Properties {
   /** Name of the property */
   name: string;
 
-  /** If the property is required by the DataProvider */
+  /** Check to identify if the property is required by the DataProvider */
   required: boolean;
 
   /** Allowed types for the property */
@@ -40,6 +40,12 @@ const qorusDataTypesToJsTypesMapper = {
 /** Children for the provider */
 export type ProviderChildren = any;
 
+/**
+ * QorusOptions is a helper class that provides methods to interact with Qorus DataProviders Options. Class enables CRUD operations for DataProvider
+ * Options and their properties
+ * @returns QorusOptions class object
+ * @Category QorusOptions
+ */
 export class QorusOptions {
   /** Name of the provider option  */
   name = '';

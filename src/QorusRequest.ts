@@ -31,6 +31,12 @@ export interface DefaultHeaders {
   [x: string]: string;
 }
 
+/**
+ * QorusRequest is a https request manager class which provides methods to create different kinds of https request
+ * for different versions of Qorus server api
+ * @returns QorusRequest class object
+ * @Category QorusRequest
+ */
 export class QorusRequest {
   /**
    * Default headers for the QorusRequest
