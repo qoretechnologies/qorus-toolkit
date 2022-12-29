@@ -71,8 +71,10 @@ export interface Endpoint extends WithQorusURL, WithEndpointVersion, WithQorusAu
 export type Token = string;
 
 /**
- * Authentication manager for QorusToolkit, allows to create and manage multiple
- * QorusEndpoints
+ * QorusAuthenticator class provides methods to authenticate a user for a Qorus server endpoint
+ * - Add Multiple endpoint for different versions of Qorus apis
+ * - Supports no-auth for the Qorus server api
+ * - Uses locally stored token or user and password for authentication
  * @returns QorusAuthenticator class object
  * @Category QorusAuthenticator
  */

@@ -18,17 +18,41 @@ const getRequestPath = (path: string[]) => {
  */
 export type Context = 'record' | 'api' | 'event' | 'message' | 'type';
 
-/** Constructor Options for the data provider */
-export type ConstructorOptions = any;
-
-/** Get request response data from DataProvider api */
-export type ResponseData = any;
-
 /** Get request error data from DataProvider api */
 export type ResponseError = any;
 
-/** Qorus DataProvider data object */
-export type ProviderData = any;
+export interface DataProviderChildren {
+  name: string;
+  desc: string;
+  constructor_options: DataProviderChildrenConstructorOptions;
+  type: string;
+}
+
+export interface DataProviderChildrenConstructorOptions {
+  [x: string]: DataProviderChildrenConstructorPropertyOptions;
+}
+export interface DataProviderChildrenConstructorPropertyOptions {
+  type: string[];
+  desc: string;
+  required: boolean;
+  sensitive: boolean;
+  value?: any;
+  jsType?: string[] | undefined;
+  name?: string;
+}
+
+export interface DataProviderResponseData {
+  type: string;
+  children: DataProviderChildren[];
+  matches_context: boolean;
+}
+
+export interface QorusDataProviderConstructorOptions {
+  path: string[];
+  responseData: DataProviderResponseData;
+  context: Context;
+  responseError?: ResponseError;
+}
 
 /**
  * QorusDataProvider api manager class provides methods to interact with Qorus DataProviders. Class enables CRUD operations for DataProvider
@@ -41,31 +65,28 @@ export class QorusDataProvider {
   path?: string[] = [];
 
   /** Get Request response data for a data provider  */
-  responseData: ResponseData;
+  responseData?: DataProviderResponseData;
 
   /** Current context for the data provider */
   context: Context = 'api';
 
-  /** Data provider data with children object */
-  providerData?: ProviderData;
-
   /** Get Request error data if error received */
   responseError?: ResponseError;
 
-  constructor(options?: {
-    path: string[];
-    responseData: ResponseData;
-    context: Context;
-    providerData?: ProviderData;
-    responseError?: ResponseError;
-  }) {
+  raw;
+
+  constructor(options?: QorusDataProviderConstructorOptions) {
+    this.raw = options;
     if (options) {
       this.path = options.path;
       this.responseData = options.responseData;
       this.context = options.context;
-      this.providerData = options.providerData;
       this.responseError = options.responseError;
     }
+  }
+
+  getDataProviderObject() {
+    return this;
   }
 
   private async fetchWithContext(context: Context) {
@@ -85,14 +106,13 @@ export class QorusDataProvider {
       throw new ErrorAxios(error);
     }
 
-    const responseData = response?.data;
+    const responseData = response?.data as DataProviderResponseData;
     const responseError = error.desc;
 
     return new QorusDataProvider({
       path: [apiPathsInitial.dataProviders.browse],
       responseData: responseData,
       context,
-      providerData: responseData,
       responseError,
     });
   }
@@ -177,10 +197,10 @@ export class QorusDataProvider {
 
   /**
    * A getter to get available data for the current provider
-   * @returns responseData, providerData and errorData for the current provider
+   * @returns responseData and errorData for the current provider
    */
   getData() {
-    return { responseData: this.responseData, providerData: this.providerData, errorData: this.responseError };
+    return { responseData: this.responseData, errorData: this.responseError };
   }
 
   /**
@@ -196,7 +216,7 @@ export class QorusDataProvider {
    * @returns true if the children exist, false otherwise
    */
   hasData(): boolean {
-    if (this.responseData.matches_context) return true;
+    if (this.responseData?.matches_context) return true;
     else return false;
   }
 
@@ -244,7 +264,7 @@ export class QorusDataProvider {
   getAllOptions(): QorusOptions[] {
     const children = this.getChildren();
     let allOptions: any[] = [];
-    children.forEach((child) => {
+    children?.forEach((child) => {
       const option = new QorusOptions(child);
       allOptions.push(option);
     });
@@ -257,7 +277,7 @@ export class QorusDataProvider {
    * @param QorusDataProvider constructor options for the next children
    * @returns {@link QorusDataProvider} new object
    */
-  async get(select?: string, providerOptions?: ProviderData) {
+  async get(select?: string, providerOptions?: any) {
     if (!select) return this;
 
     const childData = await fetchProvider(this, this.context, select, providerOptions);
@@ -275,7 +295,6 @@ export class QorusDataProvider {
  * @returns ProviderWithOptions object
  */
 const fetchProvider = async (obj: QorusDataProvider, context: Context, select?: string, providerOptions?: any) => {
-  const children = obj.getChildren();
   const _path = obj.getPath();
 
   if (select && _path) {
@@ -298,11 +317,10 @@ const fetchProvider = async (obj: QorusDataProvider, context: Context, select?: 
   if (error.status) {
     throw new ErrorAxios(error);
   }
-  const providerData = children?.filter((object) => object.name === select);
   const providerResponse = response?.data;
   const responseError = error.desc;
 
-  return new QorusDataProvider({ path: _path!, responseData: providerResponse, context, providerData, responseError });
+  return new QorusDataProvider({ path: _path!, responseData: providerResponse, context, responseError });
 };
 
 export default new QorusDataProvider();

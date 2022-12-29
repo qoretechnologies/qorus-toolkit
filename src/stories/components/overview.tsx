@@ -10,6 +10,7 @@ import {
 } from '@qoretechnologies/reqore';
 import { IReqoreTagProps } from '@qoretechnologies/reqore/dist/components/Tag';
 import { linkTo } from '@storybook/addon-links';
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { obsidian as style } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import useDocumentationTypeLabel from '../hooks/useDocumentationTypeLabel';
@@ -37,7 +38,7 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
         </SyntaxHighlighter>
         <ReqoreSpacer height={20} />
         <ReqoreMessage size="normal" inverted effect={{ color: '#ffffff' }} intent="info" icon="InformationLine">
-          {summary}
+          <ReactMarkdown>{summary ?? ''}</ReactMarkdown>
         </ReqoreMessage>
         <ReqoreSpacer height={40} />
         <ReqoreColumns columnsGap="25px">

@@ -1,9 +1,14 @@
-import { ObjectWithStringKey } from '.';
+import { ObjectWithAnyKey, ObjectWithStringKey } from '.';
 import ErrorInternal from './managers/error/ErrorInternal';
 import logger from './managers/logger';
+import {
+  DataProviderChildren,
+  DataProviderChildrenConstructorOptions,
+  DataProviderChildrenConstructorPropertyOptions,
+} from './QorusDataProvider';
 import QorusValidator from './QorusValidator';
 
-export interface Properties {
+interface Properties {
   /** Name of the property */
   name: string;
 
@@ -37,12 +42,9 @@ const qorusDataTypesToJsTypesMapper = {
   'softlist<string>': 'array',
 };
 
-/** Children for the provider */
-export type ProviderChildren = any;
-
 /**
  * QorusOptions is a helper class that provides methods to interact with Qorus DataProviders Options. Class enables CRUD operations for DataProvider
- * Options and their properties
+ * constructor options and their properties
  * @returns QorusOptions class object
  * @Category QorusOptions
  */
@@ -50,64 +52,52 @@ export class QorusOptions {
   /** Name of the provider option  */
   name = '';
 
+  raw;
+
   // Array of all ProviderOptions for the data provider
-  providerOptions: Properties[] = [];
+  dataProviderConstructorOptions: DataProviderChildrenConstructorOptions = {};
 
-  constructor(children: ProviderChildren) {
-    this.parseChildren(children);
+  constructor(children: DataProviderChildren) {
+    this.name = children.name;
+    this.dataProviderConstructorOptions = children.constructor_options;
+    this.raw = children;
+    this.adjustChildren();
   }
 
   /**
-   * A parser function to modify options object
-   * @param children children for which options will be created
-   * @returns Object with provider options
+   * A getter to get constructor options property object
+   * @param propertyName Name of the property
+   * @returns Property object with name and value
    */
-  private parseChildren(children: ProviderChildren): ProviderOption | undefined {
-    /*eslint-disable*/
-    if (!children) {
-      logger.error(`Children does not exist`);
-      return undefined;
-    }
-    const constructorOptions = children.constructor_options;
-    const name = children.name;
-    let allProperties: Properties[] = [];
+  get(optionName: string): DataProviderChildrenConstructorPropertyOptions | undefined {
+    if (this.dataProviderConstructorOptions && this.dataProviderConstructorOptions.hasOwnProperty(optionName)) {
+      return this.dataProviderConstructorOptions[optionName];
+    } else return undefined;
+  }
 
-    for (const key in constructorOptions) {
-      const property: Properties = {
-        name: key,
-        required: constructorOptions[key].required,
-        types: constructorOptions[key].type,
-        jsTypes: this.createJsTypes(constructorOptions[key].type),
-        value: null,
-      };
-      allProperties.push(property);
-    }
-
-    const option: ProviderOption = {
-      name,
-      providerOptions: allProperties,
-    };
-
-    this.name = name;
-    this.providerOptions = allProperties;
-
-    return option;
+  private adjustChildren() {
+    Object.keys(this.dataProviderConstructorOptions).map((key) => {
+      this.dataProviderConstructorOptions[key].jsType = this.createJsTypes(
+        this.dataProviderConstructorOptions[key].type,
+      );
+      this.dataProviderConstructorOptions[key].name = key;
+    });
   }
 
   /**
-   * A validator to verify if all the required values are provided
-   * @returns True if all the value exist, False otherwise
+   * A validator method to check if all the required properties for a data provider contains a value
+   * @returns True if values for all the required properties exist, false otherwise
    */
-  validate(): boolean {
+  validateRequired(): boolean {
     let result = true;
-    this.providerOptions.forEach((option): void | boolean => {
-      if (option.required) {
-        if (!option.value) {
+    for (const key in this.dataProviderConstructorOptions) {
+      if (this.dataProviderConstructorOptions[key].required) {
+        if (!this.dataProviderConstructorOptions[key].value) {
           result = false;
-          logger.error(`${option.name} is required for ${this.name} provider`);
+          logger.error(`${key} is required for ${this.name} provider`);
         }
       }
-    });
+    }
     return result;
   }
 
@@ -116,18 +106,19 @@ export class QorusOptions {
    * @returns Array of values for the constructor options if required values exist, undefined otherwise
    */
   getAll(): ObjectWithStringKey | undefined {
-    const isValid = this.validate();
-    if (!isValid) return;
+    const isValid = this.validateRequired();
+    if (!isValid) {
+      return undefined;
+    }
 
-    let values = {};
-
-    this.providerOptions.forEach((option) => {
-      if (option.value?.value) {
-        values[`${option.name}`] = option.value?.value;
+    const allOptions: ObjectWithAnyKey | undefined = {};
+    Object.keys(this.dataProviderConstructorOptions).map((key) => {
+      if (this.dataProviderConstructorOptions[key].value) {
+        allOptions[key] = this.dataProviderConstructorOptions[key].value;
       }
     });
 
-    return values;
+    return allOptions;
   }
 
   /**
@@ -135,9 +126,9 @@ export class QorusOptions {
    * @param children Children for which options will be created
    * @returns Object with constructor options
    */
-  private createJsTypes(types: string[]) {
+  private createJsTypes(types: string[]): string[] {
     if (!types) return [];
-    let jsTypes: string[] = [];
+    const jsTypes: string[] = [];
     types.forEach((type) => {
       jsTypes.push(this.convertToJsType(type));
     });
@@ -151,8 +142,8 @@ export class QorusOptions {
    * @returns Converted type
    */
   private convertToJsType(type: string) {
-    if (qorusDataTypesToJsTypesMapper[type]) {
-      return qorusDataTypesToJsTypesMapper[type];
+    if (qorusDataTypesToJsTypesMapper.hasOwnProperty(type)) {
+      return qorusDataTypesToJsTypesMapper[type] as string;
     } else return type;
   }
 
@@ -162,11 +153,16 @@ export class QorusOptions {
    * @return Types accepted by the property
    */
   getType(propertyName: string): string[] | undefined {
-    const property = this.providerOptions.find((property) => property.name === propertyName);
-    if (!property?.types) {
-      logger.error(new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`));
+    if (this.dataProviderConstructorOptions.hasOwnProperty(propertyName)) {
+      if (!this.dataProviderConstructorOptions[propertyName].type) {
+        logger.error(
+          new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`),
+        );
+      }
+      return this.dataProviderConstructorOptions[propertyName].type;
     }
-    return property?.types;
+    logger.error(new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`));
+    return undefined;
   }
 
   /**
@@ -175,26 +171,14 @@ export class QorusOptions {
    * @returns js types accepted by the property
    */
   getJsType(propertyName: string): string[] | undefined {
-    const property = this.providerOptions.find((property) => property.name === propertyName);
-    if (!property?.jsTypes) {
-      logger.error(new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`));
+    if (
+      this.dataProviderConstructorOptions.hasOwnProperty(propertyName) &&
+      this.dataProviderConstructorOptions[propertyName].jsType
+    ) {
+      return this.dataProviderConstructorOptions[propertyName].jsType;
     }
-    return property?.jsTypes;
-  }
-
-  /**
-   * A getter to get constructor options property object
-   * @param propertyName Name of the property
-   * @returns Property object with name and value
-   */
-  get(propertyName: string): Properties | undefined {
-    const property = this.providerOptions.find((property) => property.name === propertyName);
-    if (!property) {
-      logger.error(
-        new ErrorInternal(`Property ${propertyName} doesn't exist or doesn't contain any value for ${this.name}`),
-      );
-    }
-    return property;
+    logger.error(new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`));
+    return undefined;
   }
 
   /**
@@ -203,22 +187,16 @@ export class QorusOptions {
    * @param propertyValue Value for the property
    * @returns Property object
    */
-  set(propertyName: string, value: any): Properties | undefined {
-    const isValid = this.validateProperty(propertyName, value);
+  set(propertyName: string, value: any): DataProviderChildrenConstructorPropertyOptions | undefined {
+    const isValid = this.validate(propertyName, value);
     if (!isValid) {
       throw new ErrorInternal(`Value is not valid for the property ${propertyName}`);
     }
-
-    let propertyIndex = this.providerOptions.findIndex((property) => property.name === propertyName);
-    const jsTypes = this.get(propertyName)?.jsTypes;
-    const valueType = typeof value;
-    const filteredType = jsTypes?.find((type) => type === valueType);
-
-    if (filteredType) {
-      this.providerOptions[propertyIndex].value = { type: filteredType, value: value };
-      return this.providerOptions[propertyIndex];
+    if (this.dataProviderConstructorOptions.hasOwnProperty(propertyName)) {
+      this.dataProviderConstructorOptions[propertyName].value = value;
     }
-    return undefined;
+
+    return this.dataProviderConstructorOptions[propertyName];
   }
 
   /**
@@ -227,8 +205,8 @@ export class QorusOptions {
    * @param propertyValue Value for the property
    * @returns True if value can be used, False otherwise
    */
-  validateProperty(propertyName: string, value: any): boolean {
-    const types = this.get(propertyName)?.types;
+  validate(propertyName: string, value: any): boolean {
+    const types = this.get(propertyName)?.type;
     if (types) {
       let result = false;
       types.forEach((type) => {

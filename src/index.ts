@@ -14,3 +14,6 @@ export { Context } from './QorusDataProvider';
 export interface ObjectWithStringKey {
   [x: string]: string;
 }
+export interface ObjectWithAnyKey {
+  [x: string]: any;
+}
