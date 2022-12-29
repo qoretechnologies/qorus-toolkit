@@ -42,6 +42,9 @@ set.storyName = 'set';
 export const validate = prepareStory('validate');
 validate.storyName = 'validate';
 
+export const validateRequired = prepareStory('validateRequired');
+validateRequired.storyName = 'validateRequired';
+
 export const getAll = prepareStory('getAll');
 getAll.storyName = 'getAll';
 

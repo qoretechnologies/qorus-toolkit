@@ -28,15 +28,12 @@ export class QorusOptions {
   /** Name of the provider option  */
   name = '';
 
-  raw;
-
   // Array of all ProviderOptions for the data provider
   dataProviderConstructorOptions: DataProviderChildrenConstructorOptions = {};
 
   constructor(children: DataProviderChildren) {
     this.name = children.name;
     this.dataProviderConstructorOptions = children.constructor_options;
-    this.raw = children;
     this.adjustChildren();
   }
 

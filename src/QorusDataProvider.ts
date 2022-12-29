@@ -27,7 +27,9 @@ function getRequestPath(path: string[]) {
  * @Category QorusDataProvider
  */
 export class QorusDataProvider {
-  /** Array of path strings, linking to the current provider path extension */
+  /**
+   * Array of path strings, linking to the current provider path extension
+   */
   path?: string[] = [];
 
   /** Get Request response data for a data provider  */
@@ -39,20 +41,13 @@ export class QorusDataProvider {
   /** Get Request error data if error received */
   responseError?: ResponseError;
 
-  raw;
-
   constructor(options?: QorusDataProviderConstructorOptions) {
-    this.raw = options;
     if (options) {
       this.path = options.path;
       this.responseData = options.responseData;
       this.context = options.context;
       this.responseError = options.responseError;
     }
-  }
-
-  getDataProviderObject() {
-    return this;
   }
 
   private async fetchWithContext(context: Context) {
@@ -304,14 +299,17 @@ export interface DataProviderChildren {
    * Name of the DataProvider children
    */
   name: string;
+
   /**
    * Description for the DataProvider children
    */
   desc: string;
+
   /**
    * Constructor options for the DataProvider children
    */
   constructor_options: DataProviderChildrenConstructorOptions;
+
   /**
    * Type of data provider children ex: "nav"
    */
