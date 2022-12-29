@@ -56,8 +56,8 @@ DataProviderChildrenConstructorOptions.storyName = 'DataProviderChildrenConstruc
 export const ObjectWithStringKey = prepareTypeStory(Template, 'ObjectWithStringKey');
 ObjectWithStringKey.storyName = 'ObjectWithStringKey';
 
-export const ObjectWithAnyKey = prepareTypeStory(Template, 'ObjectWithAnyKey');
-ObjectWithAnyKey.storyName = 'ObjectWithAnyKey';
+export const ObjectWithAnyValue = prepareTypeStory(Template, 'ObjectWithAnyValue');
+ObjectWithAnyValue.storyName = 'ObjectWithAnyValue';
 
 export const DefaultHeaders = prepareTypeStory(Template, 'DefaultHeaders');
 DefaultHeaders.storyName = 'DefaultHeaders';

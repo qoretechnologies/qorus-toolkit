@@ -20,4 +20,4 @@ export type ObjectWithStringKey = Record<string, string>;
 /**
  * A record of objects with string key and any kind of value
  */
-export type ObjectWithAnyKey = Record<string, any>;
+export type ObjectWithAnyValue = Record<string, any>;

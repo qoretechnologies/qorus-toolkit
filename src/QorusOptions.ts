@@ -1,4 +1,4 @@
-import { ObjectWithAnyKey, ObjectWithStringKey } from '.';
+import { ObjectWithAnyValue, ObjectWithStringKey } from '.';
 import ErrorInternal from './managers/error/ErrorInternal';
 import logger from './managers/logger';
 import {
@@ -86,7 +86,7 @@ export class QorusOptions {
       return undefined;
     }
 
-    const allOptions: ObjectWithAnyKey | undefined = {};
+    const allOptions: ObjectWithAnyValue | undefined = {};
     Object.keys(this.dataProviderConstructorOptions).map((key) => {
       if (this.dataProviderConstructorOptions[key].value) {
         allOptions[key] = this.dataProviderConstructorOptions[key].value;
