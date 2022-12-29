@@ -58,3 +58,6 @@ ObjectWithStringKey.storyName = 'ObjectWithStringKey';
 
 export const ObjectWithAnyKey = prepareTypeStory(Template, 'ObjectWithAnyKey');
 ObjectWithAnyKey.storyName = 'ObjectWithAnyKey';
+
+export const DefaultHeaders = prepareTypeStory(Template, 'DefaultHeaders');
+DefaultHeaders.storyName = 'DefaultHeaders';

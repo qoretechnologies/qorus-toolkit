@@ -27,9 +27,10 @@ export interface QorusRequestParams {
   params?: Record<string, string>;
 }
 
-export interface DefaultHeaders {
-  [x: string]: string;
-}
+/**
+ * Default headers for the QorusRequest
+ */
+export type DefaultHeaders = Record<string, string>;
 
 /**
  * QorusRequest class is wrapper for https request to Qorus server apis
