@@ -5,5 +5,5 @@ Qorus.QorusAuthenticator.addEndpoint({
 });
 
 // Returns the endpoint if exists in the endpoints array
-await QorusAuthenticator.getEndpointById('rippy');
+await Qorus.QorusAuthenticator.getEndpointById('rippy');
 // => {"url":"https://sandbox.qoretechnologies.com","id":"rippy","version":"latest"}

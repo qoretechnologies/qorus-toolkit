@@ -49,12 +49,14 @@ export class QorusOptions {
   }
 
   private adjustChildren() {
-    Object.keys(this.dataProviderConstructorOptions).map((key) => {
-      this.dataProviderConstructorOptions[key].jsType = this.createJsTypes(
-        this.dataProviderConstructorOptions[key].type,
-      );
-      this.dataProviderConstructorOptions[key].name = key;
-    });
+    if (this.dataProviderConstructorOptions) {
+      Object.keys(this.dataProviderConstructorOptions).map((key) => {
+        this.dataProviderConstructorOptions[key].jsType = this.createJsTypes(
+          this.dataProviderConstructorOptions[key].type,
+        );
+        this.dataProviderConstructorOptions[key].name = key;
+      });
+    }
   }
 
   /**

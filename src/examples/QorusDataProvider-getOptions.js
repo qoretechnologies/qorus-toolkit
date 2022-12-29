@@ -8,7 +8,7 @@ await Qorus.QorusAuthenticator.login({
   pass: 'sandbox',
 });
 // Browse data providers with context api
-const dataProviderBrowse = await Qorus.QorusDataProvider.getApi();
+const dataProviderBrowse = await Qorus.QorusDataProvider.getRecord();
 // Select factory provider
 const browseChildrenNames = dataProviderBrowse.getChildrenNames();
 const factory = await dataProviderBrowse.get(browseChildrenNames.factory);
