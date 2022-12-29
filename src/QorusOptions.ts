@@ -8,31 +8,6 @@ import {
 } from './QorusDataProvider';
 import QorusValidator from './QorusValidator';
 
-interface Properties {
-  /** Name of the property */
-  name: string;
-
-  /** Check to identify if the property is required by the DataProvider */
-  required: boolean;
-
-  /** Allowed types for the property */
-  types: string[];
-
-  /** Converted js types for the property */
-  jsTypes: string[];
-
-  /** Value of the property*/
-  value?: { type: string; value: any } | null;
-}
-
-export interface ProviderOption {
-  /** Name of the DataProvider */
-  name: string;
-
-  /** DataProvider properties array */
-  providerOptions: Properties[];
-}
-
 const qorusDataTypesToJsTypesMapper = {
   'object<InputStream>': 'object',
   'object<AbstractDatasource>': 'object',
@@ -43,8 +18,9 @@ const qorusDataTypesToJsTypesMapper = {
 };
 
 /**
- * QorusOptions is a helper class that provides methods to interact with Qorus DataProviders Options. Class enables CRUD operations for DataProvider
- * constructor options and their properties
+ * QorusOptions is a helper class which makes working Qorus DataProvider constructor_options easier
+ * - Validate constructor_options property value
+ * - set and get constructor_options property values
  * @returns QorusOptions class object
  * @Category QorusOptions
  */

@@ -7,22 +7,22 @@ import { isValidStringArray } from './utils';
 
 export interface QorusRequestParams {
   /**
-   * Headers for the request
+   * Headers to include in an https request to Qorus server api
    */
   headers?: AxiosRequestHeaders;
 
   /**
-   * Complete endpoint url for the request
+   * Path for a https request to Qorus server
    */
   path: string;
 
   /**
-   * Data for the request
+   * Data to include in an https request to Qorus server api
    */
   data?: any;
 
   /**
-   * URL Parameters for the request
+   * URL Parameters to include in an https request to Qorus server api
    */
   params?: Record<string, string>;
 }
@@ -32,8 +32,10 @@ export interface DefaultHeaders {
 }
 
 /**
- * QorusRequest is a https request manager class which provides methods to create different kinds of https request
- * for different versions of Qorus server api
+ * QorusRequest class is wrapper for https request to Qorus server apis
+ * - Adds default headers to the https request
+ * - Allows creation of request parameters from a js object
+ * - Allows custom headers and data object
  * @returns QorusRequest class object
  * @Category QorusRequest
  */

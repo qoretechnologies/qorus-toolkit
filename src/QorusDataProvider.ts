@@ -5,58 +5,24 @@ import { QorusOptions } from './QorusOptions';
 import QorusRequest from './QorusRequest';
 import { apiPathsInitial } from './utils/apiPaths';
 
-const getRequestPath = (path: string[]) => {
+/**
+ * A getter to join the array of path strings to the current DataProvider
+ * @param path Array of path string to the current DataProvider
+ * @returns Joined path string from the array of paths
+ */
+function getRequestPath(path: string[]) {
   let requestPath = '';
   path.forEach((pth) => {
     requestPath = requestPath + pth + '/';
   });
   return requestPath;
-};
-
-/**
- * Context for the Qorus api ex: 'record'
- */
-export type Context = 'record' | 'api' | 'event' | 'message' | 'type';
-
-/** Get request error data from DataProvider api */
-export type ResponseError = any;
-
-export interface DataProviderChildren {
-  name: string;
-  desc: string;
-  constructor_options: DataProviderChildrenConstructorOptions;
-  type: string;
-}
-
-export interface DataProviderChildrenConstructorOptions {
-  [x: string]: DataProviderChildrenConstructorPropertyOptions;
-}
-export interface DataProviderChildrenConstructorPropertyOptions {
-  type: string[];
-  desc: string;
-  required: boolean;
-  sensitive: boolean;
-  value?: any;
-  jsType?: string[] | undefined;
-  name?: string;
-}
-
-export interface DataProviderResponseData {
-  type: string;
-  children: DataProviderChildren[];
-  matches_context: boolean;
-}
-
-export interface QorusDataProviderConstructorOptions {
-  path: string[];
-  responseData: DataProviderResponseData;
-  context: Context;
-  responseError?: ResponseError;
 }
 
 /**
- * QorusDataProvider api manager class provides methods to interact with Qorus DataProviders. Class enables CRUD operations for DataProvider
- * and their properties
+ * QorusDataProvider class provides methods to interact with Qorus DataProvider api
+ * - Fetch DataProvider from a Qorus server endpoint
+ * - Access DataProvider constructor_options with supported operations: get, set, fetch
+ * - Provides validation for the values of DataProvider constructor_options properties
  * @returns QorusDataProvider class object
  * @Category QorusDataProvider
  */
@@ -324,3 +290,112 @@ const fetchProvider = async (obj: QorusDataProvider, context: Context, select?: 
 };
 
 export default new QorusDataProvider();
+
+/**
+ * Context for the Qorus api ex: 'record'
+ */
+export type Context = 'record' | 'api' | 'event' | 'message' | 'type';
+
+/** Get request error data from DataProvider api */
+export type ResponseError = any;
+
+export interface DataProviderChildren {
+  /**
+   * Name of the DataProvider children
+   */
+  name: string;
+  /**
+   * Description for the DataProvider children
+   */
+  desc: string;
+  /**
+   * Constructor options for the DataProvider children
+   */
+  constructor_options: DataProviderChildrenConstructorOptions;
+  /**
+   * Type of data provider children ex: "nav"
+   */
+  type: string;
+}
+
+export interface DataProviderChildrenConstructorOptions {
+  /**
+   * DataProvider children constructor_options property object
+   */
+  [x: string]: DataProviderChildrenConstructorPropertyOptions;
+}
+export interface DataProviderChildrenConstructorPropertyOptions {
+  /**
+   * Accepted types for the DataProvider constructor_options property
+   */
+  type: string[];
+
+  /**
+   * Description of DataProvider constructor_options property
+   */
+  desc: string;
+
+  /**
+   * Verifies if the DataProvider constructor_options property is required
+   */
+  required: boolean;
+
+  /**
+   * Verifies if the DataProvider constructor_options property is sensitive
+   */
+  sensitive: boolean;
+
+  /**
+   * Property value for a DataProvider constructor_options property
+   */
+  value?: any;
+
+  /**
+   * Converted Qorus types to jsTypes
+   */
+  jsType?: string[] | undefined;
+
+  /**
+   * Name of the property from construction_options of DataProvider
+   */
+  name?: string;
+}
+
+export interface DataProviderResponseData {
+  /**
+   * Type of DataProvider
+   */
+  type: string;
+
+  /**
+   * Array of children from a DataProvider
+   */
+  children: DataProviderChildren[];
+
+  /**
+   * Verifies if DataProvider have further context/children
+   */
+  matches_context: boolean;
+}
+
+export interface QorusDataProviderConstructorOptions {
+  /**
+   * Path to a DataProvider
+   */
+  path: string[];
+
+  /**
+   * Qorus DataProvider api response data
+   */
+  responseData: DataProviderResponseData;
+
+  /**
+   * Context for the Qorus DataProvider api ex: 'record'
+   */
+  context: Context;
+
+  /**
+   * Error received if any from the Qorus DataProvider api
+   */
+  responseError?: ResponseError;
+}

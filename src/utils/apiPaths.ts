@@ -11,32 +11,32 @@ export interface ApiPaths {
 
 export interface ApiPathsDataProvider {
   /**
-   * DataProvider browse path "/api/latest/dataprovider/browse"
+   * Path to DataProvider browse for a QorusServer endpoint
    */
   browse: string;
 }
 
 export interface ApiPathsAuthenticator {
   /**
-   * Route to login the user
+   * Path to authenticate the user for a Qorus server endpoint
    */
   login: string;
   /**
-   * Route to logout the user
+   * Path to logout the user for a Qorus server endpoint
    */
   logout: string;
   /**
-   * Route to validate user authentication token
+   * Path to validate a authentication token for a user for the Qorus server endpoint
    */
   validateToken: string;
   /**
-   * Route to check if the no-auth is enabled for the user
+   * Path to identify if no-auth is enabled for the user for a Qorus server endpoint
    */
   validateNoAuth: string;
 }
 
 /**
- * Type of allowed versions for the Qorus api
+ * Allowed types of version for the Qorus server api
  */
 export type Version = 1 | 2 | 3 | 4 | 5 | 6 | 'latest';
 export interface WithEndpointVersion {

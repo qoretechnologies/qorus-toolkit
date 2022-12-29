@@ -23,8 +23,9 @@ export const versions = [1, 2, 3, 4, 5, 6, 'latest'];
 
 /**
  * QorusValidator is a helper class to verify the validity for Qorus types and their values
- * @returns QorusRequest class object
- * @Category QorusRequest
+ * - Verify if a value can be used for Qorus type
+ * @returns QorusValidator class object
+ * @Category QorusValidator
  */
 export class QorusValidator {
   /**

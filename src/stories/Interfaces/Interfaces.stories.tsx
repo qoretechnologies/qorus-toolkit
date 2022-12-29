@@ -25,8 +25,29 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
   );
 };
 
-export const Properties = prepareInterfaceStory(Template, 'Properties');
-Properties.storyName = 'Properties';
+export const DataProviderChildrenConstructorOptions = prepareInterfaceStory(
+  Template,
+  'DataProviderChildrenConstructorOptions',
+);
+DataProviderChildrenConstructorOptions.storyName = 'DataProviderChildrenConstructorOptions';
+
+export const DataProviderChildrenConstructorPropertyOptions = prepareInterfaceStory(
+  Template,
+  'DataProviderChildrenConstructorPropertyOptions',
+);
+DataProviderChildrenConstructorPropertyOptions.storyName = 'DataProviderChildrenConstructorPropertyOptions';
+
+export const QorusDataProviderConstructorOptions = prepareInterfaceStory(
+  Template,
+  'QorusDataProviderConstructorOptions',
+);
+QorusDataProviderConstructorOptions.storyName = 'QorusDataProviderConstructorOptions';
+
+export const DataProviderResponseData = prepareInterfaceStory(Template, 'DataProviderResponseData');
+DataProviderResponseData.storyName = 'DataProviderResponseData';
+
+export const DataProviderChildren = prepareInterfaceStory(Template, 'DataProviderChildren');
+DataProviderChildren.storyName = 'DataProviderChildren';
 
 export const AddEndpoint = prepareInterfaceStory(Template, 'AddEndpoint');
 AddEndpoint.storyName = 'AddEndpoint';
@@ -48,9 +69,6 @@ WithQorusURL.storyName = 'WithQorusURL';
 
 export const QorusRequestParams = prepareInterfaceStory(Template, 'QorusRequestParams');
 QorusRequestParams.storyName = 'QorusRequestParams';
-
-export const ProviderOption = prepareInterfaceStory(Template, 'ProviderOption');
-ProviderOption.storyName = 'ProviderOption';
 
 export const ApiPaths = prepareInterfaceStory(Template, 'ApiPaths');
 ApiPaths.storyName = 'ApiPaths';

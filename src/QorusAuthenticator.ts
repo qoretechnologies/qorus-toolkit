@@ -15,23 +15,23 @@ import {
 } from './utils/apiPaths';
 
 /**
- * Endpoint id for a Qorus Endpoint
+ * Endpoint id for a Qorus server endpoint
  */
 export type QorusEndpointId = string;
 
 /**
- * Authentication token for a Qorus Endpoint
+ * Authentication token for a Qorus server endpoint
  */
 export type QorusAuthToken = string;
 
 /**
- * Url for a Qorus Endpoint
+ * Url for a Qorus server endpoint
  */
 export type QorusEndpointURL = string;
 
 export interface WithQorusEndpointId {
   /**
-   * Id for the endpoint provided by the user, unique for every endpoint
+   * Id for a endpoint provided by the user, unique for every endpoint
    */
   endpointId: QorusEndpointId;
 }
@@ -79,7 +79,9 @@ export type Token = string;
  * @Category QorusAuthenticator
  */
 export class QorusAuthenticator {
-  //** Array of user defined endpoints */
+  /**
+   * Array of user defined endpoints
+   */
   endpoints: Endpoint[] = [];
 
   /** Object of Api paths for the selected endpoint */
@@ -329,7 +331,7 @@ export class QorusAuthenticator {
   }
 
   /**
-   * Add a new Qorus Endpoint to interact with the qorus api.
+   * Add a new Qorus Endpoint to interact with the qorus api
    * @param endpointConfig Endpoint configuration required to add a new endpoint
    * @returns Newly added endpoint
    */
@@ -418,7 +420,7 @@ export class QorusAuthenticator {
   }
 
   /**
-   * A setter to set the Version of the Endpoint
+   * A setter to set the Version of a Endpoint
    * @param version Version of the qorus api
    * @param endpointId Optional parameter to change the url of a particular endpoint from the endpoints array
    * @returns Version of the endpoint if the operation is successful, undefined otherwise
