@@ -50,6 +50,7 @@ export interface MethodDocs {
   params: MethodParamTypes[];
   comments: Comments;
   returnTypes: MethodReturnType[] | undefined;
+  accessibility: string | undefined;
 }
 
 export interface MethodJson {

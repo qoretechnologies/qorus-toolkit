@@ -25,12 +25,6 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
   );
 };
 
-export const DataProviderChildrenConstructorOptions = prepareInterfaceStory(
-  Template,
-  'DataProviderChildrenConstructorOptions',
-);
-DataProviderChildrenConstructorOptions.storyName = 'DataProviderChildrenConstructorOptions';
-
 export const DataProviderChildrenConstructorPropertyOptions = prepareInterfaceStory(
   Template,
   'DataProviderChildrenConstructorPropertyOptions',

@@ -6,7 +6,7 @@
 	"flags": {},
 	"children": [
 		{
-			"id": 281,
+			"id": 275,
 			"name": "Context",
 			"kind": 8388608,
 			"kindString": "Reference",
@@ -16,20 +16,20 @@
 					"fileName": "index.ts",
 					"line": 13,
 					"character": 9,
-					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/index.ts#L13"
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/index.ts#L13"
 				}
 			],
-			"target": 186
+			"target": 182
 		},
 		{
-			"id": 7,
+			"id": 3,
 			"name": "Authenticator",
 			"kind": 4,
 			"kindString": "Namespace",
 			"flags": {},
 			"children": [
 				{
-					"id": 30,
+					"id": 26,
 					"name": "QorusAuthenticator",
 					"kind": 128,
 					"kindString": "Class",
@@ -64,28 +64,28 @@
 					},
 					"children": [
 						{
-							"id": 31,
+							"id": 27,
 							"name": "constructor",
 							"kind": 512,
 							"kindString": "Constructor",
 							"flags": {},
 							"signatures": [
 								{
-									"id": 32,
+									"id": 28,
 									"name": "new QorusAuthenticator",
 									"kind": 16384,
 									"kindString": "Constructor signature",
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"id": 30,
+										"id": 26,
 										"name": "QorusAuthenticator"
 									}
 								}
 							]
 						},
 						{
-							"id": 34,
+							"id": 30,
 							"name": "allApiPaths",
 							"kind": 1024,
 							"kindString": "Property",
@@ -103,18 +103,18 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 88,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L88"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L88"
 								}
 							],
 							"type": {
 								"type": "reference",
-								"id": 271,
+								"id": 265,
 								"name": "ApiPaths"
 							},
 							"defaultValue": "apiPathsInitial"
 						},
 						{
-							"id": 35,
+							"id": 31,
 							"name": "apiPathsAuthenticator",
 							"kind": 1024,
 							"kindString": "Property",
@@ -132,18 +132,18 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 91,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L91"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L91"
 								}
 							],
 							"type": {
 								"type": "reference",
-								"id": 274,
+								"id": 268,
 								"name": "ApiPathsAuthenticator"
 							},
 							"defaultValue": "apiPathsInitial.authenticator"
 						},
 						{
-							"id": 33,
+							"id": 29,
 							"name": "endpoints",
 							"kind": 1024,
 							"kindString": "Property",
@@ -161,21 +161,21 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 85,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L85"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L85"
 								}
 							],
 							"type": {
 								"type": "array",
 								"elementType": {
 									"type": "reference",
-									"id": 24,
+									"id": 20,
 									"name": "Endpoint"
 								}
 							},
 							"defaultValue": "[]"
 						},
 						{
-							"id": 37,
+							"id": 33,
 							"name": "noauth",
 							"kind": 1024,
 							"kindString": "Property",
@@ -193,7 +193,7 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 97,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L97"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L97"
 								}
 							],
 							"type": {
@@ -203,7 +203,7 @@
 							"defaultValue": "false"
 						},
 						{
-							"id": 36,
+							"id": 32,
 							"name": "selectedEndpoint",
 							"kind": 1024,
 							"kindString": "Property",
@@ -221,7 +221,7 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 94,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L94"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L94"
 								}
 							],
 							"type": {
@@ -233,14 +233,14 @@
 									},
 									{
 										"type": "reference",
-										"id": 24,
+										"id": 20,
 										"name": "Endpoint"
 									}
 								]
 							}
 						},
 						{
-							"id": 51,
+							"id": 47,
 							"name": "#fixEndpointData",
 							"kind": 2048,
 							"kindString": "Method",
@@ -252,12 +252,12 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 218,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L218"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L218"
 								}
 							],
 							"signatures": [
 								{
-									"id": 52,
+									"id": 48,
 									"name": "#fixEndpointData",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -283,7 +283,7 @@
 									},
 									"parameters": [
 										{
-											"id": 53,
+											"id": 49,
 											"name": "data",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -298,7 +298,7 @@
 											},
 											"type": {
 												"type": "reference",
-												"id": 20,
+												"id": 16,
 												"name": "AddEndpoint"
 											}
 										}
@@ -308,12 +308,12 @@
 										"types": [
 											{
 												"type": "reference",
-												"id": 20,
+												"id": 16,
 												"name": "AddEndpoint"
 											},
 											{
 												"type": "reference",
-												"id": 17,
+												"id": 13,
 												"name": "LoginParams"
 											}
 										]
@@ -322,7 +322,7 @@
 							]
 						},
 						{
-							"id": 64,
+							"id": 60,
 							"name": "addEndpoint",
 							"kind": 2048,
 							"kindString": "Method",
@@ -332,12 +332,12 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 338,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L338"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L338"
 								}
 							],
 							"signatures": [
 								{
-									"id": 65,
+									"id": 61,
 									"name": "addEndpoint",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -363,7 +363,7 @@
 									},
 									"parameters": [
 										{
-											"id": 66,
+											"id": 62,
 											"name": "endpointConfig",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -378,21 +378,21 @@
 											},
 											"type": {
 												"type": "reference",
-												"id": 20,
+												"id": 16,
 												"name": "AddEndpoint"
 											}
 										}
 									],
 									"type": {
 										"type": "reference",
-										"id": 24,
+										"id": 20,
 										"name": "Endpoint"
 									}
 								}
 							]
 						},
 						{
-							"id": 46,
+							"id": 42,
 							"name": "checkNoAuth",
 							"kind": 2048,
 							"kindString": "Method",
@@ -402,12 +402,12 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 161,
 									"character": 8,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L161"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L161"
 								}
 							],
 							"signatures": [
 								{
-									"id": 47,
+									"id": 43,
 									"name": "checkNoAuth",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -433,7 +433,7 @@
 									},
 									"parameters": [
 										{
-											"id": 48,
+											"id": 44,
 											"name": "endpoint",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -450,7 +450,7 @@
 											},
 											"type": {
 												"type": "reference",
-												"id": 24,
+												"id": 20,
 												"name": "Endpoint"
 											}
 										}
@@ -471,7 +471,7 @@
 							]
 						},
 						{
-							"id": 88,
+							"id": 84,
 							"name": "getAllEndpoints",
 							"kind": 2048,
 							"kindString": "Method",
@@ -481,12 +481,12 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 495,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L495"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L495"
 								}
 							],
 							"signatures": [
 								{
-									"id": 89,
+									"id": 85,
 									"name": "getAllEndpoints",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -514,7 +514,7 @@
 										"type": "array",
 										"elementType": {
 											"type": "reference",
-											"id": 24,
+											"id": 20,
 											"name": "Endpoint"
 										}
 									}
@@ -522,7 +522,7 @@
 							]
 						},
 						{
-							"id": 86,
+							"id": 82,
 							"name": "getApiPaths",
 							"kind": 2048,
 							"kindString": "Method",
@@ -532,12 +532,12 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 487,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L487"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L487"
 								}
 							],
 							"signatures": [
 								{
-									"id": 87,
+									"id": 83,
 									"name": "getApiPaths",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -563,14 +563,14 @@
 									},
 									"type": {
 										"type": "reference",
-										"id": 271,
+										"id": 265,
 										"name": "ApiPaths"
 									}
 								}
 							]
 						},
 						{
-							"id": 70,
+							"id": 66,
 							"name": "getAuthToken",
 							"kind": 2048,
 							"kindString": "Method",
@@ -580,12 +580,12 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 390,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L390"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L390"
 								}
 							],
 							"signatures": [
 								{
-									"id": 71,
+									"id": 67,
 									"name": "getAuthToken",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -626,7 +626,7 @@
 							]
 						},
 						{
-							"id": 38,
+							"id": 34,
 							"name": "getEndpointById",
 							"kind": 2048,
 							"kindString": "Method",
@@ -636,12 +636,12 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 104,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L104"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L104"
 								}
 							],
 							"signatures": [
 								{
-									"id": 39,
+									"id": 35,
 									"name": "getEndpointById",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -667,7 +667,7 @@
 									},
 									"parameters": [
 										{
-											"id": 40,
+											"id": 36,
 											"name": "endpointId",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -687,7 +687,7 @@
 											},
 											{
 												"type": "reference",
-												"id": 24,
+												"id": 20,
 												"name": "Endpoint"
 											}
 										]
@@ -696,7 +696,7 @@
 							]
 						},
 						{
-							"id": 72,
+							"id": 68,
 							"name": "getEndpointVersion",
 							"kind": 2048,
 							"kindString": "Method",
@@ -706,12 +706,12 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 400,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L400"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L400"
 								}
 							],
 							"signatures": [
 								{
-									"id": 73,
+									"id": 69,
 									"name": "getEndpointVersion",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -737,7 +737,7 @@
 									},
 									"parameters": [
 										{
-											"id": 74,
+											"id": 70,
 											"name": "endpointId",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -767,7 +767,7 @@
 											},
 											{
 												"type": "reference",
-												"id": 270,
+												"id": 264,
 												"name": "Version"
 											}
 										]
@@ -776,7 +776,7 @@
 							]
 						},
 						{
-							"id": 49,
+							"id": 45,
 							"name": "getSelectedEndpoint",
 							"kind": 2048,
 							"kindString": "Method",
@@ -786,12 +786,12 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 209,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L209"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L209"
 								}
 							],
 							"signatures": [
 								{
-									"id": 50,
+									"id": 46,
 									"name": "getSelectedEndpoint",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -824,7 +824,7 @@
 											},
 											{
 												"type": "reference",
-												"id": 24,
+												"id": 20,
 												"name": "Endpoint"
 											}
 										]
@@ -833,7 +833,7 @@
 							]
 						},
 						{
-							"id": 61,
+							"id": 57,
 							"name": "login",
 							"kind": 2048,
 							"kindString": "Method",
@@ -843,12 +843,12 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 292,
 									"character": 8,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L292"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L292"
 								}
 							],
 							"signatures": [
 								{
-									"id": 62,
+									"id": 58,
 									"name": "login",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -874,7 +874,7 @@
 									},
 									"parameters": [
 										{
-											"id": 63,
+											"id": 59,
 											"name": "loginParams",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -891,7 +891,7 @@
 											},
 											"type": {
 												"type": "reference",
-												"id": 17,
+												"id": 13,
 												"name": "LoginParams"
 											}
 										}
@@ -921,7 +921,7 @@
 							]
 						},
 						{
-							"id": 41,
+							"id": 37,
 							"name": "logout",
 							"kind": 2048,
 							"kindString": "Method",
@@ -931,12 +931,12 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 112,
 									"character": 8,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L112"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L112"
 								}
 							],
 							"signatures": [
 								{
-									"id": 42,
+									"id": 38,
 									"name": "logout",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -976,7 +976,7 @@
 							]
 						},
 						{
-							"id": 67,
+							"id": 63,
 							"name": "renewSelectedEndpointToken",
 							"kind": 2048,
 							"kindString": "Method",
@@ -986,12 +986,12 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 366,
 									"character": 8,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L366"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L366"
 								}
 							],
 							"signatures": [
 								{
-									"id": 68,
+									"id": 64,
 									"name": "renewSelectedEndpointToken",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -1017,7 +1017,7 @@
 									},
 									"parameters": [
 										{
-											"id": 69,
+											"id": 65,
 											"name": "loginParams",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -1032,7 +1032,7 @@
 											},
 											"type": {
 												"type": "reference",
-												"id": 17,
+												"id": 13,
 												"name": "LoginParams"
 											}
 										}
@@ -1062,7 +1062,7 @@
 							]
 						},
 						{
-							"id": 43,
+							"id": 39,
 							"name": "selectEndpoint",
 							"kind": 2048,
 							"kindString": "Method",
@@ -1072,12 +1072,12 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 135,
 									"character": 8,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L135"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L135"
 								}
 							],
 							"signatures": [
 								{
-									"id": 44,
+									"id": 40,
 									"name": "selectEndpoint",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -1103,7 +1103,7 @@
 									},
 									"parameters": [
 										{
-											"id": 45,
+											"id": 41,
 											"name": "id",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -1134,7 +1134,7 @@
 													},
 													{
 														"type": "reference",
-														"id": 24,
+														"id": 20,
 														"name": "Endpoint"
 													}
 												]
@@ -1148,7 +1148,7 @@
 							]
 						},
 						{
-							"id": 82,
+							"id": 78,
 							"name": "setEndpointUrl",
 							"kind": 2048,
 							"kindString": "Method",
@@ -1158,12 +1158,12 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 460,
 									"character": 8,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L460"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L460"
 								}
 							],
 							"signatures": [
 								{
-									"id": 83,
+									"id": 79,
 									"name": "setEndpointUrl",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -1189,7 +1189,7 @@
 									},
 									"parameters": [
 										{
-											"id": 84,
+											"id": 80,
 											"name": "url",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -1208,7 +1208,7 @@
 											}
 										},
 										{
-											"id": 85,
+											"id": 81,
 											"name": "endpointId",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -1246,7 +1246,7 @@
 							]
 						},
 						{
-							"id": 78,
+							"id": 74,
 							"name": "setEndpointVersion",
 							"kind": 2048,
 							"kindString": "Method",
@@ -1256,12 +1256,12 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 429,
 									"character": 8,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L429"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L429"
 								}
 							],
 							"signatures": [
 								{
-									"id": 79,
+									"id": 75,
 									"name": "setEndpointVersion",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -1287,7 +1287,7 @@
 									},
 									"parameters": [
 										{
-											"id": 80,
+											"id": 76,
 											"name": "version",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -1302,12 +1302,12 @@
 											},
 											"type": {
 												"type": "reference",
-												"id": 270,
+												"id": 264,
 												"name": "Version"
 											}
 										},
 										{
-											"id": 81,
+											"id": 77,
 											"name": "endpointId",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -1340,7 +1340,7 @@
 													},
 													{
 														"type": "reference",
-														"id": 270,
+														"id": 264,
 														"name": "Version"
 													}
 												]
@@ -1354,7 +1354,7 @@
 							]
 						},
 						{
-							"id": 54,
+							"id": 50,
 							"name": "validateEndpointData",
 							"kind": 2048,
 							"kindString": "Method",
@@ -1364,12 +1364,12 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 234,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L234"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L234"
 								}
 							],
 							"signatures": [
 								{
-									"id": 55,
+									"id": 51,
 									"name": "validateEndpointData",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -1395,7 +1395,7 @@
 									},
 									"parameters": [
 										{
-											"id": 56,
+											"id": 52,
 											"name": "data",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -1413,19 +1413,19 @@
 												"types": [
 													{
 														"type": "reference",
-														"id": 20,
+														"id": 16,
 														"name": "AddEndpoint"
 													},
 													{
 														"type": "reference",
-														"id": 17,
+														"id": 13,
 														"name": "LoginParams"
 													}
 												]
 											}
 										},
 										{
-											"id": 57,
+											"id": 53,
 											"name": "withCredentials",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -1454,7 +1454,7 @@
 							]
 						},
 						{
-							"id": 58,
+							"id": 54,
 							"name": "validateLocalUserToken",
 							"kind": 2048,
 							"kindString": "Method",
@@ -1464,12 +1464,12 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 263,
 									"character": 8,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L263"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L263"
 								}
 							],
 							"signatures": [
 								{
-									"id": 59,
+									"id": 55,
 									"name": "validateLocalUserToken",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -1495,7 +1495,7 @@
 									},
 									"parameters": [
 										{
-											"id": 60,
+											"id": 56,
 											"name": "endpointId",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -1539,7 +1539,7 @@
 							]
 						},
 						{
-							"id": 75,
+							"id": 71,
 							"name": "validateVersion",
 							"kind": 2048,
 							"kindString": "Method",
@@ -1551,12 +1551,12 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 417,
 									"character": 10,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L417"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L417"
 								}
 							],
 							"signatures": [
 								{
-									"id": 76,
+									"id": 72,
 									"name": "validateVersion",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -1582,7 +1582,7 @@
 									},
 									"parameters": [
 										{
-											"id": 77,
+											"id": 73,
 											"name": "version",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -1622,40 +1622,40 @@
 						{
 							"title": "Constructors",
 							"children": [
-								31
+								27
 							]
 						},
 						{
 							"title": "Properties",
 							"children": [
-								34,
-								35,
+								30,
+								31,
+								29,
 								33,
-								37,
-								36
+								32
 							]
 						},
 						{
 							"title": "Methods",
 							"children": [
-								51,
-								64,
-								46,
-								88,
-								86,
-								70,
-								38,
-								72,
-								49,
-								61,
-								41,
-								67,
-								43,
+								47,
+								60,
+								42,
+								84,
 								82,
+								66,
+								34,
+								68,
+								45,
+								57,
+								37,
+								63,
+								39,
 								78,
+								74,
+								50,
 								54,
-								58,
-								75
+								71
 							]
 						}
 					],
@@ -1664,19 +1664,19 @@
 							"fileName": "QorusAuthenticator.ts",
 							"line": 81,
 							"character": 13,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L81"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L81"
 						}
 					]
 				},
 				{
-					"id": 20,
+					"id": 16,
 					"name": "AddEndpoint",
 					"kind": 256,
 					"kindString": "Interface",
 					"flags": {},
 					"children": [
 						{
-							"id": 23,
+							"id": 19,
 							"name": "endpointId",
 							"kind": 1024,
 							"kindString": "Property",
@@ -1694,7 +1694,39 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 36,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L36"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L36"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"id": 8,
+								"name": "WithQorusEndpointId.endpointId"
+							}
+						},
+						{
+							"id": 17,
+							"name": "url",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "URL to Qorus server for the provided endpoint"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 50,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L50"
 								}
 							],
 							"type": {
@@ -1704,6 +1736,149 @@
 							"inheritedFrom": {
 								"type": "reference",
 								"id": 12,
+								"name": "WithQorusURL.url"
+							}
+						},
+						{
+							"id": 18,
+							"name": "version",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Version for the server api"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "utils/apiPaths.ts",
+									"line": 46,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/utils/apiPaths.ts#L46"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 264,
+								"name": "Version"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "WithEndpointVersion.version"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								19,
+								17,
+								18
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusAuthenticator.ts",
+							"line": 64,
+							"character": 17,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L64"
+						}
+					],
+					"extendedTypes": [
+						{
+							"type": "reference",
+							"id": 11,
+							"name": "WithQorusURL"
+						},
+						{
+							"type": "reference",
+							"name": "WithEndpointVersion"
+						},
+						{
+							"type": "reference",
+							"id": 7,
+							"name": "WithQorusEndpointId"
+						}
+					]
+				},
+				{
+					"id": 20,
+					"name": "Endpoint",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"children": [
+						{
+							"id": 23,
+							"name": "authToken",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Authentication token for the user provided endpoint"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 43,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L43"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"id": 10,
+								"name": "WithQorusAuthToken.authToken"
+							}
+						},
+						{
+							"id": 24,
+							"name": "endpointId",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Id for a endpoint provided by the user, unique for every endpoint"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 36,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L36"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"id": 8,
 								"name": "WithQorusEndpointId.endpointId"
 							}
 						},
@@ -1726,7 +1901,7 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 50,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L50"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L50"
 								}
 							],
 							"type": {
@@ -1735,7 +1910,7 @@
 							},
 							"inheritedFrom": {
 								"type": "reference",
-								"id": 16,
+								"id": 12,
 								"name": "WithQorusURL.url"
 							}
 						},
@@ -1760,12 +1935,12 @@
 									"fileName": "utils/apiPaths.ts",
 									"line": 46,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/utils/apiPaths.ts#L46"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/utils/apiPaths.ts#L46"
 								}
 							],
 							"type": {
 								"type": "reference",
-								"id": 270,
+								"id": 264,
 								"name": "Version"
 							},
 							"inheritedFrom": {
@@ -1779,6 +1954,7 @@
 							"title": "Properties",
 							"children": [
 								23,
+								24,
 								21,
 								22
 							]
@@ -1787,191 +1963,15 @@
 					"sources": [
 						{
 							"fileName": "QorusAuthenticator.ts",
-							"line": 64,
+							"line": 66,
 							"character": 17,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L64"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L66"
 						}
 					],
 					"extendedTypes": [
-						{
-							"type": "reference",
-							"id": 15,
-							"name": "WithQorusURL"
-						},
-						{
-							"type": "reference",
-							"name": "WithEndpointVersion"
-						},
 						{
 							"type": "reference",
 							"id": 11,
-							"name": "WithQorusEndpointId"
-						}
-					]
-				},
-				{
-					"id": 24,
-					"name": "Endpoint",
-					"kind": 256,
-					"kindString": "Interface",
-					"flags": {},
-					"children": [
-						{
-							"id": 27,
-							"name": "authToken",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isOptional": true
-							},
-							"comment": {
-								"summary": [
-									{
-										"kind": "text",
-										"text": "Authentication token for the user provided endpoint"
-									}
-								]
-							},
-							"sources": [
-								{
-									"fileName": "QorusAuthenticator.ts",
-									"line": 43,
-									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L43"
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "string"
-							},
-							"inheritedFrom": {
-								"type": "reference",
-								"id": 14,
-								"name": "WithQorusAuthToken.authToken"
-							}
-						},
-						{
-							"id": 28,
-							"name": "endpointId",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {},
-							"comment": {
-								"summary": [
-									{
-										"kind": "text",
-										"text": "Id for a endpoint provided by the user, unique for every endpoint"
-									}
-								]
-							},
-							"sources": [
-								{
-									"fileName": "QorusAuthenticator.ts",
-									"line": 36,
-									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L36"
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "string"
-							},
-							"inheritedFrom": {
-								"type": "reference",
-								"id": 12,
-								"name": "WithQorusEndpointId.endpointId"
-							}
-						},
-						{
-							"id": 25,
-							"name": "url",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {},
-							"comment": {
-								"summary": [
-									{
-										"kind": "text",
-										"text": "URL to Qorus server for the provided endpoint"
-									}
-								]
-							},
-							"sources": [
-								{
-									"fileName": "QorusAuthenticator.ts",
-									"line": 50,
-									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L50"
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "string"
-							},
-							"inheritedFrom": {
-								"type": "reference",
-								"id": 16,
-								"name": "WithQorusURL.url"
-							}
-						},
-						{
-							"id": 26,
-							"name": "version",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isOptional": true
-							},
-							"comment": {
-								"summary": [
-									{
-										"kind": "text",
-										"text": "Version for the server api"
-									}
-								]
-							},
-							"sources": [
-								{
-									"fileName": "utils/apiPaths.ts",
-									"line": 46,
-									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/utils/apiPaths.ts#L46"
-								}
-							],
-							"type": {
-								"type": "reference",
-								"id": 270,
-								"name": "Version"
-							},
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "WithEndpointVersion.version"
-							}
-						}
-					],
-					"groups": [
-						{
-							"title": "Properties",
-							"children": [
-								27,
-								28,
-								25,
-								26
-							]
-						}
-					],
-					"sources": [
-						{
-							"fileName": "QorusAuthenticator.ts",
-							"line": 66,
-							"character": 17,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L66"
-						}
-					],
-					"extendedTypes": [
-						{
-							"type": "reference",
-							"id": 15,
 							"name": "WithQorusURL"
 						},
 						{
@@ -1980,25 +1980,25 @@
 						},
 						{
 							"type": "reference",
-							"id": 13,
+							"id": 9,
 							"name": "WithQorusAuthToken"
 						},
 						{
 							"type": "reference",
-							"id": 11,
+							"id": 7,
 							"name": "WithQorusEndpointId"
 						}
 					]
 				},
 				{
-					"id": 17,
+					"id": 13,
 					"name": "LoginParams",
 					"kind": 256,
 					"kindString": "Interface",
 					"flags": {},
 					"children": [
 						{
-							"id": 19,
+							"id": 15,
 							"name": "pass",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2018,7 +2018,7 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 61,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L61"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L61"
 								}
 							],
 							"type": {
@@ -2027,7 +2027,7 @@
 							}
 						},
 						{
-							"id": 18,
+							"id": 14,
 							"name": "user",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2047,7 +2047,7 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 57,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L57"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L57"
 								}
 							],
 							"type": {
@@ -2060,8 +2060,8 @@
 						{
 							"title": "Properties",
 							"children": [
-								19,
-								18
+								15,
+								14
 							]
 						}
 					],
@@ -2070,19 +2070,19 @@
 							"fileName": "QorusAuthenticator.ts",
 							"line": 53,
 							"character": 17,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L53"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L53"
 						}
 					]
 				},
 				{
-					"id": 13,
+					"id": 9,
 					"name": "WithQorusAuthToken",
 					"kind": 256,
 					"kindString": "Interface",
 					"flags": {},
 					"children": [
 						{
-							"id": 14,
+							"id": 10,
 							"name": "authToken",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2102,7 +2102,7 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 43,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L43"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L43"
 								}
 							],
 							"type": {
@@ -2115,7 +2115,7 @@
 						{
 							"title": "Properties",
 							"children": [
-								14
+								10
 							]
 						}
 					],
@@ -2124,26 +2124,26 @@
 							"fileName": "QorusAuthenticator.ts",
 							"line": 39,
 							"character": 17,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L39"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L39"
 						}
 					],
 					"extendedBy": [
 						{
 							"type": "reference",
-							"id": 24,
+							"id": 20,
 							"name": "Endpoint"
 						}
 					]
 				},
 				{
-					"id": 11,
+					"id": 7,
 					"name": "WithQorusEndpointId",
 					"kind": 256,
 					"kindString": "Interface",
 					"flags": {},
 					"children": [
 						{
-							"id": 12,
+							"id": 8,
 							"name": "endpointId",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2161,7 +2161,71 @@
 									"fileName": "QorusAuthenticator.ts",
 									"line": 36,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L36"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L36"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								8
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusAuthenticator.ts",
+							"line": 32,
+							"character": 17,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L32"
+						}
+					],
+					"extendedBy": [
+						{
+							"type": "reference",
+							"id": 16,
+							"name": "AddEndpoint"
+						},
+						{
+							"type": "reference",
+							"id": 20,
+							"name": "Endpoint"
+						}
+					]
+				},
+				{
+					"id": 11,
+					"name": "WithQorusURL",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"children": [
+						{
+							"id": 12,
+							"name": "url",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "URL to Qorus server for the provided endpoint"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 50,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L50"
 								}
 							],
 							"type": {
@@ -2181,90 +2245,26 @@
 					"sources": [
 						{
 							"fileName": "QorusAuthenticator.ts",
-							"line": 32,
-							"character": 17,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L32"
-						}
-					],
-					"extendedBy": [
-						{
-							"type": "reference",
-							"id": 20,
-							"name": "AddEndpoint"
-						},
-						{
-							"type": "reference",
-							"id": 24,
-							"name": "Endpoint"
-						}
-					]
-				},
-				{
-					"id": 15,
-					"name": "WithQorusURL",
-					"kind": 256,
-					"kindString": "Interface",
-					"flags": {},
-					"children": [
-						{
-							"id": 16,
-							"name": "url",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {},
-							"comment": {
-								"summary": [
-									{
-										"kind": "text",
-										"text": "URL to Qorus server for the provided endpoint"
-									}
-								]
-							},
-							"sources": [
-								{
-									"fileName": "QorusAuthenticator.ts",
-									"line": 50,
-									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L50"
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "string"
-							}
-						}
-					],
-					"groups": [
-						{
-							"title": "Properties",
-							"children": [
-								16
-							]
-						}
-					],
-					"sources": [
-						{
-							"fileName": "QorusAuthenticator.ts",
 							"line": 46,
 							"character": 17,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L46"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L46"
 						}
 					],
 					"extendedBy": [
 						{
 							"type": "reference",
-							"id": 20,
+							"id": 16,
 							"name": "AddEndpoint"
 						},
 						{
 							"type": "reference",
-							"id": 24,
+							"id": 20,
 							"name": "Endpoint"
 						}
 					]
 				},
 				{
-					"id": 9,
+					"id": 5,
 					"name": "QorusAuthToken",
 					"kind": 4194304,
 					"kindString": "Type alias",
@@ -2282,7 +2282,7 @@
 							"fileName": "QorusAuthenticator.ts",
 							"line": 25,
 							"character": 12,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L25"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L25"
 						}
 					],
 					"type": {
@@ -2291,7 +2291,7 @@
 					}
 				},
 				{
-					"id": 8,
+					"id": 4,
 					"name": "QorusEndpointId",
 					"kind": 4194304,
 					"kindString": "Type alias",
@@ -2309,7 +2309,7 @@
 							"fileName": "QorusAuthenticator.ts",
 							"line": 20,
 							"character": 12,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L20"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L20"
 						}
 					],
 					"type": {
@@ -2318,7 +2318,7 @@
 					}
 				},
 				{
-					"id": 10,
+					"id": 6,
 					"name": "QorusEndpointURL",
 					"kind": 4194304,
 					"kindString": "Type alias",
@@ -2336,7 +2336,7 @@
 							"fileName": "QorusAuthenticator.ts",
 							"line": 30,
 							"character": 12,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L30"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L30"
 						}
 					],
 					"type": {
@@ -2345,7 +2345,7 @@
 					}
 				},
 				{
-					"id": 29,
+					"id": 25,
 					"name": "Token",
 					"kind": 4194304,
 					"kindString": "Type alias",
@@ -2363,7 +2363,7 @@
 							"fileName": "QorusAuthenticator.ts",
 							"line": 71,
 							"character": 12,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L71"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L71"
 						}
 					],
 					"type": {
@@ -2376,27 +2376,27 @@
 				{
 					"title": "Classes",
 					"children": [
-						30
+						26
 					]
 				},
 				{
 					"title": "Interfaces",
 					"children": [
+						16,
 						20,
-						24,
-						17,
 						13,
-						11,
-						15
+						9,
+						7,
+						11
 					]
 				},
 				{
 					"title": "Type Aliases",
 					"children": [
-						9,
-						8,
-						10,
-						29
+						5,
+						4,
+						6,
+						25
 					]
 				}
 			],
@@ -2405,19 +2405,19 @@
 					"fileName": "QorusAuthenticator.ts",
 					"line": 1,
 					"character": 0,
-					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L1"
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L1"
 				}
 			]
 		},
 		{
-			"id": 128,
+			"id": 124,
 			"name": "DataProvider",
 			"kind": 4,
 			"kindString": "Namespace",
 			"flags": {},
 			"children": [
 				{
-					"id": 129,
+					"id": 125,
 					"name": "QorusDataProvider",
 					"kind": 128,
 					"kindString": "Class",
@@ -2452,7 +2452,7 @@
 					},
 					"children": [
 						{
-							"id": 130,
+							"id": 126,
 							"name": "constructor",
 							"kind": 512,
 							"kindString": "Constructor",
@@ -2462,19 +2462,19 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 44,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L44"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L44"
 								}
 							],
 							"signatures": [
 								{
-									"id": 131,
+									"id": 127,
 									"name": "new QorusDataProvider",
 									"kind": 16384,
 									"kindString": "Constructor signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 132,
+											"id": 128,
 											"name": "options",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -2483,21 +2483,21 @@
 											},
 											"type": {
 												"type": "reference",
-												"id": 208,
+												"id": 202,
 												"name": "QorusDataProviderConstructorOptions"
 											}
 										}
 									],
 									"type": {
 										"type": "reference",
-										"id": 129,
+										"id": 125,
 										"name": "QorusDataProvider"
 									}
 								}
 							]
 						},
 						{
-							"id": 135,
+							"id": 131,
 							"name": "context",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2515,18 +2515,18 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 37,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L37"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L37"
 								}
 							],
 							"type": {
 								"type": "reference",
-								"id": 186,
+								"id": 182,
 								"name": "Context"
 							},
 							"defaultValue": "'api'"
 						},
 						{
-							"id": 133,
+							"id": 129,
 							"name": "path",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2546,7 +2546,7 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 31,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L31"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L31"
 								}
 							],
 							"type": {
@@ -2559,7 +2559,7 @@
 							"defaultValue": "[]"
 						},
 						{
-							"id": 137,
+							"id": 133,
 							"name": "raw",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2569,7 +2569,7 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 42,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L42"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L42"
 								}
 							],
 							"type": {
@@ -2578,7 +2578,7 @@
 							}
 						},
 						{
-							"id": 134,
+							"id": 130,
 							"name": "responseData",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2598,17 +2598,17 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 34,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L34"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L34"
 								}
 							],
 							"type": {
 								"type": "reference",
-								"id": 204,
+								"id": 198,
 								"name": "DataProviderResponseData"
 							}
 						},
 						{
-							"id": 136,
+							"id": 132,
 							"name": "responseError",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2628,7 +2628,7 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 40,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L40"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L40"
 								}
 							],
 							"type": {
@@ -2637,7 +2637,7 @@
 							}
 						},
 						{
-							"id": 140,
+							"id": 136,
 							"name": "fetchWithContext",
 							"kind": 2048,
 							"kindString": "Method",
@@ -2649,26 +2649,26 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 58,
 									"character": 16,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L58"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L58"
 								}
 							],
 							"signatures": [
 								{
-									"id": 141,
+									"id": 137,
 									"name": "fetchWithContext",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 142,
+											"id": 138,
 											"name": "context",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
 											"type": {
 												"type": "reference",
-												"id": 186,
+												"id": 182,
 												"name": "Context"
 											}
 										}
@@ -2678,7 +2678,7 @@
 										"typeArguments": [
 											{
 												"type": "reference",
-												"id": 129,
+												"id": 125,
 												"name": "QorusDataProvider"
 											}
 										],
@@ -2690,7 +2690,7 @@
 							]
 						},
 						{
-							"id": 182,
+							"id": 178,
 							"name": "get",
 							"kind": 2048,
 							"kindString": "Method",
@@ -2700,12 +2700,12 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 246,
 									"character": 8,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L246"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L246"
 								}
 							],
 							"signatures": [
 								{
-									"id": 183,
+									"id": 179,
 									"name": "get",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -2725,7 +2725,7 @@
 														"kind": "inline-tag",
 														"tag": "@link",
 														"text": "QorusDataProvider",
-														"target": 129
+														"target": 125
 													},
 													{
 														"kind": "text",
@@ -2737,7 +2737,7 @@
 									},
 									"parameters": [
 										{
-											"id": 184,
+											"id": 180,
 											"name": "select",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -2758,7 +2758,7 @@
 											}
 										},
 										{
-											"id": 185,
+											"id": 181,
 											"name": "providerOptions",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -2776,7 +2776,7 @@
 										"typeArguments": [
 											{
 												"type": "reference",
-												"id": 129,
+												"id": 125,
 												"name": "QorusDataProvider"
 											}
 										],
@@ -2788,7 +2788,7 @@
 							]
 						},
 						{
-							"id": 180,
+							"id": 176,
 							"name": "getAllOptions",
 							"kind": 2048,
 							"kindString": "Method",
@@ -2798,12 +2798,12 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 230,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L230"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L230"
 								}
 							],
 							"signatures": [
 								{
-									"id": 181,
+									"id": 177,
 									"name": "getAllOptions",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -2831,7 +2831,7 @@
 										"type": "array",
 										"elementType": {
 											"type": "reference",
-											"id": 214,
+											"id": 208,
 											"name": "QorusOptions"
 										}
 									}
@@ -2839,7 +2839,7 @@
 							]
 						},
 						{
-							"id": 145,
+							"id": 141,
 							"name": "getApi",
 							"kind": 2048,
 							"kindString": "Method",
@@ -2849,12 +2849,12 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 99,
 									"character": 8,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L99"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L99"
 								}
 							],
 							"signatures": [
 								{
-									"id": 146,
+									"id": 142,
 									"name": "getApi",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -2883,7 +2883,7 @@
 										"typeArguments": [
 											{
 												"type": "reference",
-												"id": 129,
+												"id": 125,
 												"name": "QorusDataProvider"
 											}
 										],
@@ -2895,7 +2895,7 @@
 							]
 						},
 						{
-							"id": 173,
+							"id": 169,
 							"name": "getChildren",
 							"kind": 2048,
 							"kindString": "Method",
@@ -2905,12 +2905,12 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 193,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L193"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L193"
 								}
 							],
 							"signatures": [
 								{
-									"id": 174,
+									"id": 170,
 									"name": "getChildren",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -2945,7 +2945,7 @@
 												"type": "array",
 												"elementType": {
 													"type": "reference",
-													"id": 188,
+													"id": 184,
 													"name": "DataProviderChildren"
 												}
 											}
@@ -2955,7 +2955,7 @@
 							]
 						},
 						{
-							"id": 175,
+							"id": 171,
 							"name": "getChildrenNames",
 							"kind": 2048,
 							"kindString": "Method",
@@ -2965,12 +2965,12 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 201,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L201"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L201"
 								}
 							],
 							"signatures": [
 								{
-									"id": 176,
+									"id": 172,
 									"name": "getChildrenNames",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3002,7 +3002,7 @@
 							]
 						},
 						{
-							"id": 169,
+							"id": 165,
 							"name": "getContext",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3012,12 +3012,12 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 176,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L176"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L176"
 								}
 							],
 							"signatures": [
 								{
-									"id": 170,
+									"id": 166,
 									"name": "getContext",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3043,14 +3043,14 @@
 									},
 									"type": {
 										"type": "reference",
-										"id": 186,
+										"id": 182,
 										"name": "Context"
 									}
 								}
 							]
 						},
 						{
-							"id": 164,
+							"id": 160,
 							"name": "getData",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3060,12 +3060,12 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 168,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L168"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L168"
 								}
 							],
 							"signatures": [
 								{
-									"id": 165,
+									"id": 161,
 									"name": "getData",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3092,14 +3092,14 @@
 									"type": {
 										"type": "reflection",
 										"declaration": {
-											"id": 166,
+											"id": 162,
 											"name": "__type",
 											"kind": 65536,
 											"kindString": "Type literal",
 											"flags": {},
 											"children": [
 												{
-													"id": 168,
+													"id": 164,
 													"name": "errorData",
 													"kind": 1024,
 													"kindString": "Property",
@@ -3109,7 +3109,7 @@
 															"fileName": "QorusDataProvider.ts",
 															"line": 169,
 															"character": 46,
-															"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L169"
+															"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L169"
 														}
 													],
 													"type": {
@@ -3119,7 +3119,7 @@
 													"defaultValue": "..."
 												},
 												{
-													"id": 167,
+													"id": 163,
 													"name": "responseData",
 													"kind": 1024,
 													"kindString": "Property",
@@ -3129,7 +3129,7 @@
 															"fileName": "QorusDataProvider.ts",
 															"line": 169,
 															"character": 13,
-															"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L169"
+															"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L169"
 														}
 													],
 													"type": {
@@ -3141,7 +3141,7 @@
 															},
 															{
 																"type": "reference",
-																"id": 204,
+																"id": 198,
 																"name": "DataProviderResponseData"
 															}
 														]
@@ -3153,8 +3153,8 @@
 												{
 													"title": "Properties",
 													"children": [
-														168,
-														167
+														164,
+														163
 													]
 												}
 											],
@@ -3163,7 +3163,7 @@
 													"fileName": "QorusDataProvider.ts",
 													"line": 169,
 													"character": 11,
-													"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L169"
+													"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L169"
 												}
 											]
 										}
@@ -3172,7 +3172,7 @@
 							]
 						},
 						{
-							"id": 138,
+							"id": 134,
 							"name": "getDataProviderObject",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3182,26 +3182,26 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 54,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L54"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L54"
 								}
 							],
 							"signatures": [
 								{
-									"id": 139,
+									"id": 135,
 									"name": "getDataProviderObject",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"id": 129,
+										"id": 125,
 										"name": "QorusDataProvider"
 									}
 								}
 							]
 						},
 						{
-							"id": 147,
+							"id": 143,
 							"name": "getEvent",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3211,12 +3211,12 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 107,
 									"character": 8,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L107"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L107"
 								}
 							],
 							"signatures": [
 								{
-									"id": 148,
+									"id": 144,
 									"name": "getEvent",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3245,7 +3245,7 @@
 										"typeArguments": [
 											{
 												"type": "reference",
-												"id": 129,
+												"id": 125,
 												"name": "QorusDataProvider"
 											}
 										],
@@ -3257,7 +3257,7 @@
 							]
 						},
 						{
-							"id": 158,
+							"id": 154,
 							"name": "getFinalPath",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3267,12 +3267,12 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 151,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L151"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L151"
 								}
 							],
 							"signatures": [
 								{
-									"id": 159,
+									"id": 155,
 									"name": "getFinalPath",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3298,7 +3298,7 @@
 									},
 									"parameters": [
 										{
-											"id": 160,
+											"id": 156,
 											"name": "path",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3330,7 +3330,7 @@
 							]
 						},
 						{
-							"id": 149,
+							"id": 145,
 							"name": "getMessage",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3340,12 +3340,12 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 115,
 									"character": 8,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L115"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L115"
 								}
 							],
 							"signatures": [
 								{
-									"id": 150,
+									"id": 146,
 									"name": "getMessage",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3374,7 +3374,7 @@
 										"typeArguments": [
 											{
 												"type": "reference",
-												"id": 129,
+												"id": 125,
 												"name": "QorusDataProvider"
 											}
 										],
@@ -3386,7 +3386,7 @@
 							]
 						},
 						{
-							"id": 177,
+							"id": 173,
 							"name": "getOptions",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3396,12 +3396,12 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 215,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L215"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L215"
 								}
 							],
 							"signatures": [
 								{
-									"id": 178,
+									"id": 174,
 									"name": "getOptions",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3427,7 +3427,7 @@
 									},
 									"parameters": [
 										{
-											"id": 179,
+											"id": 175,
 											"name": "childrenName",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3455,7 +3455,7 @@
 											},
 											{
 												"type": "reference",
-												"id": 214,
+												"id": 208,
 												"name": "QorusOptions"
 											}
 										]
@@ -3464,7 +3464,7 @@
 							]
 						},
 						{
-							"id": 156,
+							"id": 152,
 							"name": "getPath",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3474,12 +3474,12 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 142,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L142"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L142"
 								}
 							],
 							"signatures": [
 								{
-									"id": 157,
+									"id": 153,
 									"name": "getPath",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3523,7 +3523,7 @@
 							]
 						},
 						{
-							"id": 143,
+							"id": 139,
 							"name": "getRecord",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3533,12 +3533,12 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 90,
 									"character": 8,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L90"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L90"
 								}
 							],
 							"signatures": [
 								{
-									"id": 144,
+									"id": 140,
 									"name": "getRecord",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3567,7 +3567,7 @@
 										"typeArguments": [
 											{
 												"type": "reference",
-												"id": 129,
+												"id": 125,
 												"name": "QorusDataProvider"
 											}
 										],
@@ -3579,7 +3579,7 @@
 							]
 						},
 						{
-							"id": 151,
+							"id": 147,
 							"name": "getType",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3589,12 +3589,12 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 123,
 									"character": 8,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L123"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L123"
 								}
 							],
 							"signatures": [
 								{
-									"id": 152,
+									"id": 148,
 									"name": "getType",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3623,7 +3623,7 @@
 										"typeArguments": [
 											{
 												"type": "reference",
-												"id": 129,
+												"id": 125,
 												"name": "QorusDataProvider"
 											}
 										],
@@ -3635,7 +3635,7 @@
 							]
 						},
 						{
-							"id": 153,
+							"id": 149,
 							"name": "has",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3645,12 +3645,12 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 132,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L132"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L132"
 								}
 							],
 							"signatures": [
 								{
-									"id": 154,
+									"id": 150,
 									"name": "has",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3676,7 +3676,7 @@
 									},
 									"parameters": [
 										{
-											"id": 155,
+											"id": 151,
 											"name": "name",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3703,7 +3703,7 @@
 							]
 						},
 						{
-							"id": 171,
+							"id": 167,
 							"name": "hasData",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3713,12 +3713,12 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 184,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L184"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L184"
 								}
 							],
 							"signatures": [
 								{
-									"id": 172,
+									"id": 168,
 									"name": "hasData",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3750,7 +3750,7 @@
 							]
 						},
 						{
-							"id": 161,
+							"id": 157,
 							"name": "setPath",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3760,12 +3760,12 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 160,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L160"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L160"
 								}
 							],
 							"signatures": [
 								{
-									"id": 162,
+									"id": 158,
 									"name": "setPath",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3780,7 +3780,7 @@
 									},
 									"parameters": [
 										{
-											"id": 163,
+											"id": 159,
 											"name": "path",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3814,41 +3814,41 @@
 						{
 							"title": "Constructors",
 							"children": [
-								130
+								126
 							]
 						},
 						{
 							"title": "Properties",
 							"children": [
-								135,
+								131,
+								129,
 								133,
-								137,
-								134,
-								136
+								130,
+								132
 							]
 						},
 						{
 							"title": "Methods",
 							"children": [
-								140,
-								182,
-								180,
+								136,
+								178,
+								176,
+								141,
+								169,
+								171,
+								165,
+								160,
+								134,
+								143,
+								154,
 								145,
 								173,
-								175,
-								169,
-								164,
-								138,
+								152,
+								139,
 								147,
-								158,
 								149,
-								177,
-								156,
-								143,
-								151,
-								153,
-								171,
-								161
+								167,
+								157
 							]
 						}
 					],
@@ -3857,19 +3857,19 @@
 							"fileName": "QorusDataProvider.ts",
 							"line": 29,
 							"character": 13,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L29"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L29"
 						}
 					]
 				},
 				{
-					"id": 188,
+					"id": 184,
 					"name": "DataProviderChildren",
 					"kind": 256,
 					"kindString": "Interface",
 					"flags": {},
 					"children": [
 						{
-							"id": 191,
+							"id": 187,
 							"name": "constructor_options",
 							"kind": 1024,
 							"kindString": "Property",
@@ -3887,17 +3887,17 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 314,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L314"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L314"
 								}
 							],
 							"type": {
 								"type": "reference",
-								"id": 193,
+								"id": 189,
 								"name": "DataProviderChildrenConstructorOptions"
 							}
 						},
 						{
-							"id": 190,
+							"id": 186,
 							"name": "desc",
 							"kind": 1024,
 							"kindString": "Property",
@@ -3915,7 +3915,7 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 310,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L310"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L310"
 								}
 							],
 							"type": {
@@ -3924,7 +3924,7 @@
 							}
 						},
 						{
-							"id": 189,
+							"id": 185,
 							"name": "name",
 							"kind": 1024,
 							"kindString": "Property",
@@ -3942,7 +3942,7 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 306,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L306"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L306"
 								}
 							],
 							"type": {
@@ -3951,7 +3951,7 @@
 							}
 						},
 						{
-							"id": 192,
+							"id": 188,
 							"name": "type",
 							"kind": 1024,
 							"kindString": "Property",
@@ -3969,7 +3969,7 @@
 									"fileName": "QorusDataProvider.ts",
 									"line": 318,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L318"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L318"
 								}
 							],
 							"type": {
@@ -3982,10 +3982,10 @@
 						{
 							"title": "Properties",
 							"children": [
-								191,
-								190,
-								189,
-								192
+								187,
+								186,
+								185,
+								188
 							]
 						}
 					],
@@ -3994,58 +3994,19 @@
 							"fileName": "QorusDataProvider.ts",
 							"line": 302,
 							"character": 17,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L302"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L302"
 						}
 					]
 				},
 				{
-					"id": 193,
-					"name": "DataProviderChildrenConstructorOptions",
-					"kind": 256,
-					"kindString": "Interface",
-					"flags": {},
-					"sources": [
-						{
-							"fileName": "QorusDataProvider.ts",
-							"line": 321,
-							"character": 17,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L321"
-						}
-					],
-					"indexSignature": {
-						"id": 194,
-						"name": "__index",
-						"kind": 8192,
-						"kindString": "Index signature",
-						"flags": {},
-						"parameters": [
-							{
-								"id": 195,
-								"name": "x",
-								"kind": 32768,
-								"flags": {},
-								"type": {
-									"type": "intrinsic",
-									"name": "string"
-								}
-							}
-						],
-						"type": {
-							"type": "reference",
-							"id": 196,
-							"name": "DataProviderChildrenConstructorPropertyOptions"
-						}
-					}
-				},
-				{
-					"id": 196,
+					"id": 190,
 					"name": "DataProviderChildrenConstructorPropertyOptions",
 					"kind": 256,
 					"kindString": "Interface",
 					"flags": {},
 					"children": [
 						{
-							"id": 198,
+							"id": 192,
 							"name": "desc",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4061,9 +4022,9 @@
 							"sources": [
 								{
 									"fileName": "QorusDataProvider.ts",
-									"line": 336,
+									"line": 335,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L336"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L335"
 								}
 							],
 							"type": {
@@ -4072,7 +4033,7 @@
 							}
 						},
 						{
-							"id": 202,
+							"id": 196,
 							"name": "jsType",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4090,9 +4051,9 @@
 							"sources": [
 								{
 									"fileName": "QorusDataProvider.ts",
-									"line": 356,
+									"line": 355,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L356"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L355"
 								}
 							],
 							"type": {
@@ -4104,7 +4065,7 @@
 							}
 						},
 						{
-							"id": 203,
+							"id": 197,
 							"name": "name",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4122,9 +4083,9 @@
 							"sources": [
 								{
 									"fileName": "QorusDataProvider.ts",
-									"line": 361,
+									"line": 360,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L361"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L360"
 								}
 							],
 							"type": {
@@ -4133,7 +4094,7 @@
 							}
 						},
 						{
-							"id": 199,
+							"id": 193,
 							"name": "required",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4149,9 +4110,9 @@
 							"sources": [
 								{
 									"fileName": "QorusDataProvider.ts",
-									"line": 341,
+									"line": 340,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L341"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L340"
 								}
 							],
 							"type": {
@@ -4160,7 +4121,7 @@
 							}
 						},
 						{
-							"id": 200,
+							"id": 194,
 							"name": "sensitive",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4176,9 +4137,9 @@
 							"sources": [
 								{
 									"fileName": "QorusDataProvider.ts",
-									"line": 346,
+									"line": 345,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L346"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L345"
 								}
 							],
 							"type": {
@@ -4187,7 +4148,7 @@
 							}
 						},
 						{
-							"id": 197,
+							"id": 191,
 							"name": "type",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4203,9 +4164,9 @@
 							"sources": [
 								{
 									"fileName": "QorusDataProvider.ts",
-									"line": 331,
+									"line": 330,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L331"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L330"
 								}
 							],
 							"type": {
@@ -4217,7 +4178,7 @@
 							}
 						},
 						{
-							"id": 201,
+							"id": 195,
 							"name": "value",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4235,9 +4196,9 @@
 							"sources": [
 								{
 									"fileName": "QorusDataProvider.ts",
-									"line": 351,
+									"line": 350,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L351"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L350"
 								}
 							],
 							"type": {
@@ -4250,34 +4211,34 @@
 						{
 							"title": "Properties",
 							"children": [
-								198,
-								202,
-								203,
-								199,
-								200,
+								192,
+								196,
 								197,
-								201
+								193,
+								194,
+								191,
+								195
 							]
 						}
 					],
 					"sources": [
 						{
 							"fileName": "QorusDataProvider.ts",
-							"line": 327,
+							"line": 326,
 							"character": 17,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L327"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L326"
 						}
 					]
 				},
 				{
-					"id": 204,
+					"id": 198,
 					"name": "DataProviderResponseData",
 					"kind": 256,
 					"kindString": "Interface",
 					"flags": {},
 					"children": [
 						{
-							"id": 206,
+							"id": 200,
 							"name": "children",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4293,22 +4254,22 @@
 							"sources": [
 								{
 									"fileName": "QorusDataProvider.ts",
-									"line": 373,
+									"line": 372,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L373"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L372"
 								}
 							],
 							"type": {
 								"type": "array",
 								"elementType": {
 									"type": "reference",
-									"id": 188,
+									"id": 184,
 									"name": "DataProviderChildren"
 								}
 							}
 						},
 						{
-							"id": 207,
+							"id": 201,
 							"name": "matches_context",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4324,9 +4285,9 @@
 							"sources": [
 								{
 									"fileName": "QorusDataProvider.ts",
-									"line": 378,
+									"line": 377,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L378"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L377"
 								}
 							],
 							"type": {
@@ -4335,7 +4296,7 @@
 							}
 						},
 						{
-							"id": 205,
+							"id": 199,
 							"name": "type",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4351,9 +4312,9 @@
 							"sources": [
 								{
 									"fileName": "QorusDataProvider.ts",
-									"line": 368,
+									"line": 367,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L368"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L367"
 								}
 							],
 							"type": {
@@ -4366,30 +4327,30 @@
 						{
 							"title": "Properties",
 							"children": [
-								206,
-								207,
-								205
+								200,
+								201,
+								199
 							]
 						}
 					],
 					"sources": [
 						{
 							"fileName": "QorusDataProvider.ts",
-							"line": 364,
+							"line": 363,
 							"character": 17,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L364"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L363"
 						}
 					]
 				},
 				{
-					"id": 208,
+					"id": 202,
 					"name": "QorusDataProviderConstructorOptions",
 					"kind": 256,
 					"kindString": "Interface",
 					"flags": {},
 					"children": [
 						{
-							"id": 211,
+							"id": 205,
 							"name": "context",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4405,19 +4366,19 @@
 							"sources": [
 								{
 									"fileName": "QorusDataProvider.ts",
-									"line": 395,
+									"line": 394,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L395"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L394"
 								}
 							],
 							"type": {
 								"type": "reference",
-								"id": 186,
+								"id": 182,
 								"name": "Context"
 							}
 						},
 						{
-							"id": 209,
+							"id": 203,
 							"name": "path",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4433,9 +4394,9 @@
 							"sources": [
 								{
 									"fileName": "QorusDataProvider.ts",
-									"line": 385,
+									"line": 384,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L385"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L384"
 								}
 							],
 							"type": {
@@ -4447,7 +4408,7 @@
 							}
 						},
 						{
-							"id": 210,
+							"id": 204,
 							"name": "responseData",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4463,19 +4424,19 @@
 							"sources": [
 								{
 									"fileName": "QorusDataProvider.ts",
-									"line": 390,
+									"line": 389,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L390"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L389"
 								}
 							],
 							"type": {
 								"type": "reference",
-								"id": 204,
+								"id": 198,
 								"name": "DataProviderResponseData"
 							}
 						},
 						{
-							"id": 212,
+							"id": 206,
 							"name": "responseError",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4493,9 +4454,9 @@
 							"sources": [
 								{
 									"fileName": "QorusDataProvider.ts",
-									"line": 400,
+									"line": 399,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L400"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L399"
 								}
 							],
 							"type": {
@@ -4508,24 +4469,24 @@
 						{
 							"title": "Properties",
 							"children": [
-								211,
-								209,
-								210,
-								212
+								205,
+								203,
+								204,
+								206
 							]
 						}
 					],
 					"sources": [
 						{
 							"fileName": "QorusDataProvider.ts",
-							"line": 381,
+							"line": 380,
 							"character": 17,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L381"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L380"
 						}
 					]
 				},
 				{
-					"id": 186,
+					"id": 182,
 					"name": "Context",
 					"kind": 4194304,
 					"kindString": "Type alias",
@@ -4543,7 +4504,7 @@
 							"fileName": "QorusDataProvider.ts",
 							"line": 297,
 							"character": 12,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L297"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L297"
 						}
 					],
 					"type": {
@@ -4573,7 +4534,47 @@
 					}
 				},
 				{
-					"id": 187,
+					"id": 189,
+					"name": "DataProviderChildrenConstructorOptions",
+					"kind": 4194304,
+					"kindString": "Type alias",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "DataProvider children constructor_options property object"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "QorusDataProvider.ts",
+							"line": 324,
+							"character": 12,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L324"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"typeArguments": [
+							{
+								"type": "intrinsic",
+								"name": "string"
+							},
+							{
+								"type": "reference",
+								"id": 190,
+								"name": "DataProviderChildrenConstructorPropertyOptions"
+							}
+						],
+						"name": "Record",
+						"qualifiedName": "Record",
+						"package": "typescript"
+					}
+				},
+				{
+					"id": 183,
 					"name": "ResponseError",
 					"kind": 4194304,
 					"kindString": "Type alias",
@@ -4591,7 +4592,7 @@
 							"fileName": "QorusDataProvider.ts",
 							"line": 300,
 							"character": 12,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L300"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L300"
 						}
 					],
 					"type": {
@@ -4604,24 +4605,24 @@
 				{
 					"title": "Classes",
 					"children": [
-						129
+						125
 					]
 				},
 				{
 					"title": "Interfaces",
 					"children": [
-						188,
-						193,
-						196,
-						204,
-						208
+						184,
+						190,
+						198,
+						202
 					]
 				},
 				{
 					"title": "Type Aliases",
 					"children": [
-						186,
-						187
+						182,
+						189,
+						183
 					]
 				}
 			],
@@ -4630,19 +4631,19 @@
 					"fileName": "QorusDataProvider.ts",
 					"line": 1,
 					"character": 0,
-					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L1"
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L1"
 				}
 			]
 		},
 		{
-			"id": 90,
+			"id": 86,
 			"name": "HttpRequest",
 			"kind": 4,
 			"kindString": "Namespace",
 			"flags": {},
 			"children": [
 				{
-					"id": 99,
+					"id": 95,
 					"name": "QorusRequest",
 					"kind": 128,
 					"kindString": "Class",
@@ -4677,28 +4678,28 @@
 					},
 					"children": [
 						{
-							"id": 100,
+							"id": 96,
 							"name": "constructor",
 							"kind": 512,
 							"kindString": "Constructor",
 							"flags": {},
 							"signatures": [
 								{
-									"id": 101,
+									"id": 97,
 									"name": "new QorusRequest",
 									"kind": 16384,
 									"kindString": "Constructor signature",
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"id": 99,
+										"id": 95,
 										"name": "QorusRequest"
 									}
 								}
 							]
 						},
 						{
-							"id": 102,
+							"id": 98,
 							"name": "defaultHeaders",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4716,18 +4717,18 @@
 									"fileName": "QorusRequest.ts",
 									"line": 46,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusRequest.ts#L46"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusRequest.ts#L46"
 								}
 							],
 							"type": {
 								"type": "reference",
-								"id": 96,
+								"id": 92,
 								"name": "DefaultHeaders"
 							},
 							"defaultValue": "..."
 						},
 						{
-							"id": 123,
+							"id": 119,
 							"name": "deleteReq",
 							"kind": 2048,
 							"kindString": "Method",
@@ -4737,12 +4738,12 @@
 									"fileName": "QorusRequest.ts",
 									"line": 129,
 									"character": 8,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusRequest.ts#L129"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusRequest.ts#L129"
 								}
 							],
 							"signatures": [
 								{
-									"id": 124,
+									"id": 120,
 									"name": "deleteReq",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -4768,7 +4769,7 @@
 									},
 									"typeParameter": [
 										{
-											"id": 125,
+											"id": 121,
 											"name": "T",
 											"kind": 131072,
 											"kindString": "Type parameter",
@@ -4777,7 +4778,7 @@
 									],
 									"parameters": [
 										{
-											"id": 126,
+											"id": 122,
 											"name": "props",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -4792,12 +4793,12 @@
 											},
 											"type": {
 												"type": "reference",
-												"id": 91,
+												"id": 87,
 												"name": "QorusRequestParams"
 											}
 										},
 										{
-											"id": 127,
+											"id": 123,
 											"name": "endpoint",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -4806,7 +4807,7 @@
 											},
 											"type": {
 												"type": "reference",
-												"id": 24,
+												"id": 20,
 												"name": "Endpoint"
 											}
 										}
@@ -4823,7 +4824,7 @@
 													},
 													{
 														"type": "reference",
-														"id": 125,
+														"id": 121,
 														"name": "T"
 													}
 												]
@@ -4837,7 +4838,7 @@
 							]
 						},
 						{
-							"id": 108,
+							"id": 104,
 							"name": "get",
 							"kind": 2048,
 							"kindString": "Method",
@@ -4847,12 +4848,12 @@
 									"fileName": "QorusRequest.ts",
 									"line": 99,
 									"character": 8,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusRequest.ts#L99"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusRequest.ts#L99"
 								}
 							],
 							"signatures": [
 								{
-									"id": 109,
+									"id": 105,
 									"name": "get",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -4878,7 +4879,7 @@
 									},
 									"typeParameter": [
 										{
-											"id": 110,
+											"id": 106,
 											"name": "T",
 											"kind": 131072,
 											"kindString": "Type parameter",
@@ -4887,7 +4888,7 @@
 									],
 									"parameters": [
 										{
-											"id": 111,
+											"id": 107,
 											"name": "props",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -4902,12 +4903,12 @@
 											},
 											"type": {
 												"type": "reference",
-												"id": 91,
+												"id": 87,
 												"name": "QorusRequestParams"
 											}
 										},
 										{
-											"id": 112,
+											"id": 108,
 											"name": "endpoint",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -4916,7 +4917,7 @@
 											},
 											"type": {
 												"type": "reference",
-												"id": 24,
+												"id": 20,
 												"name": "Endpoint"
 											}
 										}
@@ -4933,7 +4934,7 @@
 													},
 													{
 														"type": "reference",
-														"id": 110,
+														"id": 106,
 														"name": "T"
 													}
 												]
@@ -4947,7 +4948,7 @@
 							]
 						},
 						{
-							"id": 103,
+							"id": 99,
 							"name": "makeRequest",
 							"kind": 2048,
 							"kindString": "Method",
@@ -4959,19 +4960,19 @@
 									"fileName": "QorusRequest.ts",
 									"line": 48,
 									"character": 10,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusRequest.ts#L48"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusRequest.ts#L48"
 								}
 							],
 							"signatures": [
 								{
-									"id": 104,
+									"id": 100,
 									"name": "makeRequest",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 105,
+											"id": 101,
 											"name": "type",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -4999,19 +5000,19 @@
 											}
 										},
 										{
-											"id": 106,
+											"id": 102,
 											"name": "props",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
 											"type": {
 												"type": "reference",
-												"id": 91,
+												"id": 87,
 												"name": "QorusRequestParams"
 											}
 										},
 										{
-											"id": 107,
+											"id": 103,
 											"name": "endpoint",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -5020,7 +5021,7 @@
 											},
 											"type": {
 												"type": "reference",
-												"id": 24,
+												"id": 20,
 												"name": "Endpoint"
 											}
 										}
@@ -5041,7 +5042,7 @@
 							]
 						},
 						{
-							"id": 113,
+							"id": 109,
 							"name": "post",
 							"kind": 2048,
 							"kindString": "Method",
@@ -5051,12 +5052,12 @@
 									"fileName": "QorusRequest.ts",
 									"line": 109,
 									"character": 8,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusRequest.ts#L109"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusRequest.ts#L109"
 								}
 							],
 							"signatures": [
 								{
-									"id": 114,
+									"id": 110,
 									"name": "post",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -5082,7 +5083,7 @@
 									},
 									"typeParameter": [
 										{
-											"id": 115,
+											"id": 111,
 											"name": "T",
 											"kind": 131072,
 											"kindString": "Type parameter",
@@ -5091,7 +5092,7 @@
 									],
 									"parameters": [
 										{
-											"id": 116,
+											"id": 112,
 											"name": "props",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -5106,12 +5107,12 @@
 											},
 											"type": {
 												"type": "reference",
-												"id": 91,
+												"id": 87,
 												"name": "QorusRequestParams"
 											}
 										},
 										{
-											"id": 117,
+											"id": 113,
 											"name": "endpoint",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -5120,7 +5121,7 @@
 											},
 											"type": {
 												"type": "reference",
-												"id": 24,
+												"id": 20,
 												"name": "Endpoint"
 											}
 										}
@@ -5137,7 +5138,7 @@
 													},
 													{
 														"type": "reference",
-														"id": 115,
+														"id": 111,
 														"name": "T"
 													}
 												]
@@ -5151,7 +5152,7 @@
 							]
 						},
 						{
-							"id": 118,
+							"id": 114,
 							"name": "put",
 							"kind": 2048,
 							"kindString": "Method",
@@ -5161,12 +5162,12 @@
 									"fileName": "QorusRequest.ts",
 									"line": 119,
 									"character": 8,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusRequest.ts#L119"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusRequest.ts#L119"
 								}
 							],
 							"signatures": [
 								{
-									"id": 119,
+									"id": 115,
 									"name": "put",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -5192,7 +5193,7 @@
 									},
 									"typeParameter": [
 										{
-											"id": 120,
+											"id": 116,
 											"name": "T",
 											"kind": 131072,
 											"kindString": "Type parameter",
@@ -5201,7 +5202,7 @@
 									],
 									"parameters": [
 										{
-											"id": 121,
+											"id": 117,
 											"name": "props",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -5216,12 +5217,12 @@
 											},
 											"type": {
 												"type": "reference",
-												"id": 91,
+												"id": 87,
 												"name": "QorusRequestParams"
 											}
 										},
 										{
-											"id": 122,
+											"id": 118,
 											"name": "endpoint",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -5230,7 +5231,7 @@
 											},
 											"type": {
 												"type": "reference",
-												"id": 24,
+												"id": 20,
 												"name": "Endpoint"
 											}
 										}
@@ -5247,7 +5248,7 @@
 													},
 													{
 														"type": "reference",
-														"id": 120,
+														"id": 116,
 														"name": "T"
 													}
 												]
@@ -5265,23 +5266,23 @@
 						{
 							"title": "Constructors",
 							"children": [
-								100
+								96
 							]
 						},
 						{
 							"title": "Properties",
 							"children": [
-								102
+								98
 							]
 						},
 						{
 							"title": "Methods",
 							"children": [
-								123,
-								108,
-								103,
-								113,
-								118
+								119,
+								104,
+								99,
+								109,
+								114
 							]
 						}
 					],
@@ -5290,12 +5291,12 @@
 							"fileName": "QorusRequest.ts",
 							"line": 42,
 							"character": 13,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusRequest.ts#L42"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusRequest.ts#L42"
 						}
 					]
 				},
 				{
-					"id": 96,
+					"id": 92,
 					"name": "DefaultHeaders",
 					"kind": 256,
 					"kindString": "Interface",
@@ -5305,18 +5306,18 @@
 							"fileName": "QorusRequest.ts",
 							"line": 30,
 							"character": 17,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusRequest.ts#L30"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusRequest.ts#L30"
 						}
 					],
 					"indexSignature": {
-						"id": 97,
+						"id": 93,
 						"name": "__index",
 						"kind": 8192,
 						"kindString": "Index signature",
 						"flags": {},
 						"parameters": [
 							{
-								"id": 98,
+								"id": 94,
 								"name": "x",
 								"kind": 32768,
 								"flags": {},
@@ -5333,14 +5334,14 @@
 					}
 				},
 				{
-					"id": 91,
+					"id": 87,
 					"name": "QorusRequestParams",
 					"kind": 256,
 					"kindString": "Interface",
 					"flags": {},
 					"children": [
 						{
-							"id": 94,
+							"id": 90,
 							"name": "data",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5360,7 +5361,7 @@
 									"fileName": "QorusRequest.ts",
 									"line": 22,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusRequest.ts#L22"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusRequest.ts#L22"
 								}
 							],
 							"type": {
@@ -5369,7 +5370,7 @@
 							}
 						},
 						{
-							"id": 92,
+							"id": 88,
 							"name": "headers",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5389,7 +5390,7 @@
 									"fileName": "QorusRequest.ts",
 									"line": 12,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusRequest.ts#L12"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusRequest.ts#L12"
 								}
 							],
 							"type": {
@@ -5400,7 +5401,7 @@
 							}
 						},
 						{
-							"id": 95,
+							"id": 91,
 							"name": "params",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5420,7 +5421,7 @@
 									"fileName": "QorusRequest.ts",
 									"line": 27,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusRequest.ts#L27"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusRequest.ts#L27"
 								}
 							],
 							"type": {
@@ -5441,7 +5442,7 @@
 							}
 						},
 						{
-							"id": 93,
+							"id": 89,
 							"name": "path",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5459,7 +5460,7 @@
 									"fileName": "QorusRequest.ts",
 									"line": 17,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusRequest.ts#L17"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusRequest.ts#L17"
 								}
 							],
 							"type": {
@@ -5472,10 +5473,10 @@
 						{
 							"title": "Properties",
 							"children": [
-								94,
-								92,
-								95,
-								93
+								90,
+								88,
+								91,
+								89
 							]
 						}
 					],
@@ -5484,7 +5485,7 @@
 							"fileName": "QorusRequest.ts",
 							"line": 8,
 							"character": 17,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusRequest.ts#L8"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusRequest.ts#L8"
 						}
 					]
 				}
@@ -5493,14 +5494,14 @@
 				{
 					"title": "Classes",
 					"children": [
-						99
+						95
 					]
 				},
 				{
 					"title": "Interfaces",
 					"children": [
-						96,
-						91
+						92,
+						87
 					]
 				}
 			],
@@ -5509,19 +5510,19 @@
 					"fileName": "QorusRequest.ts",
 					"line": 1,
 					"character": 0,
-					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusRequest.ts#L1"
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusRequest.ts#L1"
 				}
 			]
 		},
 		{
-			"id": 213,
+			"id": 207,
 			"name": "QorusOptions",
 			"kind": 4,
 			"kindString": "Namespace",
 			"flags": {},
 			"children": [
 				{
-					"id": 214,
+					"id": 208,
 					"name": "QorusOptions",
 					"kind": 128,
 					"kindString": "Class",
@@ -5556,7 +5557,7 @@
 					},
 					"children": [
 						{
-							"id": 215,
+							"id": 209,
 							"name": "constructor",
 							"kind": 512,
 							"kindString": "Constructor",
@@ -5566,40 +5567,40 @@
 									"fileName": "QorusOptions.ts",
 									"line": 36,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusOptions.ts#L36"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusOptions.ts#L36"
 								}
 							],
 							"signatures": [
 								{
-									"id": 216,
+									"id": 210,
 									"name": "new QorusOptions",
 									"kind": 16384,
 									"kindString": "Constructor signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 217,
+											"id": 211,
 											"name": "children",
 											"kind": 32768,
 											"kindString": "Parameter",
 											"flags": {},
 											"type": {
 												"type": "reference",
-												"id": 188,
+												"id": 184,
 												"name": "DataProviderChildren"
 											}
 										}
 									],
 									"type": {
 										"type": "reference",
-										"id": 214,
+										"id": 208,
 										"name": "QorusOptions"
 									}
 								}
 							]
 						},
 						{
-							"id": 220,
+							"id": 214,
 							"name": "dataProviderConstructorOptions",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5609,18 +5610,18 @@
 									"fileName": "QorusOptions.ts",
 									"line": 34,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusOptions.ts#L34"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusOptions.ts#L34"
 								}
 							],
 							"type": {
 								"type": "reference",
-								"id": 193,
+								"id": 189,
 								"name": "DataProviderChildrenConstructorOptions"
 							},
 							"defaultValue": "{}"
 						},
 						{
-							"id": 218,
+							"id": 212,
 							"name": "name",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5638,7 +5639,7 @@
 									"fileName": "QorusOptions.ts",
 									"line": 29,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusOptions.ts#L29"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusOptions.ts#L29"
 								}
 							],
 							"type": {
@@ -5648,7 +5649,7 @@
 							"defaultValue": "''"
 						},
 						{
-							"id": 219,
+							"id": 213,
 							"name": "raw",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5658,7 +5659,7 @@
 									"fileName": "QorusOptions.ts",
 									"line": 31,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusOptions.ts#L31"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusOptions.ts#L31"
 								}
 							],
 							"type": {
@@ -5667,7 +5668,7 @@
 							}
 						},
 						{
-							"id": 224,
+							"id": 218,
 							"name": "adjustChildren",
 							"kind": 2048,
 							"kindString": "Method",
@@ -5679,12 +5680,12 @@
 									"fileName": "QorusOptions.ts",
 									"line": 54,
 									"character": 10,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusOptions.ts#L54"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusOptions.ts#L54"
 								}
 							],
 							"signatures": [
 								{
-									"id": 225,
+									"id": 219,
 									"name": "adjustChildren",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -5697,7 +5698,7 @@
 							]
 						},
 						{
-							"id": 233,
+							"id": 227,
 							"name": "convertToJsType",
 							"kind": 2048,
 							"kindString": "Method",
@@ -5709,12 +5710,12 @@
 									"fileName": "QorusOptions.ts",
 									"line": 120,
 									"character": 10,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusOptions.ts#L120"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusOptions.ts#L120"
 								}
 							],
 							"signatures": [
 								{
-									"id": 234,
+									"id": 228,
 									"name": "convertToJsType",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -5740,7 +5741,7 @@
 									},
 									"parameters": [
 										{
-											"id": 235,
+											"id": 229,
 											"name": "type",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -5767,7 +5768,7 @@
 							]
 						},
 						{
-							"id": 230,
+							"id": 224,
 							"name": "createJsTypes",
 							"kind": 2048,
 							"kindString": "Method",
@@ -5779,12 +5780,12 @@
 									"fileName": "QorusOptions.ts",
 									"line": 105,
 									"character": 10,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusOptions.ts#L105"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusOptions.ts#L105"
 								}
 							],
 							"signatures": [
 								{
-									"id": 231,
+									"id": 225,
 									"name": "createJsTypes",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -5810,7 +5811,7 @@
 									},
 									"parameters": [
 										{
-											"id": 232,
+											"id": 226,
 											"name": "types",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -5835,7 +5836,7 @@
 							]
 						},
 						{
-							"id": 221,
+							"id": 215,
 							"name": "get",
 							"kind": 2048,
 							"kindString": "Method",
@@ -5845,12 +5846,12 @@
 									"fileName": "QorusOptions.ts",
 									"line": 48,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusOptions.ts#L48"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusOptions.ts#L48"
 								}
 							],
 							"signatures": [
 								{
-									"id": 222,
+									"id": 216,
 									"name": "get",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -5876,7 +5877,7 @@
 									},
 									"parameters": [
 										{
-											"id": 223,
+											"id": 217,
 											"name": "optionName",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -5896,7 +5897,7 @@
 											},
 											{
 												"type": "reference",
-												"id": 196,
+												"id": 190,
 												"name": "DataProviderChildrenConstructorPropertyOptions"
 											}
 										]
@@ -5905,7 +5906,7 @@
 							]
 						},
 						{
-							"id": 228,
+							"id": 222,
 							"name": "getAll",
 							"kind": 2048,
 							"kindString": "Method",
@@ -5915,12 +5916,12 @@
 									"fileName": "QorusOptions.ts",
 									"line": 84,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusOptions.ts#L84"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusOptions.ts#L84"
 								}
 							],
 							"signatures": [
 								{
-									"id": 229,
+									"id": 223,
 									"name": "getAll",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -5962,7 +5963,7 @@
 							]
 						},
 						{
-							"id": 239,
+							"id": 233,
 							"name": "getJsType",
 							"kind": 2048,
 							"kindString": "Method",
@@ -5972,12 +5973,12 @@
 									"fileName": "QorusOptions.ts",
 									"line": 149,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusOptions.ts#L149"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusOptions.ts#L149"
 								}
 							],
 							"signatures": [
 								{
-									"id": 240,
+									"id": 234,
 									"name": "getJsType",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -6003,7 +6004,7 @@
 									},
 									"parameters": [
 										{
-											"id": 241,
+											"id": 235,
 											"name": "propertyName",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -6042,7 +6043,7 @@
 							]
 						},
 						{
-							"id": 236,
+							"id": 230,
 							"name": "getType",
 							"kind": 2048,
 							"kindString": "Method",
@@ -6052,12 +6053,12 @@
 									"fileName": "QorusOptions.ts",
 									"line": 131,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusOptions.ts#L131"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusOptions.ts#L131"
 								}
 							],
 							"signatures": [
 								{
-									"id": 237,
+									"id": 231,
 									"name": "getType",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -6083,7 +6084,7 @@
 									},
 									"parameters": [
 										{
-											"id": 238,
+											"id": 232,
 											"name": "propertyName",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -6122,7 +6123,7 @@
 							]
 						},
 						{
-							"id": 242,
+							"id": 236,
 							"name": "set",
 							"kind": 2048,
 							"kindString": "Method",
@@ -6132,12 +6133,12 @@
 									"fileName": "QorusOptions.ts",
 									"line": 166,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusOptions.ts#L166"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusOptions.ts#L166"
 								}
 							],
 							"signatures": [
 								{
-									"id": 243,
+									"id": 237,
 									"name": "set",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -6163,7 +6164,7 @@
 									},
 									"parameters": [
 										{
-											"id": 244,
+											"id": 238,
 											"name": "propertyName",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -6182,7 +6183,7 @@
 											}
 										},
 										{
-											"id": 245,
+											"id": 239,
 											"name": "value",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -6202,7 +6203,7 @@
 											},
 											{
 												"type": "reference",
-												"id": 196,
+												"id": 190,
 												"name": "DataProviderChildrenConstructorPropertyOptions"
 											}
 										]
@@ -6211,7 +6212,7 @@
 							]
 						},
 						{
-							"id": 246,
+							"id": 240,
 							"name": "validate",
 							"kind": 2048,
 							"kindString": "Method",
@@ -6221,12 +6222,12 @@
 									"fileName": "QorusOptions.ts",
 									"line": 184,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusOptions.ts#L184"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusOptions.ts#L184"
 								}
 							],
 							"signatures": [
 								{
-									"id": 247,
+									"id": 241,
 									"name": "validate",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -6252,7 +6253,7 @@
 									},
 									"parameters": [
 										{
-											"id": 248,
+											"id": 242,
 											"name": "propertyName",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -6271,7 +6272,7 @@
 											}
 										},
 										{
-											"id": 249,
+											"id": 243,
 											"name": "value",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -6290,7 +6291,7 @@
 							]
 						},
 						{
-							"id": 226,
+							"id": 220,
 							"name": "validateRequired",
 							"kind": 2048,
 							"kindString": "Method",
@@ -6300,12 +6301,12 @@
 									"fileName": "QorusOptions.ts",
 									"line": 67,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusOptions.ts#L67"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusOptions.ts#L67"
 								}
 							],
 							"signatures": [
 								{
-									"id": 227,
+									"id": 221,
 									"name": "validateRequired",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -6341,30 +6342,30 @@
 						{
 							"title": "Constructors",
 							"children": [
-								215
+								209
 							]
 						},
 						{
 							"title": "Properties",
 							"children": [
-								220,
-								218,
-								219
+								214,
+								212,
+								213
 							]
 						},
 						{
 							"title": "Methods",
 							"children": [
+								218,
+								227,
 								224,
+								215,
+								222,
 								233,
 								230,
-								221,
-								228,
-								239,
 								236,
-								242,
-								246,
-								226
+								240,
+								220
 							]
 						}
 					],
@@ -6373,7 +6374,7 @@
 							"fileName": "QorusOptions.ts",
 							"line": 27,
 							"character": 13,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusOptions.ts#L27"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusOptions.ts#L27"
 						}
 					]
 				}
@@ -6382,7 +6383,7 @@
 				{
 					"title": "Classes",
 					"children": [
-						214
+						208
 					]
 				}
 			],
@@ -6391,19 +6392,19 @@
 					"fileName": "QorusOptions.ts",
 					"line": 1,
 					"character": 0,
-					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusOptions.ts#L1"
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusOptions.ts#L1"
 				}
 			]
 		},
 		{
-			"id": 250,
+			"id": 244,
 			"name": "Validator",
 			"kind": 4,
 			"kindString": "Namespace",
 			"flags": {},
 			"children": [
 				{
-					"id": 252,
+					"id": 246,
 					"name": "QorusValidator",
 					"kind": 128,
 					"kindString": "Class",
@@ -6438,28 +6439,28 @@
 					},
 					"children": [
 						{
-							"id": 253,
+							"id": 247,
 							"name": "constructor",
 							"kind": 512,
 							"kindString": "Constructor",
 							"flags": {},
 							"signatures": [
 								{
-									"id": 254,
+									"id": 248,
 									"name": "new QorusValidator",
 									"kind": 16384,
 									"kindString": "Constructor signature",
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"id": 252,
+										"id": 246,
 										"name": "QorusValidator"
 									}
 								}
 							]
 						},
 						{
-							"id": 263,
+							"id": 257,
 							"name": "getTypeFromValue",
 							"kind": 2048,
 							"kindString": "Method",
@@ -6469,12 +6470,12 @@
 									"fileName": "QorusValidator.ts",
 									"line": 414,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusValidator.ts#L414"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusValidator.ts#L414"
 								}
 							],
 							"signatures": [
 								{
-									"id": 264,
+									"id": 258,
 									"name": "getTypeFromValue",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -6500,7 +6501,7 @@
 									},
 									"parameters": [
 										{
-											"id": 265,
+											"id": 259,
 											"name": "value",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -6564,7 +6565,7 @@
 							]
 						},
 						{
-							"id": 255,
+							"id": 249,
 							"name": "nullType",
 							"kind": 2048,
 							"kindString": "Method",
@@ -6576,12 +6577,12 @@
 									"fileName": "QorusValidator.ts",
 									"line": 36,
 									"character": 10,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusValidator.ts#L36"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusValidator.ts#L36"
 								}
 							],
 							"signatures": [
 								{
-									"id": 256,
+									"id": 250,
 									"name": "nullType",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -6607,7 +6608,7 @@
 									},
 									"parameters": [
 										{
-											"id": 257,
+											"id": 251,
 											"name": "type",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -6634,7 +6635,7 @@
 							]
 						},
 						{
-							"id": 258,
+							"id": 252,
 							"name": "validate",
 							"kind": 2048,
 							"kindString": "Method",
@@ -6644,12 +6645,12 @@
 									"fileName": "QorusValidator.ts",
 									"line": 51,
 									"character": 2,
-									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusValidator.ts#L51"
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusValidator.ts#L51"
 								}
 							],
 							"signatures": [
 								{
-									"id": 259,
+									"id": 253,
 									"name": "validate",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -6675,7 +6676,7 @@
 									},
 									"parameters": [
 										{
-											"id": 260,
+											"id": 254,
 											"name": "type",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -6694,7 +6695,7 @@
 											}
 										},
 										{
-											"id": 261,
+											"id": 255,
 											"name": "value",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -6715,7 +6716,7 @@
 											}
 										},
 										{
-											"id": 262,
+											"id": 256,
 											"name": "canBeNull",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -6748,15 +6749,15 @@
 						{
 							"title": "Constructors",
 							"children": [
-								253
+								247
 							]
 						},
 						{
 							"title": "Methods",
 							"children": [
-								263,
-								255,
-								258
+								257,
+								249,
+								252
 							]
 						}
 					],
@@ -6765,12 +6766,12 @@
 							"fileName": "QorusValidator.ts",
 							"line": 30,
 							"character": 13,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusValidator.ts#L30"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusValidator.ts#L30"
 						}
 					]
 				},
 				{
-					"id": 251,
+					"id": 245,
 					"name": "versions",
 					"kind": 32,
 					"kindString": "Variable",
@@ -6782,7 +6783,7 @@
 							"fileName": "QorusValidator.ts",
 							"line": 22,
 							"character": 13,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusValidator.ts#L22"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusValidator.ts#L22"
 						}
 					],
 					"type": {
@@ -6808,13 +6809,13 @@
 				{
 					"title": "Classes",
 					"children": [
-						252
+						246
 					]
 				},
 				{
 					"title": "Variables",
 					"children": [
-						251
+						245
 					]
 				}
 			],
@@ -6823,19 +6824,19 @@
 					"fileName": "QorusValidator.ts",
 					"line": 1,
 					"character": 0,
-					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusValidator.ts#L1"
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusValidator.ts#L1"
 				}
 			]
 		},
 		{
-			"id": 271,
+			"id": 265,
 			"name": "ApiPaths",
 			"kind": 256,
 			"kindString": "Interface",
 			"flags": {},
 			"children": [
 				{
-					"id": 272,
+					"id": 266,
 					"name": "authenticator",
 					"kind": 1024,
 					"kindString": "Property",
@@ -6853,17 +6854,17 @@
 							"fileName": "utils/apiPaths.ts",
 							"line": 5,
 							"character": 2,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/utils/apiPaths.ts#L5"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/utils/apiPaths.ts#L5"
 						}
 					],
 					"type": {
 						"type": "reference",
-						"id": 274,
+						"id": 268,
 						"name": "ApiPathsAuthenticator"
 					}
 				},
 				{
-					"id": 273,
+					"id": 267,
 					"name": "dataProviders",
 					"kind": 1024,
 					"kindString": "Property",
@@ -6881,12 +6882,12 @@
 							"fileName": "utils/apiPaths.ts",
 							"line": 9,
 							"character": 2,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/utils/apiPaths.ts#L9"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/utils/apiPaths.ts#L9"
 						}
 					],
 					"type": {
 						"type": "reference",
-						"id": 279,
+						"id": 273,
 						"name": "ApiPathsDataProvider"
 					}
 				}
@@ -6895,8 +6896,8 @@
 				{
 					"title": "Properties",
 					"children": [
-						272,
-						273
+						266,
+						267
 					]
 				}
 			],
@@ -6905,19 +6906,19 @@
 					"fileName": "utils/apiPaths.ts",
 					"line": 1,
 					"character": 17,
-					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/utils/apiPaths.ts#L1"
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/utils/apiPaths.ts#L1"
 				}
 			]
 		},
 		{
-			"id": 274,
+			"id": 268,
 			"name": "ApiPathsAuthenticator",
 			"kind": 256,
 			"kindString": "Interface",
 			"flags": {},
 			"children": [
 				{
-					"id": 275,
+					"id": 269,
 					"name": "login",
 					"kind": 1024,
 					"kindString": "Property",
@@ -6935,7 +6936,7 @@
 							"fileName": "utils/apiPaths.ts",
 							"line": 23,
 							"character": 2,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/utils/apiPaths.ts#L23"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/utils/apiPaths.ts#L23"
 						}
 					],
 					"type": {
@@ -6944,7 +6945,7 @@
 					}
 				},
 				{
-					"id": 276,
+					"id": 270,
 					"name": "logout",
 					"kind": 1024,
 					"kindString": "Property",
@@ -6962,7 +6963,7 @@
 							"fileName": "utils/apiPaths.ts",
 							"line": 27,
 							"character": 2,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/utils/apiPaths.ts#L27"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/utils/apiPaths.ts#L27"
 						}
 					],
 					"type": {
@@ -6971,7 +6972,7 @@
 					}
 				},
 				{
-					"id": 278,
+					"id": 272,
 					"name": "validateNoAuth",
 					"kind": 1024,
 					"kindString": "Property",
@@ -6989,7 +6990,7 @@
 							"fileName": "utils/apiPaths.ts",
 							"line": 35,
 							"character": 2,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/utils/apiPaths.ts#L35"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/utils/apiPaths.ts#L35"
 						}
 					],
 					"type": {
@@ -6998,7 +6999,7 @@
 					}
 				},
 				{
-					"id": 277,
+					"id": 271,
 					"name": "validateToken",
 					"kind": 1024,
 					"kindString": "Property",
@@ -7016,7 +7017,7 @@
 							"fileName": "utils/apiPaths.ts",
 							"line": 31,
 							"character": 2,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/utils/apiPaths.ts#L31"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/utils/apiPaths.ts#L31"
 						}
 					],
 					"type": {
@@ -7029,10 +7030,10 @@
 				{
 					"title": "Properties",
 					"children": [
-						275,
-						276,
-						278,
-						277
+						269,
+						270,
+						272,
+						271
 					]
 				}
 			],
@@ -7041,19 +7042,19 @@
 					"fileName": "utils/apiPaths.ts",
 					"line": 19,
 					"character": 17,
-					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/utils/apiPaths.ts#L19"
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/utils/apiPaths.ts#L19"
 				}
 			]
 		},
 		{
-			"id": 279,
+			"id": 273,
 			"name": "ApiPathsDataProvider",
 			"kind": 256,
 			"kindString": "Interface",
 			"flags": {},
 			"children": [
 				{
-					"id": 280,
+					"id": 274,
 					"name": "browse",
 					"kind": 1024,
 					"kindString": "Property",
@@ -7071,7 +7072,7 @@
 							"fileName": "utils/apiPaths.ts",
 							"line": 16,
 							"character": 2,
-							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/utils/apiPaths.ts#L16"
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/utils/apiPaths.ts#L16"
 						}
 					],
 					"type": {
@@ -7084,7 +7085,7 @@
 				{
 					"title": "Properties",
 					"children": [
-						280
+						274
 					]
 				}
 			],
@@ -7093,88 +7094,90 @@
 					"fileName": "utils/apiPaths.ts",
 					"line": 12,
 					"character": 17,
-					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/utils/apiPaths.ts#L12"
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/utils/apiPaths.ts#L12"
 				}
 			]
 		},
 		{
-			"id": 4,
+			"id": 2,
 			"name": "ObjectWithAnyKey",
-			"kind": 256,
-			"kindString": "Interface",
+			"kind": 4194304,
+			"kindString": "Type alias",
 			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "A record of objects with string key and any kind of value"
+					}
+				]
+			},
 			"sources": [
 				{
 					"fileName": "index.ts",
-					"line": 17,
-					"character": 17,
-					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/index.ts#L17"
+					"line": 23,
+					"character": 12,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/index.ts#L23"
 				}
 			],
-			"indexSignature": {
-				"id": 5,
-				"name": "__index",
-				"kind": 8192,
-				"kindString": "Index signature",
-				"flags": {},
-				"parameters": [
+			"type": {
+				"type": "reference",
+				"typeArguments": [
 					{
-						"id": 6,
-						"name": "x",
-						"kind": 32768,
-						"flags": {},
-						"type": {
-							"type": "intrinsic",
-							"name": "string"
-						}
+						"type": "intrinsic",
+						"name": "string"
+					},
+					{
+						"type": "intrinsic",
+						"name": "any"
 					}
 				],
-				"type": {
-					"type": "intrinsic",
-					"name": "any"
-				}
+				"name": "Record",
+				"qualifiedName": "Record",
+				"package": "typescript"
 			}
 		},
 		{
 			"id": 1,
 			"name": "ObjectWithStringKey",
-			"kind": 256,
-			"kindString": "Interface",
+			"kind": 4194304,
+			"kindString": "Type alias",
 			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "A record of objects with string key and string value"
+					}
+				]
+			},
 			"sources": [
 				{
 					"fileName": "index.ts",
-					"line": 14,
-					"character": 17,
-					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/index.ts#L14"
+					"line": 18,
+					"character": 12,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/index.ts#L18"
 				}
 			],
-			"indexSignature": {
-				"id": 2,
-				"name": "__index",
-				"kind": 8192,
-				"kindString": "Index signature",
-				"flags": {},
-				"parameters": [
+			"type": {
+				"type": "reference",
+				"typeArguments": [
 					{
-						"id": 3,
-						"name": "x",
-						"kind": 32768,
-						"flags": {},
-						"type": {
-							"type": "intrinsic",
-							"name": "string"
-						}
+						"type": "intrinsic",
+						"name": "string"
+					},
+					{
+						"type": "intrinsic",
+						"name": "string"
 					}
 				],
-				"type": {
-					"type": "intrinsic",
-					"name": "string"
-				}
+				"name": "Record",
+				"qualifiedName": "Record",
+				"package": "typescript"
 			}
 		},
 		{
-			"id": 270,
+			"id": 264,
 			"name": "Version",
 			"kind": 4194304,
 			"kindString": "Type alias",
@@ -7192,7 +7195,7 @@
 					"fileName": "utils/apiPaths.ts",
 					"line": 41,
 					"character": 12,
-					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/utils/apiPaths.ts#L41"
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/utils/apiPaths.ts#L41"
 				}
 			],
 			"type": {
@@ -7230,7 +7233,7 @@
 			}
 		},
 		{
-			"id": 266,
+			"id": 260,
 			"name": "QorusAuthenticator",
 			"kind": 32,
 			"kindString": "Variable",
@@ -7240,17 +7243,17 @@
 					"fileName": "QorusAuthenticator.ts",
 					"line": 500,
 					"character": 0,
-					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusAuthenticator.ts#L500"
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusAuthenticator.ts#L500"
 				}
 			],
 			"type": {
 				"type": "reference",
-				"id": 30,
+				"id": 26,
 				"name": "QorusAuthenticator"
 			}
 		},
 		{
-			"id": 268,
+			"id": 262,
 			"name": "QorusDataProvider",
 			"kind": 32,
 			"kindString": "Variable",
@@ -7260,17 +7263,17 @@
 					"fileName": "QorusDataProvider.ts",
 					"line": 292,
 					"character": 0,
-					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusDataProvider.ts#L292"
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusDataProvider.ts#L292"
 				}
 			],
 			"type": {
 				"type": "reference",
-				"id": 129,
+				"id": 125,
 				"name": "QorusDataProvider"
 			}
 		},
 		{
-			"id": 267,
+			"id": 261,
 			"name": "QorusRequest",
 			"kind": 32,
 			"kindString": "Variable",
@@ -7280,17 +7283,17 @@
 					"fileName": "QorusRequest.ts",
 					"line": 135,
 					"character": 0,
-					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusRequest.ts#L135"
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusRequest.ts#L135"
 				}
 			],
 			"type": {
 				"type": "reference",
-				"id": 99,
+				"id": 95,
 				"name": "QorusRequest"
 			}
 		},
 		{
-			"id": 269,
+			"id": 263,
 			"name": "QorusValidator",
 			"kind": 32,
 			"kindString": "Variable",
@@ -7300,12 +7303,12 @@
 					"fileName": "QorusValidator.ts",
 					"line": 450,
 					"character": 0,
-					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/QorusValidator.ts#L450"
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/QorusValidator.ts#L450"
 				}
 			],
 			"type": {
 				"type": "reference",
-				"id": 252,
+				"id": 246,
 				"name": "QorusValidator"
 			}
 		}
@@ -7314,42 +7317,42 @@
 		{
 			"title": "References",
 			"children": [
-				281
+				275
 			]
 		},
 		{
 			"title": "Namespaces",
 			"children": [
-				7,
-				128,
-				90,
-				213,
-				250
+				3,
+				124,
+				86,
+				207,
+				244
 			]
 		},
 		{
 			"title": "Interfaces",
 			"children": [
-				271,
-				274,
-				279,
-				4,
-				1
+				265,
+				268,
+				273
 			]
 		},
 		{
 			"title": "Type Aliases",
 			"children": [
-				270
+				2,
+				1,
+				264
 			]
 		},
 		{
 			"title": "Variables",
 			"children": [
-				266,
-				268,
-				267,
-				269
+				260,
+				262,
+				261,
+				263
 			]
 		}
 	],
@@ -7358,7 +7361,7 @@
 			"fileName": "index.ts",
 			"line": 1,
 			"character": 0,
-			"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/e30dbe8/src/index.ts#L1"
+			"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/20ea7cb/src/index.ts#L1"
 		}
 	]
 }

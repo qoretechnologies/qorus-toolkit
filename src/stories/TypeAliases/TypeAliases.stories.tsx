@@ -46,3 +46,15 @@ Token.storyName = 'Token';
 
 export const ResponseError = prepareTypeStory(Template, 'ResponseError');
 ResponseError.storyName = 'ResponseError';
+
+export const DataProviderChildrenConstructorOptions = prepareTypeStory(
+  Template,
+  'DataProviderChildrenConstructorOptions',
+);
+DataProviderChildrenConstructorOptions.storyName = 'DataProviderChildrenConstructorOptions';
+
+export const ObjectWithStringKey = prepareTypeStory(Template, 'ObjectWithStringKey');
+ObjectWithStringKey.storyName = 'ObjectWithStringKey';
+
+export const ObjectWithAnyKey = prepareTypeStory(Template, 'ObjectWithAnyKey');
+ObjectWithAnyKey.storyName = 'ObjectWithAnyKey';

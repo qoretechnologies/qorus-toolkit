@@ -60,12 +60,7 @@ class DocGenerator {
     this.project.namespaces.forEach((namespace) => {
       this.allTypeAliases = [...this.allTypeAliases, ...namespace.typeAliases];
     });
-    // console.log(this.allTypeAliases.map((alias) => alias.name));
   }
-
-  // printProjectInterfaces() {
-  //   console.log(this.project.interfaces);
-  // }
 
   /** Creates documentation for Classes, Interfaces, Methods, and types
    * @returns Object with all the parsed docs and saves them to the file
@@ -239,11 +234,24 @@ class DocGenerator {
   ): string {
     let finalTypeString = prevTypeString ?? '';
     if (typeObj instanceof ReferenceTypeParser) {
-      if (typeObj.name === 'Promise') {
+      if (typeObj.name === 'Promise' || typeObj.name === 'Record') {
         const typeObjects = typeObj.typeArguments;
-        typeObjects.reverse().map((type) => {
+        let typeObjArr: any[] = [];
+        if (typeObj.name === 'Promise') {
+          typeObjArr = typeObjects.reverse();
+        } else {
+          typeObjArr = typeObjects;
+        }
+
+        typeObjArr.map((type, index) => {
           finalTypeString += this.typeParser(type);
+          if (typeObj.name === 'Record' && !(index + 1 === typeObjects.length)) {
+            finalTypeString += ', ';
+          }
         });
+        if (typeObj.name === 'Record') {
+          finalTypeString = `Record<${finalTypeString}>`;
+        }
       } else {
         finalTypeString += typeObj.name;
       }
@@ -429,6 +437,7 @@ class DocGenerator {
     const comments = this.createCommentDocs(method);
     const returnTypes = this.createReturnTypes(method);
     const async = this.isAsyncMethod(method);
+    const accessibility: 'public' | 'private' | 'protected' | undefined = method?.accessibility;
     const docs = {
       async,
       name,
@@ -436,12 +445,13 @@ class DocGenerator {
       params: parameters,
       comments,
       returnTypes,
+      accessibility,
     };
     return docs;
   }
 
   createTypeAliasDocs(typeAliasObject: string | TypeAliasParser) {
-    let typeAliasObj;
+    let typeAliasObj: TypeAliasParser | undefined;
     if (typeof typeAliasObject === 'string') {
       typeAliasObj = this.getTypeAlias(typeAliasObject);
     } else {
@@ -451,7 +461,7 @@ class DocGenerator {
       return undefined;
     }
 
-    const type = this.getTypeAliasType(typeAliasObj.type.toJSON());
+    const type = this.typeParser(typeAliasObj.type);
 
     const docs: TypeAliasDocs = {
       name: typeAliasObj.name,
@@ -482,15 +492,30 @@ class DocGenerator {
     const allMethodDocs = allClasses?.map((classObj) => {
       const className = classObj?.name;
       const classMethods = classObj.methods.map((method) => {
+        const data = this.createMethodDocs(method.name, className);
         const methodDocs = {
           className: classObj.name,
-          data: this.createMethodDocs(method.name, className),
+          data,
         };
-        return methodDocs;
+        if (data?.accessibility === 'private') {
+          return undefined;
+        } else return methodDocs;
       });
       return classMethods;
     });
-    return allMethodDocs;
+
+    const finalMethodDocs: { className: string; data: MethodDocs | undefined }[] = [];
+
+    allMethodDocs?.forEach((method) =>
+      method.forEach((meth) => {
+        if (meth?.className && meth.data?.name) {
+          if (meth !== null) {
+            finalMethodDocs.push(meth);
+          }
+        }
+      }),
+    );
+    return finalMethodDocs;
   }
 
   createAllClassesJson() {

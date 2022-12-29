@@ -63,13 +63,11 @@ export const argsData = {
 export const getAllMethodsFromClass = (className: string) => {
   const methods: MethodDocs[] = [];
 
-  docs.methodDocs.forEach((method) =>
-    method.forEach((meth) => {
-      if (meth.className === className) {
-        methods.push(meth.data);
-      }
-    }),
-  );
+  docs.methodDocs.forEach((method) => {
+    if (method?.className === className) {
+      methods.push(method.data as MethodDocs);
+    }
+  });
 
   return methods;
 };
@@ -85,15 +83,13 @@ export const getClassData = (className: string): DocumentationClass => {
 export const getMethodData = (methodName: string, className: string) => {
   let selectedMethod;
 
-  docs.methodDocs.forEach((method) =>
-    method.forEach((meth) => {
-      if (meth.className && meth.data.name) {
-        if (meth.className === className && meth.data.name === methodName) {
-          selectedMethod = meth;
-        }
+  docs.methodDocs.forEach((method) => {
+    if (method?.className && method.data.name) {
+      if (method.className === className && method.data.name === methodName) {
+        selectedMethod = method;
       }
-    }),
-  );
+    }
+  });
 
   return selectedMethod;
 };

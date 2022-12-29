@@ -11,9 +11,13 @@ export { default as QorusValidator } from './QorusValidator';
 
 export { Version, ApiPaths, ApiPathsAuthenticator, ApiPathsDataProvider } from './utils/apiPaths';
 export { Context } from './QorusDataProvider';
-export interface ObjectWithStringKey {
-  [x: string]: string;
-}
-export interface ObjectWithAnyKey {
-  [x: string]: any;
-}
+
+/**
+ * A record of objects with string key and string value
+ */
+export type ObjectWithStringKey = Record<string, string>;
+
+/**
+ * A record of objects with string key and any kind of value
+ */
+export type ObjectWithAnyKey = Record<string, any>;

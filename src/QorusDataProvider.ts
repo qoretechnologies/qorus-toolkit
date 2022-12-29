@@ -318,12 +318,11 @@ export interface DataProviderChildren {
   type: string;
 }
 
-export interface DataProviderChildrenConstructorOptions {
-  /**
-   * DataProvider children constructor_options property object
-   */
-  [x: string]: DataProviderChildrenConstructorPropertyOptions;
-}
+/**
+ * DataProvider children constructor_options property object
+ */
+export type DataProviderChildrenConstructorOptions = Record<string, DataProviderChildrenConstructorPropertyOptions>;
+
 export interface DataProviderChildrenConstructorPropertyOptions {
   /**
    * Accepted types for the DataProvider constructor_options property

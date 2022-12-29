@@ -42,9 +42,6 @@ set.storyName = 'set';
 export const validate = prepareStory('validate');
 validate.storyName = 'validate';
 
-export const validateProperty = prepareStory('validateProperty');
-validateProperty.storyName = 'validateProperty';
-
 export const getAll = prepareStory('getAll');
 getAll.storyName = 'getAll';
 
