@@ -25,50 +25,53 @@ const Template: IDocumentationStory = ({ comments, ...rest }, context) => {
   );
 };
 
-export const DataProviderChildrenConstructorPropertyOptions = prepareInterfaceStory(
+export const IDataProviderChildrenConstructorPropertyOptions = prepareInterfaceStory(
   Template,
-  'DataProviderChildrenConstructorPropertyOptions',
+  'IDataProviderChildrenConstructorPropertyOptions',
 );
-DataProviderChildrenConstructorPropertyOptions.storyName = 'DataProviderChildrenConstructorPropertyOptions';
+IDataProviderChildrenConstructorPropertyOptions.storyName = 'IDataProviderChildrenConstructorPropertyOptions';
 
-export const QorusDataProviderConstructorOptions = prepareInterfaceStory(
+export const IQorusDataProviderConstructorOptions = prepareInterfaceStory(
   Template,
-  'QorusDataProviderConstructorOptions',
+  'IQorusDataProviderConstructorOptions',
 );
-QorusDataProviderConstructorOptions.storyName = 'QorusDataProviderConstructorOptions';
+IQorusDataProviderConstructorOptions.storyName = 'IQorusDataProviderConstructorOptions';
 
-export const DataProviderResponseData = prepareInterfaceStory(Template, 'DataProviderResponseData');
-DataProviderResponseData.storyName = 'DataProviderResponseData';
+export const IDataProviderResponseData = prepareInterfaceStory(Template, 'IDataProviderResponseData');
+IDataProviderResponseData.storyName = 'IDataProviderResponseData';
 
-export const DataProviderChildren = prepareInterfaceStory(Template, 'DataProviderChildren');
-DataProviderChildren.storyName = 'DataProviderChildren';
+export const IDataProviderChildren = prepareInterfaceStory(Template, 'IDataProviderChildren');
+IDataProviderChildren.storyName = 'IDataProviderChildren';
 
-export const AddEndpoint = prepareInterfaceStory(Template, 'AddEndpoint');
-AddEndpoint.storyName = 'AddEndpoint';
+export const IAddEndpoint = prepareInterfaceStory(Template, 'IAddEndpoint');
+IAddEndpoint.storyName = 'IAddEndpoint';
 
-export const Endpoint = prepareInterfaceStory(Template, 'Endpoint');
-//Endpoint.storyName = 'Endpoint';
+export const IEndpoint = prepareInterfaceStory(Template, 'IEndpoint');
+IEndpoint.storyName = 'IEndpoint';
 
-export const LoginParams = prepareInterfaceStory(Template, 'LoginParams');
-LoginParams.storyName = 'LoginParams';
+export const ILoginParams = prepareInterfaceStory(Template, 'ILoginParams');
+ILoginParams.storyName = 'ILoginParams';
 
-export const WithQorusAuthToken = prepareInterfaceStory(Template, 'WithQorusAuthToken');
-WithQorusAuthToken.storyName = 'WithQorusAuthToken';
+export const IWithQorusAuthToken = prepareInterfaceStory(Template, 'IWithQorusAuthToken');
+IWithQorusAuthToken.storyName = 'IWithQorusAuthToken';
 
-export const WithQorusEndpointId = prepareInterfaceStory(Template, 'WithQorusEndpointId');
-WithQorusEndpointId.storyName = 'WithQorusEndpointId';
+export const IWithQorusEndpointId = prepareInterfaceStory(Template, 'IWithQorusEndpointId');
+IWithQorusEndpointId.storyName = 'IWithQorusEndpointId';
 
-export const WithQorusURL = prepareInterfaceStory(Template, 'WithQorusURL');
-WithQorusURL.storyName = 'WithQorusURL';
+export const IWithQorusURL = prepareInterfaceStory(Template, 'IWithQorusURL');
+IWithQorusURL.storyName = 'IWithQorusURL';
 
-export const QorusRequestParams = prepareInterfaceStory(Template, 'QorusRequestParams');
-QorusRequestParams.storyName = 'QorusRequestParams';
+export const IQorusRequestParams = prepareInterfaceStory(Template, 'IQorusRequestParams');
+IQorusRequestParams.storyName = 'IQorusRequestParams';
 
-export const ApiPaths = prepareInterfaceStory(Template, 'ApiPaths');
-ApiPaths.storyName = 'ApiPaths';
+export const IApiPaths = prepareInterfaceStory(Template, 'IApiPaths');
+IApiPaths.storyName = 'IApiPaths';
 
-export const ApiPathsAuthenticator = prepareInterfaceStory(Template, 'ApiPathsAuthenticator');
-ApiPathsAuthenticator.storyName = 'ApiPathsAuthenticator';
+export const IApiPathsAuthenticator = prepareInterfaceStory(Template, 'IApiPathsAuthenticator');
+IApiPathsAuthenticator.storyName = 'IApiPathsAuthenticator';
 
-export const ApiPathsDataProvider = prepareInterfaceStory(Template, 'ApiPathsDataProvider');
-ApiPathsDataProvider.storyName = 'ApiPathsDataProvider';
+export const IApiPathsDataProvider = prepareInterfaceStory(Template, 'IApiPathsDataProvider');
+IApiPathsDataProvider.storyName = 'IApiPathsDataProvider';
+
+export const IDefaultHeaders = prepareInterfaceStory(Template, 'IDefaultHeaders');
+IDefaultHeaders.storyName = 'IDefaultHeaders';

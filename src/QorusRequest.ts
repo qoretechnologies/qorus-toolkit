@@ -37,11 +37,15 @@ export interface IQorusRequestParams {
   params?: Record<string, string>;
 }
 
-export interface DefaultHeaders extends Record<string, string> {
-  // Content type for the Qorus request
+export interface IDefaultHeaders extends Record<string, string> {
+  /**
+   * Content type for the Qorus request
+   */
   'Content-Type': string;
 
-  // Accepted data format type by Qorus server
+  /**
+   * Accepted data format type by Qorus server
+   */
   Accept: string;
 }
 
@@ -57,7 +61,7 @@ export class QorusRequest {
   /**
    * Default headers for the QorusRequest
    */
-  defaultHeaders: DefaultHeaders = { 'Content-Type': 'application/json', Accept: 'application/json' };
+  defaultHeaders: IDefaultHeaders = { 'Content-Type': 'application/json', Accept: 'application/json' };
 
   private makeRequest = async (
     type: 'GET' | 'PUT' | 'POST' | 'DELETE',

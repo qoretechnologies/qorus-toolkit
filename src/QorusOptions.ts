@@ -1,4 +1,4 @@
-import { ObjectWithAnyValue, ObjectWithStringKey } from '.';
+import { TObjectWithAnyValue, TObjectWithStringKey } from '../src';
 import ErrorInternal from './managers/error/ErrorInternal';
 import logger from './managers/logger';
 import {
@@ -80,13 +80,13 @@ export class QorusOptions {
    * Get all values required for the provider
    * @returns Array of values for the constructor options if required values exist, undefined otherwise
    */
-  getAll(): ObjectWithStringKey | undefined {
+  getAll(): TObjectWithStringKey | undefined {
     const isValid = this.validateRequired();
     if (!isValid) {
       return undefined;
     }
 
-    const allOptions: ObjectWithAnyValue | undefined = {};
+    const allOptions: TObjectWithAnyValue | undefined = {};
     Object.keys(this.dataProviderConstructorOptions).map((key) => {
       if (this.dataProviderConstructorOptions[key].value) {
         allOptions[key] = this.dataProviderConstructorOptions[key].value;

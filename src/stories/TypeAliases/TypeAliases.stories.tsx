@@ -29,35 +29,32 @@ const Template: IDocumentationStory = ({ comments, ...rest }, context) => {
   );
 };
 
-export const Version = prepareTypeStory(Template, 'Version');
-Version.storyName = 'Version';
+export const TVersion = prepareTypeStory(Template, 'TVersion');
+TVersion.storyName = 'TVersion';
 
-export const Context = prepareTypeStory(Template, 'Context');
-Context.storyName = 'Context';
+export const TContext = prepareTypeStory(Template, 'TContext');
+TContext.storyName = 'TContext';
 
-export const QorusEndpointId = prepareTypeStory(Template, 'QorusEndpointId');
-QorusEndpointId.storyName = 'QorusEndpointId';
+export const TQorusEndpointId = prepareTypeStory(Template, 'TQorusEndpointId');
+TQorusEndpointId.storyName = 'TQorusEndpointId';
 
-export const QorusEndpointURL = prepareTypeStory(Template, 'QorusEndpointURL');
-QorusEndpointURL.storyName = 'QorusEndpointURL';
+export const TQorusEndpointURL = prepareTypeStory(Template, 'TQorusEndpointURL');
+TQorusEndpointURL.storyName = 'TQorusEndpointURL';
 
-export const Token = prepareTypeStory(Template, 'Token');
-Token.storyName = 'Token';
+export const TToken = prepareTypeStory(Template, 'TToken');
+TToken.storyName = 'TToken';
 
-export const ResponseError = prepareTypeStory(Template, 'ResponseError');
-ResponseError.storyName = 'ResponseError';
+export const TResponseError = prepareTypeStory(Template, 'TResponseError');
+TResponseError.storyName = 'TResponseError';
 
-export const DataProviderChildrenConstructorOptions = prepareTypeStory(
+export const TDataProviderChildrenConstructorOptions = prepareTypeStory(
   Template,
-  'DataProviderChildrenConstructorOptions',
+  'TDataProviderChildrenConstructorOptions',
 );
-DataProviderChildrenConstructorOptions.storyName = 'DataProviderChildrenConstructorOptions';
+TDataProviderChildrenConstructorOptions.storyName = 'TDataProviderChildrenConstructorOptions';
 
-export const ObjectWithStringKey = prepareTypeStory(Template, 'ObjectWithStringKey');
-ObjectWithStringKey.storyName = 'ObjectWithStringKey';
+export const TObjectWithStringKey = prepareTypeStory(Template, 'TObjectWithStringKey');
+TObjectWithStringKey.storyName = 'TObjectWithStringKey';
 
-export const ObjectWithAnyValue = prepareTypeStory(Template, 'ObjectWithAnyValue');
-ObjectWithAnyValue.storyName = 'ObjectWithAnyValue';
-
-export const DefaultHeaders = prepareTypeStory(Template, 'DefaultHeaders');
-DefaultHeaders.storyName = 'DefaultHeaders';
+export const TObjectWithAnyValue = prepareTypeStory(Template, 'TObjectWithAnyValue');
+TObjectWithAnyValue.storyName = 'TObjectWithAnyValue';

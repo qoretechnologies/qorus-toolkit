@@ -11,13 +11,14 @@ export { default as QorusValidator } from './QorusValidator';
 
 export { TVersion, IApiPaths, IApiPathsAuthenticator, IApiPathsDataProvider } from './utils/apiPaths';
 export { TContext } from './QorusDataProvider';
+export { IDefaultHeaders } from './QorusRequest';
 
 /**
  * A record of objects with string key and string value
  */
-export type ObjectWithStringKey = Record<string, string>;
+export type TObjectWithStringKey = Record<string, string>;
 
 /**
  * A record of objects with string key and any kind of value
  */
-export type ObjectWithAnyValue = Record<string, any>;
+export type TObjectWithAnyValue = Record<string, any>;
