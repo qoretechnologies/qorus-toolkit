@@ -427,7 +427,7 @@ class DocGenerator {
     return blockTags.find((tag) => tag.name === 'returns')?.text;
   }
 
-  createIMethodDocs(methodName: string, classObject?: ClassParser | string | undefined): IMethodDocs | undefined {
+  createMethodDocs(methodName: string, classObject?: ClassParser | string | undefined): IMethodDocs | undefined {
     const classObj = this.getClassObj(classObject);
     if (!classObj) return undefined;
     const method = this.getMethod(methodName, classObj);
@@ -492,7 +492,7 @@ class DocGenerator {
     const allIMethodDocs = allClasses?.map((classObj) => {
       const className = classObj?.name;
       const classMethods = classObj.methods.map((method) => {
-        const data = this.createIMethodDocs(method.name, className);
+        const data = this.createMethodDocs(method.name, className);
         const methodDocs = {
           className: classObj.name,
           data,
@@ -536,7 +536,7 @@ class DocGenerator {
     if (classObject) {
       const methods = classObject.methods;
       const methodsDocs = methods.map((method) => {
-        return this.createIMethodDocs(method.name, classObject);
+        return this.createMethodDocs(method.name, classObject);
       });
       return methodsDocs;
     }

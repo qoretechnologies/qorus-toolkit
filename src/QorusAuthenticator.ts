@@ -67,7 +67,7 @@ export interface IEndpoint extends IWithQorusURL, IWithEndpointVersion, IWithQor
 /**
  * Authentication token for a Qorus Endpoint
  */
-type TToken = string;
+export type TToken = string;
 
 /**
  * QorusAuthenticator class provides methods to authenticate a user for a Qorus server endpoint
