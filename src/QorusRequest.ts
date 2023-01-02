@@ -6,7 +6,7 @@ import { isValidStringArray } from './utils';
 
 export type TQorusRequestHeader = Record<string, string | number | boolean>;
 
-export interface QorusRequestResponse<T = any, D = any> {
+export interface QorusRequestResponse<T = any> {
   data: T;
   status: number;
   statusText: string;
