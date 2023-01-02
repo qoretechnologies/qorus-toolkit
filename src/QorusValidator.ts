@@ -8,11 +8,11 @@ import {
   getProtocol,
   getTemplateKey,
   getTemplateValue,
-  IQorusType,
   isValueTemplate,
   splitByteSize,
   TOperatorValue,
   TOption,
+  TQorusType,
   TTrigger,
 } from './utils/validation';
 
@@ -48,7 +48,7 @@ export class QorusValidator {
    * @param canBeNull if the value can be null
    * @returns True if the value can be accepted for the type, False otherwise
    */
-  validate(type: string | IQorusType, value?: any, canBeNull?: boolean): boolean {
+  validate(type: string | TQorusType, value?: any, canBeNull?: boolean): boolean {
     if (!type) {
       return false;
     }

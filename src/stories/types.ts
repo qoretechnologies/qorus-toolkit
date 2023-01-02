@@ -15,15 +15,12 @@ export interface IDocumentationReturns {
   intent?: TReqoreIntent;
 }
 
-export type TDocumentationParams = Record<string, IDocumentationParam>;
-export type TDocumentationReturns = {
+type TTDocumentationParams = Record<string, IDocumentationParam>;
+type TTDocumentationReturns = {
   description: string;
   types: IDocumentationReturns[];
 };
-export type TDocumentationLabel =
-  | string
-  | React.ReactElement<any, string | React.JSXElementConstructor<any>>
-  | undefined;
+type TTDocumentationLabel = string | React.ReactElement<any, string | React.JSXElementConstructor<any>> | undefined;
 
 export interface IDocumentationProps extends IMethodDocs {}
 

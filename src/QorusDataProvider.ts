@@ -35,10 +35,10 @@ export class QorusDataProvider {
   responseData?: IDataProviderResponseData;
 
   /** Current context for the data provider */
-  context: Context = 'api';
+  context: TContext = 'api';
 
   /** Get Request error data if error received */
-  responseError?: ResponseError;
+  responseError?: TResponseError;
 
   constructor(options?: IQorusDataProviderConstructorOptions) {
     if (options) {
@@ -49,7 +49,7 @@ export class QorusDataProvider {
     }
   }
 
-  private async fetchWithContext(context: Context) {
+  private async fetchWithContext(context: TContext) {
     // Making a put request
     const requestPath = getRequestPath([apiPathsInitial.dataProviders.browse]);
     const requestData = { context: context };
@@ -167,7 +167,7 @@ export class QorusDataProvider {
    * A getter to get the context for the current provider
    * @returns Context for the api ex: "record";
    */
-  getContext(): Context {
+  getContext(): TContext {
     return this.context;
   }
 
@@ -254,7 +254,7 @@ export class QorusDataProvider {
  * @param QorusDataProvider constructor options for the dataprovider to be selected next
  * @returns ProviderWithOptions object
  */
-const fetchProvider = async (obj: QorusDataProvider, context: Context, select?: string, providerOptions?: any) => {
+const fetchProvider = async (obj: QorusDataProvider, context: TContext, select?: string, providerOptions?: any) => {
   const _path = obj.getPath();
 
   if (select && _path) {
@@ -288,10 +288,10 @@ export default new QorusDataProvider();
 /**
  * Context for the Qorus api ex: 'record'
  */
-export type Context = 'record' | 'api' | 'event' | 'message' | 'type';
+export type TContext = 'record' | 'api' | 'event' | 'message' | 'type';
 
 /** Get request error data from DataProvider api */
-export type ResponseError = any;
+export type TResponseError = any;
 
 export interface IDataProviderChildren {
   /**
@@ -307,7 +307,7 @@ export interface IDataProviderChildren {
   /**
    * Constructor options for the DataProvider children
    */
-  constructor_options: DataProviderChildrenConstructorOptions;
+  constructor_options: TDataProviderChildrenConstructorOptions;
 
   /**
    * Type of data provider children ex: "nav"
@@ -318,7 +318,7 @@ export interface IDataProviderChildren {
 /**
  * DataProvider children constructor_options property object
  */
-export type DataProviderChildrenConstructorOptions = Record<string, IDataProviderChildrenConstructorPropertyOptions>;
+export type TDataProviderChildrenConstructorOptions = Record<string, IDataProviderChildrenConstructorPropertyOptions>;
 
 export interface IDataProviderChildrenConstructorPropertyOptions {
   /**
@@ -388,10 +388,10 @@ export interface IQorusDataProviderConstructorOptions {
   /**
    * Context for the Qorus DataProvider api ex: 'record'
    */
-  context: Context;
+  context: TContext;
 
   /**
    * Error received if any from the Qorus DataProvider api
    */
-  responseError?: ResponseError;
+  responseError?: TResponseError;
 }

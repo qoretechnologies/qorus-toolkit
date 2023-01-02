@@ -10,43 +10,43 @@ import {
   IApiPaths,
   IApiPathsAuthenticator,
   IWithEndpointVersion,
-  Version,
+  TVersion,
 } from './utils/apiPaths';
 
 /**
  * Endpoint id for a Qorus server endpoint
  */
-export type QorusEndpointId = string;
+export type TQorusEndpointId = string;
 
 /**
  * Authentication token for a Qorus server endpoint
  */
-export type QorusAuthToken = string;
+export type TQorusAuthToken = string;
 
 /**
  * Url for a Qorus server endpoint
  */
-export type QorusEndpointURL = string;
+export type TQorusEndpointURL = string;
 
 export interface IWithQorusEndpointId {
   /**
    * Id for a endpoint provided by the user, unique for every endpoint
    */
-  endpointId: QorusEndpointId;
+  endpointId: TQorusEndpointId;
 }
 
 export interface IWithQorusAuthToken {
   /**
    * Authentication token for the user provided endpoint
    */
-  authToken?: QorusAuthToken;
+  authToken?: TQorusAuthToken;
 }
 
 export interface IWithQorusURL {
   /**
    * URL to Qorus server for the provided endpoint
    */
-  url: QorusEndpointURL;
+  url: TQorusEndpointURL;
 }
 
 export interface ILoginParams {
@@ -67,7 +67,7 @@ export interface IEndpoint extends IWithQorusURL, IWithEndpointVersion, IWithQor
 /**
  * Authentication token for a Qorus Endpoint
  */
-export type Token = string;
+type TToken = string;
 
 /**
  * QorusAuthenticator class provides methods to authenticate a user for a Qorus server endpoint
@@ -396,7 +396,7 @@ export class QorusAuthenticator {
    * @returns Version of the selected endpoint or version of the the endpoint found by id,
    * if the endpoint doesn't exists it returns undefined
    */
-  getEndpointVersion(endpointId?: string): Version | undefined {
+  getEndpointVersion(endpointId?: string): TVersion | undefined {
     if (isValidString(endpointId)) {
       return this.getEndpointById(endpointId!)?.version;
     } else {
@@ -425,7 +425,7 @@ export class QorusAuthenticator {
    * @returns Version of the endpoint if the operation is successful, undefined otherwise
    *
    */
-  async setEndpointVersion(version: Version, endpointId?: string): Promise<Version | undefined> {
+  async setEndpointVersion(version: TVersion, endpointId?: string): Promise<TVersion | undefined> {
     if (!endpointId) endpointId = this.selectedEndpoint?.endpointId;
     if (isValidString(endpointId) && this.validateVersion(version)) {
       const endpoint = this.getEndpointById(endpointId!);

@@ -49,12 +49,12 @@ export interface IApiPathsAuthenticator {
 /**
  * Allowed types of version for the Qorus server api
  */
-export type Version = 1 | 2 | 3 | 4 | 5 | 6 | 'latest';
+export type TVersion = 1 | 2 | 3 | 4 | 5 | 6 | 'latest';
 export interface IWithEndpointVersion {
   /**
    * Version for the server api
    */
-  version?: Version;
+  version?: TVersion;
 }
 
 /**Initial api routes */

@@ -7,14 +7,14 @@ import {
   ReqorePanel,
 } from '@qoretechnologies/reqore';
 import { useState } from 'react';
-import QorusAuthenticator, { AddEndpoint, LoginParams } from '../../QorusAuthenticator';
+import QorusAuthenticator, { IAddEndpoint, ILoginParams } from '../../QorusAuthenticator';
 
 export const QorusAuthenticatorDemo = () => {
-  const [url, setUrl] = useState<AddEndpoint['url']>('');
-  const [id, setID] = useState<AddEndpoint['endpointId']>('');
-  const [version] = useState<AddEndpoint['version']>('latest');
-  const [user, setUser] = useState<LoginParams['user']>('');
-  const [pass, setPass] = useState<LoginParams['pass']>('');
+  const [url, setUrl] = useState<IAddEndpoint['url']>('');
+  const [id, setID] = useState<IAddEndpoint['endpointId']>('');
+  const [version] = useState<IAddEndpoint['version']>('latest');
+  const [user, setUser] = useState<ILoginParams['user']>('');
+  const [pass, setPass] = useState<ILoginParams['pass']>('');
 
   const [result, setResult] = useState<string | undefined>(undefined);
   const [error, setError] = useState<string | undefined>(undefined);

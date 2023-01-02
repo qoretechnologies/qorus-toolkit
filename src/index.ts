@@ -9,8 +9,8 @@ export { default as QorusRequest } from './QorusRequest';
 export { default as QorusDataProvider } from './QorusDataProvider';
 export { default as QorusValidator } from './QorusValidator';
 
-export { Version, IApiPaths, IApiPathsAuthenticator, IApiPathsDataProvider } from './utils/apiPaths';
-export { Context } from './QorusDataProvider';
+export { TVersion, IApiPaths, IApiPathsAuthenticator, IApiPathsDataProvider } from './utils/apiPaths';
+export { TContext } from './QorusDataProvider';
 
 /**
  * A record of objects with string key and string value

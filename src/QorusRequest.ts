@@ -4,13 +4,13 @@ import ErrorInternal from './managers/error/ErrorInternal';
 import QorusAuthenticator, { IEndpoint } from './QorusAuthenticator';
 import { isValidStringArray } from './utils';
 
-export type QorusRequestHeader = Record<string, string | number | boolean>;
+export type TQorusRequestHeader = Record<string, string | number | boolean>;
 
 export interface QorusRequestResponse<T = any, D = any> {
   data: T;
   status: number;
   statusText: string;
-  headers: QorusRequestHeader;
+  headers: TQorusRequestHeader;
   config: Record<string, any>;
   request?: any;
 }
@@ -19,7 +19,7 @@ export interface IQorusRequestParams {
   /**
    * Headers to include in an https request to Qorus server api
    */
-  headers?: QorusRequestHeader;
+  headers?: TQorusRequestHeader;
 
   /**
    * Path for a https request to Qorus server

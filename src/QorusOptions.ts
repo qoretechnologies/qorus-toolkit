@@ -2,9 +2,9 @@ import { ObjectWithAnyValue, ObjectWithStringKey } from '.';
 import ErrorInternal from './managers/error/ErrorInternal';
 import logger from './managers/logger';
 import {
-  DataProviderChildrenConstructorOptions,
   IDataProviderChildren,
   IDataProviderChildrenConstructorPropertyOptions,
+  TDataProviderChildrenConstructorOptions,
 } from './QorusDataProvider';
 import QorusValidator from './QorusValidator';
 
@@ -29,7 +29,7 @@ export class QorusOptions {
   name = '';
 
   // Array of all ProviderOptions for the data provider
-  dataProviderConstructorOptions: DataProviderChildrenConstructorOptions = {};
+  dataProviderConstructorOptions: TDataProviderChildrenConstructorOptions = {};
 
   constructor(children: IDataProviderChildren) {
     this.name = children.name;

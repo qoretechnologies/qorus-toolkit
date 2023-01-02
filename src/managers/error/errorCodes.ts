@@ -1,4 +1,4 @@
-export const errorCodes: ErrorCodes = {
+export const errorCodes: TErrorCodes = {
   AUTHENTICATION: {
     code: 401,
     name: 'AUTHENTICATION-ERROR',
@@ -25,7 +25,7 @@ export const errorCodes: ErrorCodes = {
   },
 };
 
-export type ErrorCodes = Record<string, IErrorCode>;
+type TErrorCodes = Record<string, IErrorCode>;
 
 export interface IErrorCode {
   code?: number;
