@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import { QorusAuthenticator } from '../src';
-import ErrorAxios from '../src/managers/error/ErrorAxios';
 import ErrorInternal from '../src/managers/error/ErrorInternal';
+import ErrorQorusRequest from '../src/managers/error/ErrorQorusRequest';
 import logger from '../src/managers/logger';
 
 dotenv.config();
@@ -122,7 +122,7 @@ describe('QorusLogin Utility Error Tests', () => {
       err = error;
     }
     console.log(err);
-    expect(err instanceof ErrorAxios).toEqual(true);
+    expect(err instanceof ErrorQorusRequest).toEqual(true);
   });
 
   it('Should throw an error if the user does not provide username and password for authentication.', async () => {
