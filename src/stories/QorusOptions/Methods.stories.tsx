@@ -5,6 +5,7 @@ import { argsData, getClassData, newMethodStory } from '../utils';
 
 export default {
   title: 'API/QorusOptions/Methods',
+  id: 'QorusOptions.methods',
   argTypes: {
     ...argsData,
   },
@@ -41,8 +42,8 @@ set.storyName = 'set';
 export const validate = prepareStory('validate');
 validate.storyName = 'validate';
 
-export const validateProperty = prepareStory('validateProperty');
-validateProperty.storyName = 'validateProperty';
+export const validateRequired = prepareStory('validateRequired');
+validateRequired.storyName = 'validateRequired';
 
 export const getAll = prepareStory('getAll');
 getAll.storyName = 'getAll';

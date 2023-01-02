@@ -60,22 +60,36 @@ export const argsData = {
   ...documentationArgs.disableArgs(['label', 'params', 'returnTypes', 'comments']),
 };
 
+export const getAllMethodsFromClass = (className: string) => {
+  const methods: MethodDocs[] = [];
+
+  docs.methodDocs.forEach((method) => {
+    if (method?.className === className) {
+      methods.push(method.data as MethodDocs);
+    }
+  });
+
+  return methods;
+};
+
 export const getClassData = (className: string): DocumentationClass => {
-  const classDocs = docs.classesDocs.find((classDoc) => classDoc.name === className)!;
+  const classDocs: DocumentationClass = docs.classesDocs.find((classDoc) => classDoc.name === className)!;
+
+  classDocs.methods = getAllMethodsFromClass(className);
+
   return classDocs;
 };
 
 export const getMethodData = (methodName: string, className: string) => {
   let selectedMethod;
-  docs.methodDocs.forEach((method) =>
-    method.forEach((meth) => {
-      if (meth.className && meth.data.name) {
-        if (meth.className === className && meth.data.name === methodName) {
-          selectedMethod = meth;
-        }
+
+  docs.methodDocs.forEach((method) => {
+    if (method?.className && method.data.name) {
+      if (method.className === className && method.data.name === methodName) {
+        selectedMethod = method;
       }
-    }),
-  );
+    }
+  });
 
   return selectedMethod;
 };
@@ -122,6 +136,16 @@ export const prepareMethodStory = (template: DocumentationStory, methodName: str
   story.args = docData;
 
   return story;
+};
+
+export const getTypeOrInterfaceData = (typeOrInterfaceName: string) => {
+  const selectedTypeOrInterface = getInterfaceData(typeOrInterfaceName);
+
+  if (selectedTypeOrInterface?.name) {
+    return selectedTypeOrInterface;
+  }
+
+  return getTypeAliasData(typeOrInterfaceName);
 };
 
 export const prepareInterfaceStory = (template: DocumentationStory, interfaceName: string) => {
@@ -173,4 +197,19 @@ export const newTypeAliasStory = (template: DocumentationStory) => (typeAliasNam
 };
 export const newInterfaceStory = (template: DocumentationStory) => (interfaceName: string) => {
   return prepareInterfaceStory(template, interfaceName);
+};
+
+// Check if a string is starting with a capital letter
+export const isCapitalized = (str: string) => {
+  // First check if the first letter str is an alphabet letter
+  if (!str.charAt(0).match(/[a-z]/i)) {
+    return false;
+  }
+
+  return str.charAt(0) === str.charAt(0).toUpperCase();
+};
+
+// Turn string to Capital case with spaces
+export const toCapitalCase = (str?: string) => {
+  return str?.replace(/([A-Z])/g, ' $1').replace(/^./, (strNew) => strNew.toUpperCase());
 };

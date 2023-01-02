@@ -8,6 +8,7 @@ import { argsData, prepareTypeStory } from '../utils';
 
 export default {
   title: 'Typings/TypeAliases',
+  id: 'types',
   argTypes: {
     ...argsData,
   },
@@ -30,3 +31,33 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
 
 export const Version = prepareTypeStory(Template, 'Version');
 Version.storyName = 'Version';
+
+export const Context = prepareTypeStory(Template, 'Context');
+Context.storyName = 'Context';
+
+export const QorusEndpointId = prepareTypeStory(Template, 'QorusEndpointId');
+QorusEndpointId.storyName = 'QorusEndpointId';
+
+export const QorusEndpointURL = prepareTypeStory(Template, 'QorusEndpointURL');
+QorusEndpointURL.storyName = 'QorusEndpointURL';
+
+export const Token = prepareTypeStory(Template, 'Token');
+Token.storyName = 'Token';
+
+export const ResponseError = prepareTypeStory(Template, 'ResponseError');
+ResponseError.storyName = 'ResponseError';
+
+export const DataProviderChildrenConstructorOptions = prepareTypeStory(
+  Template,
+  'DataProviderChildrenConstructorOptions',
+);
+DataProviderChildrenConstructorOptions.storyName = 'DataProviderChildrenConstructorOptions';
+
+export const ObjectWithStringKey = prepareTypeStory(Template, 'ObjectWithStringKey');
+ObjectWithStringKey.storyName = 'ObjectWithStringKey';
+
+export const ObjectWithAnyValue = prepareTypeStory(Template, 'ObjectWithAnyValue');
+ObjectWithAnyValue.storyName = 'ObjectWithAnyValue';
+
+export const DefaultHeaders = prepareTypeStory(Template, 'DefaultHeaders');
+DefaultHeaders.storyName = 'DefaultHeaders';

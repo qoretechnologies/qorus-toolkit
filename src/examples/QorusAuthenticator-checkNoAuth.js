@@ -5,5 +5,6 @@ const endpoint = Qorus.QorusAuthenticator.addEndpoint({
   version: 'latest',
 });
 
-Qorus.QorusAuthenticator.getAllEndpoints();
-// => [{ "url":"https://sandbox.qoretechnologies.com","id":"rippy","version": "latest" }]
+// Returns true if the no-auth is enabled, false otherwise
+Qorus.QorusAuthenticator.checkNoAuth(endpoint);
+// => False

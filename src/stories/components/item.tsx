@@ -1,4 +1,12 @@
-import { ReqoreCollection, ReqoreMessage, ReqorePanel, ReqoreSpacer, ReqoreTagGroup } from '@qoretechnologies/reqore';
+import {
+  ReqoreCollection,
+  ReqoreH1,
+  ReqoreMessage,
+  ReqorePanel,
+  ReqoreSpacer,
+  ReqoreTagGroup,
+  ReqoreTextEffect,
+} from '@qoretechnologies/reqore';
 import { IReqoreCollectionItemProps } from '@qoretechnologies/reqore/dist/components/Collection/item';
 import { IReqorePanelProps } from '@qoretechnologies/reqore/dist/components/Panel';
 import { map, size } from 'lodash';
@@ -13,7 +21,20 @@ export interface IDocumentationItemsProps extends IReqorePanelProps {
   label?: string;
   comment?: Comments;
   returnSummary?: string | null;
+  type?: string | string[];
+  parent?: string;
 }
+
+export const asyncEffect = {
+  gradient: {
+    direction: 'to right bottom',
+    colors: {
+      0: '#ff95007c',
+      100: '#ff9600',
+    },
+  },
+  color: '#ffffff',
+};
 
 export const DocumentationItem = ({
   children,
@@ -22,24 +43,33 @@ export const DocumentationItem = ({
   name,
   comment,
   returnSummary,
+  parent,
+  label,
   ...rest
 }: IDocumentationItemsProps) => {
   return (
     <>
-      <ReqorePanel flat opacity={0} headerSize={1} {...rest} label={name}>
+      <ReqorePanel flat opacity={0} headerSize={1} {...rest}>
+        <ReqoreH1>
+          <ReqoreTextEffect effect={{ color: '#787878' }}>{parent ? `${parent}.` : ``}</ReqoreTextEffect>
+          {name}
+        </ReqoreH1>
+        <ReqoreSpacer height={20} />
         {children && (
-          <ReqoreMessage
-            inverted
-            intent="info"
-            effect={{
-              color: '#ffffff',
-            }}
-          >
-            {children}
-          </ReqoreMessage>
+          <>
+            <ReqoreMessage
+              inverted
+              intent="info"
+              effect={{
+                color: '#ffffff',
+              }}
+            >
+              {children}
+            </ReqoreMessage>
+            <ReqoreSpacer height={30} />
+          </>
         )}
-        <ReqoreSpacer height={30} />
-        {rest.label && (
+        {label && (
           <ReqorePanel minimal opacity={0} headerSize={4} label="Signature">
             <ReqoreMessage
               icon="CodeLine"
@@ -48,13 +78,13 @@ export const DocumentationItem = ({
                   direction: 'to right bottom',
                   colors: {
                     100: '#2e2e2e',
-                    0: 'transparent',
+                    0: '#000000',
                   },
                 },
                 color: '#ffffff',
               }}
             >
-              <pre>{rest.label}</pre>
+              <pre>{label}</pre>
             </ReqoreMessage>
           </ReqorePanel>
         )}
@@ -93,7 +123,7 @@ export const DocumentationItem = ({
                       direction: 'to right bottom',
                       colors: {
                         100: '#2e2e2e',
-                        0: 'transparent',
+                        0: '#000000',
                       },
                     },
                   },
@@ -101,6 +131,18 @@ export const DocumentationItem = ({
               )}
             />
           </>
+        ) : null}
+        {rest.type ? (
+          <ReqorePanel label="Type" minimal headerSize={4} flat opacity={0} padded={false}>
+            <ReqoreTagGroup>
+              <DocumentationType
+                {...{
+                  icon: 'CodeLine',
+                  label: rest.type || 'unknown',
+                }}
+              />
+            </ReqoreTagGroup>
+          </ReqorePanel>
         ) : null}
         {size(returnTypes) ? (
           <ReqorePanel label="Returns" minimal headerSize={4} flat opacity={0} padded={false}>
@@ -110,23 +152,18 @@ export const DocumentationItem = ({
                 icon="ClockwiseLine"
                 inverted
                 size="small"
-                effect={{
-                  gradient: {
-                    direction: 'to right bottom',
-                    colors: {
-                      0: '#ff95007c',
-                      100: 'transparent',
-                    },
-                  },
-                  color: '#ffffff',
-                }}
+                effect={asyncEffect}
               >
                 This method is asynchronous and returns a Promise
               </ReqoreMessage>
             )}
             <ReqoreSpacer height={15} />
-            {returnSummary}
-            <ReqoreSpacer height={15} />
+            {returnSummary && (
+              <>
+                {returnSummary}
+                <ReqoreSpacer height={15} />
+              </>
+            )}
             <ReqoreTagGroup>
               {returnTypes?.map((type) => (
                 <DocumentationType

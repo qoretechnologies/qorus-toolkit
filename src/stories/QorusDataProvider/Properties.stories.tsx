@@ -5,6 +5,7 @@ import { argsData, getClassData, newClassPropertyStory } from '../utils';
 
 export default {
   title: 'API/QorusDataProvider/Properties',
+  id: 'QorusDataProvider.properties',
   argTypes: {
     ...argsData,
   },
@@ -14,7 +15,7 @@ const Template: DocumentationStory = ({ comments, ...rest }, context) => {
   const {
     name,
     comments: { summary },
-  } = getClassData('QorusAuthenticator');
+  } = getClassData('QorusDataProvider');
 
   return (
     <Documentation
@@ -39,9 +40,6 @@ responseData.storyName = 'responseData';
 
 export const context = prepareStory('context');
 context.storyName = 'context';
-
-export const providerData = prepareStory('providerData');
-providerData.storyName = 'providerData';
 
 export const responseError = prepareStory('responseError');
 responseError.storyName = 'responseError';

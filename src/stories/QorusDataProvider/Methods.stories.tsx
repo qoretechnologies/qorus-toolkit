@@ -5,6 +5,7 @@ import { argsData, getClassData, newMethodStory } from '../utils';
 
 export default {
   title: 'API/QorusDataProvider/Methods',
+  id: 'QorusDataProvider.methods',
   argTypes: {
     ...argsData,
   },
@@ -44,9 +45,6 @@ has.storyName = 'has';
 
 export const hasData = prepareStory('hasData');
 hasData.storyName = 'hasData';
-
-export const setData = prepareStory('setData');
-setData.storyName = 'setData';
 
 export const setPath = prepareStory('setPath');
 setPath.storyName = 'setPath';

@@ -39,6 +39,7 @@ export interface DocumentationProperty {
 export interface DocumentationClass {
   name: string;
   properties: DocumentationProperty[];
+  methods?: MethodDocs[];
   comments: Comments;
 }
 
@@ -49,6 +50,7 @@ export interface MethodDocs {
   params: MethodParamTypes[];
   comments: Comments;
   returnTypes: MethodReturnType[] | undefined;
+  accessibility: string | undefined;
 }
 
 export interface MethodJson {

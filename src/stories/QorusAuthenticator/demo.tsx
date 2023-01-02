@@ -79,7 +79,6 @@ export const QorusAuthenticatorDemo = () => {
                 placeholder="Endpoint Pass"
                 value={pass}
                 onChange={(e: any) => setPass(e.target.value)}
-                // @ts-ignore
                 type="password"
               />
             </ReqoreControlGroup>

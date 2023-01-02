@@ -14,38 +14,49 @@ import {
   WithEndpointVersion,
 } from './utils/apiPaths';
 
+/**
+ * Endpoint id for a Qorus server endpoint
+ */
 export type QorusEndpointId = string;
+
+/**
+ * Authentication token for a Qorus server endpoint
+ */
 export type QorusAuthToken = string;
+
+/**
+ * Url for a Qorus server endpoint
+ */
 export type QorusEndpointURL = string;
 
 export interface WithQorusEndpointId {
   /**
-   * Id for the endpoint provided by the user, unique for every endpoint
+   * Id for a endpoint provided by the user, unique for every endpoint
    */
   endpointId: QorusEndpointId;
 }
 
 export interface WithQorusAuthToken {
   /**
-   * Auth token for the user provided endpoint
+   * Authentication token for the user provided endpoint
    */
   authToken?: QorusAuthToken;
 }
 
 export interface WithQorusURL {
   /**
-   * URL to your server for the provided endpoint
+   * URL to Qorus server for the provided endpoint
    */
   url: QorusEndpointURL;
 }
 
 export interface LoginParams {
   /**
-   * Username for the authentication to your server
+   * Username for the authentication to Qorus server
    */
   user?: string;
   /**
-   * Password for the authentication to your server
+   * Password for the authentication to Qorus server
    */
   pass?: string;
 }
@@ -54,16 +65,23 @@ export interface AddEndpoint extends WithQorusURL, WithEndpointVersion, WithQoru
 
 export interface Endpoint extends WithQorusURL, WithEndpointVersion, WithQorusAuthToken, WithQorusEndpointId {}
 
+/**
+ * Authentication token for a Qorus Endpoint
+ */
 export type Token = string;
 
 /**
- * Authentication manager for QorusToolkit, allows to create and manage multiple
- * QorusEndpoints
+ * QorusAuthenticator class provides methods to authenticate a user for a Qorus server endpoint
+ * - Add Multiple endpoint for different versions of Qorus apis
+ * - Supports no-auth for the Qorus server api
+ * - Uses locally stored token or user and password for authentication
  * @returns QorusAuthenticator class object
  * @Category QorusAuthenticator
  */
 export class QorusAuthenticator {
-  //** Array of user defined endpoints */
+  /**
+   * Array of user defined endpoints
+   */
   endpoints: Endpoint[] = [];
 
   /** Object of Api paths for the selected endpoint */
@@ -313,7 +331,7 @@ export class QorusAuthenticator {
   }
 
   /**
-   * Add a new Qorus Endpoint to interact with the qorus api.
+   * Add a new Qorus Endpoint to interact with the qorus api
    * @param endpointConfig Endpoint configuration required to add a new endpoint
    * @returns Newly added endpoint
    */
@@ -391,13 +409,18 @@ export class QorusAuthenticator {
     return undefined;
   }
 
+  /**
+   * Validates if the provided version is an accepted api version
+   * @param version Version of the endpoint
+   * @returns True if the version is valid, False otherwise
+   */
   private validateVersion(version: number | string) {
     const versions = [1, 2, 3, 4, 5, 6, 'latest'];
     return versions.includes(version);
   }
 
   /**
-   * A setter to set the Version of the Endpoint
+   * A setter to set the Version of a Endpoint
    * @param version Version of the qorus api
    * @param endpointId Optional parameter to change the url of a particular endpoint from the endpoints array
    * @returns Version of the endpoint if the operation is successful, undefined otherwise
@@ -461,17 +484,17 @@ export class QorusAuthenticator {
    * A getter to return the api paths for the selected Endpoint
    * @returns ApiPaths for the selected endpoint if exists, otherwise returns default api paths
    */
-  getApiPaths = (): ApiPaths => {
+  getApiPaths(): ApiPaths {
     return this.allApiPaths;
-  };
+  }
 
   /**
    * A getter to get all the available Endpoints
    * @returns Endpoints array with all the available endpoints
    */
-  getAllEndpoints = (): Endpoint[] => {
+  getAllEndpoints(): Endpoint[] {
     return this.endpoints;
-  };
+  }
 }
 
 export default new QorusAuthenticator();

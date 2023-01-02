@@ -7,37 +7,46 @@ import { isValidStringArray } from './utils';
 
 export interface QorusRequestParams {
   /**
-   * Headers for the request
+   * Headers to include in an https request to Qorus server api
    */
   headers?: AxiosRequestHeaders;
 
   /**
-   * Complete endpoint url for the request
+   * Path for a https request to Qorus server
    */
   path: string;
 
   /**
-   * Data for the request
+   * Data to include in an https request to Qorus server api
    */
   data?: any;
 
   /**
-   * URL Parameters for the request
+   * URL Parameters to include in an https request to Qorus server api
    */
   params?: Record<string, string>;
 }
 
-export interface DefaultHeaders {
-  [x: string]: string;
-}
+/**
+ * Default headers for the QorusRequest
+ */
+export type DefaultHeaders = Record<string, string>;
 
+/**
+ * QorusRequest class is wrapper for https request to Qorus server apis
+ * - Adds default headers to the https request
+ * - Allows creation of request parameters from a js object
+ * - Allows custom headers and data object
+ * @returns QorusRequest class object
+ * @Category QorusRequest
+ */
 export class QorusRequest {
   /**
    * Default headers for the QorusRequest
    */
   defaultHeaders: DefaultHeaders = { 'Content-Type': 'application/json', Accept: 'application/json' };
 
-  makeRequest = async (
+  private makeRequest = async (
     type: 'GET' | 'PUT' | 'POST' | 'DELETE',
     props: QorusRequestParams,
     endpoint?: Endpoint,

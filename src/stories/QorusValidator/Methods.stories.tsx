@@ -5,6 +5,7 @@ import { argsData, getClassData, newMethodStory } from '../utils';
 
 export default {
   title: 'API/QorusValidator/Methods',
+  id: 'QorusValidator.methods',
   argTypes: {
     ...argsData,
   },
@@ -34,3 +35,6 @@ const prepareStory = newMethodStory(Template, 'QorusValidator');
 
 export const getTypeFromValue = prepareStory('getTypeFromValue');
 getTypeFromValue.storyName = 'getTypeFromValue';
+
+export const validate = prepareStory('validate');
+validate.storyName = 'validate';

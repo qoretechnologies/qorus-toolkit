@@ -15,5 +15,5 @@ const browseChildrenNames = dataProviderBrowse.getChildrenNames();
 const factory = await dataProviderBrowse.get(browseChildrenNames.factory);
 // => ProviderWithOptions { path: ..., responseData: {...}, providerData: {...}, responseError: {...}, context: ...}
 
-factory.has('db');
-// => true
+factory.hasData();
+// => false

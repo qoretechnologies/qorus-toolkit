@@ -49,13 +49,17 @@ class DocGenerator {
     });
     this.allClasses = classObj;
 
-    let interfaceObject: InterfaceParser[] = [];
+    let interfaceArray: InterfaceParser[] = [];
     this.project.namespaces.forEach((namespace) => {
-      interfaceObject = [...interfaceObject, ...namespace.interfaces];
+      interfaceArray = [...interfaceArray, ...namespace.interfaces];
     });
-    this.allInterfaces = interfaceObject;
+    interfaceArray = [...interfaceArray, ...this.project.interfaces];
+    this.allInterfaces = interfaceArray;
 
-    this.allTypeAliases = projectData.typeAliases;
+    this.allTypeAliases = this.project.typeAliases;
+    this.project.namespaces.forEach((namespace) => {
+      this.allTypeAliases = [...this.allTypeAliases, ...namespace.typeAliases];
+    });
   }
 
   /** Creates documentation for Classes, Interfaces, Methods, and types
@@ -163,10 +167,12 @@ class DocGenerator {
     const adjustedType = this.getAdjustedType(typeJson);
     let typeAliasTypes;
     if (adjustedType === 'union') {
-      const typeJsonTypes = typeJson.types;
+      const typeJsonTypes = typeJson?.types;
       typeAliasTypes = typeJsonTypes.map((obj) => {
         return obj.value;
       });
+    } else {
+      typeAliasTypes = adjustedType;
     }
     return typeAliasTypes;
   }
@@ -228,11 +234,24 @@ class DocGenerator {
   ): string {
     let finalTypeString = prevTypeString ?? '';
     if (typeObj instanceof ReferenceTypeParser) {
-      if (typeObj.name === 'Promise') {
+      if (typeObj.name === 'Promise' || typeObj.name === 'Record') {
         const typeObjects = typeObj.typeArguments;
-        typeObjects.reverse().map((type) => {
+        let typeObjArr: any[] = [];
+        if (typeObj.name === 'Promise') {
+          typeObjArr = typeObjects.reverse();
+        } else {
+          typeObjArr = typeObjects;
+        }
+
+        typeObjArr.map((type, index) => {
           finalTypeString += this.typeParser(type);
+          if (typeObj.name === 'Record' && !(index + 1 === typeObjects.length)) {
+            finalTypeString += ', ';
+          }
         });
+        if (typeObj.name === 'Record') {
+          finalTypeString = `Record<${finalTypeString}>`;
+        }
       } else {
         finalTypeString += typeObj.name;
       }
@@ -265,7 +284,7 @@ class DocGenerator {
   }
 
   typeParser(typeJson) {
-    const typeKind = typeJson.kind;
+    const typeKind = typeJson?.kind ?? '';
     let types, typeArguments;
 
     if (typeJson.hasOwnProperty('types')) {
@@ -418,6 +437,7 @@ class DocGenerator {
     const comments = this.createCommentDocs(method);
     const returnTypes = this.createReturnTypes(method);
     const async = this.isAsyncMethod(method);
+    const accessibility: 'public' | 'private' | 'protected' | undefined = method?.accessibility;
     const docs = {
       async,
       name,
@@ -425,12 +445,13 @@ class DocGenerator {
       params: parameters,
       comments,
       returnTypes,
+      accessibility,
     };
     return docs;
   }
 
   createTypeAliasDocs(typeAliasObject: string | TypeAliasParser) {
-    let typeAliasObj;
+    let typeAliasObj: TypeAliasParser | undefined;
     if (typeof typeAliasObject === 'string') {
       typeAliasObj = this.getTypeAlias(typeAliasObject);
     } else {
@@ -440,7 +461,7 @@ class DocGenerator {
       return undefined;
     }
 
-    const type = this.getTypeAliasType(typeAliasObj.type.toJSON());
+    const type = this.typeParser(typeAliasObj.type);
 
     const docs: TypeAliasDocs = {
       name: typeAliasObj.name,
@@ -471,15 +492,30 @@ class DocGenerator {
     const allMethodDocs = allClasses?.map((classObj) => {
       const className = classObj?.name;
       const classMethods = classObj.methods.map((method) => {
+        const data = this.createMethodDocs(method.name, className);
         const methodDocs = {
           className: classObj.name,
-          data: this.createMethodDocs(method.name, className),
+          data,
         };
-        return methodDocs;
+        if (data?.accessibility === 'private') {
+          return undefined;
+        } else return methodDocs;
       });
       return classMethods;
     });
-    return allMethodDocs;
+
+    const finalMethodDocs: { className: string; data: MethodDocs | undefined }[] = [];
+
+    allMethodDocs?.forEach((method) =>
+      method.forEach((meth) => {
+        if (meth?.className && meth.data?.name) {
+          if (meth !== null) {
+            finalMethodDocs.push(meth);
+          }
+        }
+      }),
+    );
+    return finalMethodDocs;
   }
 
   createAllClassesJson() {
@@ -491,7 +527,7 @@ class DocGenerator {
     return allCalssesDocs;
   }
 
-  createAllMethodsDocs(classObj: string | ClassParser): (MethodDocs | undefined)[] | undefined {
+  createAllMethodsDocs(classObj: string | ClassParser | undefined): (MethodDocs | undefined)[] | undefined {
     let classObject: ClassParser | undefined;
     if (typeof classObj === 'string') {
       classObject = this.getClass(classObj);
@@ -654,7 +690,7 @@ const exampleJsonFile = './codeExamples.json';
 
 export function convertExamplesToJson(dirname: string) {
   fs.readdir(dirname, function (err, filenames) {
-    const data: any[] = [];
+    const data: { [x: string]: string } = {};
 
     if (err) {
       console.log(err);
@@ -667,10 +703,7 @@ export function convertExamplesToJson(dirname: string) {
       if (methodName && methodName !== '.js') {
         methodName = methodName.split('.')[0];
 
-        const obj = {
-          [`${className}.${methodName}`]: content,
-        };
-        data.push(obj);
+        data[`${className}.${methodName}`] = content;
       }
     });
     fs.writeFileSync(exampleJsonFile, JSON.stringify(data));
