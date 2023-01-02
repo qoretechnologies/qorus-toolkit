@@ -1,4 +1,4 @@
-import ErrorAxios, { IErrorAxiosParams } from './managers/error/ErrorAxios';
+import ErrorQorusRequest, { IErrorQorusRequestParams } from './managers/error/ErrorQorusRequest';
 import logger from './managers/logger';
 import { QorusOptions } from './QorusOptions';
 import QorusRequest, { QorusRequestResponse } from './QorusRequest';
@@ -38,7 +38,7 @@ export class QorusDataProvider {
   context: TContext = 'api';
 
   /** Get Request error data if error received */
-  responseError?: TResponseError;
+  responseError?: IResponseError;
 
   constructor(options?: IQorusDataProviderConstructorOptions) {
     if (options) {
@@ -60,14 +60,14 @@ export class QorusDataProvider {
     });
 
     const response = result as QorusRequestResponse;
-    const error = result as IErrorAxiosParams;
+    const error = result as IErrorQorusRequestParams;
 
     if (error.status) {
-      throw new ErrorAxios(error);
+      throw new ErrorQorusRequest(error);
     }
 
     const responseData = response?.data as IDataProviderResponseData;
-    const responseError = error.desc;
+    const responseError = error;
 
     return new QorusDataProvider({
       path: [apiPathsInitial.dataProviders.browse],
@@ -192,7 +192,7 @@ export class QorusDataProvider {
    * A getter to get children names for the current provider
    * @returns list of children names
    */
-  getChildrenNames() {
+  getChildrenNames(): Record<string, string> {
     /*eslint-disable */
     const children = this.getChildren();
     let names: any = {};
@@ -272,16 +272,28 @@ const fetchProvider = async (obj: QorusDataProvider, context: TContext, select?:
   });
 
   const response = result as QorusRequestResponse;
-  const error = result as IErrorAxiosParams;
+  const error = result as IErrorQorusRequestParams;
 
   if (error.status) {
-    throw new ErrorAxios(error);
+    throw new ErrorQorusRequest(error);
   }
   const providerResponse = response?.data;
-  const responseError = error.desc;
+  const responseError = error;
 
   return new QorusDataProvider({ path: _path!, responseData: providerResponse, context, responseError });
 };
+
+export interface IDataProviderData {
+  /**
+   * QorusDataProvider fetch response
+   */
+  responseData: IDataProviderResponseData;
+
+  /**
+   * QorusDataProvider fetch error
+   */
+  errorData: IResponseError;
+}
 
 export default new QorusDataProvider();
 
@@ -291,7 +303,22 @@ export default new QorusDataProvider();
 export type TContext = 'record' | 'api' | 'event' | 'message' | 'type';
 
 /** Get request error data from DataProvider api */
-export type TResponseError = any;
+export interface IResponseError {
+  /**
+   * Description for the fetch error
+   */
+  desc: string;
+
+  /**
+   * Error info for the fetch error
+   */
+  err: string;
+
+  /**
+   * Error status code for fetch error
+   */
+  status: number;
+}
 
 export interface IDataProviderChildren {
   /**
@@ -393,5 +420,5 @@ export interface IQorusDataProviderConstructorOptions {
   /**
    * Error received if any from the Qorus DataProvider api
    */
-  responseError?: TResponseError;
+  responseError?: IResponseError;
 }

@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
-import ErrorAxios, { IErrorAxiosParams } from './managers/error/ErrorAxios';
 import ErrorInternal from './managers/error/ErrorInternal';
+import ErrorQorusRequest, { IErrorQorusRequestParams } from './managers/error/ErrorQorusRequest';
 import QorusAuthenticator, { IEndpoint } from './QorusAuthenticator';
 import { isValidStringArray } from './utils';
 
@@ -99,7 +99,7 @@ export class QorusRequest {
       if (!promise.ok) {
         const text = await promise.text();
         const parsedText = JSON.parse(text);
-        throw new ErrorAxios(parsedText as IErrorAxiosParams);
+        throw new ErrorQorusRequest(parsedText as IErrorQorusRequestParams);
       }
 
       const json = await promise.json();
