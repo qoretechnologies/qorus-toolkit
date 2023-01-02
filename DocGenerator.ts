@@ -14,13 +14,13 @@ import {
   UnionTypeParser,
 } from 'typedoc-json-parser';
 import {
+  IJson,
+  IMethodDocs,
+  IMethodParamTypes,
+  IMethodReturnType,
   InterfaceDocs,
-  Json,
-  MethodDocs,
-  MethodParamTypes,
-  MethodReturnType,
-  ParamType,
-  TypeAliasDocs,
+  IParamType,
+  ITypeAliasDocs,
 } from './src/stories/types';
 
 export const parsedProjectDocs = './src/stories/docs.ts';
@@ -69,7 +69,7 @@ class DocGenerator {
     const classesDocs = this.createAllClassesJson();
     const methodDocs = this.createAllMethodsJson();
     const interfaceDocs: (InterfaceDocs | undefined)[] = this.createAllInterfacesJson();
-    const typeAliasDocs: (TypeAliasDocs | undefined)[] = this.createAllTypeAliasJson();
+    const typeAliasDocs: (ITypeAliasDocs | undefined)[] = this.createAllTypeAliasJson();
 
     // Create a typescript file that exports an object containing classesDocs and methodDocs
     fs.writeFileSync(
@@ -363,7 +363,7 @@ class DocGenerator {
     } else if (typeof json?.type === 'string') {
       return json?.type;
     } else if (json?.type) {
-      return (json.type as ParamType).type ?? json.type.kind;
+      return (json.type as IParamType).type ?? json.type.kind;
     } else if (json?.value) {
       if (json?.kind === 'array') {
         return `${json?.value}[ ]`;
@@ -427,7 +427,7 @@ class DocGenerator {
     return blockTags.find((tag) => tag.name === 'returns')?.text;
   }
 
-  createMethodDocs(methodName: string, classObject?: ClassParser | string | undefined): MethodDocs | undefined {
+  createIMethodDocs(methodName: string, classObject?: ClassParser | string | undefined): IMethodDocs | undefined {
     const classObj = this.getClassObj(classObject);
     if (!classObj) return undefined;
     const method = this.getMethod(methodName, classObj);
@@ -450,7 +450,7 @@ class DocGenerator {
     return docs;
   }
 
-  createTypeAliasDocs(typeAliasObject: string | TypeAliasParser) {
+  createITypeAliasDocs(typeAliasObject: string | TypeAliasParser) {
     let typeAliasObj: TypeAliasParser | undefined;
     if (typeof typeAliasObject === 'string') {
       typeAliasObj = this.getTypeAlias(typeAliasObject);
@@ -463,7 +463,7 @@ class DocGenerator {
 
     const type = this.typeParser(typeAliasObj.type);
 
-    const docs: TypeAliasDocs = {
+    const docs: ITypeAliasDocs = {
       name: typeAliasObj.name,
       comments: { summary: typeAliasObj.comment.description ?? '' },
       type: type,
@@ -473,7 +473,7 @@ class DocGenerator {
 
   createAllTypeAliasJson() {
     const docs = this.allTypeAliases.map((obj) => {
-      const objDocs = this.createTypeAliasDocs(obj);
+      const objDocs = this.createITypeAliasDocs(obj);
       return objDocs;
     });
     return docs;
@@ -489,10 +489,10 @@ class DocGenerator {
 
   createAllMethodsJson() {
     const allClasses = this.getAllClasses();
-    const allMethodDocs = allClasses?.map((classObj) => {
+    const allIMethodDocs = allClasses?.map((classObj) => {
       const className = classObj?.name;
       const classMethods = classObj.methods.map((method) => {
-        const data = this.createMethodDocs(method.name, className);
+        const data = this.createIMethodDocs(method.name, className);
         const methodDocs = {
           className: classObj.name,
           data,
@@ -504,18 +504,18 @@ class DocGenerator {
       return classMethods;
     });
 
-    const finalMethodDocs: { className: string; data: MethodDocs | undefined }[] = [];
+    const finalIMethodDocs: { className: string; data: IMethodDocs | undefined }[] = [];
 
-    allMethodDocs?.forEach((method) =>
+    allIMethodDocs?.forEach((method) =>
       method.forEach((meth) => {
         if (meth?.className && meth.data?.name) {
           if (meth !== null) {
-            finalMethodDocs.push(meth);
+            finalIMethodDocs.push(meth);
           }
         }
       }),
     );
-    return finalMethodDocs;
+    return finalIMethodDocs;
   }
 
   createAllClassesJson() {
@@ -527,7 +527,7 @@ class DocGenerator {
     return allCalssesDocs;
   }
 
-  createAllMethodsDocs(classObj: string | ClassParser | undefined): (MethodDocs | undefined)[] | undefined {
+  createAllMethodsDocs(classObj: string | ClassParser | undefined): (IMethodDocs | undefined)[] | undefined {
     let classObject: ClassParser | undefined;
     if (typeof classObj === 'string') {
       classObject = this.getClass(classObj);
@@ -536,7 +536,7 @@ class DocGenerator {
     if (classObject) {
       const methods = classObject.methods;
       const methodsDocs = methods.map((method) => {
-        return this.createMethodDocs(method.name, classObject);
+        return this.createIMethodDocs(method.name, classObject);
       });
       return methodsDocs;
     }
@@ -549,7 +549,7 @@ class DocGenerator {
    * @returns A boolean value.
    */
   isAsyncMethod(method: ClassMethodParser | undefined): boolean {
-    const json: Json | undefined = method?.signatures[0].returnType;
+    const json: IJson | undefined = method?.signatures[0].returnType;
 
     if (json?.name === 'Promise') return true;
     else return false;
@@ -567,12 +567,12 @@ class DocGenerator {
   }
 
   /**
-   * It takes a method object and returns an array of MethodReturnType objects
+   * It takes a method object and returns an array of IMethodReturnType objects
    * @param {any | undefined} method - any | undefined
-   * @returns An array of MethodReturnType objects.
+   * @returns An array of IMethodReturnType objects.
    */
-  createReturnTypes(method: ClassMethodParser | undefined): MethodReturnType[] | undefined {
-    const returnType: Json | undefined = method?.signatures[0].returnType;
+  createReturnTypes(method: ClassMethodParser | undefined): IMethodReturnType[] | undefined {
+    const returnType: IJson | undefined = method?.signatures[0].returnType;
     let typesArr;
     if (returnType?.hasOwnProperty('typeArguments') || returnType?.hasOwnProperty('types')) {
       const typeStringArr: any[] = [];
@@ -627,7 +627,7 @@ class DocGenerator {
    * - type
    * - description
    */
-  private createParameterDefinition(method: ClassMethodParser | undefined): MethodParamTypes[] {
+  private createParameterDefinition(method: ClassMethodParser | undefined): IMethodParamTypes[] {
     const parameters = method?.signatures[0].parameters;
     /*eslint-disable */
     let parsedParameters: { label: string; type?: string | string[] | undefined; description?: string | null }[] = []; // eslint-disable-line no-use-before-define

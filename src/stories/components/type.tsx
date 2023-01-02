@@ -2,10 +2,10 @@ import { ReqorePanel, ReqoreTag, ReqoreTagGroup } from '@qoretechnologies/reqore
 import { IReqoreTagProps } from '@qoretechnologies/reqore/dist/components/Tag';
 import { linkTo } from '@storybook/addon-links';
 import useDocumentationTypeLabel from '../hooks/useDocumentationTypeLabel';
-import { MethodReturnType } from '../types';
+import { IMethodReturnType } from '../types';
 import { toCapitalCase } from '../utils';
 
-export type TTypeLabel = MethodReturnType | MethodReturnType[] | string | string[] | { type: string } | undefined;
+export type TTypeLabel = IMethodReturnType | IMethodReturnType[] | string | string[] | { type: string } | undefined;
 
 export interface IDocumentationType extends Omit<IReqoreTagProps, 'label'> {
   link?: string;

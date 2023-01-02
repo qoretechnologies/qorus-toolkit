@@ -1,15 +1,25 @@
-import { AxiosRequestHeaders } from 'axios';
 import fetch from 'node-fetch';
-import ErrorAxios, { ErrorAxiosParams } from './managers/error/ErrorAxios';
+import ErrorAxios, { IErrorAxiosParams } from './managers/error/ErrorAxios';
 import ErrorInternal from './managers/error/ErrorInternal';
-import QorusAuthenticator, { Endpoint } from './QorusAuthenticator';
+import QorusAuthenticator, { IEndpoint } from './QorusAuthenticator';
 import { isValidStringArray } from './utils';
 
-export interface QorusRequestParams {
+export type QorusRequestHeader = Record<string, string | number | boolean>;
+
+export interface QorusRequestResponse<T = any, D = any> {
+  data: T;
+  status: number;
+  statusText: string;
+  headers: QorusRequestHeader;
+  config: Record<string, any>;
+  request?: any;
+}
+
+export interface IQorusRequestParams {
   /**
    * Headers to include in an https request to Qorus server api
    */
-  headers?: AxiosRequestHeaders;
+  headers?: QorusRequestHeader;
 
   /**
    * Path for a https request to Qorus server
@@ -27,10 +37,13 @@ export interface QorusRequestParams {
   params?: Record<string, string>;
 }
 
-/**
- * Default headers for the QorusRequest
- */
-export type DefaultHeaders = Record<string, string>;
+export interface DefaultHeaders extends Record<string, string> {
+  // Content type for the Qorus request
+  'Content-Type': string;
+
+  // Accepted data format type by Qorus server
+  Accept: string;
+}
 
 /**
  * QorusRequest class is wrapper for https request to Qorus server apis
@@ -48,8 +61,8 @@ export class QorusRequest {
 
   private makeRequest = async (
     type: 'GET' | 'PUT' | 'POST' | 'DELETE',
-    props: QorusRequestParams,
-    endpoint?: Endpoint,
+    props: IQorusRequestParams,
+    endpoint?: IEndpoint,
   ): Promise<any> => {
     const { path, data, headers = this.defaultHeaders, params } = props;
     let selectedEndpoint;
@@ -82,7 +95,7 @@ export class QorusRequest {
       if (!promise.ok) {
         const text = await promise.text();
         const parsedText = JSON.parse(text);
-        throw new ErrorAxios(parsedText as ErrorAxiosParams);
+        throw new ErrorAxios(parsedText as IErrorAxiosParams);
       }
 
       const json = await promise.json();
@@ -97,7 +110,7 @@ export class QorusRequest {
    * @param props QorusRequestParams endpoint url is mandatory to make a get request
    * @returns Result of the get request
    */
-  async get<T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> {
+  async get<T>(props: IQorusRequestParams, endpoint?: IEndpoint): Promise<T | undefined> {
     const result = await this.makeRequest('GET', props, endpoint);
     return result;
   }
@@ -107,7 +120,7 @@ export class QorusRequest {
    * @param props QorusRequestParams endpoint url is mandatory to make a post request
    * @returns Result of the post request
    */
-  async post<T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> {
+  async post<T>(props: IQorusRequestParams, endpoint?: IEndpoint): Promise<T | undefined> {
     const result = await this.makeRequest('POST', props, endpoint);
     return result;
   }
@@ -117,7 +130,7 @@ export class QorusRequest {
    * @param props QorusRequestParams endpoint url is mandatory to make a put request
    * @returns Result of the put request
    */
-  async put<T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> {
+  async put<T>(props: IQorusRequestParams, endpoint?: IEndpoint): Promise<T | undefined> {
     const result = await this.makeRequest('PUT', props, endpoint);
     return result;
   }
@@ -127,7 +140,7 @@ export class QorusRequest {
    * @param props QorusRequestParams endpoint url is mandatory to make a delete request
    * @returns Result of the delete request
    */
-  async deleteReq<T>(props: QorusRequestParams, endpoint?: Endpoint): Promise<T | undefined> {
+  async deleteReq<T>(props: IQorusRequestParams, endpoint?: IEndpoint): Promise<T | undefined> {
     const result = await this.makeRequest('DELETE', props, endpoint);
     return result;
   }

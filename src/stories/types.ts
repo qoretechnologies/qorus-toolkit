@@ -25,37 +25,37 @@ export type TDocumentationLabel =
   | React.ReactElement<any, string | React.JSXElementConstructor<any>>
   | undefined;
 
-export interface IDocumentationProps extends MethodDocs {}
+export interface IDocumentationProps extends IMethodDocs {}
 
-export interface DocumentationMeta extends Meta<IDocumentationProps> {}
-export interface DocumentationStory extends Story<IDocumentationProps> {}
+export interface IDocumentationMeta extends Meta<IDocumentationProps> {}
+export interface IDocumentationStory extends Story<IDocumentationProps> {}
 
-export interface DocumentationProperty {
+export interface IDocumentationProperty {
   name: string;
-  comments?: Comments;
+  comments?: IComments;
   type: string | string[];
 }
 
-export interface DocumentationClass {
+export interface IDocumentationClass {
   name: string;
-  properties: DocumentationProperty[];
-  methods?: MethodDocs[];
-  comments: Comments;
+  properties: IDocumentationProperty[];
+  methods?: IMethodDocs[];
+  comments: IComments;
 }
 
-export interface MethodDocs {
+export interface IMethodDocs {
   async: boolean;
   name: string | undefined;
   label: string | undefined;
-  params: MethodParamTypes[];
-  comments: Comments;
-  returnTypes: MethodReturnType[] | undefined;
+  params: IMethodParamTypes[];
+  comments: IComments;
+  returnTypes: IMethodReturnType[] | undefined;
   accessibility: string | undefined;
 }
 
-export interface MethodJson {
+export interface IMethodJson {
   className: string;
-  data: MethodDocs[] | undefined;
+  data: IMethodDocs[] | undefined;
 }
 
 export interface InterfaceDocsProperties {
@@ -70,36 +70,36 @@ export interface InterfaceDocs {
   params?: InterfaceDocsProperties[];
 }
 
-export interface TypeAliasDocs {
+export interface ITypeAliasDocs {
   name: string;
   comments?: { summary: string | null };
   type?: string | string[];
 }
 
-export interface Comments {
+export interface IComments {
   summary: string | undefined | null;
   returnSummary?: string | undefined;
 }
 
-export interface MethodParamTypes {
+export interface IMethodParamTypes {
   label: string;
   type?: string | undefined | any;
   description?: string | undefined | null;
 }
 
-export interface MethodReturnType {
+export interface IMethodReturnType {
   label: string;
 }
 
-export interface ParamType {
+export interface IParamType {
   kind: string;
   type: string;
 }
 
-export interface Json {
+export interface IJson {
   kind: Kind;
   name?: string;
-  type?: ParamType | string;
+  type?: IParamType | string;
   types?: {
     kind: string;
     type?: string;
@@ -135,4 +135,4 @@ export enum Kind {
   Unknown = 'unknown',
 }
 
-// export interface DocumentationData {}
+// export interface IDocumentationData {}

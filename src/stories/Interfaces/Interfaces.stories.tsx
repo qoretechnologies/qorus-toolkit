@@ -3,7 +3,7 @@ import { DocumentationExample } from '../components/example';
 import { DocumentationItem } from '../components/item';
 import { DocumentationWrapper } from '../components/wrapper';
 import { QorusAuthenticatorDemo } from '../QorusAuthenticator/demo';
-import { DocumentationMeta, DocumentationStory } from '../types';
+import { IDocumentationMeta, IDocumentationStory } from '../types';
 import { argsData, prepareInterfaceStory } from '../utils';
 
 export default {
@@ -12,9 +12,9 @@ export default {
   argTypes: {
     ...argsData,
   },
-} as DocumentationMeta;
+} as IDocumentationMeta;
 
-const Template: DocumentationStory = ({ comments, ...rest }, context) => {
+const Template: IDocumentationStory = ({ comments, ...rest }, context) => {
   return (
     <DocumentationWrapper title="Qorus Interfaces" description="Validates the DataProvider properties">
       <DocumentationItem {...rest}>{comments.summary ?? ''}</DocumentationItem>

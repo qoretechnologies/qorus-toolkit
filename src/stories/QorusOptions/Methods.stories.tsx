@@ -1,6 +1,6 @@
 import { Documentation } from '../components/documentation';
 import { QorusAuthenticatorDemo } from '../QorusAuthenticator/demo';
-import { DocumentationMeta, DocumentationStory } from '../types';
+import { IDocumentationMeta, IDocumentationStory } from '../types';
 import { argsData, getClassData, newMethodStory } from '../utils';
 
 export default {
@@ -9,9 +9,9 @@ export default {
   argTypes: {
     ...argsData,
   },
-} as DocumentationMeta;
+} as IDocumentationMeta;
 
-const Template: DocumentationStory = ({ comments, ...rest }, context) => {
+const Template: IDocumentationStory = ({ comments, ...rest }, context) => {
   const {
     name,
     comments: { summary },

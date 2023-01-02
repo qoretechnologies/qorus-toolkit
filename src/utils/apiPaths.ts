@@ -1,22 +1,33 @@
-export interface ApiPaths {
+export interface IApiPaths {
   /**
    * Api paths for the QorusAuthenticator
    */
-  authenticator: ApiPathsAuthenticator;
+  authenticator: IApiPathsAuthenticator;
   /**
    * Api paths for the QorusDataProvider
    */
-  dataProviders: ApiPathsDataProvider;
+  dataProviders: IApiPathsDataProvider;
+  /**
+   * Api paths for the QorusJobs
+   */
+  jobs?: IApiPathsJobs;
 }
 
-export interface ApiPathsDataProvider {
+export interface IApiPathsJobs {
+  /**
+   * Path to browse Jobs for a QorusServer endpoint
+   */
+  browse: string;
+}
+
+export interface IApiPathsDataProvider {
   /**
    * Path to DataProvider browse for a QorusServer endpoint
    */
   browse: string;
 }
 
-export interface ApiPathsAuthenticator {
+export interface IApiPathsAuthenticator {
   /**
    * Path to authenticate the user for a Qorus server endpoint
    */
@@ -39,7 +50,7 @@ export interface ApiPathsAuthenticator {
  * Allowed types of version for the Qorus server api
  */
 export type Version = 1 | 2 | 3 | 4 | 5 | 6 | 'latest';
-export interface WithEndpointVersion {
+export interface IWithEndpointVersion {
   /**
    * Version for the server api
    */
@@ -47,7 +58,7 @@ export interface WithEndpointVersion {
 }
 
 /**Initial api routes */
-export const apiPathsInitial: ApiPaths = {
+export const apiPathsInitial: IApiPaths = {
   authenticator: {
     login: `/api/latest/public/login`,
     logout: `/api/latest/logout`,
@@ -65,7 +76,7 @@ export const apiPathsInitial: ApiPaths = {
  * @param props optional version can be supplied to target the api with a specific version
  * @returns object with all the api endpoints
  */
-export const createApiPaths = (props: WithEndpointVersion): ApiPaths => {
+export const createApiPaths = (props: IWithEndpointVersion): IApiPaths => {
   const { version } = props;
   const V = version && version !== 'latest' ? `v${version}` : 'latest';
 

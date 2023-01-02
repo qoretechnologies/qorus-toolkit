@@ -2,9 +2,9 @@ import { ObjectWithAnyValue, ObjectWithStringKey } from '.';
 import ErrorInternal from './managers/error/ErrorInternal';
 import logger from './managers/logger';
 import {
-  DataProviderChildren,
   DataProviderChildrenConstructorOptions,
-  DataProviderChildrenConstructorPropertyOptions,
+  IDataProviderChildren,
+  IDataProviderChildrenConstructorPropertyOptions,
 } from './QorusDataProvider';
 import QorusValidator from './QorusValidator';
 
@@ -31,7 +31,7 @@ export class QorusOptions {
   // Array of all ProviderOptions for the data provider
   dataProviderConstructorOptions: DataProviderChildrenConstructorOptions = {};
 
-  constructor(children: DataProviderChildren) {
+  constructor(children: IDataProviderChildren) {
     this.name = children.name;
     this.dataProviderConstructorOptions = children.constructor_options;
     this.adjustChildren();
@@ -42,7 +42,7 @@ export class QorusOptions {
    * @param propertyName Name of the property
    * @returns Property object with name and value
    */
-  get(optionName: string): DataProviderChildrenConstructorPropertyOptions | undefined {
+  get(optionName: string): IDataProviderChildrenConstructorPropertyOptions | undefined {
     if (this.dataProviderConstructorOptions && this.dataProviderConstructorOptions.hasOwnProperty(optionName)) {
       return this.dataProviderConstructorOptions[optionName];
     } else return undefined;
@@ -162,7 +162,7 @@ export class QorusOptions {
    * @param propertyValue Value for the property
    * @returns Property object
    */
-  set(propertyName: string, value: any): DataProviderChildrenConstructorPropertyOptions | undefined {
+  set(propertyName: string, value: any): IDataProviderChildrenConstructorPropertyOptions | undefined {
     const isValid = this.validate(propertyName, value);
     if (!isValid) {
       throw new ErrorInternal(`Value is not valid for the property ${propertyName}`);

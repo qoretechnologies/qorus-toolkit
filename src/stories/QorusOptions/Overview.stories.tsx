@@ -1,5 +1,5 @@
 import { DocumentationOverview } from '../components/overview';
-import { DocumentationMeta, DocumentationStory } from '../types';
+import { IDocumentationMeta, IDocumentationStory } from '../types';
 import { argsData } from '../utils';
 
 export default {
@@ -7,8 +7,8 @@ export default {
   argTypes: {
     ...argsData,
   },
-} as DocumentationMeta;
+} as IDocumentationMeta;
 
-export const Overview: DocumentationStory = () => {
+export const Overview: IDocumentationStory = () => {
   return <DocumentationOverview name="QorusOptions" />;
 };

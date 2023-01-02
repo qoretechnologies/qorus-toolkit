@@ -2,7 +2,7 @@ import BaseError from './Error';
 import { errorCodes } from './errorCodes';
 
 class ErrorAxios extends BaseError {
-  constructor(error: ErrorAxiosParams) {
+  constructor(error: IErrorAxiosParams) {
     if (typeof error.desc === 'undefined') {
       super(`${JSON.stringify(error)}`, true, errorCodes.INTERNAL.name, undefined);
     } else {
@@ -11,7 +11,7 @@ class ErrorAxios extends BaseError {
   }
 }
 
-export interface ErrorAxiosParams {
+export interface IErrorAxiosParams {
   desc: string;
   err: string;
   status: number;

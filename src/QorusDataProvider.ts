@@ -1,8 +1,7 @@
-import { AxiosResponse } from 'axios';
-import ErrorAxios, { ErrorAxiosParams } from './managers/error/ErrorAxios';
+import ErrorAxios, { IErrorAxiosParams } from './managers/error/ErrorAxios';
 import logger from './managers/logger';
 import { QorusOptions } from './QorusOptions';
-import QorusRequest from './QorusRequest';
+import QorusRequest, { QorusRequestResponse } from './QorusRequest';
 import { apiPathsInitial } from './utils/apiPaths';
 
 /**
@@ -33,7 +32,7 @@ export class QorusDataProvider {
   path?: string[] = [];
 
   /** Get Request response data for a data provider  */
-  responseData?: DataProviderResponseData;
+  responseData?: IDataProviderResponseData;
 
   /** Current context for the data provider */
   context: Context = 'api';
@@ -41,7 +40,7 @@ export class QorusDataProvider {
   /** Get Request error data if error received */
   responseError?: ResponseError;
 
-  constructor(options?: QorusDataProviderConstructorOptions) {
+  constructor(options?: IQorusDataProviderConstructorOptions) {
     if (options) {
       this.path = options.path;
       this.responseData = options.responseData;
@@ -60,14 +59,14 @@ export class QorusDataProvider {
       data: requestData,
     });
 
-    const response = result as AxiosResponse;
-    const error = result as ErrorAxiosParams;
+    const response = result as QorusRequestResponse;
+    const error = result as IErrorAxiosParams;
 
     if (error.status) {
       throw new ErrorAxios(error);
     }
 
-    const responseData = response?.data as DataProviderResponseData;
+    const responseData = response?.data as IDataProviderResponseData;
     const responseError = error.desc;
 
     return new QorusDataProvider({
@@ -272,8 +271,8 @@ const fetchProvider = async (obj: QorusDataProvider, context: Context, select?: 
     data: requestData,
   });
 
-  const response = result as AxiosResponse;
-  const error = result as ErrorAxiosParams;
+  const response = result as QorusRequestResponse;
+  const error = result as IErrorAxiosParams;
 
   if (error.status) {
     throw new ErrorAxios(error);
@@ -294,7 +293,7 @@ export type Context = 'record' | 'api' | 'event' | 'message' | 'type';
 /** Get request error data from DataProvider api */
 export type ResponseError = any;
 
-export interface DataProviderChildren {
+export interface IDataProviderChildren {
   /**
    * Name of the DataProvider children
    */
@@ -319,9 +318,9 @@ export interface DataProviderChildren {
 /**
  * DataProvider children constructor_options property object
  */
-export type DataProviderChildrenConstructorOptions = Record<string, DataProviderChildrenConstructorPropertyOptions>;
+export type DataProviderChildrenConstructorOptions = Record<string, IDataProviderChildrenConstructorPropertyOptions>;
 
-export interface DataProviderChildrenConstructorPropertyOptions {
+export interface IDataProviderChildrenConstructorPropertyOptions {
   /**
    * Accepted types for the DataProvider constructor_options property
    */
@@ -358,7 +357,7 @@ export interface DataProviderChildrenConstructorPropertyOptions {
   name?: string;
 }
 
-export interface DataProviderResponseData {
+export interface IDataProviderResponseData {
   /**
    * Type of DataProvider
    */
@@ -367,7 +366,7 @@ export interface DataProviderResponseData {
   /**
    * Array of children from a DataProvider
    */
-  children: DataProviderChildren[];
+  children: IDataProviderChildren[];
 
   /**
    * Verifies if DataProvider have further context/children
@@ -375,7 +374,7 @@ export interface DataProviderResponseData {
   matches_context: boolean;
 }
 
-export interface QorusDataProviderConstructorOptions {
+export interface IQorusDataProviderConstructorOptions {
   /**
    * Path to a DataProvider
    */
@@ -384,7 +383,7 @@ export interface QorusDataProviderConstructorOptions {
   /**
    * Qorus DataProvider api response data
    */
-  responseData: DataProviderResponseData;
+  responseData: IDataProviderResponseData;
 
   /**
    * Context for the Qorus DataProvider api ex: 'record'

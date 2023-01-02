@@ -9,7 +9,7 @@ export { default as QorusRequest } from './QorusRequest';
 export { default as QorusDataProvider } from './QorusDataProvider';
 export { default as QorusValidator } from './QorusValidator';
 
-export { Version, ApiPaths, ApiPathsAuthenticator, ApiPathsDataProvider } from './utils/apiPaths';
+export { Version, IApiPaths, IApiPathsAuthenticator, IApiPathsDataProvider } from './utils/apiPaths';
 export { Context } from './QorusDataProvider';
 
 /**

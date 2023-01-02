@@ -25,9 +25,9 @@ export const errorCodes: ErrorCodes = {
   },
 };
 
-export type ErrorCodes = Record<string, ErrorCode>;
+export type ErrorCodes = Record<string, IErrorCode>;
 
-export interface ErrorCode {
+export interface IErrorCode {
   code?: number;
   name?: string;
 }

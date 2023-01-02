@@ -10,16 +10,16 @@ import {
 import { IReqoreCollectionItemProps } from '@qoretechnologies/reqore/dist/components/Collection/item';
 import { IReqorePanelProps } from '@qoretechnologies/reqore/dist/components/Panel';
 import { map, size } from 'lodash';
-import { Comments, MethodParamTypes, MethodReturnType } from '../types';
+import { IComments, IMethodParamTypes, IMethodReturnType } from '../types';
 import { DocumentationType } from './type';
 
 export interface IDocumentationItemsProps extends IReqorePanelProps {
-  params?: MethodParamTypes[];
-  returnTypes?: MethodReturnType[];
+  params?: IMethodParamTypes[];
+  returnTypes?: IMethodReturnType[];
   async?: boolean;
   name?: string;
   label?: string;
-  comment?: Comments;
+  comment?: IComments;
   returnSummary?: string | null;
   type?: string | string[];
   parent?: string;
