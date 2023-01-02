@@ -16,3 +16,7 @@ export const isValidStringArray = (value?: any[]) => {
     return result;
   } else return false;
 };
+
+export const getRequestPath = (path: string[]) => {
+  return path.join('/');
+};

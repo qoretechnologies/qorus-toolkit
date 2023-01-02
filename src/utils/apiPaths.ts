@@ -7,10 +7,16 @@ export interface ApiPaths {
    * Api paths for the QorusDataProvider
    */
   dataProviders: ApiPathsDataProvider;
+  /**
+   * Api paths for the QorusJobs
+   */
   jobs: ApiPathsJobs;
 }
 
 export interface ApiPathsJobs {
+  /**
+   * Path to browse Jobs for a QorusServer endpoint
+   */
   browse: string;
 }
 

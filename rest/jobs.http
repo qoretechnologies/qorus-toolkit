@@ -1,0 +1,30 @@
+# Jobs 
+# 1st Step browse available jobs
+GET  https://rmalik:yzu2d8smRoCetW8@api.qoretechnologies.com/api/latest/jobs/
+content-type: application/json
+
+{
+    "context": "record"
+}
+###
+# 2nd Step get a job by id 
+GET https://rmalik:yzu2d8smRoCetW8@api.qoretechnologies.com/api/latest/jobs/22
+content-type: application/json
+
+{
+    "context": "record"
+}
+
+###
+# /factory
+# 3rd Step Choose Factory 
+PUT https://rmalik:yzu2d8smRoCetW8@api.qoretechnologies.com/api/latest/jobs/
+content-type: application/json
+
+# {
+#     "context": "record",
+#     "provider_options": {"datasource": "pgsql:omquser/omquser@omquser%bee"}
+# }
+###
+# /{factoryName}
+# 4th Step 
