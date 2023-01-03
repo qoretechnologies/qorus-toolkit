@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import dotenv from 'dotenv';
 import { QorusAuthenticator, QorusRequest } from '../src';
 dotenv.config();
@@ -20,7 +19,7 @@ describe('QorusRequest Utility Tests', () => {
       path: '/api/latest/public/login',
       data: { user: process.env.TESTUSER, pass: process.env.TESTPASS },
     });
-    const response = result as AxiosResponse;
+    const response = result as any;
 
     expect(typeof response?.data.token).toEqual('string');
   });
@@ -29,7 +28,7 @@ describe('QorusRequest Utility Tests', () => {
     const result = await QorusRequest.get({
       path: '/api/latest/dataprovider/browse',
     });
-    const response = result as AxiosResponse;
+    const response = result as any;
 
     expect(response?.data.type).toEqual('nav');
   });
@@ -39,7 +38,7 @@ describe('QorusRequest Utility Tests', () => {
       path: '/api/latest/dataprovider/browse',
       params: { context: 'api' },
     });
-    const response = result as AxiosResponse;
+    const response = result as any;
 
     expect(response?.data.type).toEqual('nav');
   });
