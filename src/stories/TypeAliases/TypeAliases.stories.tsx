@@ -44,9 +44,6 @@ TQorusEndpointURL.storyName = 'TQorusEndpointURL';
 export const TToken = prepareTypeStory(Template, 'TToken');
 TToken.storyName = 'TToken';
 
-export const TResponseError = prepareTypeStory(Template, 'TResponseError');
-TResponseError.storyName = 'TResponseError';
-
 export const TDataProviderChildrenConstructorOptions = prepareTypeStory(
   Template,
   'TDataProviderChildrenConstructorOptions',
