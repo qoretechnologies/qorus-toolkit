@@ -67,14 +67,14 @@ IQorusRequestParams.storyName = 'IQorusRequestParams';
 export const IApiPaths = prepareInterfaceStory(Template, 'IApiPaths');
 IApiPaths.storyName = 'IApiPaths';
 
-export const IApiPathsAuthenticator = prepareInterfaceStory(Template, 'IApiPathsAuthenticator');
-IApiPathsAuthenticator.storyName = 'IApiPathsAuthenticator';
+export const IAuthenticatorApiPaths = prepareInterfaceStory(Template, 'IAuthenticatorApiPaths');
+IAuthenticatorApiPaths.storyName = 'IAuthenticatorApiPaths';
 
-export const IApiPathsDataProvider = prepareInterfaceStory(Template, 'IApiPathsDataProvider');
-IApiPathsDataProvider.storyName = 'IApiPathsDataProvider';
+export const IDataProviderApiPaths = prepareInterfaceStory(Template, 'IDataProviderApiPaths');
+IDataProviderApiPaths.storyName = 'IDataProviderApiPaths';
 
-export const IApiPathsJobs = prepareInterfaceStory(Template, 'IApiPathsJobs');
-IApiPathsJobs.storyName = 'IApiPathsJobs';
+export const IJobsApiPaths = prepareInterfaceStory(Template, 'IJobsApiPaths');
+IJobsApiPaths.storyName = 'IJobsApiPaths';
 
 export const IDefaultHeaders = prepareInterfaceStory(Template, 'IDefaultHeaders');
 IDefaultHeaders.storyName = 'IDefaultHeaders';

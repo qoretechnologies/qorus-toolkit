@@ -2,32 +2,32 @@ export interface IApiPaths {
   /**
    * Api paths for the QorusAuthenticator
    */
-  authenticator: IApiPathsAuthenticator;
+  authenticator: IAuthenticatorApiPaths;
   /**
    * Api paths for the QorusDataProvider
    */
-  dataProviders: IApiPathsDataProvider;
+  dataProviders: IDataProviderApiPaths;
   /**
    * Api paths for the QorusJobs
    */
-  jobs?: IApiPathsJobs;
+  jobs?: IJobsApiPaths;
 }
 
-export interface IApiPathsJobs {
+export interface IJobsApiPaths {
   /**
    * Path to browse Jobs for a QorusServer endpoint
    */
   browse: string;
 }
 
-export interface IApiPathsDataProvider {
+export interface IDataProviderApiPaths {
   /**
    * Path to DataProvider browse for a QorusServer endpoint
    */
   browse: string;
 }
 
-export interface IApiPathsAuthenticator {
+export interface IAuthenticatorApiPaths {
   /**
    * Path to authenticate the user for a Qorus server endpoint
    */

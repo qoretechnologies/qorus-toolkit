@@ -8,10 +8,12 @@ import {
   apiPathsInitial,
   createApiPaths,
   IApiPaths,
-  IApiPathsAuthenticator,
+  IAuthenticatorApiPaths,
   IWithEndpointVersion,
   TVersion,
 } from './utils/apiPaths';
+
+export interface IValidateEndpointData extends IAddEndpoint, ILoginParams {}
 
 /**
  * Endpoint id for a Qorus server endpoint
@@ -87,7 +89,7 @@ export class QorusAuthenticator {
   allApiPaths: IApiPaths = apiPathsInitial;
 
   /** Api paths for the QorusAuthenticator */
-  apiPathsAuthenticator: IApiPathsAuthenticator = apiPathsInitial.authenticator;
+  apiPathsAuthenticator: IAuthenticatorApiPaths = apiPathsInitial.authenticator;
 
   /** Selected endpoint from the endpoints array */
   selectedEndpoint: IEndpoint | undefined;
@@ -230,7 +232,7 @@ export class QorusAuthenticator {
    * @param withCredentials boolean to check if the endpoint has credentials
    * @returns True if the Endpoint data is valid, False otherwise
    */
-  validateEndpointData(data: IAddEndpoint & ILoginParams, withCredentials?: boolean): boolean {
+  validateEndpointData(data: IValidateEndpointData, withCredentials?: boolean): boolean {
     let valid = true;
     const fixedData = this.#fixEndpointData(data);
 
