@@ -87,7 +87,7 @@ export class QorusOptions {
     }
 
     const allOptions: TObjectWithAnyValue | undefined = {};
-    Object.keys(this.dataProviderConstructorOptions).map((key) => {
+    Object.keys(this.dataProviderConstructorOptions).forEach((key) => {
       if (this.dataProviderConstructorOptions[key].value) {
         allOptions[key] = this.dataProviderConstructorOptions[key].value;
       }

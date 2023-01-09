@@ -14,7 +14,7 @@ class QorusConfigItems {
     const { config, configItems } = configData;
     const jobData =
       config &&
-      Object.keys(config)?.map((configKey) => {
+      Object.keys(config).map((configKey) => {
         const configItem = configItems?.find((configItemData) => configItemData.name === configKey);
 
         const obj = {

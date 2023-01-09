@@ -69,7 +69,7 @@ export class QorusRequest {
     endpoint?: IEndpoint,
   ): Promise<any> => {
     const { path, data, headers = this.defaultHeaders, params } = props;
-    let selectedEndpoint;
+    let selectedEndpoint: IEndpoint | undefined;
 
     if (isValidStringArray([endpoint?.url, endpoint?.endpointId])) {
       selectedEndpoint = endpoint;
@@ -87,8 +87,8 @@ export class QorusRequest {
       const requestParams = new URLSearchParams(params).toString();
       let fetchUrl: string;
       if (requestParams.length) {
-        fetchUrl = `${selectedEndpoint.url}${path}?${requestParams}`;
-      } else fetchUrl = `${selectedEndpoint.url}${path}`;
+        fetchUrl = `${selectedEndpoint?.url}${path}?${requestParams}`;
+      } else fetchUrl = `${selectedEndpoint?.url}${path}`;
 
       const promise = await fetch(fetchUrl, {
         method: type,
