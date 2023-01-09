@@ -73,5 +73,8 @@ IApiPathsAuthenticator.storyName = 'IApiPathsAuthenticator';
 export const IApiPathsDataProvider = prepareInterfaceStory(Template, 'IApiPathsDataProvider');
 IApiPathsDataProvider.storyName = 'IApiPathsDataProvider';
 
+export const IApiPathsJobs = prepareInterfaceStory(Template, 'IApiPathsJobs');
+IApiPathsJobs.storyName = 'IApiPathsJobs';
+
 export const IDefaultHeaders = prepareInterfaceStory(Template, 'IDefaultHeaders');
 IDefaultHeaders.storyName = 'IDefaultHeaders';

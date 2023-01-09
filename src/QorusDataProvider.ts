@@ -159,8 +159,12 @@ export class QorusDataProvider {
    * A getter to get available data for the current provider
    * @returns responseData and errorData for the current provider
    */
-  getData() {
-    return { responseData: this.responseData, errorData: this.responseError };
+  getData(): IQorusDataProviderData {
+    const data: IQorusDataProviderData = {
+      responseData: this.responseData,
+      errorData: this.responseError,
+    };
+    return data;
   }
 
   /**
@@ -421,4 +425,15 @@ export interface IQorusDataProviderConstructorOptions {
    * Error received if any from the Qorus DataProvider api
    */
   responseError?: IResponseError;
+}
+
+export interface IQorusDataProviderData {
+  /**
+   * Response data received from the QorusDataProvider api
+   */
+  responseData?: IDataProviderResponseData;
+  /**
+   * Error data received from the QorusDataProvider api
+   */
+  errorData?: IResponseError;
 }
