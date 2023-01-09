@@ -1,51 +1,82 @@
-import axios, { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios';
+import fetch from 'node-fetch';
 import ErrorInternal from './managers/error/ErrorInternal';
-import QorusAuthenticator, { Endpoint } from './QorusAuthenticator';
-import { Agent } from 'https';
+import ErrorQorusRequest, { IErrorQorusRequestParams } from './managers/error/ErrorQorusRequest';
+import QorusAuthenticator, { IEndpoint } from './QorusAuthenticator';
+import { isValidStringArray } from './utils';
 
-export const httpsAgent = new Agent({
-  rejectUnauthorized: false,
-});
+export type TQorusRequestHeader = Record<string, string | number | boolean>;
 
-export const httpsAxios = axios.create({ httpsAgent });
+export interface QorusRequestResponse<T = any> {
+  data: T;
+  status: number;
+  statusText: string;
+  headers: TQorusRequestHeader;
+  config: Record<string, any>;
+  request?: any;
+}
 
-export interface QorusRequestParams {
+export interface IQorusRequestParams {
   /**
-   * Headers for the request
+   * Headers to include in an https request to Qorus server api
    */
-  headers?: AxiosRequestHeaders;
+  headers?: TQorusRequestHeader;
 
   /**
-   * Complete endpoint url for the request
+   * Path for a https request to Qorus server
    */
   path: string;
 
   /**
-   * Data for the request
+   * Data to include in an https request to Qorus server api
    */
   data?: any;
 
   /**
-   * URL Parameters for the request
+   * URL Parameters to include in an https request to Qorus server api
    */
-  params?: {
-    [x: string]: string | number | boolean;
-  };
+  params?: Record<string, string>;
 }
 
+export interface IDefaultHeaders extends Record<string, string> {
+  /**
+   * Content type for the Qorus request
+   */
+  'Content-Type': string;
+
+  /**
+   * Accepted data format type by Qorus server
+   */
+  Accept: string;
+}
+
+/**
+ * QorusRequest class is wrapper for https request to Qorus server apis
+ * - Adds default headers to the https request
+ * - Allows creation of request parameters from a js object
+ * - Allows custom headers and data object
+ * @returns QorusRequest class object
+ * @Category QorusRequest
+ */
 export class QorusRequest {
   /**
    * Default headers for the QorusRequest
    */
-  defaultHeaders: AxiosRequestHeaders = { 'Content-Type': 'application/json', Accept: 'application/json' };
+  defaultHeaders: IDefaultHeaders = { 'Content-Type': 'application/json', Accept: 'application/json' };
 
-  makeRequest = async (
+  private makeRequest = async (
     type: 'GET' | 'PUT' | 'POST' | 'DELETE',
-    props: QorusRequestParams,
-    endpoint?: Endpoint,
-  ): Promise<AxiosResponse | AxiosError | undefined> => {
+    props: IQorusRequestParams,
+    endpoint?: IEndpoint,
+  ): Promise<any> => {
     const { path, data, headers = this.defaultHeaders, params } = props;
-    const selectedEndpoint = endpoint ?? QorusAuthenticator.getSelectedEndpoint();
+    let selectedEndpoint;
+
+    if (isValidStringArray([endpoint?.url, endpoint?.endpointId])) {
+      selectedEndpoint = endpoint;
+    } else {
+      selectedEndpoint = QorusAuthenticator.getSelectedEndpoint();
+    }
+
     if (headers != this.defaultHeaders) {
       Object.assign(headers, { ...this.defaultHeaders, headers });
     }
@@ -53,73 +84,70 @@ export class QorusRequest {
     if (selectedEndpoint?.url) {
       Object.assign(headers, { ...headers, 'Qorus-Token': selectedEndpoint?.authToken ?? '' });
 
-      try {
-        const promise = await httpsAxios({
-          method: type,
-          url: selectedEndpoint?.url + path,
-          data: data,
-          headers: headers,
-          params: params,
-        });
-        return promise;
-      } catch (error: any) {
-        return error;
+      const requestParams = new URLSearchParams(params).toString();
+      let fetchUrl: string;
+      if (requestParams.length) {
+        fetchUrl = `${selectedEndpoint.url}${path}?${requestParams}`;
+      } else fetchUrl = `${selectedEndpoint.url}${path}`;
+
+      const promise = await fetch(fetchUrl, {
+        method: type,
+        headers: this.defaultHeaders,
+        body: data ? JSON.stringify(data) : undefined,
+      });
+
+      if (!promise.ok) {
+        const text = await promise.text();
+        const parsedText = JSON.parse(text);
+        throw new ErrorQorusRequest(parsedText as IErrorQorusRequestParams);
       }
+
+      const json = await promise.json();
+      return { data: json };
     }
 
     throw new ErrorInternal('Initialize an endpoint using QorusAuthenticator to use QorusRequest');
   };
 
   /**
-   * -get-function Get request creator for the QorusToolkit
-   *
-   * @param props {@link QorusRequestParams} endpoint url is mandatory to make a get request
-   *
-   * Returns the promise with the result of the get request
+   * Get request creator for the QorusToolkit
+   * @param props QorusRequestParams endpoint url is mandatory to make a get request
+   * @returns Result of the get request
    */
-  get = async (props: QorusRequestParams, endpoint?: Endpoint): Promise<AxiosResponse | AxiosError | undefined> => {
+  async get<T>(props: IQorusRequestParams, endpoint?: IEndpoint): Promise<T | undefined> {
     const result = await this.makeRequest('GET', props, endpoint);
     return result;
-  };
+  }
 
   /**
-   * -post-function Post request creator for the QorusToolkit
-   *
-   * @param props {@link QorusRequestParams} endpoint url is mandatory to make a post request
-   *
-   * Returns the promise with the result of the post request
+   * Post request creator for the QorusToolkit
+   * @param props QorusRequestParams endpoint url is mandatory to make a post request
+   * @returns Result of the post request
    */
-  post = async (props: QorusRequestParams, endpoint?: Endpoint): Promise<AxiosResponse | AxiosError | undefined> => {
+  async post<T>(props: IQorusRequestParams, endpoint?: IEndpoint): Promise<T | undefined> {
     const result = await this.makeRequest('POST', props, endpoint);
     return result;
-  };
+  }
 
   /**
-   * -put-function Put request creator for the QorusToolkit
-   *
-   * @param props {@link QorusRequestParams} endpoint url is mandatory to make a put request
-   *
-   * Returns the promise with the result of the put request
+   * Put request creator for the QorusToolkit
+   * @param props QorusRequestParams endpoint url is mandatory to make a put request
+   * @returns Result of the put request
    */
-  put = async (props: QorusRequestParams, endpoint?: Endpoint): Promise<AxiosResponse | AxiosError | undefined> => {
+  async put<T>(props: IQorusRequestParams, endpoint?: IEndpoint): Promise<T | undefined> {
     const result = await this.makeRequest('PUT', props, endpoint);
     return result;
-  };
+  }
 
   /**
-   * -deleteReq-function Delete request creator for the QorusToolkit
-   *
-   * @param props {@link QorusRequestParams} endpoint url is mandatory to make a delete request
-   *
-   * Returns the promise with the result of the delete request
+   * Delete request creator for the QorusToolkit
+   * @param props QorusRequestParams endpoint url is mandatory to make a delete request
+   * @returns Result of the delete request
    */
-  deleteReq = async (
-    props: QorusRequestParams,
-    endpoint?: Endpoint,
-  ): Promise<AxiosResponse | AxiosError | undefined> => {
+  async deleteReq<T>(props: IQorusRequestParams, endpoint?: IEndpoint): Promise<T | undefined> {
     const result = await this.makeRequest('DELETE', props, endpoint);
     return result;
-  };
+  }
 }
 
 export default new QorusRequest();

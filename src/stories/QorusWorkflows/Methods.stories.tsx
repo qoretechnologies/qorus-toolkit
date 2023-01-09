@@ -1,0 +1,43 @@
+import { Documentation } from '../components/documentation';
+import { QorusAuthenticatorDemo } from '../QorusAuthenticator/demo';
+import { IDocumentationMeta, IDocumentationStory } from '../types';
+import { argsData, getClassData, newMethodStory } from '../utils';
+
+export default {
+  title: 'API/QorusWorkflows/Methods',
+  id: 'QorusWorkflows.methods',
+  argTypes: {
+    ...argsData,
+  },
+} as IDocumentationMeta;
+
+const Template: IDocumentationStory = ({ comments, ...rest }, context) => {
+  const {
+    name,
+    comments: { summary },
+  } = getClassData('QorusWorkflows');
+
+  return (
+    <Documentation
+      {...rest}
+      itemName={rest.name}
+      name={name}
+      description={summary || undefined}
+      summary={comments.summary}
+      story={context.story}
+    >
+      <QorusAuthenticatorDemo />
+    </Documentation>
+  );
+};
+
+const prepareStory = newMethodStory(Template, 'QorusWorkflows');
+
+export const get = prepareStory('get');
+get.storyName = 'get';
+
+export const incrementAutoStart = prepareStory('incrementAutoStart');
+incrementAutoStart.storyName = 'incrementAutoStart';
+
+export const decrementAutoStart = prepareStory('decrementAutoStart');
+decrementAutoStart.storyName = 'decrementAutoStart';

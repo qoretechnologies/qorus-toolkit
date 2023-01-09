@@ -1,28 +1,38 @@
-import {
-  IQorusType,
-  isValueTemplate,
-  getTemplateKey,
-  getTemplateValue,
-  TTrigger,
-  TOption,
-  fixOperatorValue,
-  TOperatorValue,
-  splitByteSize,
-  getProtocol,
-  getAddress,
-} from './utils/validation';
-import uniqWith from 'lodash/uniqWith';
-import size from 'lodash/size';
 import jsYaml from 'js-yaml';
 import every from 'lodash/every';
+import size from 'lodash/size';
+import uniqWith from 'lodash/uniqWith';
+import {
+  fixOperatorValue,
+  getAddress,
+  getProtocol,
+  getTemplateKey,
+  getTemplateValue,
+  isValueTemplate,
+  splitByteSize,
+  TOperatorValue,
+  TOption,
+  TQorusType,
+  TTrigger,
+} from './utils/validation';
 
 import cron from 'cron-validator';
 /*eslint-disable */
 
+export const versions = [1, 2, 3, 4, 5, 6, 'latest'];
+
 /**
- * Utility class to validate provider_options properties
+ * QorusValidator is a helper class to verify the validity for Qorus types and their values
+ * - Verify if a value can be used for Qorus type
+ * @returns QorusValidator class object
+ * @Category QorusValidator
  */
 export class QorusValidator {
+  /**
+   * Verifies if the type can be null or not
+   * @param type Type of the object
+   * @returns True if the the type can be null, False otherwise
+   */
   private nullType(type: string) {
     if (type.startsWith('*')) {
       type = type.substring(1);
@@ -36,9 +46,9 @@ export class QorusValidator {
    * @param type type of value for the property
    * @param value value for the property
    * @param canBeNull if the value can be null
-   * @returns true if the value can be accepted for the type
+   * @returns True if the value can be accepted for the type, False otherwise
    */
-  validate: (type: string | IQorusType, value?: any, canBeNull?: boolean) => boolean = (type, value, canBeNull) => {
+  validate(type: string | TQorusType, value?: any, canBeNull?: boolean): boolean {
     if (!type) {
       return false;
     }
@@ -386,19 +396,22 @@ export class QorusValidator {
       case 'url': {
         return this.validate('string', getProtocol(value)) && this.validate('string', getAddress(value));
       }
+      case 'version': {
+        return versions.includes(value);
+      }
       case 'nothing':
         return false;
       default:
         return true;
     }
-  };
+  }
 
   /**
    * Get QorusType from the value
-   * @param value any accepted type value
+   * @param value Any accepted type value
    * @returns QorusType string
    */
-  getTypeFromValue = (value: any) => {
+  getTypeFromValue(value: any): 'string' | 'int' | 'list' | 'bool' | 'float' | 'hash' | 'date' | 'null' | 'none' {
     if (value === null) {
       return 'null';
     }
@@ -431,7 +444,7 @@ export class QorusValidator {
     }
 
     return 'none';
-  };
+  }
 }
 
 export default new QorusValidator();

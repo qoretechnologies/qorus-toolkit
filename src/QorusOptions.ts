@@ -1,19 +1,12 @@
+import { TObjectWithAnyValue, TObjectWithStringKey } from '../src';
 import ErrorInternal from './managers/error/ErrorInternal';
 import logger from './managers/logger';
+import {
+  IDataProviderChildren,
+  IDataProviderChildrenConstructorPropertyOptions,
+  TDataProviderChildrenConstructorOptions,
+} from './QorusDataProvider';
 import QorusValidator from './QorusValidator';
-
-export interface Properties {
-  name: string;
-  required: boolean;
-  types: string[];
-  jsTypes: string[];
-  value?: { type: string; value: any } | null;
-}
-
-export interface ConstructorOption {
-  name: string;
-  constructorOptions: Properties[];
-}
 
 const qorusDataTypesToJsTypesMapper = {
   'object<InputStream>': 'object',
@@ -24,100 +17,93 @@ const qorusDataTypesToJsTypesMapper = {
   'softlist<string>': 'array',
 };
 
-export type ProviderChildren = any;
-
+/**
+ * QorusOptions is a helper class which makes working Qorus DataProvider constructor_options easier
+ * - Validate constructor_options property value
+ * - set and get constructor_options property values
+ * @returns QorusOptions class object
+ * @Category QorusOptions
+ */
 export class QorusOptions {
-  // Name of the provider options
+  /** Name of the provider option  */
   name = '';
 
-  // Properties for provider
-  constructorOptions: Properties[] = [];
+  // Array of all ProviderOptions for the data provider
+  dataProviderConstructorOptions: TDataProviderChildrenConstructorOptions = {};
 
-  constructor(children: ProviderChildren) {
-    this.parseChildren(children);
+  constructor(children: IDataProviderChildren) {
+    this.name = children.name;
+    this.dataProviderConstructorOptions = children.constructor_options;
+    this.adjustChildren();
   }
 
   /**
-   * A parser function to modify options object
-   * @param children children for which options will be created
-   * @returns object with constructor options {@link ConstructorOption}
+   * A getter to get constructor options property object
+   * @param propertyName Name of the property
+   * @returns Property object with name and value
    */
-  private parseChildren(children: ProviderChildren): ConstructorOption | undefined {
-    /*eslint-disable*/
-    if (!children) {
-      logger.error(`Children does not exist`);
-      return undefined;
+  get(optionName: string): IDataProviderChildrenConstructorPropertyOptions | undefined {
+    if (this.dataProviderConstructorOptions && this.dataProviderConstructorOptions.hasOwnProperty(optionName)) {
+      return this.dataProviderConstructorOptions[optionName];
+    } else return undefined;
+  }
+
+  private adjustChildren() {
+    if (this.dataProviderConstructorOptions) {
+      Object.keys(this.dataProviderConstructorOptions).map((key) => {
+        this.dataProviderConstructorOptions[key].jsType = this.createJsTypes(
+          this.dataProviderConstructorOptions[key].type,
+        );
+        this.dataProviderConstructorOptions[key].name = key;
+      });
     }
-    const constructorOptions = children.constructor_options;
-    const name = children.name;
-    let allProperties: Properties[] = [];
-
-    for (const key in constructorOptions) {
-      const property: Properties = {
-        name: key,
-        required: constructorOptions[key].required,
-        types: constructorOptions[key].type,
-        jsTypes: this.createJsTypes(constructorOptions[key].type),
-        value: null,
-      };
-      allProperties.push(property);
-    }
-
-    const option: ConstructorOption = {
-      name,
-      constructorOptions: allProperties,
-    };
-
-    this.name = name;
-    this.constructorOptions = allProperties;
-
-    return option;
   }
 
   /**
-   * -validate-function A validator to verify if all the required values are provided
-   * @returns true if all the value exist, false otherwise
+   * A validator method to check if all the required properties for a data provider contains a value
+   * @returns True if values for all the required properties exist, false otherwise
    */
-  validate() {
+  validateRequired(): boolean {
     let result = true;
-    this.constructorOptions.forEach((option): void | boolean => {
-      if (option.required) {
-        if (!option.value) {
+    for (const key in this.dataProviderConstructorOptions) {
+      if (this.dataProviderConstructorOptions[key].required) {
+        if (!this.dataProviderConstructorOptions[key].value) {
           result = false;
-          logger.error(`${option.name} is required for ${this.name} provider`);
+          logger.error(`${key} is required for ${this.name} provider`);
         }
       }
-    });
+    }
     return result;
   }
 
   /**
-   * -getAll-function Get all values required for the provider
-   * @returns all values if required values exist, undefined otherwise
+   * Get all values required for the provider
+   * @returns Array of values for the constructor options if required values exist, undefined otherwise
    */
-  getAll() {
-    const isValid = this.validate();
-    if (!isValid) return;
+  getAll(): TObjectWithStringKey | undefined {
+    const isValid = this.validateRequired();
+    if (!isValid) {
+      return undefined;
+    }
 
-    let values = {};
-
-    this.constructorOptions.forEach((option) => {
-      if (option.value?.value) {
-        values[`${option.name}`] = option.value?.value;
+    const allOptions: TObjectWithAnyValue | undefined = {};
+    Object.keys(this.dataProviderConstructorOptions).map((key) => {
+      if (this.dataProviderConstructorOptions[key].value) {
+        allOptions[key] = this.dataProviderConstructorOptions[key].value;
       }
     });
 
-    return values;
+    return allOptions;
   }
 
   /**
    * A parser function to modify options object
-   * @param children children for which options will be created
-   * @returns object with constructor options {@link ConstructorOption}
+   * @param children Children for which options will be created
+   * @returns Object with constructor options
    */
-  private createJsTypes(types: string[]) {
+  private createJsTypes(types: string[]): string[] {
     if (!types) return [];
-    let jsTypes: string[] = [];
+    const jsTypes: string[] = [];
     types.forEach((type) => {
       jsTypes.push(this.convertToJsType(type));
     });
@@ -127,88 +113,75 @@ export class QorusOptions {
 
   /**
    * A private function to convert types to js types
-   * @param type type to be converted
-   * @returns converted type
+   * @param type Type to be converted
+   * @returns Converted type
    */
   private convertToJsType(type: string) {
-    if (qorusDataTypesToJsTypesMapper[type]) {
-      return qorusDataTypesToJsTypesMapper[type];
+    if (qorusDataTypesToJsTypesMapper.hasOwnProperty(type)) {
+      return qorusDataTypesToJsTypesMapper[type] as string;
     } else return type;
   }
 
   /**
-   * -getTypeOptions-function A getter to get property type
-   * @param propertyName name of the property
-   * @return types accepted by the property
+   * A getter to get property type
+   * @param propertyName Name of the property
+   * @return Types accepted by the property
    */
-  getType(propertyName: string) {
-    const property = this.constructorOptions.find((property) => property.name === propertyName);
-    if (!property?.types) {
-      logger.error(new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`));
+  getType(propertyName: string): string[] | undefined {
+    if (this.dataProviderConstructorOptions.hasOwnProperty(propertyName)) {
+      if (!this.dataProviderConstructorOptions[propertyName].type) {
+        logger.error(
+          new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`),
+        );
+      }
+      return this.dataProviderConstructorOptions[propertyName].type;
     }
-    return property?.types;
-  }
-
-  /**
-   * -getJsType-function A getter to get js types for a property
-   * @param propertyName name of the property
-   * @returns js types accepted by the property
-   */
-  getJsType(propertyName: string) {
-    const property = this.constructorOptions.find((property) => property.name === propertyName);
-    if (!property?.jsTypes) {
-      logger.error(new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`));
-    }
-    return property?.jsTypes;
-  }
-
-  /**
-   * -getProperty-function A getter to get property object
-   * @param propertyName name of the property
-   * @returns property object
-   */
-  get(propertyName: string) {
-    const property = this.constructorOptions.find((property) => property.name === propertyName);
-    if (!property) {
-      logger.error(
-        new ErrorInternal(`Property ${propertyName} doesn't exist or doesn't contain any value for ${this.name}`),
-      );
-    }
-    return property;
-  }
-
-  /**
-   * -setOptions-function A setter to set property value
-   * @param propertyName name of the property
-   * @param propertyValue value for the property
-   * @returns property object
-   */
-  set(propertyName: string, value: any) {
-    const isValid = this.validateProperty(propertyName, value);
-    if (!isValid) {
-      throw new ErrorInternal(`Value is not valid for the property ${propertyName}`);
-    }
-
-    let propertyIndex = this.constructorOptions.findIndex((property) => property.name === propertyName);
-    const jsTypes = this.get(propertyName)?.jsTypes;
-    const valueType = typeof value;
-    const filteredType = jsTypes?.find((type) => type === valueType);
-
-    if (filteredType) {
-      this.constructorOptions[propertyIndex].value = { type: filteredType, value: value };
-      return this.constructorOptions[propertyIndex];
-    }
+    logger.error(new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`));
     return undefined;
   }
 
   /**
-   * -validateProperty-function A method to validate if the provided value can be used by the property
+   * A getter to get js types for a property
    * @param propertyName name of the property
-   * @param propertyValue value for the property
-   * @returns true if value can be used false otherwise
+   * @returns js types accepted by the property
    */
-  validateProperty(propertyName: string, value: any) {
-    const types = this.get(propertyName)?.types;
+  getJsType(propertyName: string): string[] | undefined {
+    if (
+      this.dataProviderConstructorOptions.hasOwnProperty(propertyName) &&
+      this.dataProviderConstructorOptions[propertyName].jsType
+    ) {
+      return this.dataProviderConstructorOptions[propertyName].jsType;
+    }
+    logger.error(new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`));
+    return undefined;
+  }
+
+  /**
+   * A setter to set constructor options property value
+   * @param propertyName Name of the property
+   * @param propertyValue Value for the property
+   * @returns Property object
+   */
+  set(propertyName: string, value: any): IDataProviderChildrenConstructorPropertyOptions | undefined {
+    const isValid = this.validate(propertyName, value);
+    if (!isValid) {
+      throw new ErrorInternal(`Value is not valid for the property ${propertyName}`);
+    }
+    if (this.dataProviderConstructorOptions.hasOwnProperty(propertyName)) {
+      this.dataProviderConstructorOptions[propertyName].value = value;
+    }
+
+    return this.dataProviderConstructorOptions[propertyName];
+  }
+
+  /**
+   * A method to validate if the provided value can be used by the property
+   * @param propertyName Name of the property
+   * @param propertyValue Value for the property
+   * @returns True if value can be used, False otherwise
+   */
+  validate(propertyName: string, value: any): boolean {
+    const types = this.get(propertyName)?.type;
     if (types) {
       let result = false;
       types.forEach((type) => {
