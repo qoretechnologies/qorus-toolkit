@@ -26,6 +26,9 @@ exports[`QorusLogin Utility Class Tests Should return api paths for the selected
   "jobs": {
     "browse": "/api/latest/jobs",
   },
+  "workflows": {
+    "browse": "/api/latest/workflows",
+  },
 }
 `;
 
