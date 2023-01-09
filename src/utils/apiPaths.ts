@@ -10,7 +10,15 @@ export interface IApiPaths {
   /**
    * Api paths for the QorusJobs
    */
-  jobs?: IApiPathsJobs;
+  jobs: IApiPathsJobs;
+  /**
+   * Api paths for the QorusWorkflows
+   */
+  workflows: IApiPathsWorkflows;
+}
+
+export interface IApiPathsWorkflows {
+  browse: string;
 }
 
 export interface IApiPathsJobs {
@@ -68,6 +76,12 @@ export const apiPathsInitial: IApiPaths = {
   dataProviders: {
     browse: '/api/latest/dataprovider/browse',
   },
+  jobs: {
+    browse: '/api/latest/jobs',
+  },
+  workflows: {
+    browse: '/api/latest/workflows',
+  },
 };
 
 /**
@@ -88,6 +102,12 @@ export const createApiPaths = (props: IWithEndpointVersion): IApiPaths => {
     },
     dataProviders: {
       browse: `/api/${V}/dataprovider/browse`,
+    },
+    jobs: {
+      browse: `/api/${V}/jobs`,
+    },
+    workflows: {
+      browse: `/api/${V}/workflows`,
     },
   };
 };
