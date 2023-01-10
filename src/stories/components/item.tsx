@@ -8,6 +8,7 @@ import {
   ReqoreTextEffect,
 } from '@qoretechnologies/reqore';
 import { IReqoreCollectionItemProps } from '@qoretechnologies/reqore/dist/components/Collection/item';
+import { IReqoreEffect } from '@qoretechnologies/reqore/dist/components/Effect';
 import { IReqorePanelProps } from '@qoretechnologies/reqore/dist/components/Panel';
 import { map, size } from 'lodash';
 import { IComments, IMethodParamTypes, IMethodReturnType } from '../types';
@@ -25,15 +26,11 @@ export interface IDocumentationItemsProps extends IReqorePanelProps {
   parent?: string;
 }
 
-export const asyncEffect = {
+export const asyncEffect: IReqoreEffect = {
   gradient: {
     direction: 'to right bottom',
-    colors: {
-      0: '#ff95007c',
-      100: '#ff9600',
-    },
+    colors: '#ff9500',
   },
-  color: '#ffffff',
 };
 
 export const DocumentationItem = ({
@@ -57,15 +54,7 @@ export const DocumentationItem = ({
         <ReqoreSpacer height={20} />
         {children && (
           <>
-            <ReqoreMessage
-              inverted
-              intent="info"
-              effect={{
-                color: '#ffffff',
-              }}
-            >
-              {children}
-            </ReqoreMessage>
+            <ReqoreMessage intent="info">{children}</ReqoreMessage>
             <ReqoreSpacer height={30} />
           </>
         )}
@@ -84,7 +73,7 @@ export const DocumentationItem = ({
                 color: '#ffffff',
               }}
             >
-              <pre>{label}</pre>
+              <pre style={{ wordBreak: 'break-all', whiteSpace: 'break-spaces' }}>{label}</pre>
             </ReqoreMessage>
           </ReqorePanel>
         )}
@@ -147,13 +136,7 @@ export const DocumentationItem = ({
         {size(returnTypes) ? (
           <ReqorePanel label="Returns" minimal headerSize={4} flat opacity={0} padded={false}>
             {rest.async && (
-              <ReqoreMessage
-                customTheme={{ main: '#ff9600' }}
-                icon="ClockwiseLine"
-                inverted
-                size="small"
-                effect={asyncEffect}
-              >
+              <ReqoreMessage icon="ClockwiseLine" minimal effect={asyncEffect}>
                 This method is asynchronous and returns a Promise
               </ReqoreMessage>
             )}

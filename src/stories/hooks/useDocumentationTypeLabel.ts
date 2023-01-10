@@ -5,6 +5,7 @@ import { getTypeOrInterfaceData, isCapitalized } from '../utils';
 
 export interface ITypeLabel {
   type: string;
+  linkableType: string;
   isLinkable: boolean;
   info?: any;
 }
@@ -21,13 +22,14 @@ export const transformTypeLabel = (label: TTypeLabel): string =>
     ? (label as any).type || (label as any).label
     : label;
 
-export default function (label: TTypeLabel) {
+export default function (label: TTypeLabel): ITypeLabel {
   const type: string = transformTypeLabel(label);
-  const isLinkable: boolean = isCapitalized(type) && type !== 'T';
+  const isLinkable: boolean = isCapitalized(type) && type !== 'T' && !type.startsWith('Record');
+  const linkableType = type.replace('[ ]', '');
 
   if (isLinkable) {
-    return { type, isLinkable, info: getTypeOrInterfaceData(type) };
+    return { type, isLinkable, info: getTypeOrInterfaceData(linkableType), linkableType };
   }
 
-  return { type, isLinkable };
+  return { type, isLinkable, linkableType };
 }

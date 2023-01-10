@@ -5,11 +5,14 @@ import {
   ReqoreControlGroup,
   ReqoreH1,
   ReqoreH2,
+  ReqoreInput,
   ReqoreMessage,
   ReqoreSpacer,
 } from '@qoretechnologies/reqore';
 import { IReqoreTagProps } from '@qoretechnologies/reqore/dist/components/Tag';
 import { linkTo } from '@storybook/addon-links';
+import { size } from 'lodash';
+import { useState } from 'react';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { obsidian as style } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
@@ -25,9 +28,24 @@ export interface IDocumentationOverviewProps {
 export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProps) => {
   const {
     comments: { summary },
-    properties,
-    methods,
+    properties = [],
+    methods = [],
   } = getClassData(name);
+  const [methodsQuery, setMethodsQuery] = useState('');
+  const [propertiesQuery, setPropertiesQuery] = useState('');
+
+  const filteredMethods = methods.filter((method) => {
+    if (!methodsQuery) return true;
+
+    return method.name?.toLowerCase().includes(methodsQuery.toLowerCase());
+  });
+
+  const filteredProperties = properties.filter((property) => {
+    if (!propertiesQuery) return true;
+
+    return property.name?.toLowerCase().includes(propertiesQuery.toLowerCase());
+  });
+
   return (
     <ReqoreColumns style={{ maxWidth: '800px', margin: '0 auto' }}>
       <ReqoreColumn flexFlow="column" alignItems="stretch">
@@ -37,36 +55,59 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
           {code || `import { ${name} } from '@qoretechnologies/qorus-toolkit'`}
         </SyntaxHighlighter>
         <ReqoreSpacer height={20} />
-        <ReqoreMessage size="normal" inverted effect={{ color: '#ffffff' }} intent="info" icon="InformationLine">
+        <ReqoreMessage intent="info" icon="InformationLine">
           <ReactMarkdown>{summary ?? ''}</ReactMarkdown>
         </ReqoreMessage>
         <ReqoreSpacer height={40} />
         <ReqoreColumns columnsGap="25px">
-          <ReqoreColumn flexFlow="column">
-            <ReqoreH2>Properties</ReqoreH2>
-            <ReqoreSpacer height={20} />
-            <ReqoreControlGroup vertical fluid>
-              {properties.map((prop) => (
-                <ReqoreButton
-                  wrap
-                  description={prop.comments?.summary || '-'}
-                  icon="CodeBoxLine"
-                  rightIcon="ExternalLinkLine"
-                  badge={{
-                    label: useDocumentationTypeLabel(prop.type)?.type,
-                  }}
-                  onClick={linkTo(`${name}.properties`, toCapitalCase(prop.name))}
-                >
-                  {prop.name}
-                </ReqoreButton>
-              ))}
-            </ReqoreControlGroup>
-          </ReqoreColumn>
+          {size(properties) ? (
+            <ReqoreColumn flexFlow="column">
+              <ReqoreH2>Properties</ReqoreH2>
+              <ReqoreSpacer height={20} />
+              <ReqoreControlGroup fluid>
+                <ReqoreInput
+                  value={propertiesQuery}
+                  onChange={(e: any) => setPropertiesQuery(e.target.value)}
+                  onClearClick={() => setPropertiesQuery('')}
+                  placeholder="Filter properties..."
+                  icon="FilterLine"
+                />
+              </ReqoreControlGroup>
+              <ReqoreSpacer height={20} />
+              <ReqoreControlGroup vertical fluid>
+                {filteredProperties.map((prop) => (
+                  <ReqoreButton
+                    wrap
+                    description={prop.comments?.summary || '-'}
+                    icon="CodeBoxLine"
+                    rightIcon="ExternalLinkLine"
+                    badge={{
+                      label: useDocumentationTypeLabel(prop.type)?.type,
+                      wrap: true,
+                    }}
+                    onClick={linkTo(`${name}.properties`, toCapitalCase(prop.name))}
+                  >
+                    {prop.name}
+                  </ReqoreButton>
+                ))}
+              </ReqoreControlGroup>
+            </ReqoreColumn>
+          ) : null}
           <ReqoreColumn flexFlow="column">
             <ReqoreH2>Methods</ReqoreH2>
             <ReqoreSpacer height={20} />
+            <ReqoreControlGroup fluid>
+              <ReqoreInput
+                value={methodsQuery}
+                onChange={(e: any) => setMethodsQuery(e.target.value)}
+                onClearClick={() => setMethodsQuery('')}
+                placeholder="Filter methods..."
+                icon="FilterLine"
+              />
+            </ReqoreControlGroup>
+            <ReqoreSpacer height={20} />
             <ReqoreControlGroup vertical fluid>
-              {methods?.map((prop) => (
+              {filteredMethods?.map((prop) => (
                 <ReqoreButton
                   wrap
                   description={prop.comments?.summary || '-'}
@@ -78,6 +119,7 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
                         ? `Promise<${useDocumentationTypeLabel(prop.returnTypes)?.type}>`
                         : useDocumentationTypeLabel(prop.returnTypes)?.type,
                       effect: prop.async ? asyncEffect : undefined,
+                      wrap: true,
                     } as IReqoreTagProps
                   }
                   onClick={linkTo(`${name}.methods`, toCapitalCase(prop.name as string))}

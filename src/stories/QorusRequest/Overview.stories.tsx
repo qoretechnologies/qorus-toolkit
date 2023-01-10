@@ -4,6 +4,7 @@ import { argsData } from '../utils';
 
 export default {
   title: 'API/QorusRequest',
+  id: 'QorusRequest',
   argTypes: {
     ...argsData,
   },

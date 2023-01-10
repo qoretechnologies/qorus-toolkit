@@ -1809,10 +1809,10 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.6.tgz#cee20bd55e68a1720bdab363ecf0c821ded4cd45"
   integrity sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==
 
-"@qoretechnologies/reqore@^0.29.1":
-  version "0.29.1"
-  resolved "https://registry.yarnpkg.com/@qoretechnologies/reqore/-/reqore-0.29.1.tgz#579f6b595515b561c1d2c0faf631e90c600b30e8"
-  integrity sha512-2IE6yryzOsW9ezye6G5PnirT3Biy1EknOMrs9rD6pGJzTnkQzMg4QHtjVY3GQAMy4idEENkUj1ph1zxcLeLuIQ==
+"@qoretechnologies/reqore@^0.29.2":
+  version "0.29.2"
+  resolved "https://registry.yarnpkg.com/@qoretechnologies/reqore/-/reqore-0.29.2.tgz#3efe21740cdc4a4356d99d0242680144c5341d2f"
+  integrity sha512-RorwDsuXhCCD3CcTP539XDeLyLwsZXSjQK9L97z/s1PdVijT0bRYSh45Clg2zdrW8KcH3ak6fCH1eGLapmtDIw==
   dependencies:
     "@popperjs/core" "^2.10.2"
     "@react-spring/web" "^9.2.4"
