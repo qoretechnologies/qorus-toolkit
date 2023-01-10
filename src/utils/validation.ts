@@ -39,14 +39,14 @@ export const templatesList = [
   'qore-expr-value',
 ];
 /*eslint-disable */
-export type ValueTemplate = any;
+export type TValueTemplate = any;
 
 /**
  * Function to verify if the value is a Template string
  * @param value value for the property
  * @returns true if value is a template string
  */
-export const isValueTemplate = (value?: ValueTemplate) => {
+export const isValueTemplate = (value?: TValueTemplate) => {
   if (typeof value !== 'string' || !value?.startsWith('$') || !value?.includes(':')) {
     return false;
   }
@@ -104,13 +104,13 @@ export const splitByteSize = (value: string): [number, string] | null => {
 };
 
 export type TOption = {
-  type: IQorusType;
+  type: TQorusType;
   value: any;
   op?: TOperatorValue;
 };
 export type TOperatorValue = string | string[] | undefined | null;
 
-export type IQorusType =
+export type TQorusType =
   | 'string'
   | 'int'
   | 'list'
@@ -130,13 +130,13 @@ export type IQorusType =
   | 'file-as-string'
   | 'number';
 
-export type IOptions =
+type TOptions =
   | {
       [optionName: string]: TOption;
     }
   | undefined;
 export interface IOptionsSchemaArg {
-  type: IQorusType | IQorusType[];
+  type: TQorusType | TQorusType[];
   default_value?: any;
   required?: boolean;
   allowed_values?: any[];
@@ -157,14 +157,14 @@ export type TProviderTypeSupports = {
 };
 
 export type TProviderTypeArgs = {
-  [key in `${TRecordType}_args`]?: IOptions | IOptions[];
+  [key in `${TRecordType}_args`]?: TOptions | TOptions[];
 };
 
 export interface IProviderType extends TProviderTypeSupports, TProviderTypeArgs {
   type: string;
   name: string;
   path?: string;
-  options?: IOptions;
+  options?: TOptions;
   subtype?: 'request' | 'response';
   hasApiContext?: boolean;
   optionsChanged?: boolean;
@@ -173,13 +173,13 @@ export interface IProviderType extends TProviderTypeSupports, TProviderTypeArgs 
   args?: any;
   supports_request?: boolean;
   is_api_call?: boolean;
-  search_options?: IOptions;
+  search_options?: TOptions;
   descriptions?: { [key: string]: string };
 }
 
 export type TApiManagerFactory = 'swagger' | 'soap';
 export type TApiManagerEndpointType = 'fsm' | 'method';
-export type TApiManagerOptions = IOptions;
+export type TApiManagerOptions = TOptions;
 export type TApiManagerEndpoint = {
   endpoint: string;
   type?: TApiManagerEndpointType;

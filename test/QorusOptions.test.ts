@@ -11,9 +11,11 @@ if (!(process.env.ENDPOINT && process.env.TESTUSER && process.env.TESTPASS)) {
 
 describe('QorusDataProvider Utility Class Tests', () => {
   beforeAll(async () => {
-    await QorusAuth.initEndpoint({
+    await QorusAuth.addEndpoint({
       url: process.env.ENDPOINT!,
-      id: 'rippy1',
+      endpointId: 'rippy1',
+    });
+    await QorusAuth.login({
       user: process.env.TESTUSER,
       pass: process.env.TESTPASS,
     });
@@ -69,7 +71,7 @@ describe('QorusDataProvider Utility Class Tests', () => {
     const options = factoryProvider.getOptions('db');
     options?.set('datasource', 'pgsql:omquser/omquser@omquser%bee');
 
-    const isValid = options?.validate();
+    const isValid = options?.validateRequired();
 
     expect(isValid).toEqual(true);
   });
@@ -90,7 +92,7 @@ describe('QorusDataProvider Utility Class Tests', () => {
     const factoryProvider = await dataProviderBrowse.get('factory');
     const options = factoryProvider.getOptions('db');
 
-    expect(options?.validateProperty('datasource', 'pgsql:omquser/omquser@omquser%bee')).toEqual(true);
+    expect(options?.validate('datasource', 'pgsql:omquser/omquser@omquser%bee')).toEqual(true);
   });
 
   it('should fail with error, Children for the provider does not exist', async () => {
@@ -104,7 +106,7 @@ describe('QorusDataProvider Utility Class Tests', () => {
     const dataProviderBrowse = await QorusDataProvider.getRecord();
     const factoryProvider = await dataProviderBrowse.get('factory');
     const options = factoryProvider.getOptions('db');
-    options?.validate();
+    options?.validateRequired();
     expect(loggerMock.mock.lastCall[0]).toContain('datasource is required for db provider');
   });
 });

@@ -279,6 +279,24 @@ describe('QorusDataProvider Utility Class Tests', () => {
     expect(QorusValidator.validate('class-array', [])).toEqual(false);
   });
 
+  it('should return true if the value is a valid Qorus version', () => {
+    expect(QorusValidator.validate('version', 1)).toEqual(true);
+    expect(QorusValidator.validate('version', 2)).toEqual(true);
+    expect(QorusValidator.validate('version', 3)).toEqual(true);
+    expect(QorusValidator.validate('version', 4)).toEqual(true);
+    expect(QorusValidator.validate('version', 5)).toEqual(true);
+    expect(QorusValidator.validate('version', 6)).toEqual(true);
+    expect(QorusValidator.validate('version', 'latest')).toEqual(true);
+  });
+
+  it('should return false if the value is not a valid Qorus version', () => {
+    expect(QorusValidator.validate('version', 0)).toEqual(false);
+    expect(QorusValidator.validate('version', false)).toEqual(false);
+    expect(QorusValidator.validate('version', '')).toEqual(false);
+    expect(QorusValidator.validate('version', null)).toEqual(false);
+    expect(QorusValidator.validate('version', '1')).toEqual(false);
+  });
+
   it('should return type of the value', () => {
     expect(QorusValidator.getTypeFromValue(true)).toEqual('bool');
     expect(QorusValidator.getTypeFromValue(1)).toEqual('int');

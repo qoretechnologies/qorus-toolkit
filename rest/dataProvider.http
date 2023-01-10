@@ -22,10 +22,10 @@ content-type: application/json
 PUT https://sandbox:sandbox@sandbox.qoretechnologies.com/api/latest/dataprovider/browse/factory/db
 content-type: application/json
 
-# {
-#     "context": "record",
-#     "provider_options": {"datasource": "pgsql:omquser/omquser@omquser%bee"}
-# }
+{
+    "context": "record",
+    "provider_options": {"datasource": "pgsql:omquser/omquser@omquser%bee"}
+}
 ###
 # /{factoryName}
 # 4th Step 

@@ -1,3 +1,5 @@
 node_modules
 dist
 test
+typedocParser
+src/stories/docs.ts
