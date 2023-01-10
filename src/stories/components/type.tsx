@@ -19,8 +19,6 @@ export const DocumentationType = ({ link, label, ...rest }: IDocumentationType) 
     linkableType.startsWith('Qorus') ? 'overview' : toCapitalCase(linkableType),
   );
 
-  console.log(info);
-
   return (
     <ReqoreTag
       {...rest}
