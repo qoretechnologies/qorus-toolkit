@@ -44,7 +44,7 @@ $ yarn install
 
 ## Docs & Community
 
-- [Documentation]()
+- [Documentation](https://discord.gg/T7vgS6nh)
 - [GitHub Organization](https://github.com/qoretechnologies) for Official open-source projects
 - [Discord]() for support, discussion, news and latest release updates
 
