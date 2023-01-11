@@ -1,3 +1,9 @@
+<div align="center">
+  <br><br><br>
+  <img src="./public/logo.png" alt="Unstated Logo" width="400">
+  <br><br><br>
+</div>
+
 # @qoretechnologies/qorus-toolkit
 
 A modern TypeScript utility library for enhancing QoreTechnologies no-code infrastructure solutions.
