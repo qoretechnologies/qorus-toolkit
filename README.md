@@ -4,7 +4,9 @@
   <br><br><br>
 </div>
 
-# @qoretechnologies/qorus-toolkit
+@qoretechnologies/qorus-toolkit
+
+> Currently in beta, more features and integrations yet to be added
 
 A modern TypeScript utility library for enhancing QoreTechnologies no-code infrastructure solutions.
 
@@ -19,16 +21,16 @@ Installation is done using the
 [`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally):
 
 ```console
+$ yarn add @qoretechnologies/qorus-toolkit
+```
+
+Alternatively you can also use npm
+
+```console
 $ npm install @qoretechnologies/qorus-toolkit
 ```
 
-Alternatively you can also use yarn
-
-```console
-$ yarn install
-```
-
-## Features
+## Current Features
 
 - QorusAuthenticator
 
@@ -40,11 +42,14 @@ $ yarn install
 
 - QorusRequest
 
-  An HTTPS request handler to manage API requests to QorusIntegrationEngine(R)
+  An HTTPS request handler to manage API requests to Qorus Integration Engine(R)
+
+- QorusOptions
+  A Qorus Integration Engine(R) API options manager
 
 ## Docs & Community
 
-- [Documentation]()
+- [Documentation](https://toolkit.qoretechnologies.com)
 - [GitHub Organization](https://github.com/qoretechnologies) for Official open-source projects
 - [Discord](https://discord.gg/T7vgS6nh) for support, discussion, news and latest release updates
 
@@ -53,19 +58,6 @@ $ yarn install
 The Qorus-Toolkit philosophy is to provide a fast and modular API wrapper to connect with Qore Technologies server API which enables it to be utilized in any node project with ease.
 
 Qorus-Toolkit will be used with Qorus-Toolkit-React to provide a complete solution with modular components to our enterprise clients.
-
-## Examples
-
-Interactive examples can be found in the documentation. [Documentation]()
-
-```console
-var qorusAuth = require("@qoretechnologies/qorus-toolkit");
-const { QorusAuthenticator } = qorusAuth;
-
-//Initialize the endpoint before authentication
-const endpoint = QorusAuthenticator.addEndpoint({ id: 'rippy', url: 'https://sandbox.qoretechnologies.com', version:'latest' });
-const token = await QorusAuthenticator.login({ user: 'sandbox', pass: 'sandbox' });
-```
 
 ## Contributing
 
