@@ -71,4 +71,4 @@ If you discover a security vulnerability in Qorus-Toolkit, please see [Security 
 
 ## License
 
-[MIT](LICENSE.md)
+[MIT](LICENSE)
