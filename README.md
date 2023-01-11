@@ -4,7 +4,7 @@
   <br><br><br>
 </div>
 
-@qoretechnologies/qorus-toolkit
+# @qoretechnologies/qorus-toolkit
 
 > Currently in beta, more features and integrations yet to be added
 
@@ -71,4 +71,4 @@ If you discover a security vulnerability in Qorus-Toolkit, please see [Security 
 
 ## License
 
-[MIT](LICENSE)
+[MIT](LICENSE.md)
