@@ -312,10 +312,10 @@ export class QorusAuthenticator {
       data: { user, pass },
     });
     const responseData = resp as QorusRequestResponse;
-    if (typeof responseData.data === 'undefined') {
+    if (typeof responseData?.data === 'undefined') {
       throw new ErrorInternal(`${responseData ?? ''}`);
     }
-    if (responseData?.data) {
+    if (responseData?.data?.token) {
       const { token } = responseData?.data;
       if (!token) {
         throw new Error('There was an error authenticating user, token is invalid, please try again.');
