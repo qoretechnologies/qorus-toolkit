@@ -313,7 +313,7 @@ export class QorusAuthenticator {
     });
     const responseData = resp as QorusRequestResponse;
     if (typeof responseData.data === 'undefined') {
-      throw new ErrorInternal(`${responseData}`);
+      throw new ErrorInternal(`${responseData ?? ''}`);
     }
     if (responseData?.data) {
       const { token } = responseData?.data;

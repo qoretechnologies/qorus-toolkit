@@ -278,8 +278,8 @@ const fetchProvider = async (obj: QorusDataProvider, context: TContext, select?:
   const response = result as QorusRequestResponse;
   const error = result as IErrorQorusRequestParams;
 
-  if (error.status) {
-    throw new ErrorQorusRequest(error);
+  if (error?.status) {
+    throw new ErrorQorusRequest(error ?? '');
   }
   const providerResponse = response?.data;
   const responseError = error;
