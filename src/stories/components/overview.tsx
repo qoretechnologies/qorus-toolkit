@@ -83,7 +83,7 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
                     icon="CodeBoxLine"
                     rightIcon="ExternalLinkLine"
                     badge={{
-                      label: useDocumentationTypeLabel(prop.type)?.type,
+                      label: useDocumentationTypeLabel(prop.type).type,
                       wrap: true,
                     }}
                     onClick={linkTo(`${name}.properties`, toCapitalCase(prop.name))}

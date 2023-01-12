@@ -291,7 +291,7 @@ class DocGenerator {
       types = typeJson.types ?? undefined;
     }
 
-    if (typeJson.hasOwnProperty('typeArguments')) {
+    if (typeJson?.hasOwnProperty('typeArguments')) {
       typeArguments = typeJson.typeArguments ?? undefined;
     }
 

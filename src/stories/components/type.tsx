@@ -45,7 +45,7 @@ export const DocumentationType = ({ link, label, ...rest }: IDocumentationType) 
                       <ReqoreTagGroup>
                         <ReqoreTag labelKey="{" intent="muted" />
                         {info.params?.map((param: IParamTypes) => (
-                          <ReqoreTagGroup>
+                          <ReqoreTagGroup key={param.label}>
                             <ReqoreSpacer width={20} style={{ display: 'inline-block' }} />
                             <ReqoreTag
                               intent="muted"
