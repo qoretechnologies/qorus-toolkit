@@ -44,14 +44,14 @@ export const DocumentationType = ({ link, label, ...rest }: IDocumentationType) 
                     <>
                       <ReqoreTagGroup>
                         <ReqoreTag labelKey="{" intent="muted" />
-                        {info.params?.map((param) => (
+                        {info.params?.map((param: IParamTypes) => (
                           <ReqoreTagGroup>
                             <ReqoreSpacer width={20} style={{ display: 'inline-block' }} />
                             <ReqoreTag
                               intent="muted"
                               icon="CodeLine"
                               labelKey={`${param.label}:`}
-                              label={useDocumentationTypeLabel(param.type)?.type}
+                              label={useDocumentationTypeLabel(param.type).type}
                             />
                           </ReqoreTagGroup>
                         ))}
@@ -62,7 +62,7 @@ export const DocumentationType = ({ link, label, ...rest }: IDocumentationType) 
 
                   <ReqoreTagGroup>
                     {'type' in info ? (
-                      <ReqoreTag intent="muted" icon="CodeLine" label={useDocumentationTypeLabel(info.type)?.type} />
+                      <ReqoreTag intent="muted" icon="CodeLine" label={useDocumentationTypeLabel(info.type).type} />
                     ) : undefined}
                   </ReqoreTagGroup>
                 </ReqoreMessage>
@@ -73,3 +73,8 @@ export const DocumentationType = ({ link, label, ...rest }: IDocumentationType) 
     />
   );
 };
+
+export interface IParamTypes {
+  type: string;
+  label: string;
+}

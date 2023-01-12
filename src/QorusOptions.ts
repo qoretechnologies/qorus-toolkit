@@ -50,7 +50,7 @@ export class QorusOptions {
 
   private adjustChildren() {
     if (this.dataProviderConstructorOptions) {
-      Object.keys(this.dataProviderConstructorOptions).map((key) => {
+      Object.keys(this.dataProviderConstructorOptions).forEach((key) => {
         this.dataProviderConstructorOptions[key].jsType = this.createJsTypes(
           this.dataProviderConstructorOptions[key].type,
         );

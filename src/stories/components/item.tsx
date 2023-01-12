@@ -150,6 +150,7 @@ export const DocumentationItem = ({
             <ReqoreTagGroup>
               {returnTypes?.map((type) => (
                 <DocumentationType
+                  key={type.label}
                   {...{
                     icon: 'CodeLine',
                     label: type.label || 'string',

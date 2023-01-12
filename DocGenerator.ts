@@ -50,14 +50,14 @@ class DocGenerator {
     this.allClasses = classObj;
 
     let interfaceArray: InterfaceParser[] = [];
-    this.project.namespaces.forEach((namespace) => {
+    this.project.namespaces?.forEach((namespace) => {
       interfaceArray = [...interfaceArray, ...namespace.interfaces];
     });
     interfaceArray = [...interfaceArray, ...this.project.interfaces];
     this.allInterfaces = interfaceArray;
 
     this.allTypeAliases = this.project.typeAliases;
-    this.project.namespaces.forEach((namespace) => {
+    this.project.namespaces?.forEach((namespace) => {
       this.allTypeAliases = [...this.allTypeAliases, ...namespace.typeAliases];
     });
   }
@@ -168,7 +168,7 @@ class DocGenerator {
     let typeAliasTypes;
     if (adjustedType === 'union') {
       const typeJsonTypes = typeJson?.types;
-      typeAliasTypes = typeJsonTypes.map((obj) => {
+      typeAliasTypes = typeJsonTypes?.map((obj) => {
         return obj.value;
       });
     } else {
@@ -245,7 +245,7 @@ class DocGenerator {
 
         typeObjArr.map((type, index) => {
           finalTypeString += this.typeParser(type);
-          if (typeObj.name === 'Record' && !(index + 1 === typeObjects.length)) {
+          if (typeObj.name === 'Record' && index + 1 !== typeObjects.length) {
             finalTypeString += ', ';
           }
         });
@@ -287,7 +287,7 @@ class DocGenerator {
     const typeKind = typeJson?.kind ?? '';
     let types, typeArguments;
 
-    if (typeJson.hasOwnProperty('types')) {
+    if (typeJson?.hasOwnProperty('types')) {
       types = typeJson.types ?? undefined;
     }
 
@@ -491,10 +491,10 @@ class DocGenerator {
     const allClasses = this.getAllClasses();
     const allIMethodDocs = allClasses?.map((classObj) => {
       const className = classObj?.name;
-      const classMethods = classObj.methods.map((method) => {
+      const classMethods = classObj?.methods.map((method) => {
         const data = this.createMethodDocs(method.name, className);
         const methodDocs = {
-          className: classObj.name,
+          className: classObj?.name,
           data,
         };
         if (data?.accessibility === 'private') {
@@ -508,10 +508,8 @@ class DocGenerator {
 
     allIMethodDocs?.forEach((method) =>
       method.forEach((meth) => {
-        if (meth?.className && meth.data?.name) {
-          if (meth !== null) {
-            finalIMethodDocs.push(meth);
-          }
+        if (meth !== null && meth?.className && meth.data?.name) {
+          finalIMethodDocs.push(meth);
         }
       }),
     );
@@ -673,7 +671,7 @@ class DocGenerator {
       returnString += this.typeParser(returnType);
       returnString += ' >';
     } else {
-      returnString += this.typeParser(returnType);
+      returnString += this.typeParser(returnType ?? '');
     }
     if (returnString !== ': ') methodDefinition += returnString;
     return methodDefinition;

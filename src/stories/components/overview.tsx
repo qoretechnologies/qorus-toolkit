@@ -77,6 +77,7 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
               <ReqoreControlGroup vertical fluid>
                 {filteredProperties.map((prop) => (
                   <ReqoreButton
+                    key={prop.name}
                     wrap
                     description={prop.comments?.summary || '-'}
                     icon="CodeBoxLine"
@@ -109,6 +110,7 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
             <ReqoreControlGroup vertical fluid>
               {filteredMethods?.map((prop) => (
                 <ReqoreButton
+                  key={prop.name}
                   wrap
                   description={prop.comments?.summary || '-'}
                   icon="CodeBoxFill"
@@ -116,8 +118,8 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
                   badge={
                     {
                       label: prop.async
-                        ? `Promise<${useDocumentationTypeLabel(prop.returnTypes)?.type}>`
-                        : useDocumentationTypeLabel(prop.returnTypes)?.type,
+                        ? `Promise<${useDocumentationTypeLabel(prop.returnTypes).type}>`
+                        : useDocumentationTypeLabel(prop.returnTypes).type,
                       effect: prop.async ? asyncEffect : undefined,
                       wrap: true,
                     } as IReqoreTagProps

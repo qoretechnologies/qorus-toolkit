@@ -185,15 +185,9 @@ export class QorusAuthenticator {
         return false;
       }
 
-      if (resp.data.noauth) {
-        this.noauth = resp.data.noauth;
-        console.log('No auth enabled, authentication not required');
-        return true;
-      }
-
-      this.noauth = false;
-
-      return false;
+      this.noauth = resp.data.noauth;
+      console.log('No auth enabled, authentication not required');
+      return true;
     } catch (error: any) {
       throw new ErrorInternal(
         `Unable to connect to ${actualEndpoint.url}, please check the url / connection and try again. ${
@@ -321,14 +315,17 @@ export class QorusAuthenticator {
     if (typeof responseData.data === 'undefined') {
       throw new ErrorInternal(`${responseData}`);
     }
-    const { token } = responseData?.data ?? null;
-    if (!token) {
-      throw new Error('There was an error authenticating user, token is invalid, please try again.');
-    }
+    if (responseData?.data) {
+      const { token } = responseData?.data;
+      if (!token) {
+        throw new Error('There was an error authenticating user, token is invalid, please try again.');
+      }
 
-    this.selectedEndpoint.authToken = token;
-    setKeyValLocal({ key: `auth-token-${endpointId}`, value: token });
-    return token;
+      this.selectedEndpoint.authToken = token;
+      setKeyValLocal({ key: `auth-token-${endpointId}`, value: token });
+      return token;
+    }
+    return undefined;
   }
 
   /**
