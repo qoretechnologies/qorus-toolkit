@@ -44,11 +44,8 @@ TQorusEndpointURL.storyName = 'TQorusEndpointURL';
 export const TToken = prepareTypeStory(Template, 'TToken');
 TToken.storyName = 'TToken';
 
-export const TDataProviderChildrenConstructorOptions = prepareTypeStory(
-  Template,
-  'TDataProviderChildrenConstructorOptions',
-);
-TDataProviderChildrenConstructorOptions.storyName = 'TDataProviderChildrenConstructorOptions';
+export const TQorusOptions = prepareTypeStory(Template, 'TQorusOptions');
+TQorusOptions.storyName = 'TQorusOptions';
 
 export const TObjectWithStringKey = prepareTypeStory(Template, 'TObjectWithStringKey');
 TObjectWithStringKey.storyName = 'TObjectWithStringKey';

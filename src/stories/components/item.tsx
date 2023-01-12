@@ -29,7 +29,7 @@ export interface IDocumentationItemsProps extends IReqorePanelProps {
 export const asyncEffect: IReqoreEffect = {
   gradient: {
     direction: 'to right bottom',
-    colors: '#ff9500',
+    colors: { 100: '#ff9500' },
   },
 };
 

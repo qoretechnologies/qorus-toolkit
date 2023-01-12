@@ -338,7 +338,7 @@ export interface IDataProviderChildren {
   /**
    * Constructor options for the DataProvider children
    */
-  constructor_options: TDataProviderChildrenConstructorOptions;
+  constructor_options: TQorusOptions;
 
   /**
    * Type of data provider children ex: "nav"
@@ -349,9 +349,9 @@ export interface IDataProviderChildren {
 /**
  * DataProvider children constructor_options property object
  */
-export type TDataProviderChildrenConstructorOptions = Record<string, IDataProviderChildrenConstructorPropertyOptions>;
+export type TQorusOptions = Record<string, IQorusPropertyOptions>;
 
-export interface IDataProviderChildrenConstructorPropertyOptions {
+export interface IQorusPropertyOptions {
   /**
    * Accepted types for the DataProvider constructor_options property
    */

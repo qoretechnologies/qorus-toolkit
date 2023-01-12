@@ -1,11 +1,7 @@
 import { TObjectWithAnyValue, TObjectWithStringKey } from '../src';
 import ErrorInternal from './managers/error/ErrorInternal';
 import logger from './managers/logger';
-import {
-  IDataProviderChildren,
-  IDataProviderChildrenConstructorPropertyOptions,
-  TDataProviderChildrenConstructorOptions,
-} from './QorusDataProvider';
+import { IDataProviderChildren, IQorusPropertyOptions, TQorusOptions } from './QorusDataProvider';
 import QorusValidator from './QorusValidator';
 
 const qorusDataTypesToJsTypesMapper = {
@@ -29,11 +25,11 @@ export class QorusOptions {
   name = '';
 
   // Array of all ProviderOptions for the data provider
-  dataProviderConstructorOptions: TDataProviderChildrenConstructorOptions = {};
+  qorusOptions: TQorusOptions = {};
 
   constructor(children: IDataProviderChildren) {
     this.name = children.name;
-    this.dataProviderConstructorOptions = children.constructor_options;
+    this.qorusOptions = children.constructor_options;
     this.adjustChildren();
   }
 
@@ -42,19 +38,17 @@ export class QorusOptions {
    * @param propertyName Name of the property
    * @returns Property object with name and value
    */
-  get(optionName: string): IDataProviderChildrenConstructorPropertyOptions | undefined {
-    if (this.dataProviderConstructorOptions && this.dataProviderConstructorOptions.hasOwnProperty(optionName)) {
-      return this.dataProviderConstructorOptions[optionName];
+  get(optionName: string): IQorusPropertyOptions | undefined {
+    if (this.qorusOptions && this.qorusOptions.hasOwnProperty(optionName)) {
+      return this.qorusOptions[optionName];
     } else return undefined;
   }
 
   private adjustChildren() {
-    if (this.dataProviderConstructorOptions) {
-      Object.keys(this.dataProviderConstructorOptions).forEach((key) => {
-        this.dataProviderConstructorOptions[key].jsType = this.createJsTypes(
-          this.dataProviderConstructorOptions[key].type,
-        );
-        this.dataProviderConstructorOptions[key].name = key;
+    if (this.qorusOptions) {
+      Object.keys(this.qorusOptions).forEach((key) => {
+        this.qorusOptions[key].jsType = this.createJsTypes(this.qorusOptions[key].type);
+        this.qorusOptions[key].name = key;
       });
     }
   }
@@ -65,9 +59,9 @@ export class QorusOptions {
    */
   validateRequired(): boolean {
     let result = true;
-    for (const key in this.dataProviderConstructorOptions) {
-      if (this.dataProviderConstructorOptions[key].required) {
-        if (!this.dataProviderConstructorOptions[key].value) {
+    for (const key in this.qorusOptions) {
+      if (this.qorusOptions[key].required) {
+        if (!this.qorusOptions[key].value) {
           result = false;
           logger.error(`${key} is required for ${this.name} provider`);
         }
@@ -87,9 +81,9 @@ export class QorusOptions {
     }
 
     const allOptions: TObjectWithAnyValue | undefined = {};
-    Object.keys(this.dataProviderConstructorOptions).forEach((key) => {
-      if (this.dataProviderConstructorOptions[key].value) {
-        allOptions[key] = this.dataProviderConstructorOptions[key].value;
+    Object.keys(this.qorusOptions).forEach((key) => {
+      if (this.qorusOptions[key].value) {
+        allOptions[key] = this.qorusOptions[key].value;
       }
     });
 
@@ -128,13 +122,13 @@ export class QorusOptions {
    * @return Types accepted by the property
    */
   getType(propertyName: string): string[] | undefined {
-    if (this.dataProviderConstructorOptions.hasOwnProperty(propertyName)) {
-      if (!this.dataProviderConstructorOptions[propertyName].type) {
+    if (this.qorusOptions.hasOwnProperty(propertyName)) {
+      if (!this.qorusOptions[propertyName].type) {
         logger.error(
           new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`),
         );
       }
-      return this.dataProviderConstructorOptions[propertyName].type;
+      return this.qorusOptions[propertyName].type;
     }
     logger.error(new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`));
     return undefined;
@@ -146,11 +140,8 @@ export class QorusOptions {
    * @returns js types accepted by the property
    */
   getJsType(propertyName: string): string[] | undefined {
-    if (
-      this.dataProviderConstructorOptions.hasOwnProperty(propertyName) &&
-      this.dataProviderConstructorOptions[propertyName].jsType
-    ) {
-      return this.dataProviderConstructorOptions[propertyName].jsType;
+    if (this.qorusOptions.hasOwnProperty(propertyName) && this.qorusOptions[propertyName].jsType) {
+      return this.qorusOptions[propertyName].jsType;
     }
     logger.error(new ErrorInternal(`Property ${propertyName} doesn't exist in constructor options of ${this.name}`));
     return undefined;
@@ -162,16 +153,16 @@ export class QorusOptions {
    * @param propertyValue Value for the property
    * @returns Property object
    */
-  set(propertyName: string, value: any): IDataProviderChildrenConstructorPropertyOptions | undefined {
+  set(propertyName: string, value: any): IQorusPropertyOptions | undefined {
     const isValid = this.validate(propertyName, value);
     if (!isValid) {
       throw new ErrorInternal(`Value is not valid for the property ${propertyName}`);
     }
-    if (this.dataProviderConstructorOptions.hasOwnProperty(propertyName)) {
-      this.dataProviderConstructorOptions[propertyName].value = value;
+    if (this.qorusOptions.hasOwnProperty(propertyName)) {
+      this.qorusOptions[propertyName].value = value;
     }
 
-    return this.dataProviderConstructorOptions[propertyName];
+    return this.qorusOptions[propertyName];
   }
 
   /**
