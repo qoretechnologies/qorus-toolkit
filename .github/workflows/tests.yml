@@ -45,12 +45,20 @@ jobs:
         id: tests
         run: yarn run test
       - name: Build test
+        env:
+          ENDPOINT_API: ${{ secrets.ENDPOINT_API}}
+          API_USER_NAME: ${{ secrets.API_USER_NAME}}
+          API_USER_PASS: ${{ secrets.API_USER_PASS }}
         id: build_test
         run: yarn run build:test
       - name: Build documentation JSON
         id: build_docs_json
         run: yarn docs
       - name: Publish to Chromatic
+        env:
+          ENDPOINT_API: ${{ secrets.ENDPOINT_API}}
+          API_USER_NAME: ${{ secrets.API_USER_NAME}}
+          API_USER_PASS: ${{ secrets.API_USER_PASS }}
         id: chromatic_publish
         uses: chromaui/action@v1
         with:
