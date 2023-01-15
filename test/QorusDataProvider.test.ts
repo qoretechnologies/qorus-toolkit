@@ -106,9 +106,6 @@ describe('QorusDataProvider Utility Class Tests', () => {
     } catch (error) {
       err = error;
     }
-
-    console.log(typeof err);
-    console.log('result is ', result);
     expect(err instanceof Error).toEqual(true);
   });
 });
