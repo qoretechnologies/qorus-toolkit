@@ -73,7 +73,7 @@ export interface InterfaceDocs {
 export interface ITypeAliasDocs {
   name: string;
   comments?: { summary: string | null };
-  type?: IReturnType | IReturnType[] | string | string[];
+  type?: IReturnType | IReturnType[];
 }
 
 export interface IComments {
