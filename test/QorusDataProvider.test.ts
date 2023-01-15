@@ -100,9 +100,9 @@ describe('QorusDataProvider Utility Class Tests', () => {
     const factory = await dataProviderBrowse.get(browseChildrenNames.factory);
     const factoryChildrenNames = factory.getChildrenNames();
 
-    let err, result;
+    let err;
     try {
-      result = await factory.get(factoryChildrenNames.db);
+      await factory.get(factoryChildrenNames.db);
     } catch (error) {
       err = error;
     }
