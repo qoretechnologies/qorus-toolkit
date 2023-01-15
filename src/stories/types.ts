@@ -61,7 +61,7 @@ export interface IMethodJson {
 export interface InterfaceDocsProperties {
   label: string;
   description?: string | null;
-  type?: string | string[];
+  type?: string | string[] | IReturnType | IReturnType[];
 }
 
 export interface InterfaceDocs {
@@ -73,7 +73,7 @@ export interface InterfaceDocs {
 export interface ITypeAliasDocs {
   name: string;
   comments?: { summary: string | null };
-  type?: string | string[];
+  type?: IReturnType | IReturnType[] | string | string[];
 }
 
 export interface IComments {
@@ -133,6 +133,12 @@ export enum Kind {
   TypeOperator = 'typeOperator',
   Union = 'union',
   Unknown = 'unknown',
+}
+
+export interface IReturnType {
+  masterType?: string;
+  separatorSymbol?: '|' | ',' | '&' | string;
+  type: string[] | string;
 }
 
 // export interface IDocumentationData {}

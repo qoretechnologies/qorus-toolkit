@@ -35,5 +35,5 @@ const prepareStory = newClassPropertyStory(Template, 'QorusOptions');
 export const name = prepareStory('name');
 name.storyName = 'name';
 
-export const dataProviderConstructorOptions = prepareStory('dataProviderConstructorOptions');
-dataProviderConstructorOptions.storyName = 'dataProviderConstructorOptions';
+export const qorusOptions = prepareStory('qorusOptions');
+qorusOptions.storyName = 'qorusOptions';

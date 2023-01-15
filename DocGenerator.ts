@@ -20,6 +20,7 @@ import {
   IMethodReturnType,
   InterfaceDocs,
   IParamType,
+  IReturnType,
   ITypeAliasDocs,
 } from './src/stories/types';
 
@@ -111,7 +112,7 @@ class DocGenerator {
    * @param classObj Class object that you want to search for the method in.
    * @returns Method object with the name that matches the methodName parameter.
    */
-  getMethod(methodName: string, classObj: ClassParser | undefined): ClassMethodParser | undefined {
+  getMethod(methodName: string, classObj?: ClassParser): ClassMethodParser | undefined {
     if (!classObj) return undefined;
     return classObj.methods?.find((method) => method.name === methodName);
   }
@@ -317,6 +318,136 @@ class DocGenerator {
     return returnType;
   }
 
+  getTypeObject(
+    typeObj: ReflectionTypeParser | LiteralTypeParser | ArrayTypeParser | ReferenceTypeParser | any,
+  ): IReturnType {
+    let masterType = '';
+    const types: string[] = [];
+    const separatorSymbol: IReturnType['separatorSymbol'] = this.getSeparatorSymbolForTypeObject(typeObj.kind);
+    if (typeObj instanceof ReferenceTypeParser) {
+      if (typeObj.name === 'Promise' || typeObj.name === 'Record') {
+        masterType = typeObj.name;
+        const typeObjects = typeObj.typeArguments;
+        let typeObjArr: any[] = [];
+        if (typeObj.name === 'Promise') {
+          typeObjArr = typeObjects;
+        } else {
+          typeObjArr = typeObjects;
+        }
+
+        typeObjArr.map((type) => {
+          types.push(this.typeParser(type));
+        });
+      } else {
+        types.push(typeObj.name);
+      }
+    } else if (typeObj instanceof ArrayTypeParser) {
+      // const arrType = typeObj.type;
+      let typeString: string = (typeObj.type as any).name ?? (typeObj.type as any).type;
+
+      typeString += '[ ]';
+
+      types.push(typeString);
+    } else if (typeObj instanceof ReflectionTypeParser) {
+      types.push(this.reflectionTypeParser(typeObj));
+    } else if (typeObj instanceof LiteralTypeParser) {
+      types.push(typeObj.value);
+    } else if (typeObj instanceof IntrinsicTypeParser) {
+      types.push(this.getAdjustedType(typeObj));
+    } else if (typeObj instanceof IntersectionTypeParser || typeObj instanceof UnionTypeParser) {
+      const intersectionTypes = typeObj.types;
+      intersectionTypes?.map((typeNew) => {
+        types.push(this.getTypeString(typeNew));
+      });
+    }
+    if (types.length === 1) {
+      const result = {
+        // separatorSymbol,
+        type: types[0],
+      };
+      return result;
+    }
+
+    const result = {
+      masterType,
+      separatorSymbol,
+      type: types,
+    };
+
+    return result;
+  }
+
+  typeParserObject(typeJson) {
+    const typeKind = typeJson?.kind ?? '';
+    let types, typeArguments;
+
+    if (typeJson?.hasOwnProperty('types')) {
+      types = typeJson.types ?? undefined;
+    }
+
+    if (typeJson?.hasOwnProperty('typeArguments')) {
+      typeArguments = typeJson.typeArguments ?? undefined;
+    }
+
+    const isUnion = typeKind === 'union';
+    const selectedTypeArray = isUnion ? (types ? types : typeArguments) : undefined;
+
+    let finalType: IReturnType[] | IReturnType = [];
+
+    if (selectedTypeArray?.length > 0 && (typeKind === 'union' || typeKind === 'intersection')) {
+      selectedTypeArray.map((parameter) => {
+        const typeObj = this.getTypeObject(parameter);
+        (finalType as IReturnType[]).push(typeObj);
+      });
+    }
+
+    const type = this.getTypeObject(typeJson);
+    if (!finalType || !finalType.length) {
+      finalType = type;
+    }
+
+    let allStringTypes = true;
+    // console.log(finalType);
+    if (Array.isArray(finalType)) {
+      finalType?.map((typeStr) => {
+        if (typeStr.hasOwnProperty('masterType')) {
+          allStringTypes = false;
+        }
+      });
+    }
+
+    if (allStringTypes && Array.isArray(finalType)) {
+      let typesResult: string[] = [];
+      finalType?.map((typeStr) => {
+        // console.log(typeStr);
+
+        typesResult = [...typesResult, typeStr.type as string];
+        // const allTypes = typeStr.types as string[];
+        // allTypes?.map((typeNew) => {
+        //   typesResult = [...typesResult, typeNew];
+        // });
+      });
+      const obj: IReturnType = {
+        separatorSymbol: this.getSeparatorSymbolForTypeObject(typeJson.kind),
+        type: typesResult,
+      };
+      return obj;
+    }
+    return finalType;
+  }
+
+  getSeparatorSymbolForTypeObject(typeKind): IReturnType['separatorSymbol'] {
+    // console.log('this is kind  ', typeKind);
+    switch (typeKind) {
+      case 'union':
+        return '|';
+      case 'intersection':
+        return '&';
+      default:
+        return ',';
+    }
+  }
+
   /**
    * A getter to get the interface documentation
    * @param interfaceObject Json interface object from the parsed project
@@ -338,7 +469,7 @@ class DocGenerator {
       const propertyDocs = {
         label: property.name,
         description: property.comment.description ?? '',
-        type: this.typeParser(property.type),
+        type: this.typeParserObject(property.type),
       };
       return propertyDocs;
     });
@@ -450,7 +581,7 @@ class DocGenerator {
     return docs;
   }
 
-  createITypeAliasDocs(typeAliasObject: string | TypeAliasParser) {
+  createTypeAliasDocs(typeAliasObject: string | TypeAliasParser) {
     let typeAliasObj: TypeAliasParser | undefined;
     if (typeof typeAliasObject === 'string') {
       typeAliasObj = this.getTypeAlias(typeAliasObject);
@@ -461,7 +592,7 @@ class DocGenerator {
       return undefined;
     }
 
-    const type = this.typeParser(typeAliasObj.type);
+    const type = this.typeParserObject(typeAliasObj.type);
 
     const docs: ITypeAliasDocs = {
       name: typeAliasObj.name,
@@ -473,7 +604,7 @@ class DocGenerator {
 
   createAllTypeAliasJson() {
     const docs = this.allTypeAliases.map((obj) => {
-      const objDocs = this.createITypeAliasDocs(obj);
+      const objDocs = this.createTypeAliasDocs(obj);
       return objDocs;
     });
     return docs;

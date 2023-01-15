@@ -28,13 +28,6 @@ const Template: IDocumentationStory = ({ comments, ...rest }, context) => {
 export const IQorusPropertyOptions = prepareInterfaceStory(Template, 'IQorusPropertyOptions');
 IQorusPropertyOptions.storyName = 'IQorusPropertyOptions';
 
-export const IQorusDataProviderConstructorOptions = prepareInterfaceStory(
-  Template,
-  'IQorusDataProviderConstructorOptions',
-);
-
-IQorusDataProviderConstructorOptions.storyName = 'IQorusDataProviderConstructorOptions';
-
 export const IDataProviderResponseData = prepareInterfaceStory(Template, 'IDataProviderResponseData');
 IDataProviderResponseData.storyName = 'IDataProviderResponseData';
 

@@ -5,7 +5,7 @@ import {
   IDocumentationStory,
   IMethodDocs,
   InterfaceDocs,
-  ITypeAliasDocs,
+  ITypeAliasDocs
 } from './types';
 
 export interface IArgData {
@@ -120,7 +120,7 @@ export const getTypeAliasData = (typeAliasName: string): ITypeAliasDocs | undefi
   return selectedTypeAlias;
 };
 
-export const getClassPropertyData = (propertyName: string, className: string): ITypeAliasDocs | undefined => {
+export const getClassPropertyData = (propertyName: string, className: string): ITypeAliasDocs | undefined | any => {
   const classObj = docs.classesDocs.find((classD) => classD.name === className);
   const property = classObj?.properties.find((prop) => prop.name === propertyName);
   return property;
