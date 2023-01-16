@@ -89,7 +89,9 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          args: ':exclamation: There was an error creating release *v${{ steps.save_release_version.outputs.version }}*. Please check the steps below. ${{ toJson(steps) }}'
+          args:
+            ':exclamation: There was an error creating release *v${{ steps.save_release_version.outputs.version }}*. Please check the steps below.
+            \n Chromatic Published at : *v${{ steps.save_release_version.chromatic_publish.url }}* \n ${{ toJson(steps) }}'
         if: failure()
       - name: Discord notification
         env:
