@@ -37,7 +37,7 @@ export interface IQorusRequestParams {
   params?: Record<string, string>;
 }
 
-export interface IDefaultHeaders extends Record<string, string> {
+export interface IDefaultHeaders {
   /**
    * Content type for the Qorus request
    */
@@ -47,6 +47,11 @@ export interface IDefaultHeaders extends Record<string, string> {
    * Accepted data format type by Qorus server
    */
   Accept: string;
+
+  /**
+   * Any record with type string
+   */
+  [x: string]: string;
 }
 
 /**

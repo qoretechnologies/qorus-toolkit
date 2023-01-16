@@ -33,7 +33,7 @@ export interface IDocumentationStory extends Story<IDocumentationProps> {}
 export interface IDocumentationProperty {
   name: string;
   comments?: IComments;
-  type: string | string[];
+  type: IReturnType | IReturnType[];
 }
 
 export interface IDocumentationClass {
@@ -58,16 +58,16 @@ export interface IMethodJson {
   data: IMethodDocs[] | undefined;
 }
 
-export interface InterfaceDocsProperties {
+export interface IInterfaceDocsProperties {
   label: string;
   description?: string | null;
   type?: IReturnType | IReturnType[];
 }
 
-export interface InterfaceDocs {
+export interface IInterfaceDocs {
   name: string;
   comments?: { summary: string | null };
-  params?: InterfaceDocsProperties[];
+  params?: IInterfaceDocsProperties[];
 }
 
 export interface ITypeAliasDocs {

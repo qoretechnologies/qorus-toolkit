@@ -1,7 +1,7 @@
 import { TObjectWithAnyValue, TObjectWithStringKey } from '../src';
 import ErrorInternal from './managers/error/ErrorInternal';
 import logger from './managers/logger';
-import { IDataProviderChildren, IQorusPropertyOptions, TQorusOptions } from './QorusDataProvider';
+import { IDataProviderChildren } from './QorusDataProvider';
 import QorusValidator from './QorusValidator';
 
 const qorusDataTypesToJsTypesMapper = {
@@ -14,7 +14,7 @@ const qorusDataTypesToJsTypesMapper = {
 };
 
 /**
- * QorusOptions is a helper class which makes working Qorus DataProvider constructor_options easier
+ * QorusOptions is a helper class which makes working Qorus constructor_options easier
  * - Validate constructor_options property value
  * - set and get constructor_options property values
  * @returns QorusOptions class object
@@ -24,7 +24,9 @@ export class QorusOptions {
   /** Name of the provider option  */
   name = '';
 
-  // Array of all ProviderOptions for the data provider
+  /**
+   * Array of constructor_options with validated values
+   */
   qorusOptions: TQorusOptions = {};
 
   constructor(children: IDataProviderChildren) {
@@ -54,7 +56,7 @@ export class QorusOptions {
   }
 
   /**
-   * A validator method to check if all the required properties for a data provider contains a value
+   * A validator method to check if all the required properties for constructor_Options contains a value
    * @returns True if values for all the required properties exist, false otherwise
    */
   validateRequired(): boolean {
@@ -184,4 +186,46 @@ export class QorusOptions {
     }
     return false;
   }
+}
+
+/**
+ * Property object for constructor_options
+ */
+export type TQorusOptions = Record<string, IQorusPropertyOptions>;
+
+export interface IQorusPropertyOptions {
+  /**
+   * Accepted types for the constructor_options property
+   */
+  type: string[];
+
+  /**
+   * Description of constructor_options property
+   */
+  desc: string;
+
+  /**
+   * Verifies if the constructor_options property is required
+   */
+  required: boolean;
+
+  /**
+   * Verifies if the constructor_options property is sensitive
+   */
+  sensitive: boolean;
+
+  /**
+   * Property value for a constructor_options property
+   */
+  value?: any;
+
+  /**
+   * Converted Qorus types to jsTypes
+   */
+  jsType?: string[] | undefined;
+
+  /**
+   * Name of a constructor_options property
+   */
+  name?: string;
 }

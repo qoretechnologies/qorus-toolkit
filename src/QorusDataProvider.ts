@@ -1,6 +1,6 @@
 import ErrorQorusRequest, { IErrorQorusRequestParams } from './managers/error/ErrorQorusRequest';
 import logger from './managers/logger';
-import { QorusOptions } from './QorusOptions';
+import { QorusOptions, TQorusOptions } from './QorusOptions';
 import QorusRequest, { QorusRequestResponse } from './QorusRequest';
 import { apiPathsInitial } from './utils/apiPaths';
 
@@ -344,48 +344,6 @@ export interface IDataProviderChildren {
    * Type of data provider children ex: "nav"
    */
   type: string;
-}
-
-/**
- * DataProvider children constructor_options property object
- */
-export type TQorusOptions = Record<string, IQorusPropertyOptions>;
-
-export interface IQorusPropertyOptions {
-  /**
-   * Accepted types for the DataProvider constructor_options property
-   */
-  type: string[];
-
-  /**
-   * Description of DataProvider constructor_options property
-   */
-  desc: string;
-
-  /**
-   * Verifies if the DataProvider constructor_options property is required
-   */
-  required: boolean;
-
-  /**
-   * Verifies if the DataProvider constructor_options property is sensitive
-   */
-  sensitive: boolean;
-
-  /**
-   * Property value for a DataProvider constructor_options property
-   */
-  value?: any;
-
-  /**
-   * Converted Qorus types to jsTypes
-   */
-  jsType?: string[] | undefined;
-
-  /**
-   * Name of the property from construction_options of DataProvider
-   */
-  name?: string;
 }
 
 export interface IDataProviderResponseData {

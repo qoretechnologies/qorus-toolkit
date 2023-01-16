@@ -14,6 +14,7 @@ import {
   UnionTypeParser,
 } from 'typedoc-json-parser';
 import {
+  IInterfaceDocs,
   IJson,
   IMethodDocs,
   IMethodParamTypes,
@@ -21,11 +22,12 @@ import {
   IParamType,
   IReturnType,
   ITypeAliasDocs,
-  InterfaceDocs,
 } from './src/stories/types';
 
 export const parsedProjectDocs = './src/stories/docs.ts';
 export const typedocDocs = './docs/documentation.json';
+
+/*eslint-disable */
 
 class DocGenerator {
   project: ProjectParser;
@@ -69,7 +71,7 @@ class DocGenerator {
   createAllDocsJson() {
     const classesDocs = this.createAllClassesJson();
     const methodDocs = this.createAllMethodsJson();
-    const interfaceDocs: (InterfaceDocs | undefined)[] = this.createAllInterfacesJson();
+    const interfaceDocs: (IInterfaceDocs | undefined)[] = this.createAllInterfacesJson();
     const typeAliasDocs: (ITypeAliasDocs | undefined)[] = this.createAllTypeAliasJson();
 
     // Create a typescript file that exports an object containing classesDocs and methodDocs
@@ -377,7 +379,7 @@ class DocGenerator {
     return result;
   }
 
-  typeParserObject(typeJson) {
+  typeParserObject(typeJson, reverseInternalArray: boolean = false) {
     const typeKind = typeJson?.kind ?? '';
     let types, typeArguments;
 
@@ -395,7 +397,7 @@ class DocGenerator {
     let finalType: IReturnType[] | IReturnType = [];
 
     if (selectedTypeArray?.length > 0 && (typeKind === 'union' || typeKind === 'intersection')) {
-      selectedTypeArray.map((parameter) => {
+      (reverseInternalArray ? selectedTypeArray.reverse() : selectedTypeArray).map((parameter) => {
         const typeObj = this.getTypeObject(parameter);
         (finalType as IReturnType[]).push(typeObj);
       });
@@ -449,7 +451,7 @@ class DocGenerator {
    * @param interfaceObject Json interface object from the parsed project
    * @returns Parsed docs object for the interface if it exists, undefined otherwise
    */
-  createInterfaceDocs(interfaceObject?: InterfaceParser | string): InterfaceDocs | undefined {
+  createInterfaceDocs(interfaceObject?: InterfaceParser | string): IInterfaceDocs | undefined {
     let interfaceObj: InterfaceParser | undefined;
     if (typeof interfaceObject === 'string') {
       interfaceObj = this.getInterface(interfaceObject);
@@ -461,7 +463,7 @@ class DocGenerator {
       return undefined;
     }
 
-    const properties = interfaceObj.properties.map((property) => {
+    const properties = interfaceObj.properties.reverse().map((property) => {
       const propertyDocs = {
         label: property.name,
         description: property.comment.description ?? '',
@@ -470,7 +472,7 @@ class DocGenerator {
       return propertyDocs;
     });
 
-    const docs: InterfaceDocs = {
+    const docs: IInterfaceDocs = {
       name: interfaceObj.name,
       comments: { summary: interfaceObj.comment.description },
       params: properties,
@@ -528,14 +530,14 @@ class DocGenerator {
       returnSummary: this.getReturnSummary(classObject.comment.blockTags),
     };
     const properties = classObject.properties.map((property) => {
-      const prop = property as any;
+      const prop = property;
       const obj = {
         name: property.name,
         comments: {
           summary: property.comment.description,
           returnSummary: this.getReturnSummary(property.comment.blockTags),
         },
-        type: this.typeParser(prop.type),
+        type: this.typeParserObject(prop.type, true),
       };
 
       return obj;

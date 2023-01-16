@@ -1,10 +1,11 @@
 import docs from './docs';
 import {
   IDocumentationClass,
+  IDocumentationProperty,
   IDocumentationProps,
   IDocumentationStory,
+  IInterfaceDocs,
   IMethodDocs,
-  InterfaceDocs,
   ITypeAliasDocs,
 } from './types';
 
@@ -94,8 +95,8 @@ export const getMethodData = (methodName: string, className: string) => {
   return selectedMethod;
 };
 
-export const getInterfaceData = (interfaceName: string): InterfaceDocs | undefined => {
-  let selectedInterface: InterfaceDocs = {
+export const getInterfaceData = (interfaceName: string): IInterfaceDocs | undefined => {
+  let selectedInterface: IInterfaceDocs = {
     name: '',
   };
   docs.interfaceDocs.forEach((interfaceDoc) => {
@@ -120,8 +121,10 @@ export const getTypeAliasData = (typeAliasName: string): ITypeAliasDocs | undefi
   return selectedTypeAlias;
 };
 
-export const getClassPropertyData = (propertyName: string, className: string): ITypeAliasDocs | undefined | any => {
-  const classObj = docs.classesDocs.find((classD) => classD.name === className);
+export const getClassPropertyData = (propertyName: string, className: string): IDocumentationProperty | undefined => {
+  const classObj: IDocumentationClass = docs.classesDocs.find(
+    (classD) => classD.name === className,
+  ) as IDocumentationClass;
   const property = classObj?.properties.find((prop) => prop.name === propertyName);
   return property;
 };
@@ -152,7 +155,7 @@ export const prepareInterfaceStory = (template: IDocumentationStory, interfaceNa
   const selectedInterface = getInterfaceData(interfaceName);
 
   const story = template.bind({});
-  const docData: InterfaceDocs | undefined = selectedInterface;
+  const docData: IInterfaceDocs | undefined = selectedInterface;
 
   story.storyName = interfaceName;
   story.args = docData;
@@ -164,7 +167,7 @@ export const prepareTypeStory = (template: IDocumentationStory, typeAliasName: s
   const selectedTypeAlias = getTypeAliasData(typeAliasName);
 
   const story = template.bind({});
-  const docData: InterfaceDocs | undefined = selectedTypeAlias;
+  const docData: IInterfaceDocs | undefined = selectedTypeAlias;
 
   story.storyName = typeAliasName;
   story.args = docData;
@@ -176,7 +179,7 @@ export const prepareClassPropertyStory = (template: IDocumentationStory, propert
   const propertyDocs = getClassPropertyData(propertyName, className);
 
   const story = template.bind({});
-  const docData: InterfaceDocs | undefined = propertyDocs;
+  const docData: IDocumentationProperty | undefined = propertyDocs as IDocumentationProperty;
 
   story.storyName = propertyName;
   story.args = docData;
