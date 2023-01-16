@@ -89,16 +89,12 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          status: ${{ job.status }}
-          steps: ${{ toJson(steps) }}
-          args: ':exclamation: There was an error creating release *v${{ steps.save_release_version.outputs.version }}*. Please check the steps below.'
+          args: ':exclamation: There was an error creating release *v${{ steps.save_release_version.outputs.version }}*. Please check the steps below. ${{ toJson(steps) }}'
         if: failure()
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          status: ${{ job.status }}
-          steps: ${{ toJson(steps) }}
-          args: ':white_check_mark: Release *v${{ steps.save_release_version.outputs.version }}* successfuly created & published!'
+          args: ':white_check_mark: Release *v${{ steps.save_release_version.outputs.version }}* successfuly created & published!. ${{ toJson(steps) }}'
         if: success()
