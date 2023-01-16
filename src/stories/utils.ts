@@ -5,7 +5,7 @@ import {
   IDocumentationStory,
   IMethodDocs,
   InterfaceDocs,
-  ITypeAliasDocs
+  ITypeAliasDocs,
 } from './types';
 
 export interface IArgData {
