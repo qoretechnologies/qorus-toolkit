@@ -1,5 +1,6 @@
 import DocGenerator from '../DocGenerator';
 import { IReturnType } from '../src/stories/types';
+
 describe('Generate Docs class tests', () => {
   jest.setTimeout(50000);
   it('Check if documentation object exist', async () => {
@@ -53,5 +54,6 @@ describe('Generate Docs class tests', () => {
     expect(propertyParamsAsIReturnType.masterType).toEqual('Record');
     expect(propertyParamsAsIReturnType.separatorSymbol).toEqual(',');
     expect(propertyParamsAsIReturnType.type).toEqual(['string', 'string']);
+    expect(propertyParamsAsIReturnType.fullType).toEqual('Record<string, string>');
   });
 });

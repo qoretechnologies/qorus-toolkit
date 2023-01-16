@@ -139,6 +139,7 @@ export interface IReturnType {
   masterType?: string;
   separatorSymbol?: '|' | ',' | '&' | string;
   type: string[] | string;
+  fullType?: string;
 }
 
 // export interface IDocumentationData {}

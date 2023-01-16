@@ -40,11 +40,13 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
     return method.name?.toLowerCase().includes(methodsQuery.toLowerCase());
   });
 
-  // const filteredProperties = properties.filter((property) => {
-  //   if (!propertiesQuery) return true;
+  const filteredProperties = properties.filter((property) => {
+    if (!propertiesQuery) return true;
 
-  //   return property.name?.toLowerCase().includes(propertiesQuery.toLowerCase());
-  // });
+    return property.name?.toLowerCase().includes(propertiesQuery.toLowerCase());
+  });
+
+  console.log(filteredProperties);
 
   return (
     <ReqoreColumns style={{ maxWidth: '800px', margin: '0 auto' }}>
@@ -74,7 +76,7 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
                 />
               </ReqoreControlGroup>
               <ReqoreSpacer height={20} />
-              {/* <ReqoreControlGroup vertical fluid>
+              <ReqoreControlGroup vertical fluid>
                 {filteredProperties.map((prop) => (
                   <ReqoreButton
                     key={prop.name}
@@ -82,16 +84,16 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
                     description={prop.comments?.summary || '-'}
                     icon="CodeBoxLine"
                     rightIcon="ExternalLinkLine"
-                    badge={{
-                      label: useDocumentationTypeLabel(prop.type).type,
+                    badge={(Array.isArray(prop.type) ? prop.type : [prop.type]).map((type) => ({
+                      label: useDocumentationTypeLabel(type.fullType).type,
                       wrap: true,
-                    }}
+                    }))}
                     onClick={linkTo(`${name}.properties`, toCapitalCase(prop.name))}
                   >
                     {prop.name}
                   </ReqoreButton>
                 ))}
-              </ReqoreControlGroup> */}
+              </ReqoreControlGroup>
             </ReqoreColumn>
           ) : null}
           <ReqoreColumn flexFlow="column">

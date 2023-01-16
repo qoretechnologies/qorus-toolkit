@@ -56,7 +56,7 @@ export class QorusOptions {
   }
 
   /**
-   * A validator method to check if all the required properties for constructor_Options contains a value
+   * A validator method to check if all the required properties for constructor_options contains a value
    * @returns True if values for all the required properties exist, false otherwise
    */
   validateRequired(): boolean {

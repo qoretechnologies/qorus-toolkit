@@ -366,6 +366,7 @@ class DocGenerator {
       const result = {
         // separatorSymbol,
         type: types[0],
+        fullType: types[0],
       };
       return result;
     }
@@ -374,6 +375,7 @@ class DocGenerator {
       masterType,
       separatorSymbol,
       type: types,
+      fullType: `${masterType ? `${masterType}<` : ''}${types.join(', ')}${masterType ? `>` : ''}`,
     };
 
     return result;
@@ -429,6 +431,7 @@ class DocGenerator {
       const obj: IReturnType = {
         separatorSymbol: this.getSeparatorSymbolForTypeObject(typeJson.kind),
         type: typesResult,
+        fullType: typesResult.join(` ${this.getSeparatorSymbolForTypeObject(typeJson.kind)} `),
       };
       return obj;
     }
