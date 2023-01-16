@@ -11,8 +11,8 @@ import { IReqoreCollectionItemProps } from '@qoretechnologies/reqore/dist/compon
 import { IReqoreEffect } from '@qoretechnologies/reqore/dist/components/Effect';
 import { IReqorePanelProps } from '@qoretechnologies/reqore/dist/components/Panel';
 import { map, size } from 'lodash';
-import { IComments, IMethodParamTypes, IMethodReturnType } from '../types';
-import { DocumentationType } from './type';
+import { IComments, IMethodParamTypes, IMethodReturnType, IReturnType } from '../types';
+import { DocumentationHashType, DocumentationType } from './type';
 
 export interface IDocumentationItemsProps extends IReqorePanelProps {
   params?: IMethodParamTypes[];
@@ -22,14 +22,14 @@ export interface IDocumentationItemsProps extends IReqorePanelProps {
   label?: string;
   comment?: IComments;
   returnSummary?: string | null;
-  type?: string | string[];
+  type?: IReturnType | IReturnType[];
   parent?: string;
 }
 
 export const asyncEffect: IReqoreEffect = {
   gradient: {
     direction: 'to right bottom',
-    colors: { 100: '#ff9500' },
+    colors: '#ff9500',
   },
 };
 
@@ -59,7 +59,7 @@ export const DocumentationItem = ({
           </>
         )}
         {label && (
-          <ReqorePanel minimal opacity={0} headerSize={4} label="Signature">
+          <ReqorePanel minimal transparent flat headerSize={4} label="Signature">
             <ReqoreMessage
               icon="CodeLine"
               effect={{
@@ -93,16 +93,7 @@ export const DocumentationItem = ({
                     <>
                       {param.description}
                       <ReqoreSpacer height={20} />
-                      <ReqoreTagGroup>
-                        <DocumentationType
-                          {...param}
-                          {...{
-                            icon: 'CodeLine',
-                            label: param.type || 'string',
-                            size: 'normal',
-                          }}
-                        />
-                      </ReqoreTagGroup>
+                      <DocumentationHashType type={param.type} />
                     </>
                   ),
                   headerSize: 4,
@@ -121,18 +112,11 @@ export const DocumentationItem = ({
             />
           </>
         ) : null}
-        {rest.type ? (
+        {rest.type && (
           <ReqorePanel label="Type" minimal headerSize={4} flat opacity={0} padded={false}>
-            <ReqoreTagGroup>
-              <DocumentationType
-                {...{
-                  icon: 'CodeLine',
-                  label: rest.type || 'unknown',
-                }}
-              />
-            </ReqoreTagGroup>
+            <DocumentationHashType type={rest.type} />
           </ReqorePanel>
-        ) : null}
+        )}
         {size(returnTypes) ? (
           <ReqorePanel label="Returns" minimal headerSize={4} flat opacity={0} padded={false}>
             {rest.async && (
@@ -152,7 +136,6 @@ export const DocumentationItem = ({
                 <DocumentationType
                   key={type.label}
                   {...{
-                    icon: 'CodeLine',
                     label: type.label || 'string',
                   }}
                 />

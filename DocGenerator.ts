@@ -18,10 +18,10 @@ import {
   IMethodDocs,
   IMethodParamTypes,
   IMethodReturnType,
-  InterfaceDocs,
   IParamType,
   IReturnType,
   ITypeAliasDocs,
+  InterfaceDocs,
 } from './src/stories/types';
 
 export const parsedProjectDocs = './src/stories/docs.ts';
@@ -407,7 +407,6 @@ class DocGenerator {
     }
 
     let allStringTypes = true;
-    // console.log(finalType);
     if (Array.isArray(finalType)) {
       finalType?.map((typeStr) => {
         if (typeStr.hasOwnProperty('masterType')) {
@@ -419,7 +418,6 @@ class DocGenerator {
     if (allStringTypes && Array.isArray(finalType)) {
       let typesResult: string[] = [];
       finalType?.map((typeStr) => {
-        // console.log(typeStr);
 
         typesResult = [...typesResult, typeStr.type as string];
         // const allTypes = typeStr.types as string[];
@@ -437,7 +435,6 @@ class DocGenerator {
   }
 
   getSeparatorSymbolForTypeObject(typeKind): IReturnType['separatorSymbol'] {
-    // console.log('this is kind  ', typeKind);
     switch (typeKind) {
       case 'union':
         return '|';
@@ -759,7 +756,7 @@ class DocGenerator {
   private createParameterDefinition(method: ClassMethodParser | undefined): IMethodParamTypes[] {
     const parameters = method?.signatures[0].parameters;
     /*eslint-disable */
-    let parsedParameters: { label: string; type?: string | string[] | undefined; description?: string | null }[] = []; // eslint-disable-line no-use-before-define
+    let parsedParameters: IMethodParamTypes[] = []; // eslint-disable-line no-use-before-define
     /*eslint-enable */
     /* It's iterating over the parameters array and creating an object for each parameter. */
     parameters?.forEach((parameter) => {

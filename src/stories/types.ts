@@ -61,7 +61,7 @@ export interface IMethodJson {
 export interface InterfaceDocsProperties {
   label: string;
   description?: string | null;
-  type?: string | string[] | IReturnType | IReturnType[];
+  type?: IReturnType | IReturnType[];
 }
 
 export interface InterfaceDocs {
@@ -83,7 +83,7 @@ export interface IComments {
 
 export interface IMethodParamTypes {
   label: string;
-  type?: string | undefined | any;
+  type?: string | IReturnType | IReturnType[];
   description?: string | undefined | null;
 }
 
