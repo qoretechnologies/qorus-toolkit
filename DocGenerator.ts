@@ -418,7 +418,6 @@ class DocGenerator {
     if (allStringTypes && Array.isArray(finalType)) {
       let typesResult: string[] = [];
       finalType?.map((typeStr) => {
-
         typesResult = [...typesResult, typeStr.type as string];
         // const allTypes = typeStr.types as string[];
         // allTypes?.map((typeNew) => {
