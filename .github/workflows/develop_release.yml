@@ -13,34 +13,41 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          
       # SETUP GIT USER
       - name: Setup git user
         run: |
           # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
+          
       # SETUP NODE
       - uses: actions/setup-node@v3
         with:
           node-version: latest
+          
       # INSTALL MODULES
       - name: Installing modules
         id: install_modules
         run: |
           rm -rf node_modules
           yarn install
+          
       # SAVE RELEASE VERSION
       - name: Save release version to outputs
         id: save_release_version
         run: echo ::set-output name=version::$(node -pe "require('./package.json').version")
+        
       # TEST THE BUILD
       - name: Build test
         id: build_test
         run: yarn build:test
+        
       # RUN UNIT TESTS
       - name: Running tests
         id: tests
         run: yarn test
+        
       # PUBLISH TO NPM
       - name: Publish to NPM
         id: npm_publish
@@ -49,6 +56,20 @@ jobs:
           token: ${{ secrets.NPM_TOKEN }}
           tag: beta
           access: public
+          
+      # PUBLISH TO CHROMATIC
+      - name: Publish to Chromatic
+        env:
+          ENDPOINT_API: ${{ secrets.ENDPOINT_API}}
+          API_USER_NAME: ${{ secrets.API_USER_NAME}}
+          API_USER_PASS: ${{ secrets.API_USER_PASS }}
+        id: chromatic_publish
+        uses: chromaui/action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          exitZeroOnChanges: true
+          
       # CREATE GITHUB RELEASE
       - name: Create a release
         id: release
@@ -61,6 +82,7 @@ jobs:
           body: v${{ steps.save_release_version.outputs.version }}
           draft: false
           prerelease: false
+          
       # NOTIFY SLACK IF SUCCESS
       - name: Slack notification
         uses: Foxhoundn/slack@v1.2.94
@@ -72,6 +94,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_USERNAME: Qorus Toolkit Publish & Release
           SLACK_MESSAGE: ':white_check_mark: Release *v${{ steps.save_release_version.outputs.version }}* successfuly created & published!'
+          
       # NOTIFY SLACK IF FAILURE
       - name: Slack notification
         uses: Foxhoundn/slack@v1.2.94
@@ -83,6 +106,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_USERNAME: Qorus Toolkit Publish & Release
           SLACK_MESSAGE: ':exclamation: There was an error creating release *v${{ steps.save_release_version.outputs.version }}*. Please check the steps below.'
+          
       # Notify Discord
       - name: Discord notification
         env:
