@@ -92,7 +92,10 @@ jobs:
         with:
           args:
             ':exclamation: There was an error creating release *v${{ steps.save_release_version.outputs.version }}*. Please check the steps below.
-            \n Chromatic Published at : *v${{ steps.save_release_version.chromatic_publish.url }}* \n ${{ toJson(steps) }}'
+
+            Chromatic Published at : *v${{ steps.chromatic_publish.url }}*
+
+            ${{ toJson(steps) }}'
         if: failure()
       - name: Discord notification
         env:
