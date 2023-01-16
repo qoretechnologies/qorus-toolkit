@@ -33,22 +33,41 @@ jobs:
         id: install_modules
         run: |
           rm -rf node_modules
-          npm install
+          yarn install
       - name: Save release version to outputs
         id: save_release_version
         run: echo ::set-output name=version::$(node -pe "require('./pullRequestRelease.json').version")
       - name: Running tests
+        env:
+          ENDPOINT_API: ${{ secrets.ENDPOINT_API}}
+          API_USER_NAME: ${{ secrets.API_USER_NAME}}
+          API_USER_PASS: ${{ secrets.API_USER_PASS }}
         id: tests
-        run: npm run test
+        run: yarn run test
       - name: Build test
+        env:
+          ENDPOINT_API: ${{ secrets.ENDPOINT_API}}
+          API_USER_NAME: ${{ secrets.API_USER_NAME}}
+          API_USER_PASS: ${{ secrets.API_USER_PASS }}
         id: build_test
-        run: npm run build:test
+        run: yarn run build:test
+      - name: Build documentation JSON
+        id: build_docs_json
+        run: yarn docs
+      - name: Publish to Chromatic
+        env:
+          ENDPOINT_API: ${{ secrets.ENDPOINT_API}}
+          API_USER_NAME: ${{ secrets.API_USER_NAME}}
+          API_USER_PASS: ${{ secrets.API_USER_PASS }}
+        id: chromatic_publish
+        uses: chromaui/action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          exitZeroOnChanges: true
       - name: Change npm version
         id: change_npm_version
         run: npm version ${{ steps.save_release_version.outputs.version }} --no-git-tag-version --force
-      - name: Clean code
-        id: clean_code
-        run: ./cleanCode.sh
       - name: Publish to NPM
         id: npm_publish
         uses: JS-DevTools/npm-publish@v1
@@ -65,3 +84,23 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_USERNAME: Qorus Toolkit
+      # Notify Discord
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args:
+            ':exclamation: There was an error creating release *v${{ steps.save_release_version.outputs.version }}*. Please check the steps below.
+
+            Chromatic Published at : *v${{ steps.chromatic_publish.url }}*
+
+            ${{ toJson(steps) }}'
+        if: failure()
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: ':white_check_mark: Release *v${{ steps.save_release_version.outputs.version }}* successfuly created & published!. ${{ toJson(steps) }}'
+        if: success()

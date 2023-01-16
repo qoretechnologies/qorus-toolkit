@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "lib": ["es2017", "es2018", "es2019", "es2020", "es2021", "DOM"],
-    "target": "ES5",
-    "module": "CommonJS",
+    "target": "ES2017",
+    "module": "commonjs",
     "sourceMap": true,
     "moduleResolution": "node",
     "strict": true,
-    "noUnusedLocals": false,
+    "noUnusedLocals": true,
     "noImplicitAny": false,
     "noImplicitReturns": true,
     "noUnusedParameters": true,
@@ -18,10 +18,11 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "types": ["node", "jest"],
-    "outDir": "dist"
+    "types": ["node", "jest", "react", "react-dom"],
+    "outDir": "dist",
+    "jsx": "react-jsx"
   },
   "extends": "@tsconfig/node16/tsconfig.json",
   "exclude": ["node_modules"],
-  "include": ["src/**/*"]
+  "include": ["./src/**/*", ".storybook/**/*", "./src/stories/**/*", "docs", "docs", "DocGenerator.ts"]
 }
