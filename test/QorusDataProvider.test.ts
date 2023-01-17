@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 import { QorusAuthenticator } from '../src';
 import { QorusDataProvider } from '../src/';
-import ErrorAxios from '../src/managers/error/ErrorAxios';
 
 dotenv.config();
 
@@ -10,10 +9,11 @@ if (!(process.env.ENDPOINT && process.env.TESTUSER && process.env.TESTPASS)) {
 }
 
 describe('QorusDataProvider Utility Class Tests', () => {
+  jest.setTimeout(30000);
   beforeAll(async () => {
-    await QorusAuthenticator.initEndpoint({
+    await QorusAuthenticator.addEndpoint({
       url: process.env.ENDPOINT!,
-      id: 'rippyDataProvider',
+      endpointId: 'rippyDataProvider',
     });
     await QorusAuthenticator.login({
       user: process.env.TESTUSER,
@@ -102,11 +102,10 @@ describe('QorusDataProvider Utility Class Tests', () => {
 
     let err;
     try {
-      const db = await factory.get(factoryChildrenNames.db);
+      await factory.get(factoryChildrenNames.db);
     } catch (error) {
       err = error;
     }
-
-    expect(err instanceof ErrorAxios).toEqual(true);
+    expect(err instanceof Error).toEqual(true);
   });
 });

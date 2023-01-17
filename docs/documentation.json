@@ -1,0 +1,8116 @@
+{
+	"id": 0,
+	"name": "Qorus Toolkit",
+	"kind": 1,
+	"kindString": "Project",
+	"flags": {},
+	"children": [
+		{
+			"id": 298,
+			"name": "IDefaultHeaders",
+			"kind": 8388608,
+			"kindString": "Reference",
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "index.ts",
+					"line": 14,
+					"character": 9,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/index.ts#L14"
+				}
+			],
+			"target": 107
+		},
+		{
+			"id": 297,
+			"name": "TContext",
+			"kind": 8388608,
+			"kindString": "Reference",
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "index.ts",
+					"line": 13,
+					"character": 9,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/index.ts#L13"
+				}
+			],
+			"target": 196
+		},
+		{
+			"id": 3,
+			"name": "Authenticator",
+			"kind": 4,
+			"kindString": "Namespace",
+			"flags": {},
+			"children": [
+				{
+					"id": 32,
+					"name": "QorusAuthenticator",
+					"kind": 128,
+					"kindString": "Class",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "QorusAuthenticator class provides methods to authenticate a user for a Qorus server endpoint\n- Add Multiple endpoint for different versions of Qorus apis\n- Supports no-auth for the Qorus server api\n- Uses locally stored token or user and password for authentication"
+							}
+						],
+						"blockTags": [
+							{
+								"tag": "@returns",
+								"content": [
+									{
+										"kind": "text",
+										"text": "QorusAuthenticator class object"
+									}
+								]
+							},
+							{
+								"tag": "@Category",
+								"content": [
+									{
+										"kind": "text",
+										"text": "QorusAuthenticator"
+									}
+								]
+							}
+						]
+					},
+					"children": [
+						{
+							"id": 33,
+							"name": "constructor",
+							"kind": 512,
+							"kindString": "Constructor",
+							"flags": {},
+							"signatures": [
+								{
+									"id": 34,
+									"name": "new QorusAuthenticator",
+									"kind": 16384,
+									"kindString": "Constructor signature",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"id": 32,
+										"name": "QorusAuthenticator"
+									}
+								}
+							]
+						},
+						{
+							"id": 36,
+							"name": "allApiPaths",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Object of Api paths for the selected endpoint"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 89,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L89"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 284,
+								"name": "IApiPaths"
+							},
+							"defaultValue": "apiPathsInitial"
+						},
+						{
+							"id": 37,
+							"name": "apiPathsAuthenticator",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Api paths for the QorusAuthenticator"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 92,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L92"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 288,
+								"name": "IAuthenticatorApiPaths"
+							},
+							"defaultValue": "apiPathsInitial.authenticator"
+						},
+						{
+							"id": 35,
+							"name": "endpoints",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Array of user defined endpoints"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 86,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L86"
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "reference",
+									"id": 26,
+									"name": "IEndpoint"
+								}
+							},
+							"defaultValue": "[]"
+						},
+						{
+							"id": 39,
+							"name": "noauth",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "No auth identifier to identify if the no-auth is enabled for the user"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 98,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L98"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "boolean"
+							},
+							"defaultValue": "false"
+						},
+						{
+							"id": 38,
+							"name": "selectedEndpoint",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Selected endpoint from the endpoints array"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 95,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L95"
+								}
+							],
+							"type": {
+								"type": "union",
+								"types": [
+									{
+										"type": "intrinsic",
+										"name": "undefined"
+									},
+									{
+										"type": "reference",
+										"id": 26,
+										"name": "IEndpoint"
+									}
+								]
+							}
+						},
+						{
+							"id": 53,
+							"name": "#fixEndpointData",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isPrivate": true
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 213,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L213"
+								}
+							],
+							"signatures": [
+								{
+									"id": 54,
+									"name": "#fixEndpointData",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Fixes the endpoint data"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Fixed Endpoint config"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 55,
+											"name": "data",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "AddEndpoint, data to be fixed"
+													}
+												]
+											},
+											"type": {
+												"type": "reference",
+												"id": 22,
+												"name": "IAddEndpoint"
+											}
+										}
+									],
+									"type": {
+										"type": "intersection",
+										"types": [
+											{
+												"type": "reference",
+												"id": 22,
+												"name": "IAddEndpoint"
+											},
+											{
+												"type": "reference",
+												"id": 19,
+												"name": "ILoginParams"
+											}
+										]
+									}
+								}
+							]
+						},
+						{
+							"id": 66,
+							"name": "addEndpoint",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 336,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L336"
+								}
+							],
+							"signatures": [
+								{
+									"id": 67,
+									"name": "addEndpoint",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Add a new Qorus Endpoint to interact with the qorus api"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Newly added endpoint"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 68,
+											"name": "endpointConfig",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Endpoint configuration required to add a new endpoint"
+													}
+												]
+											},
+											"type": {
+												"type": "reference",
+												"id": 22,
+												"name": "IAddEndpoint"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"id": 26,
+										"name": "IEndpoint"
+									}
+								}
+							]
+						},
+						{
+							"id": 48,
+							"name": "checkNoAuth",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 162,
+									"character": 8,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L162"
+								}
+							],
+							"signatures": [
+								{
+									"id": 49,
+									"name": "checkNoAuth",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Checks if the Qorus endpoint supports no-auth"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "True if the no-auth is enabled for the user, False otherwise"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 50,
+											"name": "endpoint",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Endpoint config to add the data"
+													}
+												]
+											},
+											"type": {
+												"type": "reference",
+												"id": 26,
+												"name": "IEndpoint"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "boolean"
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 90,
+							"name": "getAllEndpoints",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 493,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L493"
+								}
+							],
+							"signatures": [
+								{
+									"id": 91,
+									"name": "getAllEndpoints",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A getter to get all the available Endpoints"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Endpoints array with all the available endpoints"
+													}
+												]
+											}
+										]
+									},
+									"type": {
+										"type": "array",
+										"elementType": {
+											"type": "reference",
+											"id": 26,
+											"name": "IEndpoint"
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": 88,
+							"name": "getApiPaths",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 485,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L485"
+								}
+							],
+							"signatures": [
+								{
+									"id": 89,
+									"name": "getApiPaths",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A getter to return the api paths for the selected Endpoint"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "ApiPaths for the selected endpoint if exists, otherwise returns default api paths"
+													}
+												]
+											}
+										]
+									},
+									"type": {
+										"type": "reference",
+										"id": 284,
+										"name": "IApiPaths"
+									}
+								}
+							]
+						},
+						{
+							"id": 72,
+							"name": "getAuthToken",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 388,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L388"
+								}
+							],
+							"signatures": [
+								{
+									"id": 73,
+									"name": "getAuthToken",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A getter to return the auth token of the selected Endpoint"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "token if the the selected endpoint exists and the user is authenticated, otherwise returns undefined"
+													}
+												]
+											}
+										]
+									},
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											},
+											{
+												"type": "intrinsic",
+												"name": "string"
+											}
+										]
+									}
+								}
+							]
+						},
+						{
+							"id": 40,
+							"name": "getEndpointById",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 105,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L105"
+								}
+							],
+							"signatures": [
+								{
+									"id": 41,
+									"name": "getEndpointById",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A getter to get the endpoint if it exist in the Endpoints array"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Endpoint object if the endpoint with the provided id exist in the endpoints array, undefined otherwise."
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 42,
+											"name": "endpointId",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											},
+											{
+												"type": "reference",
+												"id": 26,
+												"name": "IEndpoint"
+											}
+										]
+									}
+								}
+							]
+						},
+						{
+							"id": 74,
+							"name": "getEndpointVersion",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 398,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L398"
+								}
+							],
+							"signatures": [
+								{
+									"id": 75,
+									"name": "getEndpointVersion",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A getter to get the api Version of a Endpoint"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Version of the selected endpoint or version of the the endpoint found by id,\nif the endpoint doesn't exists it returns undefined"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 76,
+											"name": "endpointId",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Optional id parameter to get the version of a particular endpoint"
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											},
+											{
+												"type": "reference",
+												"id": 283,
+												"name": "TVersion"
+											}
+										]
+									}
+								}
+							]
+						},
+						{
+							"id": 51,
+							"name": "getSelectedEndpoint",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 204,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L204"
+								}
+							],
+							"signatures": [
+								{
+									"id": 52,
+									"name": "getSelectedEndpoint",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A getter to get selected Endpoint"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Selected Endpoint if the endpoint exists, undefined otherwise"
+													}
+												]
+											}
+										]
+									},
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											},
+											{
+												"type": "reference",
+												"id": 26,
+												"name": "IEndpoint"
+											}
+										]
+									}
+								}
+							]
+						},
+						{
+							"id": 63,
+							"name": "login",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 287,
+									"character": 8,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L287"
+								}
+							],
+							"signatures": [
+								{
+									"id": 64,
+									"name": "login",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Authenticates the user to interact with the Qorus api.\nIf the username and password is not provided it tries to authenticate the user using the locally stored token from the selected Endpoint"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Authentication token if the authentication is successful, undefined otherwise."
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 65,
+											"name": "loginParams",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "LoginParams, user and pass is required to authenticate the user."
+													}
+												]
+											},
+											"type": {
+												"type": "reference",
+												"id": 19,
+												"name": "ILoginParams"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "union",
+												"types": [
+													{
+														"type": "intrinsic",
+														"name": "undefined"
+													},
+													{
+														"type": "intrinsic",
+														"name": "string"
+													}
+												]
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 43,
+							"name": "logout",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 113,
+									"character": 8,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L113"
+								}
+							],
+							"signatures": [
+								{
+									"id": 44,
+									"name": "logout",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Logs out the current user from the selected endpoint"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "True if the operation is successful, False otherwise"
+													}
+												]
+											}
+										]
+									},
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "boolean"
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 69,
+							"name": "renewSelectedEndpointToken",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 364,
+									"character": 8,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L364"
+								}
+							],
+							"signatures": [
+								{
+									"id": 70,
+									"name": "renewSelectedEndpointToken",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Allows the user to renew the selected endpoint authentication token"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Token if the authentication is successful, undefined otherwise"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 71,
+											"name": "loginParams",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "LoginParams optional username and password can be provided"
+													}
+												]
+											},
+											"type": {
+												"type": "reference",
+												"id": 19,
+												"name": "ILoginParams"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "union",
+												"types": [
+													{
+														"type": "intrinsic",
+														"name": "undefined"
+													},
+													{
+														"type": "intrinsic",
+														"name": "string"
+													}
+												]
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 45,
+							"name": "selectEndpoint",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 136,
+									"character": 8,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L136"
+								}
+							],
+							"signatures": [
+								{
+									"id": 46,
+									"name": "selectEndpoint",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Select an endpoint from the available Endpoints array"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Endpoint if the operation is successful, undefined otherwise."
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 47,
+											"name": "id",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Id of the endpoint"
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "union",
+												"types": [
+													{
+														"type": "intrinsic",
+														"name": "undefined"
+													},
+													{
+														"type": "reference",
+														"id": 26,
+														"name": "IEndpoint"
+													}
+												]
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 84,
+							"name": "setEndpointUrl",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 458,
+									"character": 8,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L458"
+								}
+							],
+							"signatures": [
+								{
+									"id": 85,
+									"name": "setEndpointUrl",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A setter to set the url of the selected Endpoint"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Url of the endpoint if the operation is successful, undefined otherwise"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 86,
+											"name": "url",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Base url for the endpoint"
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 87,
+											"name": "endpointId",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isOptional": true
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "union",
+												"types": [
+													{
+														"type": "intrinsic",
+														"name": "undefined"
+													},
+													{
+														"type": "intrinsic",
+														"name": "string"
+													}
+												]
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 80,
+							"name": "setEndpointVersion",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 427,
+									"character": 8,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L427"
+								}
+							],
+							"signatures": [
+								{
+									"id": 81,
+									"name": "setEndpointVersion",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A setter to set the Version of a Endpoint"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Version of the endpoint if the operation is successful, undefined otherwise"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 82,
+											"name": "version",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Version of the qorus api"
+													}
+												]
+											},
+											"type": {
+												"type": "reference",
+												"id": 283,
+												"name": "TVersion"
+											}
+										},
+										{
+											"id": 83,
+											"name": "endpointId",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Optional parameter to change the url of a particular endpoint from the endpoints array"
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "union",
+												"types": [
+													{
+														"type": "intrinsic",
+														"name": "undefined"
+													},
+													{
+														"type": "reference",
+														"id": 283,
+														"name": "TVersion"
+													}
+												]
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 56,
+							"name": "validateEndpointData",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 229,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L229"
+								}
+							],
+							"signatures": [
+								{
+									"id": 57,
+									"name": "validateEndpointData",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Checks the validity of the selected endpoint"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "True if the Endpoint data is valid, False otherwise"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 58,
+											"name": "data",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Endpoint data to be checked"
+													}
+												]
+											},
+											"type": {
+												"type": "reference",
+												"id": 4,
+												"name": "IValidateEndpointData"
+											}
+										},
+										{
+											"id": 59,
+											"name": "withCredentials",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "boolean to check if the endpoint has credentials"
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "boolean"
+											}
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								}
+							]
+						},
+						{
+							"id": 60,
+							"name": "validateLocalUserToken",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 258,
+									"character": 8,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L258"
+								}
+							],
+							"signatures": [
+								{
+									"id": 61,
+									"name": "validateLocalUserToken",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Validates the local stored authentication token for the Endpoint"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Authentication token, if the authentication is successful, null otherwise"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 62,
+											"name": "endpointId",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Id of the endpoint"
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "union",
+												"types": [
+													{
+														"type": "literal",
+														"value": null
+													},
+													{
+														"type": "intrinsic",
+														"name": "string"
+													}
+												]
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 77,
+							"name": "validateVersion",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isPrivate": true
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 415,
+									"character": 10,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L415"
+								}
+							],
+							"signatures": [
+								{
+									"id": 78,
+									"name": "validateVersion",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Validates if the provided version is an accepted api version"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "True if the version is valid, False otherwise"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 79,
+											"name": "version",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Version of the endpoint"
+													}
+												]
+											},
+											"type": {
+												"type": "union",
+												"types": [
+													{
+														"type": "intrinsic",
+														"name": "string"
+													},
+													{
+														"type": "intrinsic",
+														"name": "number"
+													}
+												]
+											}
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								}
+							]
+						}
+					],
+					"groups": [
+						{
+							"title": "Constructors",
+							"children": [
+								33
+							]
+						},
+						{
+							"title": "Properties",
+							"children": [
+								36,
+								37,
+								35,
+								39,
+								38
+							]
+						},
+						{
+							"title": "Methods",
+							"children": [
+								53,
+								66,
+								48,
+								90,
+								88,
+								72,
+								40,
+								74,
+								51,
+								63,
+								43,
+								69,
+								45,
+								84,
+								80,
+								56,
+								60,
+								77
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusAuthenticator.ts",
+							"line": 82,
+							"character": 13,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L82"
+						}
+					]
+				},
+				{
+					"id": 22,
+					"name": "IAddEndpoint",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"children": [
+						{
+							"id": 25,
+							"name": "endpointId",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Id for a endpoint provided by the user, unique for every endpoint"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 37,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L37"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"id": 14,
+								"name": "IWithQorusEndpointId.endpointId"
+							}
+						},
+						{
+							"id": 23,
+							"name": "url",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "URL to Qorus server for the provided endpoint"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 51,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L51"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"id": 18,
+								"name": "IWithQorusURL.url"
+							}
+						},
+						{
+							"id": 24,
+							"name": "version",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Version for the server api"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "utils/apiPaths.ts",
+									"line": 57,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/utils/apiPaths.ts#L57"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 283,
+								"name": "TVersion"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "IWithEndpointVersion.version"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								25,
+								23,
+								24
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusAuthenticator.ts",
+							"line": 65,
+							"character": 17,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L65"
+						}
+					],
+					"extendedTypes": [
+						{
+							"type": "reference",
+							"id": 17,
+							"name": "IWithQorusURL"
+						},
+						{
+							"type": "reference",
+							"name": "IWithEndpointVersion"
+						},
+						{
+							"type": "reference",
+							"id": 13,
+							"name": "IWithQorusEndpointId"
+						}
+					],
+					"extendedBy": [
+						{
+							"type": "reference",
+							"id": 4,
+							"name": "IValidateEndpointData"
+						}
+					]
+				},
+				{
+					"id": 26,
+					"name": "IEndpoint",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"children": [
+						{
+							"id": 29,
+							"name": "authToken",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Authentication token for the user provided endpoint"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 44,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L44"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"id": 16,
+								"name": "IWithQorusAuthToken.authToken"
+							}
+						},
+						{
+							"id": 30,
+							"name": "endpointId",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Id for a endpoint provided by the user, unique for every endpoint"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 37,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L37"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"id": 14,
+								"name": "IWithQorusEndpointId.endpointId"
+							}
+						},
+						{
+							"id": 27,
+							"name": "url",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "URL to Qorus server for the provided endpoint"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 51,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L51"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"id": 18,
+								"name": "IWithQorusURL.url"
+							}
+						},
+						{
+							"id": 28,
+							"name": "version",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Version for the server api"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "utils/apiPaths.ts",
+									"line": 57,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/utils/apiPaths.ts#L57"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 283,
+								"name": "TVersion"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "IWithEndpointVersion.version"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								29,
+								30,
+								27,
+								28
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusAuthenticator.ts",
+							"line": 67,
+							"character": 17,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L67"
+						}
+					],
+					"extendedTypes": [
+						{
+							"type": "reference",
+							"id": 17,
+							"name": "IWithQorusURL"
+						},
+						{
+							"type": "reference",
+							"name": "IWithEndpointVersion"
+						},
+						{
+							"type": "reference",
+							"id": 15,
+							"name": "IWithQorusAuthToken"
+						},
+						{
+							"type": "reference",
+							"id": 13,
+							"name": "IWithQorusEndpointId"
+						}
+					]
+				},
+				{
+					"id": 19,
+					"name": "ILoginParams",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"children": [
+						{
+							"id": 21,
+							"name": "pass",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Password for the authentication to Qorus server"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 62,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L62"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						},
+						{
+							"id": 20,
+							"name": "user",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Username for the authentication to Qorus server"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 58,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L58"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								21,
+								20
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusAuthenticator.ts",
+							"line": 54,
+							"character": 17,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L54"
+						}
+					],
+					"extendedBy": [
+						{
+							"type": "reference",
+							"id": 4,
+							"name": "IValidateEndpointData"
+						}
+					]
+				},
+				{
+					"id": 4,
+					"name": "IValidateEndpointData",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"children": [
+						{
+							"id": 7,
+							"name": "endpointId",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Id for a endpoint provided by the user, unique for every endpoint"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 37,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L37"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"id": 25,
+								"name": "IAddEndpoint.endpointId"
+							}
+						},
+						{
+							"id": 9,
+							"name": "pass",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Password for the authentication to Qorus server"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 62,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L62"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"id": 21,
+								"name": "ILoginParams.pass"
+							}
+						},
+						{
+							"id": 5,
+							"name": "url",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "URL to Qorus server for the provided endpoint"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 51,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L51"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"id": 23,
+								"name": "IAddEndpoint.url"
+							}
+						},
+						{
+							"id": 8,
+							"name": "user",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Username for the authentication to Qorus server"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 58,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L58"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"id": 20,
+								"name": "ILoginParams.user"
+							}
+						},
+						{
+							"id": 6,
+							"name": "version",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Version for the server api"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "utils/apiPaths.ts",
+									"line": 57,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/utils/apiPaths.ts#L57"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 283,
+								"name": "TVersion"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"id": 24,
+								"name": "IAddEndpoint.version"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								7,
+								9,
+								5,
+								8,
+								6
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusAuthenticator.ts",
+							"line": 16,
+							"character": 17,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L16"
+						}
+					],
+					"extendedTypes": [
+						{
+							"type": "reference",
+							"id": 22,
+							"name": "IAddEndpoint"
+						},
+						{
+							"type": "reference",
+							"id": 19,
+							"name": "ILoginParams"
+						}
+					]
+				},
+				{
+					"id": 15,
+					"name": "IWithQorusAuthToken",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"children": [
+						{
+							"id": 16,
+							"name": "authToken",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Authentication token for the user provided endpoint"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 44,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L44"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								16
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusAuthenticator.ts",
+							"line": 40,
+							"character": 17,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L40"
+						}
+					],
+					"extendedBy": [
+						{
+							"type": "reference",
+							"id": 26,
+							"name": "IEndpoint"
+						}
+					]
+				},
+				{
+					"id": 13,
+					"name": "IWithQorusEndpointId",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"children": [
+						{
+							"id": 14,
+							"name": "endpointId",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Id for a endpoint provided by the user, unique for every endpoint"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 37,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L37"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								14
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusAuthenticator.ts",
+							"line": 33,
+							"character": 17,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L33"
+						}
+					],
+					"extendedBy": [
+						{
+							"type": "reference",
+							"id": 22,
+							"name": "IAddEndpoint"
+						},
+						{
+							"type": "reference",
+							"id": 26,
+							"name": "IEndpoint"
+						}
+					]
+				},
+				{
+					"id": 17,
+					"name": "IWithQorusURL",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"children": [
+						{
+							"id": 18,
+							"name": "url",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "URL to Qorus server for the provided endpoint"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusAuthenticator.ts",
+									"line": 51,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L51"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								18
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusAuthenticator.ts",
+							"line": 47,
+							"character": 17,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L47"
+						}
+					],
+					"extendedBy": [
+						{
+							"type": "reference",
+							"id": 22,
+							"name": "IAddEndpoint"
+						},
+						{
+							"type": "reference",
+							"id": 26,
+							"name": "IEndpoint"
+						}
+					]
+				},
+				{
+					"id": 11,
+					"name": "TQorusAuthToken",
+					"kind": 4194304,
+					"kindString": "Type alias",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Authentication token for a Qorus server endpoint"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "QorusAuthenticator.ts",
+							"line": 26,
+							"character": 12,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L26"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 10,
+					"name": "TQorusEndpointId",
+					"kind": 4194304,
+					"kindString": "Type alias",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Endpoint id for a Qorus server endpoint"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "QorusAuthenticator.ts",
+							"line": 21,
+							"character": 12,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L21"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 12,
+					"name": "TQorusEndpointURL",
+					"kind": 4194304,
+					"kindString": "Type alias",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Url for a Qorus server endpoint"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "QorusAuthenticator.ts",
+							"line": 31,
+							"character": 12,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L31"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 31,
+					"name": "TToken",
+					"kind": 4194304,
+					"kindString": "Type alias",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Authentication token for a Qorus Endpoint"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "QorusAuthenticator.ts",
+							"line": 72,
+							"character": 12,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L72"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Classes",
+					"children": [
+						32
+					]
+				},
+				{
+					"title": "Interfaces",
+					"children": [
+						22,
+						26,
+						19,
+						4,
+						15,
+						13,
+						17
+					]
+				},
+				{
+					"title": "Type Aliases",
+					"children": [
+						11,
+						10,
+						12,
+						31
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "QorusAuthenticator.ts",
+					"line": 1,
+					"character": 0,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L1"
+				}
+			]
+		},
+		{
+			"id": 141,
+			"name": "DataProvider",
+			"kind": 4,
+			"kindString": "Namespace",
+			"flags": {},
+			"children": [
+				{
+					"id": 142,
+					"name": "QorusDataProvider",
+					"kind": 128,
+					"kindString": "Class",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "QorusDataProvider class provides methods to interact with Qorus DataProvider api\n- Fetch DataProvider from a Qorus server endpoint\n- Access DataProvider constructor_options with supported operations: get, set, fetch\n- Provides validation for the values of DataProvider constructor_options properties"
+							}
+						],
+						"blockTags": [
+							{
+								"tag": "@returns",
+								"content": [
+									{
+										"kind": "text",
+										"text": "QorusDataProvider class object"
+									}
+								]
+							},
+							{
+								"tag": "@Category",
+								"content": [
+									{
+										"kind": "text",
+										"text": "QorusDataProvider"
+									}
+								]
+							}
+						]
+					},
+					"children": [
+						{
+							"id": 143,
+							"name": "constructor",
+							"kind": 512,
+							"kindString": "Constructor",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 43,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L43"
+								}
+							],
+							"signatures": [
+								{
+									"id": 144,
+									"name": "new QorusDataProvider",
+									"kind": 16384,
+									"kindString": "Constructor signature",
+									"flags": {},
+									"parameters": [
+										{
+											"id": 145,
+											"name": "options",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isOptional": true
+											},
+											"type": {
+												"type": "reference",
+												"id": 210,
+												"name": "IQorusDataProviderConstructorOptions"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"id": 142,
+										"name": "QorusDataProvider"
+									}
+								}
+							]
+						},
+						{
+							"id": 148,
+							"name": "context",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Current context for the data provider"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 38,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L38"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 196,
+								"name": "TContext"
+							},
+							"defaultValue": "'api'"
+						},
+						{
+							"id": 146,
+							"name": "path",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Array of path strings, linking to the current provider path extension"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 32,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L32"
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "intrinsic",
+									"name": "string"
+								}
+							},
+							"defaultValue": "[]"
+						},
+						{
+							"id": 147,
+							"name": "responseData",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Get Request response data for a data provider"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 35,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L35"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 206,
+								"name": "IDataProviderResponseData"
+							}
+						},
+						{
+							"id": 149,
+							"name": "responseError",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Get Request error data if error received"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 41,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L41"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 197,
+								"name": "IResponseError"
+							}
+						},
+						{
+							"id": 150,
+							"name": "fetchWithContext",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isPrivate": true
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 52,
+									"character": 16,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L52"
+								}
+							],
+							"signatures": [
+								{
+									"id": 151,
+									"name": "fetchWithContext",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"parameters": [
+										{
+											"id": 152,
+											"name": "context",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"id": 196,
+												"name": "TContext"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "reference",
+												"id": 142,
+												"name": "QorusDataProvider"
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 189,
+							"name": "get",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 244,
+									"character": 8,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L244"
+								}
+							],
+							"signatures": [
+								{
+									"id": 190,
+									"name": "get",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Method to select the next children from the current provider for further operations"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "inline-tag",
+														"tag": "@link",
+														"text": "QorusDataProvider",
+														"target": 142
+													},
+													{
+														"kind": "text",
+														"text": " new object"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 191,
+											"name": "select",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "next children to be selected"
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 192,
+											"name": "providerOptions",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isOptional": true
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "any"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "reference",
+												"id": 142,
+												"name": "QorusDataProvider"
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 187,
+							"name": "getAllOptions",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 228,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L228"
+								}
+							],
+							"signatures": [
+								{
+									"id": 188,
+									"name": "getAllOptions",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A getter to get options by name for a children provider"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "QorusOptions object array"
+													}
+												]
+											}
+										]
+									},
+									"type": {
+										"type": "array",
+										"elementType": {
+											"type": "reference",
+											"id": 219,
+											"name": "QorusOptions"
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": 155,
+							"name": "getApi",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 93,
+									"character": 8,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L93"
+								}
+							],
+							"signatures": [
+								{
+									"id": 156,
+									"name": "getApi",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Get record of Data Providers with context 'api'  from /dataprovider/browse endpoint"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "A new DataProvider object with response from browse api as context api"
+													}
+												]
+											}
+										]
+									},
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "reference",
+												"id": 142,
+												"name": "QorusDataProvider"
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 180,
+							"name": "getChildren",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 191,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L191"
+								}
+							],
+							"signatures": [
+								{
+									"id": 181,
+									"name": "getChildren",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A getter to get available children for the current provider"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "A list of DataProvider children"
+													}
+												]
+											}
+										]
+									},
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											},
+											{
+												"type": "array",
+												"elementType": {
+													"type": "reference",
+													"id": 201,
+													"name": "IDataProviderChildren"
+												}
+											}
+										]
+									}
+								}
+							]
+						},
+						{
+							"id": 182,
+							"name": "getChildrenNames",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 199,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L199"
+								}
+							],
+							"signatures": [
+								{
+									"id": 183,
+									"name": "getChildrenNames",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A getter to get children names for the current provider"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "list of children names"
+													}
+												]
+											}
+										]
+									},
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "string"
+											},
+											{
+												"type": "intrinsic",
+												"name": "string"
+											}
+										],
+										"name": "Record",
+										"qualifiedName": "Record",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 176,
+							"name": "getContext",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 174,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L174"
+								}
+							],
+							"signatures": [
+								{
+									"id": 177,
+									"name": "getContext",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A getter to get the context for the current provider"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Context for the api ex: \"record\";"
+													}
+												]
+											}
+										]
+									},
+									"type": {
+										"type": "reference",
+										"id": 196,
+										"name": "TContext"
+									}
+								}
+							]
+						},
+						{
+							"id": 174,
+							"name": "getData",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 162,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L162"
+								}
+							],
+							"signatures": [
+								{
+									"id": 175,
+									"name": "getData",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A getter to get available data for the current provider"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "responseData and errorData for the current provider"
+													}
+												]
+											}
+										]
+									},
+									"type": {
+										"type": "reference",
+										"id": 215,
+										"name": "IQorusDataProviderData"
+									}
+								}
+							]
+						},
+						{
+							"id": 157,
+							"name": "getEvent",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 101,
+									"character": 8,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L101"
+								}
+							],
+							"signatures": [
+								{
+									"id": 158,
+									"name": "getEvent",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Get record of Data Providers with context 'Event'  from /dataprovider/browse endpoint"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "A new DataProvider object with response from browse api as context event"
+													}
+												]
+											}
+										]
+									},
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "reference",
+												"id": 142,
+												"name": "QorusDataProvider"
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 168,
+							"name": "getFinalPath",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 145,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L145"
+								}
+							],
+							"signatures": [
+								{
+									"id": 169,
+									"name": "getFinalPath",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A getter to get request path for the current provider"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Request path string"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 170,
+											"name": "path",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Optional path array to generate request path"
+													}
+												]
+											},
+											"type": {
+												"type": "array",
+												"elementType": {
+													"type": "intrinsic",
+													"name": "string"
+												}
+											}
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							]
+						},
+						{
+							"id": 159,
+							"name": "getMessage",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 109,
+									"character": 8,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L109"
+								}
+							],
+							"signatures": [
+								{
+									"id": 160,
+									"name": "getMessage",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Get record of Data Providers with context 'message'  from /dataprovider/browse endpoint"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "A new DataProvider object with response from browse api as context message"
+													}
+												]
+											}
+										]
+									},
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "reference",
+												"id": 142,
+												"name": "QorusDataProvider"
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 184,
+							"name": "getOptions",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 213,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L213"
+								}
+							],
+							"signatures": [
+								{
+									"id": 185,
+									"name": "getOptions",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A getter to get options by name for a children provider"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "QorusOptions object for the data provider children"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 186,
+											"name": "childrenName",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "name of the children provider"
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											},
+											{
+												"type": "reference",
+												"id": 219,
+												"name": "QorusOptions"
+											}
+										]
+									}
+								}
+							]
+						},
+						{
+							"id": 166,
+							"name": "getPath",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 136,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L136"
+								}
+							],
+							"signatures": [
+								{
+									"id": 167,
+									"name": "getPath",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A getter to the the stored path array for the current provider"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Array of path strings"
+													}
+												]
+											}
+										]
+									},
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											},
+											{
+												"type": "array",
+												"elementType": {
+													"type": "intrinsic",
+													"name": "string"
+												}
+											}
+										]
+									}
+								}
+							]
+						},
+						{
+							"id": 153,
+							"name": "getRecord",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 84,
+									"character": 8,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L84"
+								}
+							],
+							"signatures": [
+								{
+									"id": 154,
+									"name": "getRecord",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Get record of Data Providers with context 'record' from /dataprovider/browse endpoint"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "A new DataProvider object with response from browse api as context record"
+													}
+												]
+											}
+										]
+									},
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "reference",
+												"id": 142,
+												"name": "QorusDataProvider"
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 161,
+							"name": "getType",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 117,
+									"character": 8,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L117"
+								}
+							],
+							"signatures": [
+								{
+									"id": 162,
+									"name": "getType",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Get record of Data Providers with context 'type'  from /dataprovider/browse endpoint"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "A new DataProvider object with response from browse api as context type"
+													}
+												]
+											}
+										]
+									},
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "reference",
+												"id": 142,
+												"name": "QorusDataProvider"
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 163,
+							"name": "has",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 126,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L126"
+								}
+							],
+							"signatures": [
+								{
+									"id": 164,
+									"name": "has",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Checks if the children exist on the provider"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "True if the children exist, False otherwise"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 165,
+											"name": "name",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Name of the children you want to find"
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								}
+							]
+						},
+						{
+							"id": 178,
+							"name": "hasData",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 182,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L182"
+								}
+							],
+							"signatures": [
+								{
+									"id": 179,
+									"name": "hasData",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Method to verify if the current provider has children"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "true if the children exist, false otherwise"
+													}
+												]
+											}
+										]
+									},
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								}
+							]
+						},
+						{
+							"id": 171,
+							"name": "setPath",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 154,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L154"
+								}
+							],
+							"signatures": [
+								{
+									"id": 172,
+									"name": "setPath",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Setter to set path for the current provider"
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 173,
+											"name": "path",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Array of path strings to replace for path of the current provider"
+													}
+												]
+											},
+											"type": {
+												"type": "array",
+												"elementType": {
+													"type": "intrinsic",
+													"name": "string"
+												}
+											}
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "void"
+									}
+								}
+							]
+						}
+					],
+					"groups": [
+						{
+							"title": "Constructors",
+							"children": [
+								143
+							]
+						},
+						{
+							"title": "Properties",
+							"children": [
+								148,
+								146,
+								147,
+								149
+							]
+						},
+						{
+							"title": "Methods",
+							"children": [
+								150,
+								189,
+								187,
+								155,
+								180,
+								182,
+								176,
+								174,
+								157,
+								168,
+								159,
+								184,
+								166,
+								153,
+								161,
+								163,
+								178,
+								171
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusDataProvider.ts",
+							"line": 28,
+							"character": 13,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L28"
+						}
+					]
+				},
+				{
+					"id": 201,
+					"name": "IDataProviderChildren",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"children": [
+						{
+							"id": 204,
+							"name": "constructor_options",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Constructor options for the DataProvider children"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 341,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L341"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 254,
+								"name": "TQorusOptions"
+							}
+						},
+						{
+							"id": 203,
+							"name": "desc",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Description for the DataProvider children"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 336,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L336"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						},
+						{
+							"id": 202,
+							"name": "name",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Name of the DataProvider children"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 331,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L331"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						},
+						{
+							"id": 205,
+							"name": "type",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Type of data provider children ex: \"nav\""
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 346,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L346"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								204,
+								203,
+								202,
+								205
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusDataProvider.ts",
+							"line": 327,
+							"character": 17,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L327"
+						}
+					]
+				},
+				{
+					"id": 193,
+					"name": "IDataProviderData",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"children": [
+						{
+							"id": 195,
+							"name": "errorData",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "QorusDataProvider fetch error"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 299,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L299"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 197,
+								"name": "IResponseError"
+							}
+						},
+						{
+							"id": 194,
+							"name": "responseData",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "QorusDataProvider fetch response"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 294,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L294"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 206,
+								"name": "IDataProviderResponseData"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								195,
+								194
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusDataProvider.ts",
+							"line": 290,
+							"character": 17,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L290"
+						}
+					]
+				},
+				{
+					"id": 206,
+					"name": "IDataProviderResponseData",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"children": [
+						{
+							"id": 208,
+							"name": "children",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Array of children from a DataProvider"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 358,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L358"
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "reference",
+									"id": 201,
+									"name": "IDataProviderChildren"
+								}
+							}
+						},
+						{
+							"id": 209,
+							"name": "matches_context",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Verifies if DataProvider have further context/children"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 363,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L363"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "boolean"
+							}
+						},
+						{
+							"id": 207,
+							"name": "type",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Type of DataProvider"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 353,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L353"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								208,
+								209,
+								207
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusDataProvider.ts",
+							"line": 349,
+							"character": 17,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L349"
+						}
+					]
+				},
+				{
+					"id": 210,
+					"name": "IQorusDataProviderConstructorOptions",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"children": [
+						{
+							"id": 213,
+							"name": "context",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Context for the Qorus DataProvider api ex: 'record'"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 380,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L380"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 196,
+								"name": "TContext"
+							}
+						},
+						{
+							"id": 211,
+							"name": "path",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Path to a DataProvider"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 370,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L370"
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "intrinsic",
+									"name": "string"
+								}
+							}
+						},
+						{
+							"id": 212,
+							"name": "responseData",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Qorus DataProvider api response data"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 375,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L375"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 206,
+								"name": "IDataProviderResponseData"
+							}
+						},
+						{
+							"id": 214,
+							"name": "responseError",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Error received if any from the Qorus DataProvider api"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 385,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L385"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 197,
+								"name": "IResponseError"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								213,
+								211,
+								212,
+								214
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusDataProvider.ts",
+							"line": 366,
+							"character": 17,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L366"
+						}
+					]
+				},
+				{
+					"id": 215,
+					"name": "IQorusDataProviderData",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"children": [
+						{
+							"id": 217,
+							"name": "errorData",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Error data received from the QorusDataProvider api"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 396,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L396"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 197,
+								"name": "IResponseError"
+							}
+						},
+						{
+							"id": 216,
+							"name": "responseData",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Response data received from the QorusDataProvider api"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 392,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L392"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 206,
+								"name": "IDataProviderResponseData"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								217,
+								216
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusDataProvider.ts",
+							"line": 388,
+							"character": 17,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L388"
+						}
+					]
+				},
+				{
+					"id": 197,
+					"name": "IResponseError",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Get request error data from DataProvider api"
+							}
+						]
+					},
+					"children": [
+						{
+							"id": 198,
+							"name": "desc",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Description for the fetch error"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 314,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L314"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						},
+						{
+							"id": 199,
+							"name": "err",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Error info for the fetch error"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 319,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L319"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						},
+						{
+							"id": 200,
+							"name": "status",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Error status code for fetch error"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusDataProvider.ts",
+									"line": 324,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L324"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "number"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								198,
+								199,
+								200
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusDataProvider.ts",
+							"line": 310,
+							"character": 17,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L310"
+						}
+					]
+				},
+				{
+					"id": 196,
+					"name": "TContext",
+					"kind": 4194304,
+					"kindString": "Type alias",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Context for the Qorus api ex: 'record'"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "QorusDataProvider.ts",
+							"line": 307,
+							"character": 12,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L307"
+						}
+					],
+					"type": {
+						"type": "union",
+						"types": [
+							{
+								"type": "literal",
+								"value": "record"
+							},
+							{
+								"type": "literal",
+								"value": "api"
+							},
+							{
+								"type": "literal",
+								"value": "event"
+							},
+							{
+								"type": "literal",
+								"value": "message"
+							},
+							{
+								"type": "literal",
+								"value": "type"
+							}
+						]
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Classes",
+					"children": [
+						142
+					]
+				},
+				{
+					"title": "Interfaces",
+					"children": [
+						201,
+						193,
+						206,
+						210,
+						215,
+						197
+					]
+				},
+				{
+					"title": "Type Aliases",
+					"children": [
+						196
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "QorusDataProvider.ts",
+					"line": 1,
+					"character": 0,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L1"
+				}
+			]
+		},
+		{
+			"id": 92,
+			"name": "HttpRequest",
+			"kind": 4,
+			"kindString": "Namespace",
+			"flags": {},
+			"children": [
+				{
+					"id": 112,
+					"name": "QorusRequest",
+					"kind": 128,
+					"kindString": "Class",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "QorusRequest class is wrapper for https request to Qorus server apis\n- Adds default headers to the https request\n- Allows creation of request parameters from a js object\n- Allows custom headers and data object"
+							}
+						],
+						"blockTags": [
+							{
+								"tag": "@returns",
+								"content": [
+									{
+										"kind": "text",
+										"text": "QorusRequest class object"
+									}
+								]
+							},
+							{
+								"tag": "@Category",
+								"content": [
+									{
+										"kind": "text",
+										"text": "QorusRequest"
+									}
+								]
+							}
+						]
+					},
+					"children": [
+						{
+							"id": 113,
+							"name": "constructor",
+							"kind": 512,
+							"kindString": "Constructor",
+							"flags": {},
+							"signatures": [
+								{
+									"id": 114,
+									"name": "new QorusRequest",
+									"kind": 16384,
+									"kindString": "Constructor signature",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"id": 112,
+										"name": "QorusRequest"
+									}
+								}
+							]
+						},
+						{
+							"id": 115,
+							"name": "defaultHeaders",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Default headers for the QorusRequest"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusRequest.ts",
+									"line": 69,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L69"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 107,
+								"name": "IDefaultHeaders"
+							},
+							"defaultValue": "..."
+						},
+						{
+							"id": 136,
+							"name": "deleteReq",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusRequest.ts",
+									"line": 152,
+									"character": 8,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L152"
+								}
+							],
+							"signatures": [
+								{
+									"id": 137,
+									"name": "deleteReq",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Delete request creator for the QorusToolkit"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Result of the delete request"
+													}
+												]
+											}
+										]
+									},
+									"typeParameter": [
+										{
+											"id": 138,
+											"name": "T",
+											"kind": 131072,
+											"kindString": "Type parameter",
+											"flags": {}
+										}
+									],
+									"parameters": [
+										{
+											"id": 139,
+											"name": "props",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "QorusRequestParams endpoint url is mandatory to make a delete request"
+													}
+												]
+											},
+											"type": {
+												"type": "reference",
+												"id": 102,
+												"name": "IQorusRequestParams"
+											}
+										},
+										{
+											"id": 140,
+											"name": "endpoint",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isOptional": true
+											},
+											"type": {
+												"type": "reference",
+												"id": 26,
+												"name": "IEndpoint"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "union",
+												"types": [
+													{
+														"type": "intrinsic",
+														"name": "undefined"
+													},
+													{
+														"type": "reference",
+														"id": 138,
+														"name": "T"
+													}
+												]
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 121,
+							"name": "get",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusRequest.ts",
+									"line": 122,
+									"character": 8,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L122"
+								}
+							],
+							"signatures": [
+								{
+									"id": 122,
+									"name": "get",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Get request creator for the QorusToolkit"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Result of the get request"
+													}
+												]
+											}
+										]
+									},
+									"typeParameter": [
+										{
+											"id": 123,
+											"name": "T",
+											"kind": 131072,
+											"kindString": "Type parameter",
+											"flags": {}
+										}
+									],
+									"parameters": [
+										{
+											"id": 124,
+											"name": "props",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "QorusRequestParams endpoint url is mandatory to make a get request"
+													}
+												]
+											},
+											"type": {
+												"type": "reference",
+												"id": 102,
+												"name": "IQorusRequestParams"
+											}
+										},
+										{
+											"id": 125,
+											"name": "endpoint",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isOptional": true
+											},
+											"type": {
+												"type": "reference",
+												"id": 26,
+												"name": "IEndpoint"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "union",
+												"types": [
+													{
+														"type": "intrinsic",
+														"name": "undefined"
+													},
+													{
+														"type": "reference",
+														"id": 123,
+														"name": "T"
+													}
+												]
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 116,
+							"name": "makeRequest",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isPrivate": true
+							},
+							"sources": [
+								{
+									"fileName": "QorusRequest.ts",
+									"line": 71,
+									"character": 10,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L71"
+								}
+							],
+							"signatures": [
+								{
+									"id": 117,
+									"name": "makeRequest",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"parameters": [
+										{
+											"id": 118,
+											"name": "type",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "union",
+												"types": [
+													{
+														"type": "literal",
+														"value": "GET"
+													},
+													{
+														"type": "literal",
+														"value": "PUT"
+													},
+													{
+														"type": "literal",
+														"value": "POST"
+													},
+													{
+														"type": "literal",
+														"value": "DELETE"
+													}
+												]
+											}
+										},
+										{
+											"id": 119,
+											"name": "props",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"id": 102,
+												"name": "IQorusRequestParams"
+											}
+										},
+										{
+											"id": 120,
+											"name": "endpoint",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isOptional": true
+											},
+											"type": {
+												"type": "reference",
+												"id": 26,
+												"name": "IEndpoint"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "any"
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 126,
+							"name": "post",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusRequest.ts",
+									"line": 132,
+									"character": 8,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L132"
+								}
+							],
+							"signatures": [
+								{
+									"id": 127,
+									"name": "post",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Post request creator for the QorusToolkit"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Result of the post request"
+													}
+												]
+											}
+										]
+									},
+									"typeParameter": [
+										{
+											"id": 128,
+											"name": "T",
+											"kind": 131072,
+											"kindString": "Type parameter",
+											"flags": {}
+										}
+									],
+									"parameters": [
+										{
+											"id": 129,
+											"name": "props",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "QorusRequestParams endpoint url is mandatory to make a post request"
+													}
+												]
+											},
+											"type": {
+												"type": "reference",
+												"id": 102,
+												"name": "IQorusRequestParams"
+											}
+										},
+										{
+											"id": 130,
+											"name": "endpoint",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isOptional": true
+											},
+											"type": {
+												"type": "reference",
+												"id": 26,
+												"name": "IEndpoint"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "union",
+												"types": [
+													{
+														"type": "intrinsic",
+														"name": "undefined"
+													},
+													{
+														"type": "reference",
+														"id": 128,
+														"name": "T"
+													}
+												]
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						},
+						{
+							"id": 131,
+							"name": "put",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusRequest.ts",
+									"line": 142,
+									"character": 8,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L142"
+								}
+							],
+							"signatures": [
+								{
+									"id": 132,
+									"name": "put",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Put request creator for the QorusToolkit"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Result of the put request"
+													}
+												]
+											}
+										]
+									},
+									"typeParameter": [
+										{
+											"id": 133,
+											"name": "T",
+											"kind": 131072,
+											"kindString": "Type parameter",
+											"flags": {}
+										}
+									],
+									"parameters": [
+										{
+											"id": 134,
+											"name": "props",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "QorusRequestParams endpoint url is mandatory to make a put request"
+													}
+												]
+											},
+											"type": {
+												"type": "reference",
+												"id": 102,
+												"name": "IQorusRequestParams"
+											}
+										},
+										{
+											"id": 135,
+											"name": "endpoint",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isOptional": true
+											},
+											"type": {
+												"type": "reference",
+												"id": 26,
+												"name": "IEndpoint"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"typeArguments": [
+											{
+												"type": "union",
+												"types": [
+													{
+														"type": "intrinsic",
+														"name": "undefined"
+													},
+													{
+														"type": "reference",
+														"id": 133,
+														"name": "T"
+													}
+												]
+											}
+										],
+										"name": "Promise",
+										"qualifiedName": "Promise",
+										"package": "typescript"
+									}
+								}
+							]
+						}
+					],
+					"groups": [
+						{
+							"title": "Constructors",
+							"children": [
+								113
+							]
+						},
+						{
+							"title": "Properties",
+							"children": [
+								115
+							]
+						},
+						{
+							"title": "Methods",
+							"children": [
+								136,
+								121,
+								116,
+								126,
+								131
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusRequest.ts",
+							"line": 65,
+							"character": 13,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L65"
+						}
+					]
+				},
+				{
+					"id": 107,
+					"name": "IDefaultHeaders",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"children": [
+						{
+							"id": 109,
+							"name": "Accept",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Accepted data format type by Qorus server"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusRequest.ts",
+									"line": 49,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L49"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						},
+						{
+							"id": 108,
+							"name": "Content-Type",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Content type for the Qorus request"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusRequest.ts",
+									"line": 44,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L44"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								109,
+								108
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusRequest.ts",
+							"line": 40,
+							"character": 17,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L40"
+						}
+					],
+					"indexSignature": {
+						"id": 110,
+						"name": "__index",
+						"kind": 8192,
+						"kindString": "Index signature",
+						"flags": {},
+						"parameters": [
+							{
+								"id": 111,
+								"name": "x",
+								"kind": 32768,
+								"flags": {},
+								"type": {
+									"type": "intrinsic",
+									"name": "string"
+								}
+							}
+						],
+						"type": {
+							"type": "intrinsic",
+							"name": "string"
+						}
+					}
+				},
+				{
+					"id": 102,
+					"name": "IQorusRequestParams",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"children": [
+						{
+							"id": 105,
+							"name": "data",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Data to include in an https request to Qorus server api"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusRequest.ts",
+									"line": 32,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L32"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "any"
+							}
+						},
+						{
+							"id": 103,
+							"name": "headers",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Headers to include in an https request to Qorus server api"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusRequest.ts",
+									"line": 22,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L22"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 93,
+								"name": "TQorusRequestHeader"
+							}
+						},
+						{
+							"id": 106,
+							"name": "params",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "URL Parameters to include in an https request to Qorus server api"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusRequest.ts",
+									"line": 37,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L37"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "string"
+									},
+									{
+										"type": "intrinsic",
+										"name": "string"
+									}
+								],
+								"name": "Record",
+								"qualifiedName": "Record",
+								"package": "typescript"
+							}
+						},
+						{
+							"id": 104,
+							"name": "path",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Path for a https request to Qorus server"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusRequest.ts",
+									"line": 27,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L27"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								105,
+								103,
+								106,
+								104
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusRequest.ts",
+							"line": 18,
+							"character": 17,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L18"
+						}
+					]
+				},
+				{
+					"id": 94,
+					"name": "QorusRequestResponse",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"children": [
+						{
+							"id": 99,
+							"name": "config",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusRequest.ts",
+									"line": 14,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L14"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "string"
+									},
+									{
+										"type": "intrinsic",
+										"name": "any"
+									}
+								],
+								"name": "Record",
+								"qualifiedName": "Record",
+								"package": "typescript"
+							}
+						},
+						{
+							"id": 95,
+							"name": "data",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusRequest.ts",
+									"line": 10,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L10"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 101,
+								"name": "T"
+							}
+						},
+						{
+							"id": 98,
+							"name": "headers",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusRequest.ts",
+									"line": 13,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L13"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 93,
+								"name": "TQorusRequestHeader"
+							}
+						},
+						{
+							"id": 100,
+							"name": "request",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"sources": [
+								{
+									"fileName": "QorusRequest.ts",
+									"line": 15,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L15"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "any"
+							}
+						},
+						{
+							"id": 96,
+							"name": "status",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusRequest.ts",
+									"line": 11,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L11"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "number"
+							}
+						},
+						{
+							"id": 97,
+							"name": "statusText",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusRequest.ts",
+									"line": 12,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L12"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								99,
+								95,
+								98,
+								100,
+								96,
+								97
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusRequest.ts",
+							"line": 9,
+							"character": 17,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L9"
+						}
+					],
+					"typeParameters": [
+						{
+							"id": 101,
+							"name": "T",
+							"kind": 131072,
+							"kindString": "Type parameter",
+							"flags": {},
+							"default": {
+								"type": "intrinsic",
+								"name": "any"
+							}
+						}
+					]
+				},
+				{
+					"id": 93,
+					"name": "TQorusRequestHeader",
+					"kind": 4194304,
+					"kindString": "Type alias",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "QorusRequest.ts",
+							"line": 7,
+							"character": 12,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L7"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"typeArguments": [
+							{
+								"type": "intrinsic",
+								"name": "string"
+							},
+							{
+								"type": "union",
+								"types": [
+									{
+										"type": "intrinsic",
+										"name": "string"
+									},
+									{
+										"type": "intrinsic",
+										"name": "number"
+									},
+									{
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								]
+							}
+						],
+						"name": "Record",
+						"qualifiedName": "Record",
+						"package": "typescript"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Classes",
+					"children": [
+						112
+					]
+				},
+				{
+					"title": "Interfaces",
+					"children": [
+						107,
+						102,
+						94
+					]
+				},
+				{
+					"title": "Type Aliases",
+					"children": [
+						93
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "QorusRequest.ts",
+					"line": 1,
+					"character": 0,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L1"
+				}
+			]
+		},
+		{
+			"id": 218,
+			"name": "QorusOptions",
+			"kind": 4,
+			"kindString": "Namespace",
+			"flags": {},
+			"children": [
+				{
+					"id": 219,
+					"name": "QorusOptions",
+					"kind": 128,
+					"kindString": "Class",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "QorusOptions is a helper class which makes working Qorus constructor_options easier\n- Validate constructor_options property value\n- set and get constructor_options property values"
+							}
+						],
+						"blockTags": [
+							{
+								"tag": "@returns",
+								"content": [
+									{
+										"kind": "text",
+										"text": "QorusOptions class object"
+									}
+								]
+							},
+							{
+								"tag": "@Category",
+								"content": [
+									{
+										"kind": "text",
+										"text": "QorusOptions"
+									}
+								]
+							}
+						]
+					},
+					"children": [
+						{
+							"id": 220,
+							"name": "constructor",
+							"kind": 512,
+							"kindString": "Constructor",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 32,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L32"
+								}
+							],
+							"signatures": [
+								{
+									"id": 221,
+									"name": "new QorusOptions",
+									"kind": 16384,
+									"kindString": "Constructor signature",
+									"flags": {},
+									"parameters": [
+										{
+											"id": 222,
+											"name": "children",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"id": 201,
+												"name": "IDataProviderChildren"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"id": 219,
+										"name": "QorusOptions"
+									}
+								}
+							]
+						},
+						{
+							"id": 223,
+							"name": "name",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Name of the provider option"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 25,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L25"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							},
+							"defaultValue": "''"
+						},
+						{
+							"id": 224,
+							"name": "qorusOptions",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Array of constructor_options with validated values"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 30,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L30"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 254,
+								"name": "TQorusOptions"
+							},
+							"defaultValue": "{}"
+						},
+						{
+							"id": 228,
+							"name": "adjustChildren",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isPrivate": true
+							},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 49,
+									"character": 10,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L49"
+								}
+							],
+							"signatures": [
+								{
+									"id": 229,
+									"name": "adjustChildren",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "void"
+									}
+								}
+							]
+						},
+						{
+							"id": 237,
+							"name": "convertToJsType",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isPrivate": true
+							},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 115,
+									"character": 10,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L115"
+								}
+							],
+							"signatures": [
+								{
+									"id": 238,
+									"name": "convertToJsType",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A private function to convert types to js types"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Converted type"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 239,
+											"name": "type",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Type to be converted"
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							]
+						},
+						{
+							"id": 234,
+							"name": "createJsTypes",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isPrivate": true
+							},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 100,
+									"character": 10,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L100"
+								}
+							],
+							"signatures": [
+								{
+									"id": 235,
+									"name": "createJsTypes",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A parser function to modify options object"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Object with constructor options"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 236,
+											"name": "types",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "array",
+												"elementType": {
+													"type": "intrinsic",
+													"name": "string"
+												}
+											}
+										}
+									],
+									"type": {
+										"type": "array",
+										"elementType": {
+											"type": "intrinsic",
+											"name": "string"
+										}
+									}
+								}
+							]
+						},
+						{
+							"id": 225,
+							"name": "get",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 43,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L43"
+								}
+							],
+							"signatures": [
+								{
+									"id": 226,
+									"name": "get",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A getter to get constructor options property object"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Property object with name and value"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 227,
+											"name": "optionName",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											},
+											{
+												"type": "reference",
+												"id": 255,
+												"name": "IQorusPropertyOptions"
+											}
+										]
+									}
+								}
+							]
+						},
+						{
+							"id": 232,
+							"name": "getAll",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 79,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L79"
+								}
+							],
+							"signatures": [
+								{
+									"id": 233,
+									"name": "getAll",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Get all values required for the provider"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Array of values for the constructor options if required values exist, undefined otherwise"
+													}
+												]
+											}
+										]
+									},
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											},
+											{
+												"type": "reference",
+												"id": 1,
+												"name": "TObjectWithStringKey"
+											}
+										]
+									}
+								}
+							]
+						},
+						{
+							"id": 243,
+							"name": "getJsType",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 144,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L144"
+								}
+							],
+							"signatures": [
+								{
+									"id": 244,
+									"name": "getJsType",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A getter to get js types for a property"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "js types accepted by the property"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 245,
+											"name": "propertyName",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "name of the property"
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											},
+											{
+												"type": "array",
+												"elementType": {
+													"type": "intrinsic",
+													"name": "string"
+												}
+											}
+										]
+									}
+								}
+							]
+						},
+						{
+							"id": 240,
+							"name": "getType",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 126,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L126"
+								}
+							],
+							"signatures": [
+								{
+									"id": 241,
+									"name": "getType",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A getter to get property type"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Types accepted by the property"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 242,
+											"name": "propertyName",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Name of the property"
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											},
+											{
+												"type": "array",
+												"elementType": {
+													"type": "intrinsic",
+													"name": "string"
+												}
+											}
+										]
+									}
+								}
+							]
+						},
+						{
+							"id": 246,
+							"name": "set",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 158,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L158"
+								}
+							],
+							"signatures": [
+								{
+									"id": 247,
+									"name": "set",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A setter to set constructor options property value"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "Property object"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 248,
+											"name": "propertyName",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Name of the property"
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 249,
+											"name": "value",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "intrinsic",
+												"name": "any"
+											}
+										}
+									],
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											},
+											{
+												"type": "reference",
+												"id": 255,
+												"name": "IQorusPropertyOptions"
+											}
+										]
+									}
+								}
+							]
+						},
+						{
+							"id": 250,
+							"name": "validate",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 176,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L176"
+								}
+							],
+							"signatures": [
+								{
+									"id": 251,
+									"name": "validate",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A method to validate if the provided value can be used by the property"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "True if value can be used, False otherwise"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 252,
+											"name": "propertyName",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Name of the property"
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 253,
+											"name": "value",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "intrinsic",
+												"name": "any"
+											}
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								}
+							]
+						},
+						{
+							"id": 230,
+							"name": "validateRequired",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 62,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L62"
+								}
+							],
+							"signatures": [
+								{
+									"id": 231,
+									"name": "validateRequired",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "A validator method to check if all the required properties for constructor_Options contains a value"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "True if values for all the required properties exist, false otherwise"
+													}
+												]
+											}
+										]
+									},
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								}
+							]
+						}
+					],
+					"groups": [
+						{
+							"title": "Constructors",
+							"children": [
+								220
+							]
+						},
+						{
+							"title": "Properties",
+							"children": [
+								223,
+								224
+							]
+						},
+						{
+							"title": "Methods",
+							"children": [
+								228,
+								237,
+								234,
+								225,
+								232,
+								243,
+								240,
+								246,
+								250,
+								230
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusOptions.ts",
+							"line": 23,
+							"character": 13,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L23"
+						}
+					]
+				},
+				{
+					"id": 255,
+					"name": "IQorusPropertyOptions",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {},
+					"children": [
+						{
+							"id": 257,
+							"name": "desc",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Description of constructor_options property"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 205,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L205"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						},
+						{
+							"id": 261,
+							"name": "jsType",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Converted Qorus types to jsTypes"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 225,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L225"
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "intrinsic",
+									"name": "string"
+								}
+							}
+						},
+						{
+							"id": 262,
+							"name": "name",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Name of a constructor_options property"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 230,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L230"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						},
+						{
+							"id": 258,
+							"name": "required",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Verifies if the constructor_options property is required"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 210,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L210"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "boolean"
+							}
+						},
+						{
+							"id": 259,
+							"name": "sensitive",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Verifies if the constructor_options property is sensitive"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 215,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L215"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "boolean"
+							}
+						},
+						{
+							"id": 256,
+							"name": "type",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Accepted types for the constructor_options property"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 200,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L200"
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "intrinsic",
+									"name": "string"
+								}
+							}
+						},
+						{
+							"id": 260,
+							"name": "value",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Property value for a constructor_options property"
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "QorusOptions.ts",
+									"line": 220,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L220"
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "any"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								257,
+								261,
+								262,
+								258,
+								259,
+								256,
+								260
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusOptions.ts",
+							"line": 196,
+							"character": 17,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L196"
+						}
+					]
+				},
+				{
+					"id": 254,
+					"name": "TQorusOptions",
+					"kind": 4194304,
+					"kindString": "Type alias",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Property object for constructor_options"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "QorusOptions.ts",
+							"line": 194,
+							"character": 12,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L194"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"typeArguments": [
+							{
+								"type": "intrinsic",
+								"name": "string"
+							},
+							{
+								"type": "reference",
+								"id": 255,
+								"name": "IQorusPropertyOptions"
+							}
+						],
+						"name": "Record",
+						"qualifiedName": "Record",
+						"package": "typescript"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Classes",
+					"children": [
+						219
+					]
+				},
+				{
+					"title": "Interfaces",
+					"children": [
+						255
+					]
+				},
+				{
+					"title": "Type Aliases",
+					"children": [
+						254
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "QorusOptions.ts",
+					"line": 1,
+					"character": 0,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusOptions.ts#L1"
+				}
+			]
+		},
+		{
+			"id": 263,
+			"name": "Validator",
+			"kind": 4,
+			"kindString": "Namespace",
+			"flags": {},
+			"children": [
+				{
+					"id": 265,
+					"name": "QorusValidator",
+					"kind": 128,
+					"kindString": "Class",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "QorusValidator is a helper class to verify the validity for Qorus types and their values\n- Verify if a value can be used for Qorus type"
+							}
+						],
+						"blockTags": [
+							{
+								"tag": "@returns",
+								"content": [
+									{
+										"kind": "text",
+										"text": "QorusValidator class object"
+									}
+								]
+							},
+							{
+								"tag": "@Category",
+								"content": [
+									{
+										"kind": "text",
+										"text": "QorusValidator"
+									}
+								]
+							}
+						]
+					},
+					"children": [
+						{
+							"id": 266,
+							"name": "constructor",
+							"kind": 512,
+							"kindString": "Constructor",
+							"flags": {},
+							"signatures": [
+								{
+									"id": 267,
+									"name": "new QorusValidator",
+									"kind": 16384,
+									"kindString": "Constructor signature",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"id": 265,
+										"name": "QorusValidator"
+									}
+								}
+							]
+						},
+						{
+							"id": 276,
+							"name": "getTypeFromValue",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusValidator.ts",
+									"line": 414,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusValidator.ts#L414"
+								}
+							],
+							"signatures": [
+								{
+									"id": 277,
+									"name": "getTypeFromValue",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Get QorusType from the value"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "QorusType string"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 278,
+											"name": "value",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Any accepted type value"
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "any"
+											}
+										}
+									],
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "literal",
+												"value": "string"
+											},
+											{
+												"type": "literal",
+												"value": "int"
+											},
+											{
+												"type": "literal",
+												"value": "list"
+											},
+											{
+												"type": "literal",
+												"value": "bool"
+											},
+											{
+												"type": "literal",
+												"value": "float"
+											},
+											{
+												"type": "literal",
+												"value": "hash"
+											},
+											{
+												"type": "literal",
+												"value": "date"
+											},
+											{
+												"type": "literal",
+												"value": "null"
+											},
+											{
+												"type": "literal",
+												"value": "none"
+											}
+										]
+									}
+								}
+							]
+						},
+						{
+							"id": 268,
+							"name": "nullType",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isPrivate": true
+							},
+							"sources": [
+								{
+									"fileName": "QorusValidator.ts",
+									"line": 36,
+									"character": 10,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusValidator.ts#L36"
+								}
+							],
+							"signatures": [
+								{
+									"id": 269,
+									"name": "nullType",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Verifies if the type can be null or not"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "True if the the type can be null, False otherwise"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 270,
+											"name": "type",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Type of the object"
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								}
+							]
+						},
+						{
+							"id": 271,
+							"name": "validate",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "QorusValidator.ts",
+									"line": 51,
+									"character": 2,
+									"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusValidator.ts#L51"
+								}
+							],
+							"signatures": [
+								{
+									"id": 272,
+									"name": "validate",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Validate property for the provider-options for data-provider"
+											}
+										],
+										"blockTags": [
+											{
+												"tag": "@returns",
+												"content": [
+													{
+														"kind": "text",
+														"text": "True if the value can be accepted for the type, False otherwise"
+													}
+												]
+											}
+										]
+									},
+									"parameters": [
+										{
+											"id": 273,
+											"name": "type",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "type of value for the property"
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 274,
+											"name": "value",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "value for the property"
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "any"
+											}
+										},
+										{
+											"id": 275,
+											"name": "canBeNull",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "if the value can be null"
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "boolean"
+											}
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								}
+							]
+						}
+					],
+					"groups": [
+						{
+							"title": "Constructors",
+							"children": [
+								266
+							]
+						},
+						{
+							"title": "Methods",
+							"children": [
+								276,
+								268,
+								271
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "QorusValidator.ts",
+							"line": 30,
+							"character": 13,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusValidator.ts#L30"
+						}
+					]
+				},
+				{
+					"id": 264,
+					"name": "versions",
+					"kind": 32,
+					"kindString": "Variable",
+					"flags": {
+						"isConst": true
+					},
+					"sources": [
+						{
+							"fileName": "QorusValidator.ts",
+							"line": 22,
+							"character": 13,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusValidator.ts#L22"
+						}
+					],
+					"type": {
+						"type": "array",
+						"elementType": {
+							"type": "union",
+							"types": [
+								{
+									"type": "intrinsic",
+									"name": "string"
+								},
+								{
+									"type": "intrinsic",
+									"name": "number"
+								}
+							]
+						}
+					},
+					"defaultValue": "..."
+				}
+			],
+			"groups": [
+				{
+					"title": "Classes",
+					"children": [
+						265
+					]
+				},
+				{
+					"title": "Variables",
+					"children": [
+						264
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "QorusValidator.ts",
+					"line": 1,
+					"character": 0,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusValidator.ts#L1"
+				}
+			]
+		},
+		{
+			"id": 284,
+			"name": "IApiPaths",
+			"kind": 256,
+			"kindString": "Interface",
+			"flags": {},
+			"children": [
+				{
+					"id": 285,
+					"name": "authenticator",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Api paths for the QorusAuthenticator"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "utils/apiPaths.ts",
+							"line": 5,
+							"character": 2,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/utils/apiPaths.ts#L5"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"id": 288,
+						"name": "IAuthenticatorApiPaths"
+					}
+				},
+				{
+					"id": 286,
+					"name": "dataProviders",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Api paths for the QorusDataProvider"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "utils/apiPaths.ts",
+							"line": 9,
+							"character": 2,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/utils/apiPaths.ts#L9"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"id": 293,
+						"name": "IDataProviderApiPaths"
+					}
+				},
+				{
+					"id": 287,
+					"name": "jobs",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isOptional": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Api paths for the QorusJobs"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "utils/apiPaths.ts",
+							"line": 13,
+							"character": 2,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/utils/apiPaths.ts#L13"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"id": 295,
+						"name": "IJobsApiPaths"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						285,
+						286,
+						287
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "utils/apiPaths.ts",
+					"line": 1,
+					"character": 17,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/utils/apiPaths.ts#L1"
+				}
+			]
+		},
+		{
+			"id": 288,
+			"name": "IAuthenticatorApiPaths",
+			"kind": 256,
+			"kindString": "Interface",
+			"flags": {},
+			"children": [
+				{
+					"id": 289,
+					"name": "login",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Path to authenticate the user for a Qorus server endpoint"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "utils/apiPaths.ts",
+							"line": 34,
+							"character": 2,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/utils/apiPaths.ts#L34"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 290,
+					"name": "logout",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Path to logout the user for a Qorus server endpoint"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "utils/apiPaths.ts",
+							"line": 38,
+							"character": 2,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/utils/apiPaths.ts#L38"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 292,
+					"name": "validateNoAuth",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Path to identify if no-auth is enabled for the user for a Qorus server endpoint"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "utils/apiPaths.ts",
+							"line": 46,
+							"character": 2,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/utils/apiPaths.ts#L46"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 291,
+					"name": "validateToken",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Path to validate a authentication token for a user for the Qorus server endpoint"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "utils/apiPaths.ts",
+							"line": 42,
+							"character": 2,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/utils/apiPaths.ts#L42"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						289,
+						290,
+						292,
+						291
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "utils/apiPaths.ts",
+					"line": 30,
+					"character": 17,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/utils/apiPaths.ts#L30"
+				}
+			]
+		},
+		{
+			"id": 293,
+			"name": "IDataProviderApiPaths",
+			"kind": 256,
+			"kindString": "Interface",
+			"flags": {},
+			"children": [
+				{
+					"id": 294,
+					"name": "browse",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Path to DataProvider browse for a QorusServer endpoint"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "utils/apiPaths.ts",
+							"line": 27,
+							"character": 2,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/utils/apiPaths.ts#L27"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						294
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "utils/apiPaths.ts",
+					"line": 23,
+					"character": 17,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/utils/apiPaths.ts#L23"
+				}
+			]
+		},
+		{
+			"id": 295,
+			"name": "IJobsApiPaths",
+			"kind": 256,
+			"kindString": "Interface",
+			"flags": {},
+			"children": [
+				{
+					"id": 296,
+					"name": "browse",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Path to browse Jobs for a QorusServer endpoint"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "utils/apiPaths.ts",
+							"line": 20,
+							"character": 2,
+							"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/utils/apiPaths.ts#L20"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						296
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "utils/apiPaths.ts",
+					"line": 16,
+					"character": 17,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/utils/apiPaths.ts#L16"
+				}
+			]
+		},
+		{
+			"id": 2,
+			"name": "TObjectWithAnyValue",
+			"kind": 4194304,
+			"kindString": "Type alias",
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "A record of objects with string key and any kind of value"
+					}
+				]
+			},
+			"sources": [
+				{
+					"fileName": "index.ts",
+					"line": 24,
+					"character": 12,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/index.ts#L24"
+				}
+			],
+			"type": {
+				"type": "reference",
+				"typeArguments": [
+					{
+						"type": "intrinsic",
+						"name": "string"
+					},
+					{
+						"type": "intrinsic",
+						"name": "any"
+					}
+				],
+				"name": "Record",
+				"qualifiedName": "Record",
+				"package": "typescript"
+			}
+		},
+		{
+			"id": 1,
+			"name": "TObjectWithStringKey",
+			"kind": 4194304,
+			"kindString": "Type alias",
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "A record of objects with string key and string value"
+					}
+				]
+			},
+			"sources": [
+				{
+					"fileName": "index.ts",
+					"line": 19,
+					"character": 12,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/index.ts#L19"
+				}
+			],
+			"type": {
+				"type": "reference",
+				"typeArguments": [
+					{
+						"type": "intrinsic",
+						"name": "string"
+					},
+					{
+						"type": "intrinsic",
+						"name": "string"
+					}
+				],
+				"name": "Record",
+				"qualifiedName": "Record",
+				"package": "typescript"
+			}
+		},
+		{
+			"id": 283,
+			"name": "TVersion",
+			"kind": 4194304,
+			"kindString": "Type alias",
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Allowed types of version for the Qorus server api"
+					}
+				]
+			},
+			"sources": [
+				{
+					"fileName": "utils/apiPaths.ts",
+					"line": 52,
+					"character": 12,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/utils/apiPaths.ts#L52"
+				}
+			],
+			"type": {
+				"type": "union",
+				"types": [
+					{
+						"type": "literal",
+						"value": 1
+					},
+					{
+						"type": "literal",
+						"value": 2
+					},
+					{
+						"type": "literal",
+						"value": 3
+					},
+					{
+						"type": "literal",
+						"value": 4
+					},
+					{
+						"type": "literal",
+						"value": 5
+					},
+					{
+						"type": "literal",
+						"value": 6
+					},
+					{
+						"type": "literal",
+						"value": "latest"
+					}
+				]
+			}
+		},
+		{
+			"id": 279,
+			"name": "QorusAuthenticator",
+			"kind": 32,
+			"kindString": "Variable",
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "QorusAuthenticator.ts",
+					"line": 498,
+					"character": 0,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusAuthenticator.ts#L498"
+				}
+			],
+			"type": {
+				"type": "reference",
+				"id": 32,
+				"name": "QorusAuthenticator"
+			}
+		},
+		{
+			"id": 281,
+			"name": "QorusDataProvider",
+			"kind": 32,
+			"kindString": "Variable",
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "QorusDataProvider.ts",
+					"line": 302,
+					"character": 0,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusDataProvider.ts#L302"
+				}
+			],
+			"type": {
+				"type": "reference",
+				"id": 142,
+				"name": "QorusDataProvider"
+			}
+		},
+		{
+			"id": 280,
+			"name": "QorusRequest",
+			"kind": 32,
+			"kindString": "Variable",
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "QorusRequest.ts",
+					"line": 158,
+					"character": 0,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusRequest.ts#L158"
+				}
+			],
+			"type": {
+				"type": "reference",
+				"id": 112,
+				"name": "QorusRequest"
+			}
+		},
+		{
+			"id": 282,
+			"name": "QorusValidator",
+			"kind": 32,
+			"kindString": "Variable",
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "QorusValidator.ts",
+					"line": 450,
+					"character": 0,
+					"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/QorusValidator.ts#L450"
+				}
+			],
+			"type": {
+				"type": "reference",
+				"id": 265,
+				"name": "QorusValidator"
+			}
+		}
+	],
+	"groups": [
+		{
+			"title": "References",
+			"children": [
+				298,
+				297
+			]
+		},
+		{
+			"title": "Namespaces",
+			"children": [
+				3,
+				141,
+				92,
+				218,
+				263
+			]
+		},
+		{
+			"title": "Interfaces",
+			"children": [
+				284,
+				288,
+				293,
+				295
+			]
+		},
+		{
+			"title": "Type Aliases",
+			"children": [
+				2,
+				1,
+				283
+			]
+		},
+		{
+			"title": "Variables",
+			"children": [
+				279,
+				281,
+				280,
+				282
+			]
+		}
+	],
+	"sources": [
+		{
+			"fileName": "index.ts",
+			"line": 1,
+			"character": 0,
+			"url": "https://github.com/qoretechnologies/qorus-toolkit/blob/a7dafe1/src/index.ts#L1"
+		}
+	]
+}
