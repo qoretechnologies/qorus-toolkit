@@ -71,7 +71,7 @@ If you discover a security vulnerability in Qorus Toolkit, please see [Security 
 
 ## Contributors
 
-<table>
+<table style="border: 0px solid transparent">
 <tr>
 <td>
 <div>
