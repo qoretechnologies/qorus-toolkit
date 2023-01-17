@@ -67,7 +67,30 @@ See the [Contributing Guide](CONTRIBUTING.MD) for more technical details on cont
 
 ### Security Issues
 
-If you discover a security vulnerability in Qorus-Toolkit, please see [Security Policies and Procedures](SECURITY.md).
+If you discover a security vulnerability in Qorus Toolkit, please see [Security Policies and Procedures](SECURITY.md).
+
+## Contributors
+
+<div style="display: flex; gap: 10px">
+<div>
+    <div style="padding-left: 25%">
+      <img src="https://avatars.githubusercontent.com/u/23454410?v=4" alt="Unstated Logo" width="50" style="border-radius: 50%; border: 2px solid #fff">
+    </div>
+    <div style="text-align: left">
+      <a href="https://github.com/rishabhmalik759">@rishabhmalik759</a>
+    </div>
+</div>
+
+<div >
+    <div style="padding-left: 15%">
+      <img src="https://avatars.githubusercontent.com/u/8861481?v=4" alt="Unstated Logo" width="50" style="border-radius: 50%; border: 2px solid #fff">
+    </div>
+    <div style="text-align: left">
+      <a href="https://github.com/Foxhoundn">@foxhoudn</a>
+    </div>
+</div>
+</div>
+<br>
 
 ## License
 
