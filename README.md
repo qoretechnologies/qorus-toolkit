@@ -71,7 +71,9 @@ If you discover a security vulnerability in Qorus Toolkit, please see [Security 
 
 ## Contributors
 
-<div style="display: flex; gap: 10px">
+<table>
+<tr>
+<td>
 <div>
     <div style="padding-left: 25%">
       <img src="https://avatars.githubusercontent.com/u/23454410?v=4" alt="Unstated Logo" width="50" style="border-radius: 50%; border: 2px solid #fff">
@@ -80,7 +82,8 @@ If you discover a security vulnerability in Qorus Toolkit, please see [Security 
       <a href="https://github.com/rishabhmalik759">@rishabhmalik759</a>
     </div>
 </div>
-
+</td>
+<td>
 <div >
     <div style="padding-left: 15%">
       <img src="https://avatars.githubusercontent.com/u/8861481?v=4" alt="Unstated Logo" width="50" style="border-radius: 50%; border: 2px solid #fff">
@@ -89,7 +92,10 @@ If you discover a security vulnerability in Qorus Toolkit, please see [Security 
       <a href="https://github.com/Foxhoundn">@foxhoudn</a>
     </div>
 </div>
-</div>
+<td>
+</tr>
+</table>
+
 <br>
 
 ## License
