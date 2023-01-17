@@ -71,31 +71,20 @@ If you discover a security vulnerability in Qorus Toolkit, please see [Security 
 
 ## Contributors
 
-<table style="border: 0px solid transparent">
-<tr>
-<td>
-<div>
-    <div style="padding-left: 25%">
-      <img src="https://avatars.githubusercontent.com/u/23454410?v=4" alt="Unstated Logo" width="50" style="border-radius: 50%; border: 2px solid #fff">
-    </div>
-    <div style="text-align: left">
-      <a href="https://github.com/rishabhmalik759">@rishabhmalik759</a>
-    </div>
-</div>
-</td>
-<td>
-<div >
-    <div style="padding-left: 15%">
-      <img src="https://avatars.githubusercontent.com/u/8861481?v=4" alt="Unstated Logo" width="50" style="border-radius: 50%; border: 2px solid #fff">
-    </div>
-    <div style="text-align: left">
-      <a href="https://github.com/Foxhoundn">@foxhoudn</a>
-    </div>
-</div>
-<td>
-</tr>
-</table>
-
+<table>
+  <tr>
+    <td>
+        <a href="https://github.com/rishabhmalik759">
+          <img src="https://avatars.githubusercontent.com/u/23454410?v=4" alt="@rishabhmalik759" width="50" style="border-radius: 50%; border: 2px solid #fff">
+          </a>
+    </td>
+    <td>
+      <a href="https://github.com/Foxhoundn">
+         <img src="https://avatars.githubusercontent.com/u/8861481?v=4" alt="Unstated Logo" width="50" style="border-radius: 50%; border: 2px solid #fff">
+      </a>
+    </td>
+  </tr>
+</table
 <br>
 
 ## License
