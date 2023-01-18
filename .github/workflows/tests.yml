@@ -93,7 +93,7 @@ jobs:
           username: "GitHub Bot"
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          message: '[Chromatic Storybook: ${{steps.chromatic_publish.outputs.buildUrl, Chromatic Build: ${{ steps.chromatic_publish.outputs.url }}]'
+          message: 'Chromatic Storybook: ${{ steps.chromatic_publish.outputs.buildUrl }}, Chromatic Build: ${{ steps.chromatic_publish.outputs.url }}'
 
         #   - name: Send Discord notification
         # id: discord_notify
