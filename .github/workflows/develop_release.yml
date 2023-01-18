@@ -116,4 +116,9 @@ jobs:
           username: "GitHub Bot"
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          message: ':exclamation: Successfully published chromatic to *v${{ steps.chromatic_publish.outputs }}*. Please check the steps below.'
+          message: ':exclamation: Successfully published chromatic 
+                    
+                    Chromatic Build: ${{ steps.chromatic_publish.outputs.url }}
+                    
+                    Chromatic Storybook: ${{ steps.chromatic_publish.outputs.buildUrl }}
+                    '
