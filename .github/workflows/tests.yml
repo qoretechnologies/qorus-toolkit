@@ -99,3 +99,4 @@ jobs:
                     
                     Chromatic Storybook: ${{ steps.chromatic_publish.outputs.buildUrl }}
                     '
+          embeds: '[{title: "Chromatic Storybook:", url: ${{steps.chromatic_publish.outputs.buildUrl}}}]'
