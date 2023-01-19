@@ -9,6 +9,12 @@ jobs:
   Publish-and-release:
     runs-on: ubuntu-latest
     steps:
+      - name: Get current time
+        uses: josStorer/get-current-time@v2.0.2
+        id: current_time
+        with:
+          format: YYYYMMDD-HH
+          utcOffset: "+01:00"
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
         with:
@@ -108,12 +114,11 @@ jobs:
           SLACK_MESSAGE: ':exclamation: There was an error creating release *v${{ steps.save_release_version.outputs.version }}*. Please check the steps below.'
           
       # Notify Discord
-      - name: Send Discord notification
-        id: discord_notify
-        uses: appleboy/discord-action@master
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
+          DISCORD_EMBEDS: '[{ "author": {  "icon_url": "https://avatars.githubusercontent.com/${{ github.actor }}", "name": "${{ github.actor }}", "url": "https://github.com/${{github.actor}}" },"url": "https://github.com/${{github.repository}}/commit/${{github.sha}}","fields": [{ "name": "Description", "value": "${{ github.event.pull_request.title }}"},{ "name": "Repository", "value": "[${{github.event.repository.name}}](${{github.event.repository.clone_url}})", "inline": true },{ "name": "Branch", "value": "[${{github.ref_name}}](https://github.com/${{github.repository}}/pull/${{github.ref_name}})", "inline": true },{ "name": "Event", "value": "${{github.event_name}}", "inline": true },{ "name": "Author", "value": "[${{github.actor}}](https://github.com/${{github.actor}})" },{ "name": "", "value": "Job     ${{github.job}}"},{ "name": "", "value": "[Github Action](https://github.com/${{ github.repository}}/actions/runs/${{ github.run_id}})"},{ "name": "", "value": "[Documentation](${{ steps.chromatic_publish.outputs.storybookUrl }})" },{ "name": "", "value": "[Chromatic Tests](${{ steps.chromatic_publish.outputs.buildUrl }})" }], "color":65280,"footer":{"text": "Published at ${{steps.current_time.outputs.readableTime}}"}}]'
+        uses: Ilshidur/action-discord@0.3.2
         with:
-          color: "#48f442"
-          username: "GitHub Bot"
-          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
-          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          message: 'Chromatic Storybook: ${{ steps.chromatic_publish.outputs.buildUrl }}, Chromatic Build: ${{ steps.chromatic_publish.outputs.url }}, Status: ${{ job.status }}'
+          args: ':white_check_mark: Release *v${{ steps.save_release_version.outputs.version }}* successfully created & published!'
+        if: success()
