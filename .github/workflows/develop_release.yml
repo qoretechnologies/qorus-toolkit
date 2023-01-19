@@ -108,10 +108,12 @@ jobs:
           SLACK_MESSAGE: ':exclamation: There was an error creating release *v${{ steps.save_release_version.outputs.version }}*. Please check the steps below.'
           
       # Notify Discord
-      - name: Discord notification
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          DISCORD_EMBEDS: '${{ toJson([{title: "Storybook Publish", url:"${{ steps.chromatic_publish.outputs.url }}"}]) }}'
-        uses: Ilshidur/action-discord@master
+      - name: Send Discord notification
+        id: discord_notify
+        uses: appleboy/discord-action@master
         with:
-          args: 'Project deployed successfully'
+          color: "#48f442"
+          username: "GitHub Bot"
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          message: 'Chromatic Storybook: ${{ steps.chromatic_publish.outputs.buildUrl }}, Chromatic Build: ${{ steps.chromatic_publish.outputs.url }}, Status: ${{ job.status }}'
