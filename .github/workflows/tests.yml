@@ -75,10 +75,6 @@ jobs:
           token: ${{ secrets.NPM_TOKEN }}
           tag: pull_request_${{ steps.save_release_version.outputs.version }}
           access: public
-      - uses: 8BitJonny/gh-get-current-pr@2.2.0
-        id: PR
-        with:
-          sha: ${{ github.event.pull_request.head.sha }}
       - name: Slack notification
         uses: Foxhoundn/slack@v1.2.94
         with:
@@ -96,7 +92,7 @@ jobs:
           username: "GitHub Bot"
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          message: 'Tests action run #${{ github.run_number }} for PR ${{ github.event.pull_request.html_url }} triggered by ${{ github.triggering_actor }}, Action Info: https://github.com/${{ github.repository}}/actions/runs/${{ github.run_id}}, Chromatic Storybook: ${{ steps.chromatic_publish.outputs.url }}, Chromatic Build: ${{ steps.chromatic_publish.outputs.buildUrl }}'
+          message: 'Tests action run #${{ github.run_number }} for PR ${{ github.event.pull_request.html_url }} triggered by ${{ github.triggering_actor }}, Action Info: https://github.com/${{ github.repository}}/actions/runs/${{ github.run_id}}, Chromatic Storybook: ${{ steps.chromatic_publish.outputs.storybookUrl }}, Chromatic Build: ${{ steps.chromatic_publish.outputs.buildUrl }}'
 
         #   - name: Send Discord notification
         # id: discord_notify
