@@ -84,17 +84,10 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_USERNAME: Qorus Toolkit
-      - name: Get commits
-        env:
-          # github URL to list commits
-          COMMITS_URL: ${{ github.event.pull_request.commits_url }}
+      - name: Get Commit Message
         run: |
-          if [ "${COMMITS_URL}x" != "x" ]; then
-            LAST_MSG=$(curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "${COMMITS_URL}?per_page=100" | jq -r .[-1].commit.message)
-            echo "LAST_MSG=${LAST_MSG}" >> "${GITHUB_ENV}"
-          else
-            echo 'LAST_MSG=' >> "${GITHUB_ENV}"
-          fi
+          MSG=$(git log --format=%B -n 1 ${{github.event.after}})
+          echo "::set-env name=COMMIT_MESSAGE::${MSG}"
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
