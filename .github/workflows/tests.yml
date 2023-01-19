@@ -92,7 +92,20 @@ jobs:
           username: "GitHub Bot"
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          message: 'Tests action run #${{ github.run_number }} for PR ${{ github.event.pull_request.html_url }} triggered by ${{ github.triggering_actor }}, Action Info: https://github.com/${{ github.repository}}/actions/runs/${{ github.run_id}}, Chromatic Storybook: ${{ steps.chromatic_publish.outputs.storybookUrl }}, Chromatic Build: ${{ steps.chromatic_publish.outputs.buildUrl }}'
+          message: 'Tests action run #${{ github.run_number }} for PR ${{ github.event.pull_request.html_url }} triggered by ${{ github.triggering_actor }} succeeded, Action Info: https://github.com/${{ github.repository}}/actions/runs/${{ github.run_id}}, Chromatic Storybook: ${{ steps.chromatic_publish.outputs.storybookUrl }}, Chromatic Build: ${{ steps.chromatic_publish.outputs.buildUrl }}'
+        if: success()
+
+      - name: Send Discord notification
+        id: discord_notify
+        uses: appleboy/discord-action@master
+        with:
+          color: "#48f442"
+          username: "GitHub Bot"
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          message: 'There was an error creating release, Tests action run #${{ github.run_number }} for PR ${{ github.event.pull_request.html_url }} triggered by ${{ github.triggering_actor }} failed, Action Info: https://github.com/${{ github.repository}}/actions/runs/${{ github.run_id}}, Chromatic Storybook: ${{ steps.chromatic_publish.outputs.storybookUrl }}, Chromatic Build: ${{ steps.chromatic_publish.outputs.buildUrl }}'
+        if: failure()
+
 
         #   - name: Send Discord notification
         # id: discord_notify
