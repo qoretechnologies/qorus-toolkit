@@ -99,7 +99,7 @@ jobs:
         id: discord_notify
         uses: appleboy/discord-action@master
         with:
-          color: "#48f442"
+          color: "#B8390E"
           username: "GitHub Bot"
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
