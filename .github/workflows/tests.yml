@@ -98,41 +98,11 @@ jobs:
         with:
           args: ':white_check_mark: Release *v${{ steps.save_release_version.outputs.version }}* successfully created & published!'
         if: success()
-      # - name: Send Discord notification
-      #   id: discord_notify
-      #   uses: appleboy/discord-action@master
-      #   with:
-      #     color: "#48f442"
-      #     username: "GitHub Bot"
-      #     webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
-      #     webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-      #     message: 'Tests action run #${{ github.run_number }} for PR ${{ github.event.pull_request.html_url }} triggered by ${{ github.triggering_actor }} succeeded, Action Info: https://github.com/${{ github.repository}}/actions/runs/${{ github.run_id}}, Chromatic Storybook: ${{ steps.chromatic_publish.outputs.storybookUrl }}, Chromatic Build: ${{ steps.chromatic_publish.outputs.buildUrl }}'
-      #   if: success()
-
-      # - name: Send Discord notification
-      #   id: discord_notify
-      #   uses: appleboy/discord-action@master
-      #   with:
-      #     color: "#B8390E"
-      #     username: "GitHub Bot"
-      #     webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
-      #     webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-      #     message: 'There was an error creating release, Tests action run #${{ github.run_number }} for PR ${{ github.event.pull_request.html_url }} triggered by ${{ github.triggering_actor }} failed, Action Info: https://github.com/${{ github.repository}}/actions/runs/${{ github.run_id}}, Chromatic Storybook: ${{ steps.chromatic_publish.outputs.storybookUrl }}, Chromatic Build: ${{ steps.chromatic_publish.outputs.buildUrl }}'
-      #   if: failure()
-
-
-        #   - name: Send Discord notification
-        # id: discord_notify
-        # uses: appleboy/discord-action@master
-        # with:
-        #   color: "#48f442"
-        #   username: "GitHub Bot"
-        #   webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
-        #   webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-        #   message: ':exclamation: Successfully published chromatic 
-                    
-        #             Chromatic Build: ${{ steps.chromatic_publish.outputs.url }}
-                    
-        #             Chromatic Storybook: ${{ steps.chromatic_publish.outputs.buildUrl }}
-        #             '
-        #   embeds: '[{title: "Chromatic Storybook:", url: ${{steps.chromatic_publish.outputs.buildUrl}}}]'
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
+          DISCORD_EMBEDS: '[{ "author": {  "icon_url": "https://avatars.githubusercontent.com/${{ github.actor }}", "name": "${{ github.actor }}", "url": "https://github.com/${{github.actor}}" }, "url": "https://github.com/${{github.repository}}/commit/${{github.sha}}", "fields": [{ "name": "Description", "value": "${{ github.event.pull_request.title }}"},{ "name": "Repository", "value": "[${{github.event.repository.name}}](${{github.event.repository.clone_url}})", "inline": true },{ "name": "Branch", "value": "[${{github.ref_name}}](https://github.com/${{github.repository}}/pull/${{github.ref_name}})", "inline": true },{ "name": "Event", "value": "${{github.event_name}}", "inline": true },{ "name": "Author", "value": "[${{github.actor}}](https://github.com/${{github.actor}})" }, { "name": "", "value": "Job     ${{github.job}}"},{ "name": "", "value": "[Github Action](https://github.com/${{ github.repository}}/actions/runs/${{ github.run_id}})"}],"color":12193584,"footer":{"text": "Published at ${{steps.current_time.outputs.readableTime}}"}}]'
+        uses: Ilshidur/action-discord@0.3.2
+        with:
+          args: ':exclamation: Release *v${{ steps.save_release_version.outputs.version }}* failed!'
+        if: failure()
