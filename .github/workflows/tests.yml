@@ -105,7 +105,7 @@ jobs:
         uses: Ilshidur/action-discord@0.3.2
         with:
           args: ':white_check_mark: Release *v${{ steps.save_release_version.outputs.version }}* successfully created & published!'
-        if: success()
+        if: failure()
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
@@ -113,4 +113,4 @@ jobs:
         uses: Ilshidur/action-discord@0.3.2
         with:
           args: ':exclamation: Release *v${{ steps.save_release_version.outputs.version }}* failed!'
-        if: failure()
+        if: success()
