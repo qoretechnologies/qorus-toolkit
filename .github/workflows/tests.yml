@@ -115,4 +115,4 @@ jobs:
         uses: Ilshidur/action-discord@0.3.2
         with:
           args: ':exclamation: Release *v${{ steps.save_release_version.outputs.version }}* failed!'
-        if: success()
+        if: failure()
