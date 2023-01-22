@@ -1,8 +1,5 @@
-import { ReqoreSpacer } from '@qoretechnologies/reqore';
-import { DocumentationExample } from '../components/example';
 import { DocumentationItem } from '../components/item';
 import { DocumentationWrapper } from '../components/wrapper';
-import { QorusAuthenticatorDemo } from '../QorusAuthenticator/demo';
 import { IDocumentationMeta, IDocumentationStory } from '../types';
 import { argsData, prepareInterfaceStory } from '../utils';
 
@@ -14,13 +11,10 @@ export default {
   },
 } as IDocumentationMeta;
 
-const Template: IDocumentationStory = ({ comments, ...rest }, context) => {
+const Template: IDocumentationStory = ({ comments, ...rest }) => {
   return (
     <DocumentationWrapper title="Qorus Interfaces" description="Validates the DataProvider properties">
       <DocumentationItem {...rest}>{comments.summary ?? ''}</DocumentationItem>
-      <DocumentationExample label={context.storyName} />
-      <ReqoreSpacer height={20} />
-      <QorusAuthenticatorDemo />
     </DocumentationWrapper>
   );
 };

@@ -11,12 +11,7 @@ import { IReqoreCollectionItemProps } from '@qoretechnologies/reqore/dist/compon
 import { IReqoreEffect } from '@qoretechnologies/reqore/dist/components/Effect';
 import { IReqorePanelProps } from '@qoretechnologies/reqore/dist/components/Panel';
 import { map, size } from 'lodash';
-import {
-  IComments,
-  IMethodParamTypes,
-  IMethodReturnType,
-  IReturnType,
-} from '../types';
+import { IComments, IMethodParamTypes, IMethodReturnType, IReturnType } from '../types';
 import { DocumentationHashType, DocumentationType } from './type';
 
 export interface IDocumentationItemsProps extends IReqorePanelProps {
@@ -53,28 +48,20 @@ export const DocumentationItem = ({
     <>
       <ReqorePanel flat opacity={0} headerSize={1} {...rest}>
         <ReqoreH1>
-          <ReqoreTextEffect effect={{ color: '#787878' }}>
-            {parent ? `${parent}.` : ``}
-          </ReqoreTextEffect>
+          <ReqoreTextEffect effect={{ color: '#787878' }}>{parent ? `${parent}.` : ``}</ReqoreTextEffect>
           {name}
         </ReqoreH1>
         <ReqoreSpacer height={20} />
         {children && (
           <>
-            <ReqoreMessage intent='info'>{children}</ReqoreMessage>
+            <ReqoreMessage intent="info">{children}</ReqoreMessage>
             <ReqoreSpacer height={30} />
           </>
         )}
         {label && (
-          <ReqorePanel
-            minimal
-            transparent
-            flat
-            headerSize={4}
-            label='Signature'
-          >
+          <ReqorePanel minimal transparent flat headerSize={4} label="Signature">
             <ReqoreMessage
-              icon='CodeLine'
+              icon="CodeLine"
               effect={{
                 gradient: {
                   direction: 'to right bottom',
@@ -84,13 +71,11 @@ export const DocumentationItem = ({
                   },
                 },
                 color: '#ffffff',
+                spaced: 1,
+                textSize: 'normal',
               }}
             >
-              <pre
-                style={{ wordBreak: 'break-all', whiteSpace: 'break-spaces' }}
-              >
-                {label}
-              </pre>
+              <pre style={{ wordBreak: 'break-all', whiteSpace: 'break-spaces', margin: 0 }}>{label}</pre>
             </ReqoreMessage>
           </ReqorePanel>
         )}
@@ -98,6 +83,7 @@ export const DocumentationItem = ({
           <>
             <ReqoreCollection
               label={`Params`}
+              headerSize={4}
               badge={size(params)}
               sortable={size(params) > 2}
               filterable={size(params) > 2}
@@ -123,34 +109,20 @@ export const DocumentationItem = ({
                       },
                     },
                   },
-                })
+                }),
               )}
             />
           </>
         ) : null}
         {rest.type && (
-          <ReqorePanel
-            label='Type'
-            minimal
-            headerSize={4}
-            flat
-            opacity={0}
-            padded={false}
-          >
+          <ReqorePanel label="Type" minimal headerSize={4} flat opacity={0} padded={false}>
             <DocumentationHashType type={rest.type} />
           </ReqorePanel>
         )}
         {size(returnTypes) ? (
-          <ReqorePanel
-            label='Returns'
-            minimal
-            headerSize={4}
-            flat
-            opacity={0}
-            padded={false}
-          >
+          <ReqorePanel label="Returns" minimal headerSize={4} flat opacity={0} padded={false}>
             {rest.async && (
-              <ReqoreMessage icon='ClockwiseLine' minimal effect={asyncEffect}>
+              <ReqoreMessage icon="ClockwiseLine" minimal effect={asyncEffect}>
                 This method is asynchronous and returns a Promise
               </ReqoreMessage>
             )}

@@ -73,6 +73,12 @@ export const getAllMethodsFromClass = (className: string) => {
   return methods;
 };
 
+export const doesClassExist = (className: string) => {
+  const classDocs: IDocumentationClass = docs.classesDocs.find((classDoc) => classDoc.name === className)!;
+
+  return classDocs ? true : false;
+};
+
 export const getClassData = (className: string): IDocumentationClass => {
   const classDocs: IDocumentationClass = docs.classesDocs.find((classDoc) => classDoc.name === className)!;
 

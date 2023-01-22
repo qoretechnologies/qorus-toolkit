@@ -46,8 +46,6 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
     return property.name?.toLowerCase().includes(propertiesQuery.toLowerCase());
   });
 
-  console.log(filteredProperties);
-
   return (
     <ReqoreColumns style={{ maxWidth: '800px', margin: '0 auto' }}>
       <ReqoreColumn flexFlow="column" alignItems="stretch">

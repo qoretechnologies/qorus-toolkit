@@ -45,6 +45,7 @@ export const QorusAuthenticatorDemo = () => {
         <ReqoreColumn>
           <ReqorePanel
             flat
+            fluid
             minimal
             padded={false}
             bottomActions={[
@@ -60,20 +61,6 @@ export const QorusAuthenticatorDemo = () => {
             <ReqoreControlGroup fluid vertical stack>
               <ReqoreInput fluid placeholder="Endpoint ID" value={id} onChange={(e: any) => setID(e.target.value)} />
               <ReqoreInput placeholder="Endpoint URL" value={url} onChange={(e: any) => setUrl(e.target.value)} />
-              {/* <ReqoreDropdown
-                items={versions.map((v: string | number | Version) => ({
-                  label: v,
-                  id: v.toString(),
-                  selected: version === v,
-                  onClick: () => setVersion(v as Version),
-                }))}
-                componentProps={{
-                  value: `API Version: ${version}`,
-                  placeholder: 'Version',
-                }}
-                component={ReqoreInput}
-                label={version}
-              /> */}
               <ReqoreInput placeholder="Endpoint User" value={user} onChange={(e: any) => setUser(e.target.value)} />
               <ReqoreInput
                 placeholder="Endpoint Pass"
@@ -84,16 +71,17 @@ export const QorusAuthenticatorDemo = () => {
             </ReqoreControlGroup>
           </ReqorePanel>
         </ReqoreColumn>
-        <ReqoreColumn flex="0 0 auto">
+        <ReqoreColumn>
           {result || error ? (
             <ReqoreMessage
               intent={result ? 'info' : 'danger'}
               title={result ? 'Authentication token' : 'Authentication failure'}
+              style={{ flex: 'auto' }}
             >
               {result || error}
             </ReqoreMessage>
           ) : (
-            <ReqoreMessage title="Authentication token" flat>
+            <ReqoreMessage title="Authentication token" flat style={{ flex: 'auto' }}>
               Fill the form and click on the Login button to get the authentication token.
             </ReqoreMessage>
           )}
