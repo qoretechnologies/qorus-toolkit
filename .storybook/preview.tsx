@@ -5,9 +5,14 @@ import results from '../tests.json';
 export const parameters = {
   layout: 'fullscreen',
   options: {
-    panelPosition: 'right',
-    // Hide the panel that shows the addon configurations
     showPanel: false,
+    // storySort: (a, b) => {
+    //   console.log(a, b);
+    //   return 0;
+    // },
+    storySort: {
+      order: ['QorusAuthenticator', ['Overview', 'Properties', 'Methods']],
+    },
   },
   controls: {
     matchers: {

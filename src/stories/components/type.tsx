@@ -85,6 +85,7 @@ export const DocumentationType = ({ link, label, ...rest }: IDocumentationType) 
               flat: false,
               handler: 'hoverStay',
               delay: 200,
+              blur: true,
 
               content: (
                 <ReqoreMessage flat opaque title={'params' in info ? 'Interface' : 'Type'}>
