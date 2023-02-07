@@ -13,11 +13,11 @@ export interface IDocumentationType extends Omit<IReqoreTagProps, 'label'> {
   label: TTypeLabel;
 }
 
-export interface IDocumentationHashType {
+export interface IDocumentationHashType extends Omit<IReqoreTagProps, 'label'> {
   type: IMethodParamTypes['type'];
 }
 
-export const DocumentationHashType = ({ type }: IDocumentationHashType) => {
+export const DocumentationHashType = ({ type, ...rest }: IDocumentationHashType) => {
   const formattedType: (IReturnType | string)[] = type ? (Array.isArray(type) ? type : [type]) : [];
 
   // Takes a string or an array of strings and returns an array of strings
@@ -32,6 +32,7 @@ export const DocumentationHashType = ({ type }: IDocumentationHashType) => {
               {...{
                 label: typeData || 'unknown',
               }}
+              {...rest}
             />
           </ReqoreTagGroup>
         ) : (
@@ -45,6 +46,7 @@ export const DocumentationHashType = ({ type }: IDocumentationHashType) => {
                   {...{
                     label: actualType || 'unknown',
                   }}
+                  {...rest}
                 />
                 {index !== size(getTypeList(typeData.type)) - 1 && typeData.separatorSymbol ? (
                   <ReqoreTag label={typeData.separatorSymbol} color="transparent" />

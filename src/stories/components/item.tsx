@@ -59,7 +59,7 @@ export const DocumentationItem = ({
           </>
         )}
         {label && (
-          <ReqorePanel minimal transparent flat headerSize={4} label="Signature">
+          <ReqorePanel minimal transparent flat headerSize={3} label="Signature">
             <ReqoreMessage
               icon="CodeLine"
               effect={{
@@ -83,7 +83,7 @@ export const DocumentationItem = ({
           <>
             <ReqoreCollection
               label={`Params`}
-              headerSize={4}
+              headerSize={3}
               badge={size(params)}
               sortable={size(params) > 2}
               filterable={size(params) > 2}
@@ -115,12 +115,12 @@ export const DocumentationItem = ({
           </>
         ) : null}
         {rest.type && (
-          <ReqorePanel label="Type" minimal headerSize={4} flat opacity={0} padded={false}>
+          <ReqorePanel label="Type" minimal headerSize={3} flat opacity={0} padded={false}>
             <DocumentationHashType type={rest.type} />
           </ReqorePanel>
         )}
         {size(returnTypes) ? (
-          <ReqorePanel label="Returns" minimal headerSize={4} flat opacity={0} padded={false}>
+          <ReqorePanel label="Returns" minimal headerSize={3} flat opacity={0} padded={false}>
             {rest.async && (
               <ReqoreMessage icon="ClockwiseLine" minimal effect={asyncEffect}>
                 This method is asynchronous and returns a Promise
