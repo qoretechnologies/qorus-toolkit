@@ -515,6 +515,18 @@ class DocGenerator {
     else return classObj;
   };
 
+  getConstructorParams(construct: ClassParser['construct']) {
+    const parameters = construct.parameters;
+    const parameterTypes = parameters.map((param) => {
+      const obj = {
+        name: param.name,
+        type: this.typeParser(param.type),
+      };
+      return obj;
+    });
+    return parameterTypes;
+  }
+
   createClassDocs(classObj: string | ClassParser) {
     let classObject: ClassParser | undefined;
     if (typeof classObj === 'string') {
@@ -526,8 +538,12 @@ class DocGenerator {
     if (!classObject || !classObject.name) {
       return undefined;
     }
-
+    const construct = classObject.construct;
     const name = classObject.name;
+    const constructor = {
+      accessibility: construct.accessibility,
+      parameters: this.getConstructorParams(construct),
+    };
     const comments = {
       summary: classObject.comment.description,
       returnSummary: this.getReturnSummary(classObject.comment.blockTags),
@@ -548,6 +564,7 @@ class DocGenerator {
 
     const docs = {
       name,
+      constructor,
       comments,
       properties,
     };

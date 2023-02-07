@@ -38,9 +38,20 @@ export interface IDocumentationProperty {
 
 export interface IDocumentationClass {
   name: string;
+  constructor: IDocumentationClassConstructor;
   properties: IDocumentationProperty[];
   methods?: IMethodDocs[];
   comments: IComments;
+}
+
+export interface IDocumentationClassConstructor {
+  accessibility: 'private' | 'public' | string;
+  parameters: IDocumentationClassConstructorParams[];
+}
+
+export interface IDocumentationClassConstructorParams {
+  name: string;
+  type: string | IReturnType | IReturnType[];
 }
 
 export interface IMethodDocs {

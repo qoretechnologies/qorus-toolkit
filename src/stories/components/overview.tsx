@@ -5,8 +5,10 @@ import {
   ReqoreControlGroup,
   ReqoreH1,
   ReqoreH2,
+  ReqoreH4,
   ReqoreInput,
   ReqoreMessage,
+  ReqoreParagraph,
   ReqoreSpacer,
 } from '@qoretechnologies/reqore';
 import { IReqoreTagProps } from '@qoretechnologies/reqore/dist/components/Tag';
@@ -19,6 +21,7 @@ import { obsidian as style } from 'react-syntax-highlighter/dist/cjs/styles/hljs
 import useDocumentationTypeLabel from '../hooks/useDocumentationTypeLabel';
 import { getClassData, toCapitalCase } from '../utils';
 import { asyncEffect } from './item';
+import { DocumentationHashType } from './type';
 
 export interface IDocumentationOverviewProps {
   name: string;
@@ -30,6 +33,7 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
     comments: { summary },
     properties = [],
     methods = [],
+    constructor,
   } = getClassData(name);
   const [methodsQuery, setMethodsQuery] = useState('');
   const [propertiesQuery, setPropertiesQuery] = useState('');
@@ -57,6 +61,24 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
         <ReqoreSpacer height={20} />
         <ReqoreMessage intent="info" icon="InformationLine">
           <ReactMarkdown>{summary ?? ''}</ReactMarkdown>
+          <ReqoreSpacer height={10}></ReqoreSpacer>
+          {constructor && (
+            <>
+              <ReqoreH4>Constructor</ReqoreH4>
+              <ReqoreSpacer height={5}></ReqoreSpacer>
+              <ReqoreParagraph>
+                new {name}(
+                {constructor.parameters &&
+                  constructor.parameters.map((param, index) => (
+                    <>
+                      {param.name}: <DocumentationHashType type={param.type}></DocumentationHashType>
+                      {index < constructor.parameters.length - 1 && ', '}
+                    </>
+                  ))}
+                )
+              </ReqoreParagraph>
+            </>
+          )}
         </ReqoreMessage>
         <ReqoreSpacer height={40} />
         <ReqoreColumns columnsGap="25px">
