@@ -6,12 +6,18 @@ import { isValidStringArray } from './utils';
 
 export type TQorusRequestHeader = Record<string, string | number | boolean>;
 
-export interface QorusRequestResponse<T = any> {
+export interface IQorusRequestResponse<T = any> {
+  /**Response data from an api call*/
   data: T;
+  /**Response status from an api call */
   status: number;
+  /** Response status text from an api call*/
   statusText: string;
+  /** Response Headers */
   headers: TQorusRequestHeader;
+  /** Response config parameter of a api call */
   config: Record<string, any>;
+  /** Request type of the api call */
   request?: any;
 }
 

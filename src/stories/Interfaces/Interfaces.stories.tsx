@@ -28,6 +28,18 @@ IDataProviderResponseData.storyName = 'IDataProviderResponseData';
 export const IDataProviderChildren = prepareInterfaceStory(Template, 'IDataProviderChildren');
 IDataProviderChildren.storyName = 'IDataProviderChildren';
 
+export const IQorusDataProviderConstructorOptions = prepareInterfaceStory(
+  Template,
+  'IQorusDataProviderConstructorOptions',
+);
+IQorusDataProviderConstructorOptions.storyName = 'IQorusDataProviderConstructorOptions';
+
+export const IQorusDataProviderData = prepareInterfaceStory(Template, 'IQorusDataProviderData');
+IQorusDataProviderData.storyName = 'IQorusDataProviderData';
+
+export const IDataProviderData = prepareInterfaceStory(Template, 'IDataProviderData');
+IDataProviderData.storyName = 'IDataProviderData';
+
 export const IAddEndpoint = prepareInterfaceStory(Template, 'IAddEndpoint');
 IAddEndpoint.storyName = 'IAddEndpoint';
 
@@ -63,3 +75,12 @@ IJobsApiPaths.storyName = 'IJobsApiPaths';
 
 export const IDefaultHeaders = prepareInterfaceStory(Template, 'IDefaultHeaders');
 IDefaultHeaders.storyName = 'IDefaultHeaders';
+
+export const IValidateEndpointData = prepareInterfaceStory(Template, 'IValidateEndpointData');
+IValidateEndpointData.storyName = 'IValidateEndpointData';
+
+export const IResponseError = prepareInterfaceStory(Template, 'IResponseError');
+IResponseError.storyName = 'IResponseError';
+
+export const IQorusRequestResponse = prepareInterfaceStory(Template, 'IQorusRequestResponse');
+IQorusRequestResponse.storyName = 'IQorusRequestResponse';
