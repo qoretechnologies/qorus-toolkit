@@ -17,32 +17,50 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # GET TIME OF PR EVENT TRIGGER
       - name: Get current time
         uses: josStorer/get-current-time@v2.0.2
         id: current_time
         with:
           format: YYYYMMDD-HH
           utcOffset: '+01:00'
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+
+      # CHECK-OUT REPOSITORY
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+      
+      # GET HEAD COMMIT MESSAGE
+      - name: Print head git commit message
+        id: get_head_commit_message
+        run: echo "::set-output name=HEAD_COMMIT_MESSAGE::$(git show -s --format=%s)"
+      
+      # SETUP GIT USER
       - name: Setup git user
         run: |
           # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
+
+      # SETUP NODE
       - uses: actions/setup-node@v3
         with:
           node-version: latest
+      
+      # INSTALL MODULES
       - name: Installing modules
         id: install_modules
         run: |
           rm -rf node_modules
           yarn install
+
+      # SAVE RELEASE VERSION
       - name: Save release version to outputs
         id: save_release_version
         run: echo ::set-output name=version::$(node -pe "require('./pullRequestRelease.json').version")
+      
+      # RUN UNIT TESTS
       - name: Running tests
         env:
           ENDPOINT_API: ${{ secrets.ENDPOINT_API}}
@@ -50,6 +68,8 @@ jobs:
           API_USER_PASS: ${{ secrets.API_USER_PASS }}
         id: tests
         run: yarn run test
+      
+      # TEST THE BUILD
       - name: Build test
         env:
           ENDPOINT_API: ${{ secrets.ENDPOINT_API}}
@@ -57,9 +77,13 @@ jobs:
           API_USER_PASS: ${{ secrets.API_USER_PASS }}
         id: build_test
         run: yarn run build:test
+      
+      # BUILD STORYBOOK DOCUMENTATION
       - name: Build documentation JSON
         id: build_docs_json
         run: yarn docs
+      
+      # PUBLISH DOCUMENTATION TO CHROMATIC
       - name: Publish to Chromatic
         env:
           ENDPOINT_API: ${{ secrets.ENDPOINT_API}}
@@ -71,9 +95,13 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           exitZeroOnChanges: true
+      
+      # CHANGE PACKAGE VERSION TO MAKE A RELEASE
       - name: Change npm version
         id: change_npm_version
         run: npm version ${{ steps.save_release_version.outputs.version }} --no-git-tag-version --force
+      
+      # PUBLISH NEW RELEASE TO NPM
       - name: Publish to NPM
         id: npm_publish
         uses: JS-DevTools/npm-publish@v1
@@ -81,23 +109,8 @@ jobs:
           token: ${{ secrets.NPM_TOKEN }}
           tag: pull_request_${{ steps.save_release_version.outputs.version }}
           access: public
-      - name: Slack notification
-        uses: Foxhoundn/slack@v1.2.94
-        with:
-          status: ${{ job.status }}
-          steps: ${{ toJson(steps) }}
-        if: always()
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_USERNAME: Qorus Toolkit
-
-      - name: Get repo
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-      - name: Print head git commit message
-        id: get_head_commit_message
-        run: echo "::set-output name=HEAD_COMMIT_MESSAGE::$(git show -s --format=%s)"
+      
+      # NOTIFY DISCORD IF SUCCESS
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
@@ -107,6 +120,8 @@ jobs:
         with:
           args: ':white_check_mark: Release *v${{ steps.save_release_version.outputs.version }}* successfully created & published!'
         if: success()
+
+      # NOTIFY DISCORD IF FAILURE
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}

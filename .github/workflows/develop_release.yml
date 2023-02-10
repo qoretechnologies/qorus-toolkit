@@ -9,16 +9,24 @@ jobs:
   Publish-and-release:
     runs-on: ubuntu-latest
     steps:
+      # GET TIME OF PR EVENT TRIGGER
       - name: Get current time
         uses: josStorer/get-current-time@v2.0.2
         id: current_time
         with:
           format: YYYYMMDD-HH
           utcOffset: '+01:00'
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+
+      # CHECK-OUT REPOSITORY
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+      
+      # Get head commit message
+      - name: Print head git commit message
+        id: get_head_commit_message
+        run: echo "::set-output name=HEAD_COMMIT_MESSAGE::$(git show -s --format=%s)"
 
       # SETUP GIT USER
       - name: Setup git user
@@ -89,38 +97,7 @@ jobs:
           draft: false
           prerelease: false
 
-      # NOTIFY SLACK IF SUCCESS
-      - name: Slack notification
-        uses: Foxhoundn/slack@v1.2.94
-        with:
-          status: ${{ job.status }}
-          steps: ${{ toJson(steps) }}
-        if: success()
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_USERNAME: Qorus Toolkit Publish & Release
-          SLACK_MESSAGE: ':white_check_mark: Release *v${{ steps.save_release_version.outputs.version }}* successfuly created & published!'
-
-      # NOTIFY SLACK IF FAILURE
-      - name: Slack notification
-        uses: Foxhoundn/slack@v1.2.94
-        with:
-          status: ${{ job.status }}
-          steps: ${{ toJson(steps) }}
-        if: failure()
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_USERNAME: Qorus Toolkit Publish & Release
-          SLACK_MESSAGE: ':exclamation: There was an error creating release *v${{ steps.save_release_version.outputs.version }}*. Please check the steps below.'
-
-      # Notify Discord
-      - name: Get repo
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-      - name: Print head git commit message
-        id: get_head_commit_message
-        run: echo "::set-output name=HEAD_COMMIT_MESSAGE::$(git show -s --format=%s)"
+      # NOTIFY DISCORD IF SUCCESS
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
@@ -130,6 +107,8 @@ jobs:
         with:
           args: ':white_check_mark: Release *v${{ steps.save_release_version.outputs.version }}* successfully created & published!'
         if: success()
+
+      # Notify Discord if failure
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
