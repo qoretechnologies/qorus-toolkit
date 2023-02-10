@@ -61,31 +61,13 @@ Qorus-Toolkit will be used with Qorus-Toolkit-React to provide a complete soluti
 
 ## Contributing
 
-The Qorus-Toolkit project welcomes all constructive contributions. Contributions can be of many forms including bug fixes, enhancements, fixes to documentation, additional tests and more!
+The Qorus Toolkit project welcomes all constructive contributions. Contributions can be of many forms including bug fixes, enhancements, fixes to documentation, additional tests and more!
 
 See the [Contributing Guide](CONTRIBUTING.MD) for more technical details on contributing.
 
 ### Security Issues
 
 If you discover a security vulnerability in Qorus Toolkit, please see [Security Policies and Procedures](SECURITY.md).
-
-## Contributors
-
-<table>
-  <tr>
-    <td>
-        <a href="https://github.com/rishabhmalik759">
-          <img src="https://avatars.githubusercontent.com/u/23454410?v=4" alt="@rishabhmalik759" width="50" style="border-radius: 50%; border: 2px solid #fff">
-          </a>
-    </td>
-    <td>
-      <a href="https://github.com/Foxhoundn">
-         <img src="https://avatars.githubusercontent.com/u/8861481?v=4" alt="Unstated Logo" width="50" style="border-radius: 50%; border: 2px solid #fff">
-      </a>
-    </td>
-  </tr>
-</table
-<br>
 
 ## License
 
