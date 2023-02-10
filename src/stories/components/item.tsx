@@ -12,7 +12,7 @@ import { IReqoreEffect } from '@qoretechnologies/reqore/dist/components/Effect';
 import { IReqorePanelProps } from '@qoretechnologies/reqore/dist/components/Panel';
 import { map, size } from 'lodash';
 import { IComments, IMethodParamTypes, IReturnType } from '../types';
-import { DocumentationHashType } from './type';
+import { DocumentationHashType, DocumentationType } from './type';
 
 export interface IDocumentationItemsProps extends IReqorePanelProps {
   params?: IMethodParamTypes[];
@@ -134,15 +134,14 @@ export const DocumentationItem = ({
               </>
             )}
             <ReqoreTagGroup>
-              <DocumentationHashType type={returnTypes} />
-              {/* {returnTypes?.map((type) => (
+              {(Array.isArray(returnTypes) ? returnTypes : [returnTypes])?.map((type) => (
                 <DocumentationType
-                  key={type.label}
+                  key={type?.fullType}
                   {...{
-                    label: type.label || 'string',
+                    label: type?.fullType || 'string',
                   }}
                 />
-              ))} */}
+              ))}
             </ReqoreTagGroup>
           </ReqorePanel>
         ) : null}
