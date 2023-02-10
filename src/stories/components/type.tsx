@@ -3,10 +3,10 @@ import { IReqoreTagProps } from '@qoretechnologies/reqore/dist/components/Tag';
 import { linkTo } from '@storybook/addon-links';
 import { size } from 'lodash';
 import useDocumentationTypeLabel from '../hooks/useDocumentationTypeLabel';
-import { IMethodParamTypes, IMethodReturnType, IReturnType } from '../types';
+import { IMethodParamTypes, IReturnType } from '../types';
 import { toCapitalCase } from '../utils';
 
-export type TTypeLabel = IMethodReturnType | IMethodReturnType[] | string | string[] | { type: string } | undefined;
+export type TTypeLabel = IReturnType | IReturnType[] | string | string[] | { type: string } | undefined;
 
 export interface IDocumentationType extends Omit<IReqoreTagProps, 'label'> {
   link?: string;

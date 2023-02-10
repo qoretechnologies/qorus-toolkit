@@ -60,7 +60,7 @@ export interface IMethodDocs {
   label: string | undefined;
   params: IMethodParamTypes[];
   comments: IComments;
-  returnTypes: IMethodReturnType[] | undefined;
+  returnTypes: IReturnType | IReturnType[];
   accessibility: string | undefined;
 }
 

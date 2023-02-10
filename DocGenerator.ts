@@ -584,7 +584,7 @@ class DocGenerator {
     const name = method?.name;
     const parameters = this.createParameterDefinition(method);
     const comments = this.createCommentDocs(method);
-    const returnTypes = this.createReturnTypes(method);
+    const returnTypes = this.typeParserObject(method?.signatures[0].returnType);
     const async = this.isAsyncMethod(method);
     const accessibility: 'public' | 'private' | 'protected' | undefined = method?.accessibility;
     const docs = {
