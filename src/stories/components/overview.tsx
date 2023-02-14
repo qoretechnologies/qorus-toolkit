@@ -86,7 +86,7 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
                 <ReqoreControlGroup fixed size="small" vertical>
                   <ReqoreVerticalSpacer height={5} />
                   {constructor?.parameters?.map((param) => (
-                    <ReqoreControlGroup fixed stack>
+                    <ReqoreControlGroup key={param.name} fixed stack>
                       <ReqoreHorizontalSpacer width={10} />
                       <ReqoreTag minimal label={param.name} labelEffect={{ spaced: 2, weight: 'light' }} />
                       <DocumentationHashType type={param.type} key={param.name} />

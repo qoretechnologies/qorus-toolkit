@@ -42,3 +42,9 @@ TObjectWithStringKey.storyName = 'TObjectWithStringKey';
 
 export const TObjectWithAnyValue = prepareTypeStory(Template, 'TObjectWithAnyValue');
 TObjectWithAnyValue.storyName = 'TObjectWithAnyValue';
+
+export const TQorusRequestHeader = prepareTypeStory(Template, 'TQorusRequestHeader');
+TQorusRequestHeader.storyName = 'TQorusRequestHeader';
+
+export const TQorusRecordOptions = prepareTypeStory(Template, 'TQorusRecordOptions');
+TQorusRecordOptions.storyName = 'TQorusRecordOptions';

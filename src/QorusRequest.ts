@@ -4,7 +4,9 @@ import ErrorQorusRequest, { IErrorQorusRequestParams } from './managers/error/Er
 import QorusAuthenticator, { IEndpoint } from './QorusAuthenticator';
 import { isValidStringArray } from './utils';
 
-export type TQorusRequestHeader = Record<string, string | number | boolean>;
+export type TQorusRequestHeader = Record<string, TQorusRecordOptions>;
+
+export type TQorusRecordOptions = string | number | boolean;
 
 export interface IQorusRequestResponse<T = any> {
   /**Response data from an api call*/
