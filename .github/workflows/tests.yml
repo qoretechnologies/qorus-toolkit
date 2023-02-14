@@ -17,7 +17,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # GET TIME OF PR EVENT TRIGGER
+      # Get time of PR event trigger
       - name: Get current time
         uses: josStorer/get-current-time@v2.0.2
         id: current_time
@@ -25,42 +25,42 @@ jobs:
           format: YYYYMMDD-HH
           utcOffset: '+01:00'
 
-      # CHECK-OUT REPOSITORY
+      # Checkout repository
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
       
-      # GET HEAD COMMIT MESSAGE
+      # Get head commit message
       - name: Print head git commit message
         id: get_head_commit_message
         run: echo "::set-output name=HEAD_COMMIT_MESSAGE::$(git show -s --format=%s)"
       
-      # SETUP GIT USER
+      # Setup git user
       - name: Setup git user
         run: |
           # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
-      # SETUP NODE
+      # Setup node
       - uses: actions/setup-node@v3
         with:
           node-version: latest
       
-      # INSTALL MODULES
+      # Install modules
       - name: Installing modules
         id: install_modules
         run: |
           rm -rf node_modules
           yarn install
 
-      # SAVE RELEASE VERSION
+      # Save release version
       - name: Save release version to outputs
         id: save_release_version
         run: echo ::set-output name=version::$(node -pe "require('./pullRequestRelease.json').version")
       
-      # RUN UNIT TESTS
+      # Run Unit Tests
       - name: Running tests
         env:
           ENDPOINT_API: ${{ secrets.ENDPOINT_API}}
@@ -69,7 +69,7 @@ jobs:
         id: tests
         run: yarn run test
       
-      # TEST THE BUILD
+      # Test the build
       - name: Build test
         env:
           ENDPOINT_API: ${{ secrets.ENDPOINT_API}}
@@ -78,12 +78,12 @@ jobs:
         id: build_test
         run: yarn run build:test
       
-      # BUILD STORYBOOK DOCUMENTATION
+      # Build storybook documentation
       - name: Build documentation JSON
         id: build_docs_json
         run: yarn docs
       
-      # PUBLISH DOCUMENTATION TO CHROMATIC
+      # Publish documentation to chromatic
       - name: Publish to Chromatic
         env:
           ENDPOINT_API: ${{ secrets.ENDPOINT_API}}
@@ -96,12 +96,12 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           exitZeroOnChanges: true
       
-      # CHANGE PACKAGE VERSION TO MAKE A RELEASE
+      # Change package version to make release
       - name: Change npm version
         id: change_npm_version
         run: npm version ${{ steps.save_release_version.outputs.version }} --no-git-tag-version --force
       
-      # PUBLISH NEW RELEASE TO NPM
+      # Publish new release to NPM
       - name: Publish to NPM
         id: npm_publish
         uses: JS-DevTools/npm-publish@v1
@@ -110,7 +110,7 @@ jobs:
           tag: pull_request_${{ steps.save_release_version.outputs.version }}
           access: public
       
-      # NOTIFY DISCORD IF SUCCESS
+      # Notify discord if all steps succeeded
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
@@ -121,7 +121,7 @@ jobs:
           args: ':white_check_mark: Release *v${{ steps.save_release_version.outputs.version }}* successfully created & published!'
         if: success()
 
-      # NOTIFY DISCORD IF FAILURE
+      # Notify discord if all steps failed
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
