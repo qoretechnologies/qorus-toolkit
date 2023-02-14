@@ -332,7 +332,6 @@ class DocGenerator {
         const typeObjects = typeObj.typeArguments;
         typeObjects.map((type) => {
           const newTypes = this.getTypeObject(type);
-          console.log('new type is = ', type, newTypes);
           if (Array.isArray(newTypes.type)) {
             types = [...types, ...newTypes.type];
           } else {
