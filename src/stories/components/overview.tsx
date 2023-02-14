@@ -4,12 +4,15 @@ import {
   ReqoreColumns,
   ReqoreControlGroup,
   ReqoreH1,
-  ReqoreH2,
+  ReqoreH3,
+  ReqoreHorizontalSpacer,
   ReqoreInput,
   ReqoreMessage,
+  ReqorePanel,
   ReqoreSpacer,
+  ReqoreVerticalSpacer,
 } from '@qoretechnologies/reqore';
-import { IReqoreTagProps } from '@qoretechnologies/reqore/dist/components/Tag';
+import ReqoreTag, { IReqoreTagProps } from '@qoretechnologies/reqore/dist/components/Tag';
 import { linkTo } from '@storybook/addon-links';
 import { size } from 'lodash';
 import { useState } from 'react';
@@ -19,6 +22,7 @@ import { obsidian as style } from 'react-syntax-highlighter/dist/cjs/styles/hljs
 import useDocumentationTypeLabel from '../hooks/useDocumentationTypeLabel';
 import { getClassData, toCapitalCase } from '../utils';
 import { asyncEffect } from './item';
+import { DocumentationHashType } from './type';
 
 export interface IDocumentationOverviewProps {
   name: string;
@@ -30,6 +34,7 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
     comments: { summary },
     properties = [],
     methods = [],
+    constructor,
   } = getClassData(name);
   const [methodsQuery, setMethodsQuery] = useState('');
   const [propertiesQuery, setPropertiesQuery] = useState('');
@@ -58,11 +63,47 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
         <ReqoreMessage intent="info" icon="InformationLine">
           <ReactMarkdown>{summary ?? ''}</ReactMarkdown>
         </ReqoreMessage>
+        <ReqoreVerticalSpacer height={20} />
+        <ReqorePanel minimal transparent flat headerSize={3} label="Constructor">
+          <ReqoreMessage
+            icon="CodeLine"
+            effect={{
+              gradient: {
+                direction: 'to right bottom',
+                colors: {
+                  100: '#2e2e2e',
+                  0: '#000000',
+                },
+              },
+              color: '#ffffff',
+              spaced: 1,
+              textSize: 'normal',
+            }}
+          >
+            <pre style={{ wordBreak: 'break-all', whiteSpace: 'break-spaces', margin: 0 }}>
+              new {name}(
+              {size(constructor?.parameters) ? (
+                <ReqoreControlGroup fixed size="small" vertical>
+                  <ReqoreVerticalSpacer height={5} />
+                  {constructor?.parameters?.map((param) => (
+                    <ReqoreControlGroup key={param.name} fixed stack>
+                      <ReqoreHorizontalSpacer width={10} />
+                      <ReqoreTag minimal label={param.name} labelEffect={{ spaced: 2, weight: 'light' }} />
+                      <DocumentationHashType type={param.type} key={param.name} />
+                    </ReqoreControlGroup>
+                  ))}
+                  <ReqoreVerticalSpacer height={5} />
+                </ReqoreControlGroup>
+              ) : null}
+              )
+            </pre>
+          </ReqoreMessage>
+        </ReqorePanel>
         <ReqoreSpacer height={40} />
         <ReqoreColumns columnsGap="25px">
           {size(properties) ? (
             <ReqoreColumn flexFlow="column">
-              <ReqoreH2>Properties</ReqoreH2>
+              <ReqoreH3>Properties</ReqoreH3>
               <ReqoreSpacer height={20} />
               <ReqoreControlGroup fluid>
                 <ReqoreInput
@@ -95,7 +136,7 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
             </ReqoreColumn>
           ) : null}
           <ReqoreColumn flexFlow="column">
-            <ReqoreH2>Methods</ReqoreH2>
+            <ReqoreH3>Methods</ReqoreH3>
             <ReqoreSpacer height={20} />
             <ReqoreControlGroup fluid>
               <ReqoreInput
@@ -117,9 +158,7 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
                   rightIcon="ExternalLinkLine"
                   badge={
                     {
-                      label: prop.async
-                        ? `Promise<${useDocumentationTypeLabel(prop.returnTypes).type}>`
-                        : useDocumentationTypeLabel(prop.returnTypes).type,
+                      label: useDocumentationTypeLabel(prop.returnTypes).type,
                       effect: prop.async ? asyncEffect : undefined,
                       wrap: true,
                     } as IReqoreTagProps

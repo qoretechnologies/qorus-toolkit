@@ -1,48 +1,59 @@
-# This is a basic workflow to help you get started with Actions
 
 name: Tests
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the develop branch
 on:
   pull_request:
     branches:
       - develop
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   tests:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # Get time of PR event trigger
       - name: Get current time
         uses: josStorer/get-current-time@v2.0.2
         id: current_time
         with:
           format: YYYYMMDD-HH
           utcOffset: '+01:00'
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+
+      # Checkout repository
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+      
+      # Get head commit message
+      - name: Print head git commit message
+        id: get_head_commit_message
+        run: echo "::set-output name=HEAD_COMMIT_MESSAGE::$(git show -s --format=%s)"
+      
+      # Setup git user
       - name: Setup git user
         run: |
           # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
+
+      # Setup node
       - uses: actions/setup-node@v3
         with:
           node-version: latest
+      
+      # Install modules
       - name: Installing modules
         id: install_modules
         run: |
           rm -rf node_modules
           yarn install
+
+      # Save release version
       - name: Save release version to outputs
         id: save_release_version
         run: echo ::set-output name=version::$(node -pe "require('./pullRequestRelease.json').version")
+      
+      # Run Unit Tests
       - name: Running tests
         env:
           ENDPOINT_API: ${{ secrets.ENDPOINT_API}}
@@ -50,6 +61,8 @@ jobs:
           API_USER_PASS: ${{ secrets.API_USER_PASS }}
         id: tests
         run: yarn run test
+      
+      # Test the build
       - name: Build test
         env:
           ENDPOINT_API: ${{ secrets.ENDPOINT_API}}
@@ -57,9 +70,13 @@ jobs:
           API_USER_PASS: ${{ secrets.API_USER_PASS }}
         id: build_test
         run: yarn run build:test
+      
+      # Build storybook documentation
       - name: Build documentation JSON
         id: build_docs_json
         run: yarn docs
+      
+      # Publish documentation to chromatic
       - name: Publish to Chromatic
         env:
           ENDPOINT_API: ${{ secrets.ENDPOINT_API}}
@@ -71,9 +88,13 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           exitZeroOnChanges: true
+      
+      # Change package version to make release
       - name: Change npm version
         id: change_npm_version
         run: npm version ${{ steps.save_release_version.outputs.version }} --no-git-tag-version --force
+      
+      # Publish new release to NPM
       - name: Publish to NPM
         id: npm_publish
         uses: JS-DevTools/npm-publish@v1
@@ -81,23 +102,8 @@ jobs:
           token: ${{ secrets.NPM_TOKEN }}
           tag: pull_request_${{ steps.save_release_version.outputs.version }}
           access: public
-      - name: Slack notification
-        uses: Foxhoundn/slack@v1.2.94
-        with:
-          status: ${{ job.status }}
-          steps: ${{ toJson(steps) }}
-        if: always()
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_USERNAME: Qorus Toolkit
-
-      - name: Get repo
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-      - name: Print head git commit message
-        id: get_head_commit_message
-        run: echo "::set-output name=HEAD_COMMIT_MESSAGE::$(git show -s --format=%s)"
+      
+      # Notify discord if all steps succeeded
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
@@ -107,6 +113,8 @@ jobs:
         with:
           args: ':white_check_mark: Release *v${{ steps.save_release_version.outputs.version }}* successfully created & published!'
         if: success()
+
+      # Notify discord if all steps failed
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}

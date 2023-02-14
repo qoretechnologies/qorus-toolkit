@@ -324,27 +324,27 @@ class DocGenerator {
     typeObj: ReflectionTypeParser | LiteralTypeParser | ArrayTypeParser | ReferenceTypeParser | any,
   ): IReturnType {
     let masterType = '';
-    const types: string[] = [];
-    const separatorSymbol: IReturnType['separatorSymbol'] = this.getSeparatorSymbolForTypeObject(typeObj.kind);
+    let types: string[] = [];
+    const separatorSymbol: IReturnType['separatorSymbol'] = this.getSeparatorSymbolForTypeObject(typeObj);
     if (typeObj instanceof ReferenceTypeParser) {
       if (typeObj.name === 'Promise' || typeObj.name === 'Record') {
         masterType = typeObj.name;
         const typeObjects = typeObj.typeArguments;
-        let typeObjArr: any[] = [];
-        if (typeObj.name === 'Promise') {
-          typeObjArr = typeObjects;
-        } else {
-          typeObjArr = typeObjects;
-        }
-
-        typeObjArr.map((type) => {
-          types.push(this.typeParser(type));
+        typeObjects.map((type) => {
+          const newTypes = this.getTypeObject(type);
+          if (Array.isArray(newTypes.type)) {
+            types = [...types, ...newTypes.type];
+          } else {
+            types.push(newTypes.type);
+          }
         });
+        if (masterType === 'Promise') {
+          types = types.reverse();
+        }
       } else {
         types.push(typeObj.name);
       }
     } else if (typeObj instanceof ArrayTypeParser) {
-      // const arrType = typeObj.type;
       let typeString: string = (typeObj.type as any).name ?? (typeObj.type as any).type;
 
       typeString += '[ ]';
@@ -362,7 +362,7 @@ class DocGenerator {
         types.push(this.getTypeString(typeNew));
       });
     }
-    if (types.length === 1) {
+    if (types.length === 1 && !masterType) {
       const result = {
         // separatorSymbol,
         type: types[0],
@@ -399,7 +399,7 @@ class DocGenerator {
     let finalType: IReturnType[] | IReturnType = [];
 
     if (selectedTypeArray?.length > 0 && (typeKind === 'union' || typeKind === 'intersection')) {
-      (reverseInternalArray ? selectedTypeArray.reverse() : selectedTypeArray).map((parameter) => {
+      selectedTypeArray.map((parameter) => {
         const typeObj = this.getTypeObject(parameter);
         (finalType as IReturnType[]).push(typeObj);
       });
@@ -429,17 +429,18 @@ class DocGenerator {
         // });
       });
       const obj: IReturnType = {
-        separatorSymbol: this.getSeparatorSymbolForTypeObject(typeJson.kind),
-        type: typesResult,
-        fullType: typesResult.join(` ${this.getSeparatorSymbolForTypeObject(typeJson.kind)} `),
+        separatorSymbol: this.getSeparatorSymbolForTypeObject(typeJson),
+        type: reverseInternalArray ? typesResult.reverse() : typesResult,
+        fullType: typesResult.join(` ${this.getSeparatorSymbolForTypeObject(typeJson)} `),
       };
       return obj;
     }
     return finalType;
   }
 
-  getSeparatorSymbolForTypeObject(typeKind): IReturnType['separatorSymbol'] {
-    switch (typeKind) {
+  getSeparatorSymbolForTypeObject(typeObj): IReturnType['separatorSymbol'] {
+    if (typeObj.name === 'Promise') return '|';
+    switch (typeObj.typeKind ?? typeObj.kind) {
       case 'union':
         return '|';
       case 'intersection':
@@ -515,6 +516,18 @@ class DocGenerator {
     else return classObj;
   };
 
+  getConstructorParams(construct: ClassParser['construct']) {
+    const parameters = construct.parameters;
+    const parameterTypes = parameters.map((param) => {
+      const obj = {
+        name: param.name,
+        type: this.typeParser(param.type),
+      };
+      return obj;
+    });
+    return parameterTypes;
+  }
+
   createClassDocs(classObj: string | ClassParser) {
     let classObject: ClassParser | undefined;
     if (typeof classObj === 'string') {
@@ -526,8 +539,12 @@ class DocGenerator {
     if (!classObject || !classObject.name) {
       return undefined;
     }
-
+    const construct = classObject.construct;
     const name = classObject.name;
+    const constructor = {
+      accessibility: construct.accessibility,
+      parameters: this.getConstructorParams(construct),
+    };
     const comments = {
       summary: classObject.comment.description,
       returnSummary: this.getReturnSummary(classObject.comment.blockTags),
@@ -548,6 +565,7 @@ class DocGenerator {
 
     const docs = {
       name,
+      constructor,
       comments,
       properties,
     };
@@ -567,7 +585,7 @@ class DocGenerator {
     const name = method?.name;
     const parameters = this.createParameterDefinition(method);
     const comments = this.createCommentDocs(method);
-    const returnTypes = this.createReturnTypes(method);
+    const returnTypes = this.typeParserObject(method?.signatures[0].returnType, true);
     const async = this.isAsyncMethod(method);
     const accessibility: 'public' | 'private' | 'protected' | undefined = method?.accessibility;
     const docs = {

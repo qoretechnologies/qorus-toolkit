@@ -1,7 +1,7 @@
 import ErrorQorusRequest, { IErrorQorusRequestParams } from './managers/error/ErrorQorusRequest';
 import logger from './managers/logger';
 import { QorusOptions, TQorusOptions } from './QorusOptions';
-import QorusRequest, { QorusRequestResponse } from './QorusRequest';
+import QorusRequest, { IQorusRequestResponse } from './QorusRequest';
 import { apiPathsInitial } from './utils/apiPaths';
 
 /**
@@ -59,7 +59,7 @@ export class QorusDataProvider {
       data: requestData,
     });
 
-    const response = result as QorusRequestResponse;
+    const response = result as IQorusRequestResponse;
     const error = result as IErrorQorusRequestParams;
 
     if (error.status) {
@@ -275,7 +275,7 @@ const fetchProvider = async (obj: QorusDataProvider, context: TContext, select?:
     data: requestData,
   });
 
-  const response = result as QorusRequestResponse;
+  const response = result as IQorusRequestResponse;
   const error = result as IErrorQorusRequestParams;
 
   if (error?.status) {

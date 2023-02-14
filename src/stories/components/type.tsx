@@ -3,21 +3,21 @@ import { IReqoreTagProps } from '@qoretechnologies/reqore/dist/components/Tag';
 import { linkTo } from '@storybook/addon-links';
 import { size } from 'lodash';
 import useDocumentationTypeLabel from '../hooks/useDocumentationTypeLabel';
-import { IMethodParamTypes, IMethodReturnType, IReturnType } from '../types';
+import { IMethodParamTypes, IReturnType } from '../types';
 import { toCapitalCase } from '../utils';
 
-export type TTypeLabel = IMethodReturnType | IMethodReturnType[] | string | string[] | { type: string } | undefined;
+export type TTypeLabel = IReturnType | IReturnType[] | string | string[] | { type: string } | undefined;
 
 export interface IDocumentationType extends Omit<IReqoreTagProps, 'label'> {
   link?: string;
   label: TTypeLabel;
 }
 
-export interface IDocumentationHashType {
+export interface IDocumentationHashType extends Omit<IReqoreTagProps, 'label'> {
   type: IMethodParamTypes['type'];
 }
 
-export const DocumentationHashType = ({ type }: IDocumentationHashType) => {
+export const DocumentationHashType = ({ type, ...rest }: IDocumentationHashType) => {
   const formattedType: (IReturnType | string)[] = type ? (Array.isArray(type) ? type : [type]) : [];
 
   // Takes a string or an array of strings and returns an array of strings
@@ -32,6 +32,7 @@ export const DocumentationHashType = ({ type }: IDocumentationHashType) => {
               {...{
                 label: typeData || 'unknown',
               }}
+              {...rest}
             />
           </ReqoreTagGroup>
         ) : (
@@ -45,6 +46,7 @@ export const DocumentationHashType = ({ type }: IDocumentationHashType) => {
                   {...{
                     label: actualType || 'unknown',
                   }}
+                  {...rest}
                 />
                 {index !== size(getTypeList(typeData.type)) - 1 && typeData.separatorSymbol ? (
                   <ReqoreTag label={typeData.separatorSymbol} color="transparent" />

@@ -6,10 +6,6 @@ export const parameters = {
   layout: 'fullscreen',
   options: {
     showPanel: false,
-    // storySort: (a, b) => {
-    //   console.log(a, b);
-    //   return 0;
-    // },
     storySort: {
       order: ['QorusAuthenticator', ['Overview', 'Properties', 'Methods']],
     },

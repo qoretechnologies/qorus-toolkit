@@ -9,52 +9,60 @@ jobs:
   Publish-and-release:
     runs-on: ubuntu-latest
     steps:
+      # Get time of PR event trigger
       - name: Get current time
         uses: josStorer/get-current-time@v2.0.2
         id: current_time
         with:
           format: YYYYMMDD-HH
           utcOffset: '+01:00'
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+
+      # Checkout repository
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+      
+      # Get head commit message
+      - name: Print head git commit message
+        id: get_head_commit_message
+        run: echo "::set-output name=HEAD_COMMIT_MESSAGE::$(git show -s --format=%s)"
 
-      # SETUP GIT USER
+      # Setup git user
       - name: Setup git user
         run: |
           # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
-      # SETUP NODE
+      # Setup node
       - uses: actions/setup-node@v3
         with:
           node-version: latest
 
-      # INSTALL MODULES
+      # Install modules
       - name: Installing modules
         id: install_modules
         run: |
           rm -rf node_modules
           yarn install
 
-      # SAVE RELEASE VERSION
+      # Save release version
       - name: Save release version to outputs
         id: save_release_version
         run: echo ::set-output name=version::$(node -pe "require('./package.json').version")
 
-      # TEST THE BUILD
+      # Test the build
       - name: Build test
         id: build_test
         run: yarn build:test
 
-      # RUN UNIT TESTS
+      # Run unit tests
       - name: Running tests
         id: tests
         run: yarn test
 
-      # PUBLISH TO NPM
+      # Publish to NPM
       - name: Publish to NPM
         id: npm_publish
         uses: JS-DevTools/npm-publish@v1
@@ -63,7 +71,7 @@ jobs:
           tag: beta
           access: public
 
-      # PUBLISH TO CHROMATIC
+      # Publish to chromatic
       - name: Publish to Chromatic
         env:
           ENDPOINT_API: ${{ secrets.ENDPOINT_API}}
@@ -76,7 +84,7 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           exitZeroOnChanges: true
 
-      # CREATE GITHUB RELEASE
+      # Create new release
       - name: Create a release
         id: release
         uses: actions/create-release@v1
@@ -89,38 +97,7 @@ jobs:
           draft: false
           prerelease: false
 
-      # NOTIFY SLACK IF SUCCESS
-      - name: Slack notification
-        uses: Foxhoundn/slack@v1.2.94
-        with:
-          status: ${{ job.status }}
-          steps: ${{ toJson(steps) }}
-        if: success()
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_USERNAME: Qorus Toolkit Publish & Release
-          SLACK_MESSAGE: ':white_check_mark: Release *v${{ steps.save_release_version.outputs.version }}* successfuly created & published!'
-
-      # NOTIFY SLACK IF FAILURE
-      - name: Slack notification
-        uses: Foxhoundn/slack@v1.2.94
-        with:
-          status: ${{ job.status }}
-          steps: ${{ toJson(steps) }}
-        if: failure()
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_USERNAME: Qorus Toolkit Publish & Release
-          SLACK_MESSAGE: ':exclamation: There was an error creating release *v${{ steps.save_release_version.outputs.version }}*. Please check the steps below.'
-
-      # Notify Discord
-      - name: Get repo
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-      - name: Print head git commit message
-        id: get_head_commit_message
-        run: echo "::set-output name=HEAD_COMMIT_MESSAGE::$(git show -s --format=%s)"
+      # Notify discord if all steps succeeded
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
@@ -130,6 +107,8 @@ jobs:
         with:
           args: ':white_check_mark: Release *v${{ steps.save_release_version.outputs.version }}* successfully created & published!'
         if: success()
+
+      # Notify discord if all steps failed
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}

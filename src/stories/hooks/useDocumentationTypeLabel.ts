@@ -1,6 +1,6 @@
 import { isArray, isObject, isUndefined } from 'lodash';
 import { TTypeLabel } from '../components/type';
-import { IMethodReturnType } from '../types';
+import { IReturnType } from '../types';
 import { getTypeOrInterfaceData, isCapitalized } from '../utils';
 
 export interface ITypeLabel {
@@ -16,10 +16,10 @@ export const transformTypeLabel = (label: TTypeLabel): string =>
     ? 'void'
     : isArray(label)
     ? isObject(label[0])
-      ? (label as IMethodReturnType[]).reduce((newType, l) => `${newType ? `${newType} | ` : ''}${l.label}`, '')
+      ? (label as IReturnType[]).reduce((newType, l) => `${newType ? `${newType} | ` : ''}${l.fullType}`, '')
       : label.join(' | ')
     : isObject(label)
-    ? (label as any).type || (label as any).label
+    ? (label as IReturnType).fullType || ((label as IReturnType).type as string)
     : label;
 
 export default function (label: TTypeLabel): ITypeLabel {

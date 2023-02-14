@@ -1,7 +1,7 @@
 import ErrorInternal from './managers/error/ErrorInternal';
 import { getKeyValLocal, setKeyValLocal } from './managers/LocalStorage';
 import logger from './managers/logger';
-import QorusRequest, { QorusRequestResponse } from './QorusRequest';
+import QorusRequest, { IQorusRequestResponse } from './QorusRequest';
 import QorusValidator from './QorusValidator';
 import { isValidString, isValidStringArray } from './utils';
 import {
@@ -311,7 +311,7 @@ export class QorusAuthenticator {
       path: `${this.apiPathsAuthenticator.login}`,
       data: { user, pass },
     });
-    const responseData = resp as QorusRequestResponse;
+    const responseData = resp as IQorusRequestResponse;
     if (typeof responseData?.data === 'undefined') {
       throw new ErrorInternal(`${responseData ?? ''}`);
     }

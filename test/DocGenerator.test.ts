@@ -56,4 +56,19 @@ describe('Generate Docs class tests', () => {
     expect(propertyParamsAsIReturnType.type).toEqual(['string', 'string']);
     expect(propertyParamsAsIReturnType.fullType).toEqual('Record<string, string>');
   });
+
+  it('Should create method docs with type object for return types', () => {
+    const classObj = DocGenerator.getClass('QorusAuthenticator');
+    const renewSelectedEndpointTokenDocs = DocGenerator.createMethodDocs('renewSelectedEndpointToken', classObj);
+    expect((renewSelectedEndpointTokenDocs?.returnTypes as IReturnType).masterType).toEqual('Promise');
+    expect((renewSelectedEndpointTokenDocs?.returnTypes as IReturnType).type).toEqual(['string', 'undefined']);
+    expect((renewSelectedEndpointTokenDocs?.returnTypes as IReturnType).fullType).toEqual('Promise<string, undefined>');
+    expect((renewSelectedEndpointTokenDocs?.returnTypes as IReturnType).separatorSymbol).toEqual('|');
+
+    const getSelectedEndpointDocs = DocGenerator.createMethodDocs('getSelectedEndpoint', classObj);
+    expect((getSelectedEndpointDocs?.returnTypes as IReturnType).masterType).toEqual(undefined);
+    expect((getSelectedEndpointDocs?.returnTypes as IReturnType).type).toEqual(['IEndpoint', 'undefined']);
+    expect((getSelectedEndpointDocs?.returnTypes as IReturnType).fullType).toEqual('IEndpoint | undefined');
+    expect((getSelectedEndpointDocs?.returnTypes as IReturnType).separatorSymbol).toEqual('|');
+  });
 });
