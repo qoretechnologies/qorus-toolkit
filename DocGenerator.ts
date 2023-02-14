@@ -324,27 +324,28 @@ class DocGenerator {
     typeObj: ReflectionTypeParser | LiteralTypeParser | ArrayTypeParser | ReferenceTypeParser | any,
   ): IReturnType {
     let masterType = '';
-    const types: string[] = [];
-    const separatorSymbol: IReturnType['separatorSymbol'] = this.getSeparatorSymbolForTypeObject(typeObj.kind);
+    let types: string[] = [];
+    const separatorSymbol: IReturnType['separatorSymbol'] = this.getSeparatorSymbolForTypeObject(typeObj);
     if (typeObj instanceof ReferenceTypeParser) {
       if (typeObj.name === 'Promise' || typeObj.name === 'Record') {
         masterType = typeObj.name;
         const typeObjects = typeObj.typeArguments;
-        let typeObjArr: any[] = [];
-        if (typeObj.name === 'Promise') {
-          typeObjArr = typeObjects;
-        } else {
-          typeObjArr = typeObjects;
-        }
-
-        typeObjArr.map((type) => {
-          types.push(this.typeParser(type));
+        typeObjects.map((type) => {
+          const newTypes = this.getTypeObject(type);
+          console.log('new type is = ', type, newTypes);
+          if (Array.isArray(newTypes.type)) {
+            types = [...types, ...newTypes.type];
+          } else {
+            types.push(newTypes.type);
+          }
         });
+        if (masterType === 'Promise') {
+          types = types.reverse();
+        }
       } else {
         types.push(typeObj.name);
       }
     } else if (typeObj instanceof ArrayTypeParser) {
-      // const arrType = typeObj.type;
       let typeString: string = (typeObj.type as any).name ?? (typeObj.type as any).type;
 
       typeString += '[ ]';
@@ -362,7 +363,7 @@ class DocGenerator {
         types.push(this.getTypeString(typeNew));
       });
     }
-    if (types.length === 1) {
+    if (types.length === 1 && !masterType) {
       const result = {
         // separatorSymbol,
         type: types[0],
@@ -399,7 +400,7 @@ class DocGenerator {
     let finalType: IReturnType[] | IReturnType = [];
 
     if (selectedTypeArray?.length > 0 && (typeKind === 'union' || typeKind === 'intersection')) {
-      (reverseInternalArray ? selectedTypeArray.reverse() : selectedTypeArray).map((parameter) => {
+      selectedTypeArray.map((parameter) => {
         const typeObj = this.getTypeObject(parameter);
         (finalType as IReturnType[]).push(typeObj);
       });
@@ -429,17 +430,18 @@ class DocGenerator {
         // });
       });
       const obj: IReturnType = {
-        separatorSymbol: this.getSeparatorSymbolForTypeObject(typeJson.kind),
-        type: typesResult,
-        fullType: typesResult.join(` ${this.getSeparatorSymbolForTypeObject(typeJson.kind)} `),
+        separatorSymbol: this.getSeparatorSymbolForTypeObject(typeJson),
+        type: reverseInternalArray ? typesResult.reverse() : typesResult,
+        fullType: typesResult.join(` ${this.getSeparatorSymbolForTypeObject(typeJson)} `),
       };
       return obj;
     }
     return finalType;
   }
 
-  getSeparatorSymbolForTypeObject(typeKind): IReturnType['separatorSymbol'] {
-    switch (typeKind) {
+  getSeparatorSymbolForTypeObject(typeObj): IReturnType['separatorSymbol'] {
+    if (typeObj.name === 'Promise') return '|';
+    switch (typeObj.typeKind ?? typeObj.kind) {
       case 'union':
         return '|';
       case 'intersection':
@@ -584,7 +586,7 @@ class DocGenerator {
     const name = method?.name;
     const parameters = this.createParameterDefinition(method);
     const comments = this.createCommentDocs(method);
-    const returnTypes = this.typeParserObject(method?.signatures[0].returnType);
+    const returnTypes = this.typeParserObject(method?.signatures[0].returnType, true);
     const async = this.isAsyncMethod(method);
     const accessibility: 'public' | 'private' | 'protected' | undefined = method?.accessibility;
     const docs = {

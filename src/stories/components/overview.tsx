@@ -158,9 +158,7 @@ export const DocumentationOverview = ({ name, code }: IDocumentationOverviewProp
                   rightIcon="ExternalLinkLine"
                   badge={
                     {
-                      label: prop.async
-                        ? `Promise<${useDocumentationTypeLabel(prop.returnTypes).type}>`
-                        : useDocumentationTypeLabel(prop.returnTypes).type,
+                      label: useDocumentationTypeLabel(prop.returnTypes).type,
                       effect: prop.async ? asyncEffect : undefined,
                       wrap: true,
                     } as IReqoreTagProps
