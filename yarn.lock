@@ -1844,10 +1844,10 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.7.tgz#ccab5c8f7dc557a52ca3288c10075c9ccd37fff7"
   integrity sha512-Cr4OjIkipTtcXKjAsm8agyleBuDHvxzeBoa1v543lbv1YaIwQjESsVcmjiWiPEbC1FIeHOG/Op9kdCmAmiS3Kw==
 
-"@qoretechnologies/reqore@^0.32.0":
-  version "0.32.3"
-  resolved "https://registry.yarnpkg.com/@qoretechnologies/reqore/-/reqore-0.32.3.tgz#cdfcb3e32a56823b03485d696e46d2fd7264f83d"
-  integrity sha512-ZXOOx3VEn1VVMhPXsmTuVCzzYKuh8Q/lw0Lydykmf5kFYJcSmXcp3i8zCSD5W1BqbfVARXl6ikOAkYhRkni2ng==
+"@qoretechnologies/reqore@^0.34.7":
+  version "0.34.7"
+  resolved "https://registry.yarnpkg.com/@qoretechnologies/reqore/-/reqore-0.34.7.tgz#68fbc19e70f76811d04aff6bb9bdc06d48afb5a4"
+  integrity sha512-UZWx73Gl0aAvrr8V6RdQX1gt7acQdAY00G4Q+4UWtLYWBgTPTr92pkRFN/twyJUAzgaIFwwmEPty8LNUhUOH0g==
   dependencies:
     "@popperjs/core" "^2.11.6"
     "@react-spring/web" "^9.6.1"
@@ -1860,6 +1860,7 @@
     react-popper "^2.3.0"
     react-scrollbar "^0.5.6"
     react-use "^17.4.0"
+    react-use-pagination-hook "^1.1.2"
     react-window "^1.8.6"
     scheduler "^0.23.0"
     shortid "^2.2.16"
@@ -11598,6 +11599,15 @@ react-universal-interface@^0.6.2:
   resolved "https://registry.yarnpkg.com/react-universal-interface/-/react-universal-interface-0.6.2.tgz#5e8d438a01729a4dbbcbeeceb0b86be146fe2b3b"
   integrity sha512-dg8yXdcQmvgR13RIlZbTRQOoUrDciFVoSBZILwjE2LFISxZZ8loVJKAkuzswl5js8BHda79bIb2b84ehU8IjXw==
 
+react-use-pagination-hook@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-use-pagination-hook/-/react-use-pagination-hook-1.1.2.tgz#a9ce122cea7544d9472ce66cd2eddd3492b42a6e"
+  integrity sha512-1acMTXIPH/1mut+0jkfgBJK+YkSO0EQwHdxi1Mv6jSDaK/gAKDXQHUCzeCUXBppiU5EAZ4qg5HbzAn951lZoaQ==
+  dependencies:
+    react "^18.2.0"
+    react-dom "^18.2.0"
+    web-vitals "^2.1.4"
+
 react-use@^17.4.0:
   version "17.4.0"
   resolved "https://registry.yarnpkg.com/react-use/-/react-use-17.4.0.tgz#cefef258b0a6c534a5c8021c2528ac6e1a4cdc6d"
@@ -11626,7 +11636,7 @@ react-window@^1.8.6:
     "@babel/runtime" "^7.0.0"
     memoize-one ">=3.1.1 <6"
 
-react@18.2.0:
+react@18.2.0, react@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
@@ -13872,6 +13882,11 @@ web-namespaces@^1.0.0:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/web-namespaces/-/web-namespaces-1.1.4.tgz#bc98a3de60dadd7faefc403d1076d529f5e030ec"
   integrity sha512-wYxSGajtmoP4WxfejAPIr4l0fVh+jeMXZb08wNc0tMg6xsfZXj3cECqIK0G7ZAqUq0PP8WlMDtaOGVBTAWztNw==
+
+web-vitals@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/web-vitals/-/web-vitals-2.1.4.tgz#76563175a475a5e835264d373704f9dde718290c"
+  integrity sha512-sVWcwhU5mX6crfI5Vd2dC4qchyTqxV8URinzt25XqVh+bHEPGH4C3NPrNionCP7Obx59wrYEbNlw4Z8sjALzZg==
 
 webidl-conversions@^3.0.0:
   version "3.0.1"
