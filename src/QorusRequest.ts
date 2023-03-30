@@ -4,8 +4,14 @@ import ErrorQorusRequest, { IErrorQorusRequestParams } from './managers/error/Er
 import QorusAuthenticator, { IEndpoint } from './QorusAuthenticator';
 import { isValidStringArray } from './utils';
 
+/**
+ * Request header for a http request to a qorus server
+ */
 export type TQorusRequestHeader = Record<string, TQorusRecordOptions>;
 
+/**
+ * Record options for Qorus http request header
+ */
 export type TQorusRecordOptions = string | number | boolean;
 
 export interface IQorusRequestResponse<T = any> {

@@ -9,7 +9,7 @@ export interface IDocumentationExampleProps {
 }
 
 export const DocumentationExample = ({ name, label }: IDocumentationExampleProps) => {
-  const fullLabel: string = `${name}.${label}`;
+  const fullLabel = `${name}.${label}`;
 
   if (!codeExamples[fullLabel]) {
     return null;
