@@ -79,7 +79,7 @@ export class QorusDataProvider {
 
   /**
    * Get record of Data Providers with context 'record' from /dataprovider/browse endpoint
-   * @returns A new DataProvider object with response from browse api as context record
+   * @returns A new DataProvider object with response from browse api with context record
    */
   async getRecord(): Promise<QorusDataProvider> {
     return this.fetchWithContext('record');
@@ -87,7 +87,7 @@ export class QorusDataProvider {
 
   /**
    * Get record of Data Providers with context 'api'  from /dataprovider/browse endpoint
-   * @returns A new DataProvider object with response from browse api as context api
+   * @returns A new DataProvider object with response from browse api with context api
    */
 
   async getApi(): Promise<QorusDataProvider> {
@@ -96,7 +96,7 @@ export class QorusDataProvider {
 
   /**
    * Get record of Data Providers with context 'Event'  from /dataprovider/browse endpoint
-   * @returns A new DataProvider object with response from browse api as context event
+   * @returns A new DataProvider object with response from browse api with context event
    */
   async getEvent(): Promise<QorusDataProvider> {
     return this.fetchWithContext('event');
@@ -104,7 +104,7 @@ export class QorusDataProvider {
 
   /**
    * Get record of Data Providers with context 'message'  from /dataprovider/browse endpoint
-   * @returns A new DataProvider object with response from browse api as context message
+   * @returns A new DataProvider object with response from browse api with context message
    */
   async getMessage(): Promise<QorusDataProvider> {
     return this.fetchWithContext('message');
@@ -112,10 +112,18 @@ export class QorusDataProvider {
 
   /**
    * Get record of Data Providers with context 'type'  from /dataprovider/browse endpoint
-   * @returns A new DataProvider object with response from browse api as context type
+   * @returns A new DataProvider object with response from browse api with context type
    */
   async getType(): Promise<QorusDataProvider> {
     return this.fetchWithContext('type');
+  }
+
+  /**
+   * Get record of Data Providers with context 'transaction'  from /dataprovider/browse endpoint
+   * @returns A new DataProvider object with response from browse api with context transaction
+   */
+  async getTransaction(): Promise<QorusDataProvider> {
+    return this.fetchWithContext('transaction');
   }
 
   /**
@@ -304,7 +312,7 @@ export default new QorusDataProvider();
 /**
  * Context for the Qorus api ex: 'record'
  */
-export type TContext = 'record' | 'api' | 'event' | 'message' | 'type';
+export type TContext = 'record' | 'api' | 'event' | 'message' | 'type' | 'transaction';
 
 /** Get request error data from DataProvider api */
 export interface IResponseError {
