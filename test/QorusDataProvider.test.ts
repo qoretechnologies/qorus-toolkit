@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { QorusAuthenticator } from '../src';
-import { QorusDataProvider } from '../src/';
+import { QorusDataProvider } from '../src';
 
 dotenv.config();
 
@@ -62,6 +62,15 @@ describe('QorusDataProvider Utility Class Tests', () => {
     const providerChildren = dataProviderBrowse.getChildren();
 
     expect(context).toEqual('type');
+    expect(providerChildren).not.toEqual(undefined);
+  });
+
+  it('should browse the data providers with context transaction', async () => {
+    const dataProviderBrowse = await QorusDataProvider.getTransaction();
+    const context = dataProviderBrowse.getContext();
+    const providerChildren = dataProviderBrowse.getChildren();
+
+    expect(context).toEqual('transaction');
     expect(providerChildren).not.toEqual(undefined);
   });
 
